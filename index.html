@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brito Exam | Online Free Exams</title>
+    <link rel="stylesheet" href="./styles/main.css"/>
+    <link rel="stylesheet" href="./styles/exam.css"/>
+    <link rel="stylesheet" href="./icons/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Poppins:ital,wght@0,600;0,700;0,900;1,500;1,600;1,800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
+    <script>
+        MathJax = {
+            tex: {
+              inlineMath: [['$', '$'], ['\\(', '\\)']],
+              displayMath: [ ["$$","$$"]],
+                      processEscapes: false,
+                      packages: {
+                          '[+]': ['physics', 'color', 'bbox', 'cancel', 'mhchem', 'noundefined', ]
+                      }
+            },
+            svg: {
+              fontCache: 'global',
+              scale: 1
+            },
+            chtml: {
+              scale: 0.8
+            },
+            loader: {
+                      load: ['[tex]/physics', '[tex]/color', '[tex]/bbox', '[tex]/cancel', '[tex]/mhchem', '[tex]/noundefined']
+                    },
+                    tags: 'ams'
+        };
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
+</head>
+<body>
+<div class="fixed-top w-100 text-dark top">
+  <div class="logo"> <div class="icon"><img src="./images/puzzle.png"></div> <div class="top-title">Britto Medi</div></div>
+  <div class="countdown"></div>
+  <div class="user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img class="rounded-circle" src="./images/doctor.png"></div>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Profile</a></li>
+    <li><a class="dropdown-item" href="#">My courses</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Logout</a></li>
+  </ul>
+
+</div>
+
+  <div id="app"></div>
+    
+
+      
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/navigo/7.1.3/navigo.min.js" integrity="sha512-T5Jaw8KOeloIRJz6TfFWDNqeTwMnLTXf2amscWwmNmIPmrAjPdl47fupdu7TrX3eSVuS1NElEfw0h2+0SsNxaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://jsviews.com/download/jsrender.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-storage.js"></script> -->
+   
+    <script>
+        const firebaseConfig = {
+         apiKey: "AIzaSyAzby1MLn75SBPBdD2aPvJvmvvfIjgvr0Y",
+         authDomain: "chat-86dc3.firebaseapp.com",
+        databaseURL: "https://chat-86dc3.firebaseio.com",
+         projectId: "chat-86dc3",
+        storageBucket: "chat-86dc3.appspot.com",
+        messagingSenderId: "612135243639",
+        appId: "1:612135243639:web:73c534095f927908cb1b72",
+        measurementId: "G-8SB9HTCQ3L"
+};
+
+firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    var store = firebase.firestore();
+    var db = firebase.database();
+    // var storage = firebase.storage();
+
+    </script>
+
+<script src="./scripts/static_data.js"></script>
+<script src="./scripts/routes.js"></script>
+<script src="./scripts/script.js"></script>
+
+
+    
+</body>
+</html>
