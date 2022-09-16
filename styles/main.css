@@ -243,6 +243,7 @@ button{
    font-size: 14px;
    border-radius: 5px;
    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+   margin-top: 10px;
 }
 
 /* width */
@@ -284,8 +285,12 @@ button{
   }
 
   .course-card .title{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
+  }
+
+  .course-card .sub-title{
+    font-size: 12px;
   }
 
   .del{
@@ -294,7 +299,7 @@ button{
 
   .discount{
     color: crimson;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bold;
   }
 

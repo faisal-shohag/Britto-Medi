@@ -47,9 +47,9 @@ router.on({
         <div class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">Practice Exams</div></div>
         <div class="more">2100+ Questions</div>
         </div>
-        
+        <a href="#!/select_practice">
         <div class="horz-scroll siliguri">
-
+       
         <div class="sub-sq">
         <div class="icon"><img src="../images/molecular.png"/></div>
         <div class="title">জীববিজ্ঞান ১</div>
@@ -82,9 +82,10 @@ router.on({
 
         </div>
 
-        <center><a href="#!/select_practice"><div class="button-custom">Select Manually</div></a></center>
-
+        <center><div class="button-custom">Select Manually</div></center>
+       
         </div>
+        </a>
 
 
         <div class="section">
