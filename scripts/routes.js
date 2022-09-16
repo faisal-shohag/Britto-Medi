@@ -80,7 +80,7 @@ router.on({
 
         </div>
 
-        <center><a href="#!/select_practice/bio"><div class="button-custom">Select Manually</div></a></center>
+        <center><a href="#!/select_practice"><div class="button-custom">Select Manually</div></a></center>
 
         </div>
 
@@ -139,7 +139,7 @@ router.on({
         </div>
         `
     },
-    '/select_practice/:id': function() {
+    '/select_practice': function() {
         $('.top-title').text('Practice Exams');
         app.innerHTML = `
         <form id="select-exam">
