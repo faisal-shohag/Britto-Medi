@@ -3,7 +3,9 @@ const app = document.getElementById('app');
 
 router.on({
     '/': function() {
+        $('.top-title').text('Britto Medi');
         $('.countdown').hide();
+
         app.innerHTML = `
         <div class="body">
         
