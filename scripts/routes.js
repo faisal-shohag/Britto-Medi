@@ -13,13 +13,14 @@ router.on({
         <div class="section-heading">
         <div class="sec-sec1"><div class="icon"><img src="../images/megaphone.png"></div><div class="text">Daily Quiz</div></div>
         </div>
-        <div class="q-card grad-1 siliguri">
-        <div class="question">কোন বাক্যে ক্রিয়া পদ উহ্য রয়েছে?</div>
-        <div class="options">
-        <div class="option">ইনি আমার ভাই  </div>
-        <div class="option">কবির বই পড়ছে  </div>
-        <div class="option">আমি লিখছি</div>
-        <div class="option">কোনটিই নয়</div>
+        <div class="q-card grad-1">
+      
+        <div id="dq" class="question">
+        <center><div class="spinner-border text-light" role="status"></div></center>
+        </div>
+
+        <div id="dopt" class="options">
+
         </div>
         </div>
         </div>
@@ -141,6 +142,27 @@ router.on({
         
         </div>
         `
+
+        //daily quiz
+        db.ref('app/dailyQuize').on("value", snap=> {
+          $('#dq').text(snap.val().data.q);
+          const dopt = document.getElementById('dopt');
+          dopt.innerHTML = '';
+          for(let i=0; i<snap.val().data.options.length; i++){
+            dopt.innerHTML +=`
+            <div id="dq_${i+1}" class="option">${snap.val().data.options[i]} </div>
+            `
+          }
+
+          $('.q-card .option').click(function(){
+            let val = parseInt(($(this)[0].id).split('_')[1]);
+            $('#dq_'+snap.val().data.ans).css({'background' : 'green', 'color': '#fff'});
+            if(val != snap.val().data.ans){
+              $('#dq_'+val).css({'background': 'red', 'color': '#fff'});
+            }
+            
+          })
+        });
     },
     '/select_practice': function() {
         $('.top-title').text('Practice Exams');
@@ -278,7 +300,6 @@ router.on({
 
         
     },
-
     '/start_practice/:subj/:chap/:key': function(params){
         $('.top-title').text('');
         app.innerHTML=`<div class="exam-doc" id="practice-exam"></div>`;
@@ -525,7 +546,8 @@ router.on({
    
    
    
-    }
+    },
+    
 
 
 }).resolve();

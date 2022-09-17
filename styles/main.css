@@ -94,7 +94,7 @@ body{
 .grad-1{
     background: #f857a6; 
 background: -webkit-linear-gradient(to right, #ff5858, #81194b);
-background: linear-gradient(to right, #d646b7, #c23579); 
+background: linear-gradient(to right, #9631c5, #b11aa9, rgb(185, 16, 109), rgb(197, 11, 135)); 
 
 }
 
@@ -104,6 +104,7 @@ background: linear-gradient(to right, #d646b7, #c23579);
     text-align: center;
     color: #fff;
     font-weight: bold;
+    font-family: Hind Siliguri;
 
 }
 
@@ -111,8 +112,13 @@ background: linear-gradient(to right, #d646b7, #c23579);
    margin-top: 5px;
    display: grid;
    grid-template-columns: 1fr 1fr;
-   
+  
+}
 
+.q-card .option{
+  font-family: Hind Siliguri;
+  text-align: center;
+  
 }
 
 .q-card .option{

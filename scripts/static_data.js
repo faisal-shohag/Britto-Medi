@@ -49,6 +49,7 @@ function getPractice(subject, chapter, callback){
 }
 
 
+
 //one letter
 function oneLetter(word){
   return word[0];
@@ -72,3 +73,4 @@ function shuffle(array) {
 
   return array;
 }
+
