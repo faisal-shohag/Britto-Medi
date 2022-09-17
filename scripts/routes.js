@@ -110,7 +110,7 @@ router.on({
          <div class="photo"><img src="../images/delta.png"/></div>
          <div class="details">
          <div class="title">মেডিকেল ডেলটা 2023</div>
-         <div class="sub-title">Full Course <small>[Only 50 students]</small></div>
+         <div class="sub-title">Full Course ori <small>[Only 50 students]</small></div>
          <div class="fee"><del class="del">1530tk</del> 918tk <span class="discount">(40% off)</span></div>
          </div>
          </div>

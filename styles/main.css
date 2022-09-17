@@ -99,7 +99,7 @@ background: linear-gradient(to right, #9631c5, #b11aa9, rgb(185, 16, 109), rgb(1
 }
 
 .q-card .question{
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bold;
     text-align: center;
     color: #fff;
@@ -125,11 +125,15 @@ background: linear-gradient(to right, #9631c5, #b11aa9, rgb(185, 16, 109), rgb(1
     flex: 50%;
     margin: 3px;
     padding: 3px;
-    padding-left: 10px;
+    /* padding-left: 10px; */
     border-radius: 3px;
     background: #fff;
     /* border: 1px solid #eee; */
-    font-size: 16px;
+    font-size: 12px;
+}
+
+.more{
+  font-family: poppins;
 }
 
 .live-card{
