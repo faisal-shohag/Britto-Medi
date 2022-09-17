@@ -109,8 +109,8 @@ router.on({
          <div class="course-card">
          <div class="photo"><img src="../images/delta.png"/></div>
          <div class="details">
-         <div class="title">মেডিকেল ডেলটা 2023(Full Course)</div>
-         <div class="sub-title">স্পেশাল এক্সাম ব্যাচ <small>[Only 50 students]</small></div>
+         <div class="title">মেডিকেল ডেলটা 2023</div>
+         <div class="sub-title">Full Course <small>[Only 50 students]</small></div>
          <div class="fee"><del class="del">1530tk</del> 918tk <span class="discount">(40% off)</span></div>
          </div>
          </div>
