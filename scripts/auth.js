@@ -14,7 +14,12 @@ function authExecute(){
     });
 
     const sendVerificationCode = () => {
-      $(".loader").show();
+        $('.send_code').html(`
+        <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      Sending...
+        `)
       phoneNumber = document.getElementById("phoneNumber").value;
       phoneNumber = "+88" + phoneNumber;
       console.log(phoneNumber.length);
@@ -25,13 +30,15 @@ function authExecute(){
           text: "সঠিক ফোন নম্বর প্রদান করুন!",
           footer: "ফোন নম্বরটি ১১ ডিজিটের হওয়া জরুরী!",
         });
-        $(".loader").hide();
         return;
       }
 
+
       const appVerifier = window.recaptchaVerifier;
       
-      $(".loader").hide();
+      $('.send_code').html(`
+        Code Sent. Please check your phone. If any issue, please refresh page and send again!
+        `)
 
       auth
         .signInWithPhoneNumber(phoneNumber, appVerifier)
