@@ -125,6 +125,7 @@ function singOut(){
           .auth()
           .signOut()
           .then(() => {
+            router.navigate('/')
             window.location.reload();
           })
           .catch((e) => {
