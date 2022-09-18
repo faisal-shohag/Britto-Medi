@@ -549,7 +549,7 @@ router.on({
     },
     '/auth': function(){
       $('.top-title').text('Sign In');
-          app.innerHTML += `
+      app.innerHTML = `
   <div class="container mt-5 mb-5 d-flex justify-content-center">
       <div class="card px-1 py-4">
           <div class="card-body">
@@ -566,9 +566,9 @@ router.on({
               </div>
   <br>
               
-              <center><div id="recaptcha-container"></div></center>
+            <div id="recaptcha-container"></div>
               <br>
-          <center><button class="btn btn-primary" id="confirm-code">Send varification code</button></center>
+         <button class="btn btn-primary" id="confirm-code">Send varification code</button>
            
           <div class="varify">
           <div class="vf">
