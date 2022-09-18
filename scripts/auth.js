@@ -219,10 +219,27 @@ firebase.auth().onAuthStateChanged(user=> {
         })
     }
     else{
-       
+        $('.user-panel').show();
+        $('.user-panel').html(`
+        <a href="#!/auth"><button class="btn btn-primary">Sign In</button></a>
+        `);
     }
 });
 
 };
 
 authCheck();
+
+function isAuth(call){
+    firebase.auth().onAuthStateChanged(user=> {
+        if(user) {
+         if(call){
+            call(true);
+         }
+        }else{
+            if(call){
+                call(false);
+            }
+        }
+    });
+}
