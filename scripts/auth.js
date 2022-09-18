@@ -209,7 +209,7 @@ firebase.auth().onAuthStateChanged(user=> {
                   <li><a class="dropdown-item" href="#!/profile/${user.uid}">Profile</a></li>
                   <li><a class="dropdown-item" href="#">My courses</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                  <li><a class="dropdown-item" onclick="singOut()" href="#">Logout</a></li>
                 </ul>
                 `);
                 let data={

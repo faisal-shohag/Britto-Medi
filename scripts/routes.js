@@ -612,8 +612,7 @@ router.on({
       </div>
       <div class="profile-inst"></div>
       </div>
-     <button onclick="singOut()" class="btn btn-primary">Sign out</button>
-      </div>
+    </div>
       `
 
       authCheck(data=>{
