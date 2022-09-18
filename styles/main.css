@@ -459,3 +459,36 @@ label.radio input:checked + span {
   font-size: 10px;
   color: var(--orange);
 }
+
+.modal-title{
+  font-family: poppins, 'Kalpurush' !important;
+}
+
+.user-panel{
+  display: none;
+}
+
+.avatar-circle{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.avatar-circle img{
+  height: 100px;
+}
+
+.profile-details{
+  text-align: center;
+  padding: 10px;
+  font-family: 'poppins', Kalpurush;
+}
+
+.profile-name{
+   font-size: 20px;
+}
+
+.profile-inst{
+  font-size: 14px;
+  color: rgb(99, 96, 96);
+}

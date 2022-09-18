@@ -594,6 +594,32 @@ router.on({
           `
   
           authExecute();
+    },
+    'profile/:uid': function(){
+      $('.top-title').html(`Profile`);
+      app.innerHTML = `
+      <div class="body">
+      <div class="avatar-circle">
+      <img src="../images/doctor.png">
+      </div>
+
+      <div class="profile-details">
+      <div class="profile-name">
+      <div class="spinner-border text-dark" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+      </div>
+      <div class="profile-inst"></div>
+      </div>
+
+      </div>
+      `
+
+      authCheck(data=>{
+        $('.top-title').text(data.name);
+        $('.profile-name').text(data.name);
+        $('.profile-inst').text(data.inst);
+      })
   }
 
 
