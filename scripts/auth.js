@@ -108,6 +108,7 @@ function authExecute(){
           )
           .then(() => {
             // window.location.reload();
+            router.navigate('/');
             console.log(user.uid)
           });
       } else {
