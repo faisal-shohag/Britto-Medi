@@ -547,7 +547,54 @@ router.on({
    
    
     },
-    
+    '/auth': function(){
+      $('.top-title').text('Sign In');
+          app.innerHTML += `
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+      <div class="card px-1 py-4">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="form-group">
+                      
+                          <div class="input-group"> 
+                          
+                          <input class="form-control" id="std_phone"  id="phoneNumber" name="phone" type="text" placeholder="Mobile number without +88"> </div>
+                          <div class="form-tips kalpurush">Phone number without "+88" ex: 0131xxxxx</div>
+                      </div>
+                  </div>
+              </div>
+  <br>
+              
+              <center><div id="recaptcha-container"></div></center>
+              <br>
+          <center><button class="btn btn-primary" id="confirm-code">Send varification code</button></center>
+           
+          <div class="varify">
+          <div class="vf">
+          <div class="row">
+          <div class="col-sm-12">
+          <div class="form-group">
+          <div class="input-group">
+          <input class="form-control" type="text" id="code" placeholder="Enter code here" />
+          </div>
+          </div>
+          </div>
+          </div></div><br>
+          <button class="btn btn-primary btn-block confirm-button" id="sign-in-button" >Sign In</button>
+          </div>
+          </div>
+  
+          </div>
+      </div>
+  </div>
+  
+  
+         
+          `
+  
+          authExecute();
+  }
 
 
 }).resolve();
