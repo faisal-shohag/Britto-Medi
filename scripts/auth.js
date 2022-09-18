@@ -221,7 +221,7 @@ firebase.auth().onAuthStateChanged(user=> {
     else{
         $('.user-panel').show();
         $('.user-panel').html(`
-        <a href="#!/auth"><button class="btn btn-primary">Sign In</button></a>
+        <a href="/#!/auth"><button class="btn btn-primary">Sign In</button></a>
         `);
     }
 });
