@@ -16,6 +16,19 @@ background: linear-gradient(to right, #c40f5a, #654ea3); /* W3C, IE 10+/ Edge, F
     
 }
 
+.course-wrap{
+  background: url(https://resources.beecrowd.com.br/academic/img/geometry.png) top left #fff;
+  background-image: url(https://resources.beecrowd.com.br/academic/img/geometry.png);
+  background-position-x: left;
+  background-position-y: top;
+  background-size: 250px 250px;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(255, 255, 255);
+  height: 100vh;
+}
+
 .course-top .course-image img{
   height: 100px;
 }
@@ -97,8 +110,12 @@ button{
     margin-bottom: 10px;
   }
 
+  .blabla{
+    font-size: 15px;
+  }
+
   .details-resource{
-    padding: 5px;
+    padding: 3px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -156,3 +173,4 @@ button{
     font-size: 18px;
     color: #9f9ea0;
   }
+

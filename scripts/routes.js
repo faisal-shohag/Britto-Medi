@@ -689,7 +689,7 @@ router.on({
    <div class="text"><i class="icofont-wall-clock"></i> Starting From:</div><div class="value"> 03 Oct 2022</div>
    </div>
 
-   <center><div class="course-download">Download Course Paper</div></center>
+   <center><div class="course-download"><i class="icofont-download"></i> Download Course Plan</div></center>
     
    <center><div class="enroll siliguri">Enroll Now</div></center>
 
