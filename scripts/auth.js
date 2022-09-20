@@ -43,7 +43,7 @@ function authExecute(){
         .then((confirmationResult) => {
           const sentCodeId = confirmationResult.verificationId;
           $(".warn").html(`
-         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। যদি না গিয়ে থাকে তাহলে <a href="https://brittomedi.netlify.app/#!/auth">আবার</a> চেষ্টা করুন। 
+         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি যেতে ১-২ মিনিটের মত সময় লাগতে পারে।  যদি না গিয়ে থাকে তাহলে <a href="https://brittomedi.netlify.app/#!/auth">আবার</a> চেষ্টা করুন। 
          `);
           // console.log(confirmationResult);
           $('#recaptcha-container').hide();
@@ -113,6 +113,7 @@ function authExecute(){
           .then(() => {
             // window.location.reload();
             router.navigate('/');
+            window.location.reload();
             console.log(user.uid)
           });
       } else {

@@ -568,7 +568,7 @@ router.on({
               
             <div id="recaptcha-container"></div>
               <br>
-              <div class="warn">
+              <div class="warn kalpurush">
          <button class="btn btn-primary" id="confirm-code">Send varification code</button>
            </div>
 

@@ -492,3 +492,11 @@ label.radio input:checked + span {
   font-size: 14px;
   color: rgb(99, 96, 96);
 }
+
+.warn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
