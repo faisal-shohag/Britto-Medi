@@ -114,7 +114,6 @@ button{
 
   .details-resource .value{
     font-size: 18px;
-    
   }
 
   .enroll{
@@ -153,7 +152,7 @@ button{
   }
 
   .comments-off .text{
-      font-family: poppins;
+    font-family: poppins;
     font-size: 18px;
     color: #9f9ea0;
   }

@@ -698,7 +698,7 @@ router.on({
   
   <div class="comments-off">
   <img src="../images/no-message.png">
-  <div class="text">Comment is turned off!</div>
+  <div class="text">Comments are turned off!</div>
   </div>
   
   </div>
