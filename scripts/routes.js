@@ -657,16 +657,38 @@ router.on({
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-  Details
+  
+   <div class="blabla siliguri">
+   <b>Medical Startup</b> একটি ফ্রি এক্সাম কোর্স। কোর্সটির মাধ্যমে শুরু করো তোমার
+   মেডিকেল অ্যাডমিশন জার্নি!
+   </div>
+
+   <div class="details-resource siliguri">
+   <div class="text"><i class="icofont-certificate-alt-2"></i> Total Exams:</div><div class="value">6</div>
+   </div>
+
+   <div class="details-resource siliguri">
+   <div class="text"><i class="icofont-book-alt"></i> Subject Exams:</div><div class="value">3</div>
+   </div>
+
+   <div class="details-resource siliguri">
+   <div class="text"><i class="icofont-clip-board"></i> Model Tests:</div><div class="value">3</div>
+   </div>
+
+   <div class="details-resource siliguri">
+   <div class="text"><i class="icofont-taka"></i> Fee:</div><div class="fee"><del>600tk</del> Free </div> <div class="discount">(100% OFF)</div>
+   </div>
+    
+   <center><div class="enroll siliguri">Enroll Now</div></center>
+
   </div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
   Comments
+  
   </div>
 </div>
 
       </div>
-      
-      
       
       </div>
       

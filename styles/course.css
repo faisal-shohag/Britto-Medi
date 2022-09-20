@@ -87,3 +87,47 @@ button{
   .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover {
     width: 100% !important;
   }
+
+
+  .tab-content{
+    padding: 10px;
+  }
+
+  .blabla{
+    margin-bottom: 10px;
+  }
+
+  .details-resource{
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .details-resource .text{
+    font-weight: bold;
+  }
+
+  del{
+    color: rgb(187, 185, 185);
+  }
+
+  .details-resource .value{
+    font-size: 18px;
+    
+  }
+
+  .enroll{
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+    background: #654ea3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #c40f5a, #654ea3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #eee;
+    font-weight: bold;
+    left: 0;
+    font-size: 20px;    
+  }
