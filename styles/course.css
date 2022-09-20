@@ -131,3 +131,29 @@ button{
     left: 0;
     font-size: 20px;    
   }
+
+  .course-download{
+    font-family: poppins;
+    margin-top: 10px;
+    color: #e5ddfa;
+    background: #3a179b;
+    border-radius: 10px;
+    padding: 5px;
+  }
+
+  .comments-off{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .comments-off img{
+    height: 80px;
+  }
+
+  .comments-off .text{
+      font-family: poppins;
+    font-size: 18px;
+    color: #9f9ea0;
+  }

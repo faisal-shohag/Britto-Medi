@@ -634,8 +634,8 @@ router.on({
       <div class="course-wrap">
       
       <div class="course-top">
-      <div class="course-title">Medical Startup</div>
-      <div class="course-sub-title">Let's begine the journey!</div>
+      <div class="course-title">Passion Warm Up</div>
+      <div class="course-sub-title">Let's begin the journey!</div>
       <div class="course-image"><img src="../images/reading.png"></div>
       <div class="course-countdown">12:50:32</div>
 
@@ -651,6 +651,7 @@ router.on({
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><i class="icofont-info-circle"></i> Details</button>
   </li>
+  
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><i class="icofont-comment"></i> Comments</button>
   </li>
@@ -659,16 +660,21 @@ router.on({
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
   
    <div class="blabla siliguri">
-   <b>Medical Startup</b> একটি ফ্রি এক্সাম কোর্স। কোর্সটির মাধ্যমে শুরু করো তোমার
-   মেডিকেল অ্যাডমিশন জার্নি!
+   <b>Passion Warm Up</b> একটি ফ্রি এক্সাম কোর্স। 
+   সামনে অনেকেরই HSC Exam কিন্তু HSC এর পর মেডিকেল Cracker'দের জন্য সুখবর হলো সবগুলো এক্সামই Medical Based Question দিয়ে 
+   তৈরি। তাই HSC এবং প্যাশন দুটোকেই নিজের করে নাও একটি কোর্স দিয়ে।
    </div>
 
    <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-certificate-alt-2"></i> Total Exams:</div><div class="value">6</div>
+   <div class="text"><i class="icofont-certificate-alt-2"></i> Total Exams:</div><div class="value">12</div>
    </div>
 
    <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-book-alt"></i> Subject Exams:</div><div class="value">3</div>
+   <div class="text"><i class="icofont-book-alt"></i> Subject Exams:</div><div class="value">6</div>
+   </div>
+
+   <div class="details-resource siliguri">
+   <div class="text"><i class="icofont-book-alt"></i> Previous Year:</div><div class="value">3</div>
    </div>
 
    <div class="details-resource siliguri">
@@ -676,14 +682,24 @@ router.on({
    </div>
 
    <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-taka"></i> Fee:</div><div class="fee"><del>600tk</del> Free </div> <div class="discount">(100% OFF)</div>
+   <div class="text"><i class="icofont-taka"></i> Fee:</div><div class="fee"><del>300tk</del> 50tk </div> <div class="discount">(83% OFF)</div>
    </div>
+
+   <div class="details-resource siliguri">
+   <div class="text"><i class="icofont-wall-clock"></i> Starting From:</div><div class="value"> 03 Oct 2022</div>
+   </div>
+
+   <center><div class="course-download">Download Course Paper</div></center>
     
    <center><div class="enroll siliguri">Enroll Now</div></center>
 
   </div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-  Comments
+  
+  <div class="comments-off">
+  <img src="../images/no-message.png">
+  <div class="text">Comment is turned off!</div>
+  </div>
   
   </div>
 </div>
