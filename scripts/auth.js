@@ -6,6 +6,7 @@ function authExecute(){
     const getCodeButton = document.getElementById("confirm-code");
     const signInWithPhoneButton = document.getElementById("sign-in-button");
     const auth = firebase.auth();
+
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       "recaptcha-container"
     );
@@ -14,12 +15,7 @@ function authExecute(){
     });
 
     const sendVerificationCode = () => {
-        $('.send_code').html(`
-        <div class="spinner-border text-dark" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      Sending...
-        `)
+        
       phoneNumber = document.getElementById("phoneNumber").value;
       phoneNumber = "+88" + phoneNumber;
       console.log(phoneNumber.length);
@@ -36,30 +32,36 @@ function authExecute(){
 
       const appVerifier = window.recaptchaVerifier;
       
-      $('.send_code').html(`
-        Code Sent. Please check your phone. If any issue, please refresh page and send again!
-        `)
+      // $('.send_code').html(`
+      //   Code Sent. Please check your phone. If any issue, please refresh page and send again!
+      //   `)
+
+      
 
       auth
         .signInWithPhoneNumber(phoneNumber, appVerifier)
         .then((confirmationResult) => {
           const sentCodeId = confirmationResult.verificationId;
           $(".warn").html(`
-         ভেরিফিকেশন কোডটি পাঠানো হয়েছে। 
+         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। যদি না গিয়ে থাকে তাহলে <a href="https://brittomedi.netlify.app/#!/auth">আবার</a> চেষ্টা করুন। 
          `);
-          console.log(confirmationResult);
-          $(".loader").hide();
-
-          $(".phone-auth").hide();
+          // console.log(confirmationResult);
+          $('#recaptcha-container').hide();
+          $("#phoneNumber").hide();
           $(".varify").show();
 
           signInWithPhoneButton.addEventListener("click", () =>
            { 
-             $('.loader').show();
-             signInWithPhone(sentCodeId)
+             signInWithPhone(sentCodeId);
             }
           );
         }).then((r)=>{
+          $('.warn').html(`
+        <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+        <center>Signing In Please wait! </center>
+        `)
           console.log(r)
         })
         .catch((e)=>{
