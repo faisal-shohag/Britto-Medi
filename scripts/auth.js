@@ -212,10 +212,11 @@ firebase.auth().onAuthStateChanged(user=> {
                 $('.user-panel').html(`
                 <div class="user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img class="rounded-circle" src="./images/doctor.png"></div>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#!/profile/${user.uid}">Profile</a></li>
-                  <li><a class="dropdown-item" href="#">My courses</a></li>
+                  <li><a class="dropdown-item" href="#!/profile/${user.uid}"><i class="icofont-user"></i> Profile</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="icofont-notebook"></i> My courses</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" onclick="singOut()" href="#">Logout</a></li>
+                  <li><a class="dropdown-item" onclick="singOut()" href="#"><i class="icofont-logout"></i> Logout</a></li>
+                  <li><a class="dropdown-item" onclick="window.location.reload()" href="#"><i class="icofont-refresh"></i> Reload</a></li>
                 </ul>
                 `);
                 let data={
