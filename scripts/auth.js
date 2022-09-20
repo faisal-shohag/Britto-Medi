@@ -48,20 +48,22 @@ function authExecute(){
           // console.log(confirmationResult);
           $('#recaptcha-container').hide();
           $("#phoneNumber").hide();
-          $(".varify").show();
+          // $(".varify").show();
 
           signInWithPhoneButton.addEventListener("click", () =>
            { 
              signInWithPhone(sentCodeId);
+
+             $('.warn').html(`
+             <center><div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+       Signing In Please wait! </center>
+        `)
             }
           );
         }).then((r)=>{
-          $('.warn').html(`
-        <div class="spinner-border text-dark" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-        <center>Signing In Please wait! </center>
-        `)
+          
           console.log(r)
         })
         .catch((e)=>{
