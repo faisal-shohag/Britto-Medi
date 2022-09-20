@@ -1,0 +1,89 @@
+.course-top{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #222;
+    color: #eee;
+    margin: 0;
+    padding: 10px;
+    font-family: 'poppins', Hind Siliguri;
+    position: relative;
+    background: #654ea3;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #c40f5a, #654ea3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    
+}
+
+.course-top .course-image img{
+  height: 100px;
+}
+
+.course-title{
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.course-sub-title{
+    z-index: 2;
+    font-size: 14px;
+}
+
+.course-image{
+    position: absolute;
+    left: -10px;
+    z-index: 1;
+    bottom: 0px;
+}
+
+.course-countdown{
+    font-size: 40px;
+    z-index: 2;
+}
+
+.course-materials{
+    display: flex;
+    font-size: 10px;
+    gap: 10px;
+}
+
+.nav{
+    justify-content: space-between !important;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.nav li{
+    width: 50%;
+}
+
+.nav-tabs{
+    width: 100% !important;
+    
+}
+
+.nav-link{
+    text-align: center;
+    width: 100%;
+    color: #222 !important;
+}
+
+button{
+    text-align: center;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    /* color: red !important; */
+    background-color: var(--bs-nav-tabs-link-active-bg);
+    border-bottom: 1px solid rgb(148, 42, 209) !important;
+    width: 100% !important;
+    border-radius: 0px !important;
+    color: #3a179b !important;
+  }
+
+  .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover {
+    width: 100% !important;
+  }

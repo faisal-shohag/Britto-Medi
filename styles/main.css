@@ -70,8 +70,11 @@ body {
 }
 
 #app {
-  margin-top: 40px;
+  margin-top: 35px;
   padding-top: 20px;
+}
+
+.body{
   padding-left: 10px;
   padding-right: 10px;
 }

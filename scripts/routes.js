@@ -97,14 +97,14 @@ router.on({
      
         <div class="vert-scroll siliguri">
 
-        <div class="course-card">
+       <a href="#!/course"> <div class="course-card">
          <div class="photo"><img src="../images/reading.png"/></div>
          <div class="details">
          <div class="title">মেডিকেল Startup</div>
          <div class="sub-title">3 Model Tests + 3 Subject Exams</div>
          <div class="fee"><del class="del">600tk</del> Free <span class="discount">(100% off)</span></div>
          </div>
-         </div>
+         </div></a>
           
          <div class="course-card">
          <div class="photo"><img src="../images/delta.png"/></div>
@@ -167,6 +167,7 @@ router.on({
     '/select_practice': function() {
         $('.top-title').text('Practice Exams');
         app.innerHTML = `
+        <div class="body">
         <form id="select-exam">
         <div class="row">
         <div class="col">
@@ -189,7 +190,7 @@ router.on({
         <div class="prac_exams">
         </div>
         </div>
-
+      </div>
         
         `
 
@@ -308,6 +309,7 @@ router.on({
                   $('.countdown').show();
                   let myexam = snap.data();
                   $('.exam-doc').html(`
+                  <div class="body">
                       <div class="exam-container">
                      <div class="exam_top">
                       <div class="exam-title kalpurush">
@@ -344,6 +346,7 @@ router.on({
                      
                      <center> <div class="submit btn-primary kalpurush" id="submit">Submit</div></center>
                      
+                      </div>
                       </div>
                   `);
                   $('.parc').hide();
@@ -550,6 +553,7 @@ router.on({
     '/auth': function(){
       $('.top-title').text('Sign In');
       app.innerHTML = `
+      <div class="body">
   <div class="container mt-5 mb-5 d-flex justify-content-center">
       <div class="card px-1 py-4">
           <div class="card-body">
@@ -592,7 +596,7 @@ router.on({
       </div>
   </div>
   
-  
+  </div>
          
           `
   
@@ -622,7 +626,56 @@ router.on({
         $('.profile-name').text(data.name);
         $('.profile-inst').text(data.inst);
       })
-  }
+    },
+    '/course':function(){
+      $('.top-title').html(`Course`);
+      app.innerHTML =`
+      
+      <div class="course-wrap">
+      
+      <div class="course-top">
+      <div class="course-title">Medical Startup</div>
+      <div class="course-sub-title">Let's begine the journey!</div>
+      <div class="course-image"><img src="../images/reading.png"></div>
+      <div class="course-countdown">12:50:32</div>
+
+      <div class="course-materials">
+      <div class="mat"><i class="icofont-book-alt"></i> 3 Paper Exams</div>
+      <div class="mat"><i class="icofont-clip-board"></i> 3 Model Tests</div>
+      </div>
+      </div>
+
+
+      <div class="course-bottom">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><i class="icofont-info-circle"></i> Details</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><i class="icofont-comment"></i> Comments</button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  Details
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  Comments
+  </div>
+</div>
+
+      </div>
+      
+      
+      
+      </div>
+      
+      
+      
+    
+      `
+    }
+
 
 
 }).resolve();
