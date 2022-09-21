@@ -138,8 +138,8 @@ router.on({
           $('#live_banner').html(`
           <div class="live-bg"><img src="${l.img_link}"/></div>
             <div class="title">${l.title}</div>
-            <div calss="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
-          
+            <div class="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
+            <div class="badge"><img src="../images/${l.type}.png"/></div>
           `);
 
           liveBannerTimer(l.start_time, l.end_time, time=>{

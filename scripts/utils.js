@@ -228,8 +228,8 @@ router.on({
 
         <select name="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
         <option selected>type</option>
-        <option value="1">Free</option>
-        <option value="0">Premium</option>
+        <option value="Free">Free</option>
+        <option value="Pro">Premium</option>
         </select>
 
 

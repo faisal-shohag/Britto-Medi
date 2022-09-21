@@ -159,6 +159,11 @@ body {
 .live-card .title {
   font-weight: bold;
   font-size: 17px;
+  color: #039be5;
+}
+
+.live-card .time{
+  font-size: 13px;
 }
 
 .live-card .details {
@@ -171,25 +176,31 @@ body {
   color: #eee !important;
 }
 
-.live-card .time {
-  font-size: 16px;
-}
 
-.live-card .countdown {
-  font-size: 13px;
-}
+
+
 
 .live-card .live-bg {
   position: absolute;
-  bottom: 0px;
-  left: -5px;
+  /* bottom: 0px; */
+  left: 3px;
   z-index: -1;
 }
 
+.live-card .badge{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  font-size: 10px;
+}
+
+.live-card .badge img{
+  height: 25px;
+}
 
 
 .live-bg img {
-  height: 100px;
+  height: 80px;
 }
 
 .section {
