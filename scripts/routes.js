@@ -624,6 +624,7 @@ router.on({
       <span class="visually-hidden"></span>
       </div></div>
       </div>
+      <div class="enroll siliguri">--:--:--</div>
       `
       store.collection('courses').doc(params.id).get().then(snap=> {
          let data =  courseData(snap.data());
@@ -632,7 +633,7 @@ router.on({
           <div class="course-title">${data.title}</div>
           <div class="course-sub-title">${data.sub_title}</div>
           <div class="course-image"><img src="${data.img_link}"></div>
-          <div class="course-countdown">12:50:32</div>
+          <div class="course-countdown">${splitDate(data.start_time)[1]} ${splitDate(data.start_time)[2]}</div>
 
           <div class="course-materials">
           <div class="mat"><i class="icofont-book-alt"></i> ${data.subject_exam} Paper Exams</div>
@@ -677,7 +678,7 @@ router.on({
           </div>
 
           <div class="details-resource siliguri">
-          <div class="text"><i class="icofont-wall-clock"></i> Starting From:</div><div class="value"> 03 Oct 2022</div>
+          <div class="text"><i class="icofont-wall-clock"></i> Starting From:</div><div class="value"> ${dateForm(data.start_time)}</div>
           </div>
 
           <div class="social siliguri">
@@ -691,8 +692,7 @@ router.on({
 
    
     
-          <center><div class="enroll siliguri">Enroll Now</div></center>
-
+         
           </div>
           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           
@@ -705,7 +705,14 @@ router.on({
           </div>
 
           </div>
+
+
           `);
+
+          enrollTimer(data.start_time, time=>{
+            $('.enroll').html(time);
+          });
+
       })
     }
 
