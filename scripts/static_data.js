@@ -74,3 +74,20 @@ function shuffle(array) {
   return array;
 }
 
+
+
+//course data modify
+function courseData(data) {
+  let mdata = {
+    ...data,
+    fee: parseInt(data.fee) == 0 ? 'Free':data.fee+'tk',
+    model_test: parseInt(data.model_test),
+    prev_fee: parseInt(data.prev_fee),
+    previous_year: parseInt(data.previous_year),
+    subject_exam: parseInt(data.subject_exam),
+    discount: (100-((parseInt(data.fee)/parseInt(data.prev_fee))*100)).toPrecision(3),
+    total_exam: parseInt(data.model_test)+parseInt(data.previous_year)+parseInt(data.subject_exam)
+   }
+
+   return mdata;
+}

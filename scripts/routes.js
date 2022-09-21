@@ -95,44 +95,10 @@ router.on({
        <div class="more">See more</div>
         </div>
      
-        <div class="vert-scroll siliguri">
-
-       <a href="#!/course"> <div class="course-card">
-         <div class="photo"><img src="../images/reading.png"/></div>
-         <div class="details">
-         <div class="title">মেডিকেল Startup</div>
-         <div class="sub-title">3 Model Tests + 3 Subject Exams</div>
-         <div class="fee"><del class="del">600tk</del> Free <span class="discount">(100% off)</span></div>
-         </div>
-         </div></a>
-          
-         <div class="course-card">
-         <div class="photo"><img src="../images/delta.png"/></div>
-         <div class="details">
-         <div class="title">মেডিকেল ডেলটা 2023</div>
-         <div class="sub-title">Full Course ori <small>[Only 50 students]</small></div>
-         <div class="fee"><del class="del">1530tk</del> 918tk <span class="discount">(40% off)</span></div>
-         </div>
-         </div>
-
-         <div class="course-card">
-         <div class="photo"><img src="../images/medical-book.png"/></div>
-         <div class="details">
-         <div class="title">মেডিকেল পেপারস ক্র্যাক</div>
-         <div class="sub-title">সাবজেক্ট এক্সামস <small>[Only 100 students]</small></div>
-         <div class="fee"><del class="del">1000tk</del> 300tk <span class="discount">(70% off)</span></div>
-         </div>
-         </div>
-
-         <div class="course-card">
-         <div class="photo"><img src="../images/world-book-day.png"/></div>
-         <div class="details">
-         <div class="title">মেডিকেল GK Genius</div>
-         <div class="sub-title">সাধারণ জ্ঞান <small>[Only 100 students]</small></div>
-         <div class="fee"><del class="del">600tk</del> 190tk <span class="discount">(67% off)</span></div>
-         </div>
-         </div>
-
+        <div id="course_list" class="vert-scroll siliguri">
+        <center><div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div></center>
         </div>
 
 
@@ -163,6 +129,29 @@ router.on({
             
           })
         });
+
+
+        //courses
+        store.collection('courses').get().then(snap=> {
+          let course_list = document.getElementById('course_list');
+          course_list.innerHTML = '';
+          snap.forEach(item=>{
+           let data =  courseData(item.data());
+            course_list.innerHTML += `
+          <a href="#!/course/${item.id}"> <div class="course-card">
+         <div class="photo"><img src="${data.img_link}"/></div>
+         <div class="details">
+         <div class="title">${data.title}</div>
+         <div class="sub-title">Total exam: ${data.total_exam}</div>
+         <div class="fee"><del class="del">${data.prev_fee}tk</del> ${data.fee} <span class="discount">(${data.discount}% off)</span></div>
+         </div>
+         </div></a>
+            
+            `
+          });
+        }).catch(err=>{
+          console.log(err);
+        })
     },
     '/select_practice': function() {
         $('.top-title').text('Practice Exams');
@@ -627,91 +616,97 @@ router.on({
         $('.profile-inst').text(data.inst);
       })
     },
-    '/course':function(){
+    '/course/:id':function(params){
       $('.top-title').html(`Course`);
       app.innerHTML =`
-      
       <div class="course-wrap">
-      
-      <div class="course-top">
-      <div class="course-title">Passion Warm Up</div>
-      <div class="course-sub-title">Let's begin the journey!</div>
-      <div class="course-image"><img src="../images/reading.png"></div>
-      <div class="course-countdown">12:50:32</div>
-
-      <div class="course-materials">
-      <div class="mat"><i class="icofont-book-alt"></i> 3 Paper Exams</div>
-      <div class="mat"><i class="icofont-clip-board"></i> 3 Model Tests</div>
+      <div class="center_loader"><div class="spinner-border text-success" role="status">
+      <span class="visually-hidden"></span>
+      </div></div>
       </div>
-      </div>
-
-
-      <div class="course-bottom">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><i class="icofont-info-circle"></i> Details</button>
-  </li>
-  
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><i class="icofont-comment"></i> Comments</button>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-  
-   <div class="blabla siliguri">
-   <b>Passion Warm Up</b> একটি ফ্রি এক্সাম কোর্স। 
-   সামনে অনেকেরই HSC Exam কিন্তু HSC এর পর মেডিকেল Cracker'দের জন্য সুখবর হলো সবগুলো এক্সামই Medical Based Question দিয়ে 
-   তৈরি। তাই HSC এবং প্যাশন দুটোকেই নিজের করে নাও একটি কোর্স দিয়ে।
-   </div>
-
-   <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-certificate-alt-2"></i> Total Exams:</div><div class="value">12</div>
-   </div>
-
-   <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-book-alt"></i> Subject Exams:</div><div class="value">6</div>
-   </div>
-
-   <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-book-alt"></i> Previous Year:</div><div class="value">3</div>
-   </div>
-
-   <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-clip-board"></i> Model Tests:</div><div class="value">3</div>
-   </div>
-
-   <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-taka"></i> Fee:</div><div class="fee"><del>300tk</del> 50tk </div> <div class="discount">(83% OFF)</div>
-   </div>
-
-   <div class="details-resource siliguri">
-   <div class="text"><i class="icofont-wall-clock"></i> Starting From:</div><div class="value"> 03 Oct 2022</div>
-   </div>
-
-   <center><div class="course-download"><i class="icofont-download"></i> Download Course Plan</div></center>
-    
-   <center><div class="enroll siliguri">Enroll Now</div></center>
-
-  </div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-  
-  <div class="comments-off">
-  <img src="../images/no-message.png">
-  <div class="text">Comments are turned off!</div>
-  </div>
-  
-  </div>
-</div>
-
-      </div>
-      
-      </div>
-      
-      
-      
-    
       `
+      store.collection('courses').doc(params.id).get().then(snap=> {
+         let data =  courseData(snap.data());
+          $('.course-wrap').html(`
+          <div class="course-top">
+          <div class="course-title">${data.title}</div>
+          <div class="course-sub-title">${data.sub_title}</div>
+          <div class="course-image"><img src="${data.img_link}"></div>
+          <div class="course-countdown">12:50:32</div>
+
+          <div class="course-materials">
+          <div class="mat"><i class="icofont-book-alt"></i> ${data.subject_exam} Paper Exams</div>
+          <div class="mat"><i class="icofont-clip-board"></i> ${data.model_test} Model Tests</div>
+          </div>
+          </div>
+
+
+          <div class="course-bottom">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><i class="icofont-info-circle"></i> Details</button>
+          </li>
+  
+          <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><i class="icofont-comment"></i> Comments</button>
+          </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          
+          <div class="blabla siliguri">${data.details}</div>
+
+          <div class="details-resource siliguri">
+          <div class="text"><i class="icofont-certificate-alt-2"></i> Total Exams:</div><div class="value">${data.total_exam}</div>
+          </div>
+
+          <div class="details-resource siliguri">
+          <div class="text"><i class="icofont-book-alt"></i> Subject Exams:</div><div class="value">${data.subject_exam}</div>
+          </div>
+
+          <div class="details-resource siliguri">
+          <div class="text"><i class="icofont-book-alt"></i> Previous Year:</div><div class="value">${data.previous_year}</div>
+          </div>
+
+          <div class="details-resource siliguri">
+          <div class="text"><i class="icofont-clip-board"></i> Model Tests:</div><div class="value">${data.model_test}</div>
+          </div>
+
+          <div class="details-resource siliguri">
+          <div class="text"><i class="icofont-taka"></i> Fee:</div><div class="fee"><del>${data.prev_fee}tk</del> ${data.fee} </div> <div class="discount">(${data.discount}% OFF)</div>
+          </div>
+
+          <div class="details-resource siliguri">
+          <div class="text"><i class="icofont-wall-clock"></i> Starting From:</div><div class="value"> 03 Oct 2022</div>
+          </div>
+
+          <div class="social siliguri">
+          Join:
+          <a href="https://t.me/britto_medi"><div style="color: green;"><i class="icofont-telegram"></i></div></a>
+          <a href="https://t.me/brittomedi"><div><i class="icofont-telegram"></i></div></a>
+          <a href="https://www.facebook.com/groups/482665923338855/"><div><i class="icofont-facebook"></i></div></a>
+          </div>
+
+          <a href="${data.course_plan_link}"><center><div class="course-download"><i class="icofont-download"></i> Download Course Plan</div></center></a>
+
+   
+    
+          <center><div class="enroll siliguri">Enroll Now</div></center>
+
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          
+          <div class="comments-off">
+          <img src="../images/no-message.png">
+          <div class="text">Comments are turned off!</div>
+          </div>
+          
+          </div>
+          </div>
+
+          </div>
+          `);
+      })
     }
 
 
