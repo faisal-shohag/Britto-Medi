@@ -125,7 +125,7 @@ var x = setInterval(function() {
   if (distance < 0) {
     clearInterval(x);
     if(callback){
-      callback("Enroll Now");
+      callback("Running");
     }
   }
 }, 1000);

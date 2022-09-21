@@ -624,7 +624,7 @@ router.on({
       <span class="visually-hidden"></span>
       </div></div>
       </div>
-      <div class="enroll siliguri">--:--:--</div>
+      <div class="enroll siliguri">Enroll Now</div>
       `
       store.collection('courses').doc(params.id).get().then(snap=> {
          let data =  courseData(snap.data());
@@ -636,8 +636,7 @@ router.on({
           <div class="course-countdown">${splitDate(data.start_time)[1]} ${splitDate(data.start_time)[2]}</div>
 
           <div class="course-materials">
-          <div class="mat"><i class="icofont-book-alt"></i> ${data.subject_exam} Paper Exams</div>
-          <div class="mat"><i class="icofont-clip-board"></i> ${data.model_test} Model Tests</div>
+          
           </div>
           </div>
 
@@ -710,7 +709,7 @@ router.on({
           `);
 
           enrollTimer(data.start_time, time=>{
-            $('.enroll').html(time);
+            $('.course-materials').html(time);
           });
 
       })
