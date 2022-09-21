@@ -164,6 +164,11 @@ body {
 .live-card .details {
   font-size: 12px;
   text-decoration: underline;
+
+}
+
+.live-card .details a{
+  color: #eee !important;
 }
 
 .live-card .time {

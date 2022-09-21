@@ -135,17 +135,18 @@ router.on({
         //live
         getLives(lives=>{
           let l = lives[0];
-
           $('#live_banner').html(`
           <div class="live-bg"><img src="${l.img_link}"/></div>
             <div class="title">${l.title}</div>
-            <div calss="time">${dateForm(l.start_time)}</div>
+            <div calss="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
           
           `);
 
           liveBannerTimer(l.start_time, l.end_time, time=>{
             $('#live_countdown').html(time);
           });
+
+          $('.live-card .details').html(`<a href="live/${l.id}">Details</a>`)
 
           
 

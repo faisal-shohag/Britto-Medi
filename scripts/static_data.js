@@ -103,6 +103,14 @@ function dateForm(date){
   return d[2]+' '+d[1] + ' ' + d[3] 
 }
 
+//form time
+function timeForm(date) {
+  let d = date.split(' ')[4];
+   d = d.split(':');
+  let time = parseInt(d[0]) > 12 ? (parseInt(d[0])-12)+':'+d[1]+'PM' : parseInt(d[0])+':'+d[1]+'AM';
+   return time;
+}
+
 //enrolltimer
 function enrollTimer(date, callback){
 var countDownDate = new Date(date).getTime();
@@ -169,9 +177,9 @@ function getLives(callback){
       let start = new Date(item.data().start_time);
       let d = new Date();
       if(start.getTime() >= d){
-        lives.push(item.data());
+        lives.push({...item.data(), id: item.id});
       }else{
-        ended.push(item.data());
+        ended.push({...item.data(), id: item.id});
       }
       
     });
