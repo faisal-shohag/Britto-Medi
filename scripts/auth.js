@@ -139,6 +139,7 @@ function singOut(){
 }
 
 var UID = false;
+var std_name = false;
 function authCheck(send){
 
 firebase.auth().onAuthStateChanged(user=> {
@@ -210,6 +211,7 @@ firebase.auth().onAuthStateChanged(user=> {
                 })
 
             }else{
+              std_name = snap.data().name
                 $('.user-panel').show();
                 $('.user-panel').html(`
                 <div class="user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img class="rounded-circle" src="./images/doctor.png"></div>

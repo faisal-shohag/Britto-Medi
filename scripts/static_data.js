@@ -118,10 +118,6 @@ var x = setInterval(function() {
   if(callback){
     callback(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ")
   }
- // document.getElementById(".enroll").innerHTML = days + "d " + hours + "h "
-  //+ minutes + "m " + seconds + "s ";
-
-  // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
     if(callback){
@@ -130,3 +126,66 @@ var x = setInterval(function() {
   }
 }, 1000);
 }
+
+//live banner timer
+function liveBannerTimer(date, end, callback){
+  let s = new Date(date);
+  let e = new Date(end);
+  if(e.getTime()>s.getTime()){
+    date = end;
+  }else {
+    date = date;
+  }
+
+  var countDownDate = new Date(date).getTime();
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+  
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+    if(callback){
+      callback(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ")
+    }
+    if (distance < 0) {
+      clearInterval(x);
+      if(callback){
+        callback("Finished");
+      }
+    }
+  }, 1000);
+  }
+
+
+function getLives(callback){
+  store.collection('lives').get().then(docs=>{
+
+    let lives = [];
+    let ended = [];
+    docs.forEach(item=>{
+      let start = new Date(item.data().start_time);
+      let d = new Date();
+      if(start.getTime() >= d){
+        lives.push(item.data());
+      }else{
+        ended.push(item.data());
+      }
+      
+    });
+
+    lives.sort((a, b) => {
+      return new Date(a.start_time) - new Date(b.start_time);
+    })
+    if(callback){
+      callback(lives);
+    }
+
+
+  });
+
+
+}
+

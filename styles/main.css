@@ -95,6 +95,11 @@ body {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 
+#live_countdown{
+  font-size: 13px;
+  font-weight: normal;
+}
+
 .grad-1 {
   background: #f857a6;
   background: -webkit-linear-gradient(to right, #ff5858, #81194b);
@@ -171,13 +176,15 @@ body {
 
 .live-card .live-bg {
   position: absolute;
-  bottom: -30px;
-  left: -55px;
+  bottom: 0px;
+  left: -5px;
   z-index: -1;
 }
 
+
+
 .live-bg img {
-  height: 150px;
+  height: 100px;
 }
 
 .section {

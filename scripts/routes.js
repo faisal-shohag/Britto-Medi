@@ -33,11 +33,13 @@ router.on({
         </div>
           
         <div class="live-card siliguri">
-           <div class="live-bg"><img src="../images/delta.png"/></div>
-            <div class="title">🧗🏼ডেলটা সিলেকশন</div>
-            <div calss="time">12 Nov 2022</div>
-            <div class="countdown">Registration in 3 weeks</div>
-            <div class="details">Details</div>
+           <div id="live_banner">
+           <center><div class="spinner-border text-light" role="status">
+           <span class="visually-hidden">Loading...</span>
+         </div></center>
+           </div>
+            <div id="live_countdown" class=""></div>
+            <div class="details"></div>
         </div>
     
         </div>
@@ -130,6 +132,25 @@ router.on({
           })
         });
 
+        //live
+        getLives(lives=>{
+          let l = lives[0];
+
+          $('#live_banner').html(`
+          <div class="live-bg"><img src="${l.img_link}"/></div>
+            <div class="title">${l.title}</div>
+            <div calss="time">${dateForm(l.start_time)}</div>
+          
+          `);
+
+          liveBannerTimer(l.start_time, l.end_time, time=>{
+            $('#live_countdown').html(time);
+          });
+
+          
+
+        })
+
 
         //courses
         store.collection('courses').get().then(snap=> {
@@ -151,7 +172,7 @@ router.on({
           });
         }).catch(err=>{
           console.log(err);
-        })
+        });
     },
     '/select_practice': function() {
         $('.top-title').text('Practice Exams');
@@ -668,6 +689,7 @@ router.on({
               moneyId:{
                 [UID]: {
                   transId: transId,
+                  std_name: std_name,
                   status: 0
                 }
               }
@@ -794,7 +816,7 @@ router.on({
             }else{
               $('#sendTrans').show();
               $('.enroll').text('Rejected!');
-              $('#transText').html(`<center>[REJECTED]</center><br>তুমি এর আগে একটি TRANS ID send করেছো। তোমার Send করা Id টিঃ ${data.moneyId[UID].transId}। ID টি সঠিক নয়। আবার সেন্ড করো অথবা 01318067123 এই নম্বরে কল করে সাহায্য নাও।`);
+              $('#transText').html(`<center>[REJECTED]</center><br>তুমি এর আগে একটি TRANS ID send করেছো। তোমার Send করা Id টিঃ ${data.moneyId[UID].transId}. ID টি সঠিক নয়। আবার সেন্ড করো অথবা 01318067123 এই নম্বরে কল করে সাহায্য নাও।`);
             }
           }
 

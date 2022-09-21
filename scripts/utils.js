@@ -20,11 +20,11 @@ router.on({
 
             
 
-            <div class="course-card">
+            <a href="#!/live"><div class="course-card">
             <div class="details">
             <div class="title">Live Exam</div>
             </div>
-            </div>
+            </div></a>
         </div>
       
       </div>
@@ -186,6 +186,78 @@ router.on({
 
             console.log(data);
             store.collection('courses').add(data)
+            .then(doc=>{
+                console.log(doc.id);
+
+            }).catch(error=> {
+                console.log(error);
+            })
+        })
+    },
+    '/live': function() {
+        app.innerHTML = `
+        <body>
+        <form id="add_course">
+        <div>
+        <input type="text" name="title" placeholder="title"/>
+        </div>
+
+        <div>
+        <input type="text" name="sub_title" placeholder="sub_title"/>
+        </div>
+
+        <div>
+        Start time
+        <input type="datetime-local" name="start_time" placeholder="time"/>
+        </div>
+
+        <div>
+        End time
+        <input type="datetime-local" name="end_time" placeholder="time"/>
+        </div>
+
+        <div>
+        <textarea type="text" name="details" placeholder="details"></textarea>
+        </div>
+
+        <div>
+        <input type="number" name="duration" placeholder="Duration">
+        </div>
+
+
+
+        <select name="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option selected>type</option>
+        <option value="1">Free</option>
+        <option value="0">Premium</option>
+        </select>
+
+
+        <div>
+        <input type="text" name="img_link" placeholder="img_link"/>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </body>
+        `
+        const add_course = document.getElementById('add_course');
+
+        add_course.addEventListener('submit', e=> {
+            e.preventDefault();
+            let data = {
+                title: add_course.title.value,
+                sub_title: add_course.sub_title.value,
+                start_time: (new Date(add_course.start_time.value)).toString(),
+                end_time: (new Date(add_course.end_time.value)).toString(),
+                details: add_course.details.value,
+                type: add_course.type.value,
+                img_link: add_course.img_link.value
+
+            }
+
+            console.log(data);
+            store.collection('lives').add(data)
             .then(doc=>{
                 console.log(doc.id);
 
