@@ -682,9 +682,9 @@ router.on({
 
           <div class="social siliguri">
           Join:
-          <a href="https://t.me/britto_medi"><div style="color: green;"><i class="icofont-telegram"></i></div></a>
-          <a href="https://t.me/brittomedi"><div><i class="icofont-telegram"></i></div></a>
-          <a href="https://www.facebook.com/groups/482665923338855/"><div><i class="icofont-facebook"></i></div></a>
+          <a target="_blank" href="https://t.me/britto_medi"><div style="color: green;"><i class="icofont-telegram"></i></div></a>
+          <a target="_blank" href="https://t.me/brittomedi"><div><i class="icofont-telegram"></i></div></a>
+          <a target="_blank" href="https://www.facebook.com/groups/482665923338855/"><div><i class="icofont-facebook"></i></div></a>
           </div>
 
           <a href="${data.course_plan_link}"><center><div class="course-download"><i class="icofont-download"></i> Download Course Plan</div></center></a>
