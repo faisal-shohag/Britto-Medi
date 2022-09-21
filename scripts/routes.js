@@ -624,10 +624,65 @@ router.on({
       <span class="visually-hidden"></span>
       </div></div>
       </div>
-      <div class="enroll siliguri">Enroll Now</div>
+      <div class="enroll siliguri" data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll Now</div>
+      
+      
+      <div class="modal fade" id="enrollModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel"><img src="../images/BKash.png"> Send money 
+              
+              <div id="transLoader">
+              <div class="spinner-border text-success" role="status">
+              <span class="visually-hidden">Loading...</span>
+              </div>
+              </div>
+              
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body trans_modal_body modal-dialog-scrollable">
+             <div id="transText"> প্রথমে bKash থেকে <span id="amount"></span> 01318067123 নম্বরে send money করো। এরপর 
+              TRANS ID টি নিচে লিখে সেন্ড করো। অল্প সময়ের মধ্যেই তোমার সাথে যোগাযোগ করা হবে।</div>
+
+              <div class="input-group">
+              <span class="input-group-text" id="inputGroup-sizing-default">TRANS ID</span>
+              <input id="transId" type="text" class="form-control" aria-label="Sizing example input" placeholder="ex: 9IH5CGI6LH" aria-describedby="inputGroup-sizing-default">
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+              <button id="sendTrans" type="button" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       `
-      store.collection('courses').doc(params.id).get().then(snap=> {
+
+      $('#sendTrans').click(function(){
+            $('#transLoader').show();
+            let transId = $('#transId').val();
+            store.collection('courses').doc(params.id).update({
+              moneyId:{
+                [UID]: {
+                  transId: transId,
+                  status: 0
+                }
+              }
+            }).then(()=>{
+              $('#transLoader').hide();
+              Swal.fire({
+                icon: 'success',
+                text: 'Transaction id sent!'
+              });
+            })
+
+      });
+      store.collection('courses').doc(params.id).onSnapshot(snap=> {
          let data =  courseData(snap.data());
+         $('#amount').text(data.fee);
           $('.course-wrap').html(`
           <div class="course-top">
           <div class="course-title">${data.title}</div>
@@ -680,12 +735,7 @@ router.on({
           <div class="text"><i class="icofont-wall-clock"></i> Starting From:</div><div class="value"> ${dateForm(data.start_time)}</div>
           </div>
 
-          <div class="social siliguri">
-          Join:
-          <a target="_blank" href="https://t.me/britto_medi"><div style="color: green;"><i class="icofont-telegram"></i></div></a>
-          <a target="_blank" href="https://t.me/brittomedi"><div><i class="icofont-telegram"></i></div></a>
-          <a target="_blank" href="https://www.facebook.com/groups/482665923338855/"><div><i class="icofont-facebook"></i></div></a>
-          </div>
+          
 
           <a href="${data.course_plan_link}"><center><div class="course-download"><i class="icofont-download"></i> Download Course Plan</div></center></a>
 
@@ -698,6 +748,13 @@ router.on({
           <div class="comments-off">
           <img src="../images/no-message.png">
           <div class="text">Comments are turned off!</div>
+          </div>
+
+          <div class="social siliguri">
+          Join:
+          <a target="_blank" href="https://t.me/britto_medi"><div style="color: green;"><i class="icofont-telegram"></i></div></a>
+          <a target="_blank" href="https://t.me/brittomedi"><div><i class="icofont-telegram"></i></div></a>
+          <a target="_blank" href="https://www.facebook.com/groups/482665923338855/"><div><i class="icofont-facebook"></i></div></a>
           </div>
           
           </div>
@@ -712,7 +769,40 @@ router.on({
             $('.course-materials').html(time);
           });
 
-      })
+          //
+          // console.log(data);
+
+          if(data.moneyId){
+            console.log(data.moneyId[UID].status)
+            if(data.moneyId[UID].status == 0){
+              $('.enroll').text('Pending');
+              $('#transText').html(`তুমি এর আগে একটি TRANS ID send করেছো। তোমার Send করা Id টিঃ ${data.moneyId[UID].transId}.  কিছুক্ষণের মধ্যেই তোমার সাথে যোগাযোগ করা হবে।`);
+              $('#sendTrans').show();
+              $('#sendTrans').html(`Send Again`);
+
+            }
+            else if(data.moneyId[UID].status == 1){
+              $('.enroll').html(`<i class="icofont-verification-check"></i> PAID!`);
+              $('.trans_modal_body').html(`
+              <div class="paid">
+              <i class="icofont-taka-true"></i>
+              Paid
+              </div>
+
+              `);
+              $('#sendTrans').hide();
+            }else{
+              $('#sendTrans').show();
+              $('.enroll').text('Rejected!');
+              $('#transText').html(`<center>[REJECTED]</center><br>তুমি এর আগে একটি TRANS ID send করেছো। তোমার Send করা Id টিঃ ${data.moneyId[UID].transId}। ID টি সঠিক নয়। আবার সেন্ড করো অথবা 01318067123 এই নম্বরে কল করে সাহায্য নাও।`);
+            }
+          }
+
+          
+
+      });
+
+
     }
 
 

@@ -191,3 +191,35 @@ button{
     justify-content: center;
     align-items: center;
   }
+
+
+  .modal-title{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .modal-title img {
+    height: 30px;
+  }
+
+  .modal-body{
+    font-family: 'poppins', Kalpurush;
+  }
+
+  .paid{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .paid i{
+    font-size: 30px;
+    color: green;
+  }
+
+  #transLoader{
+    display: none;
+  }

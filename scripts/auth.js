@@ -138,10 +138,12 @@ function singOut(){
           });
 }
 
+var UID = false;
 function authCheck(send){
 
 firebase.auth().onAuthStateChanged(user=> {
     if(user) {
+      UID = user.uid;
         store.collection('users').doc(user.uid).get().then(snap=>{
             // console.log(snap.data());
             if(!snap.data().name) {
