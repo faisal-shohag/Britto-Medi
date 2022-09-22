@@ -901,8 +901,10 @@ router.on({
       </div>
       </div>
       `
-
-      store.collection('lives').doc(params.id).onSnapshot(doc=>{
+      getLive();
+      function getLive(){
+      store.collection('lives').doc(params.id).get().then(doc=>{
+        console.log(params.id);
         let data = doc.data();
         $('.top-title').html(`${data.title}`);
           $('.live-post').html(`
@@ -978,7 +980,8 @@ router.on({
                         Swal.fire({
                           icon: 'success',
                           text: 'Registration completed!'
-                        })
+                        });
+                        getLive();
                       })
                   }
                 })
@@ -995,6 +998,7 @@ router.on({
                 e.preventDefault();
                 let cmnt =  $('#comment_value').val();
                 if(cmnt.trim() != ''){
+                  getLive();
                   store.collection('lives').doc(params.id).set({
                     comments: {
                       [randomString(6)]:{
@@ -1055,7 +1059,8 @@ router.on({
           
 
       })
-    }
+      }
+  }
 
 
 
