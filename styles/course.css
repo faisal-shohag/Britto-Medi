@@ -223,3 +223,66 @@ button{
   #transLoader{
     display: none;
   }
+
+  .live-post{
+    font-family: 'poppins', Kalpurush;
+    border: 1px solid #eee;
+    /* padding: 5px; */
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+
+  .live-post .post{
+
+  }
+
+  .live-post .post .post-top{
+    display: flex;
+    justify-content: space-between;
+    background: #ececf1;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 2px;
+  }
+
+
+  .live-post .post .avatar{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.2rem;
+  }
+
+  .post-top .date{
+    font-size: 12px;
+  }
+
+  .post-top .time{
+    text-align: center;
+    font-size: 14px;
+  }
+
+
+
+  .post .title{
+    font-size: 16px;
+  }
+
+  .post .sub-title{
+    font-size: 10px;
+    color: #626264;
+  }
+
+  .live-post .post .avatar img{
+    height: 50px;
+  }
+
+  .live-post .post-body{
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .live-post .comments{
+    padding: 10px;
+    border-top: 1px solid #eee;
+  }

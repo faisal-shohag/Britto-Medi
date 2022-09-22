@@ -146,7 +146,7 @@ router.on({
             $('#live_countdown').html(time);
           });
 
-          $('.live-card .details').html(`<a href="live/${l.id}">Details</a>`)
+          $('.live-card .details').html(`<a href="#!/live/details/${l.id}">Details</a>`)
 
           
 
@@ -826,6 +826,63 @@ router.on({
       });
 
 
+    },
+    '/live/list': function(){
+      $('.top-title').html(`Lives`);
+      app.innerHTML = `
+      <div class="body">
+      
+      
+      </body>
+      `
+    },
+    '/live/details/:id': function(params){
+      $('.top-title').html(`Live`);
+      app.innerHTML = `
+      <div class="body">
+      <div class="live-post">
+
+      <center><div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div></center>
+
+      
+      
+      </div>
+      
+      </div>
+      `
+
+      store.collection('lives').doc(params.id).onSnapshot(doc=>{
+        let data = doc.data();
+        $('.top-title').html(`${data.title}`);
+          $('.live-post').html(`
+          <div class="post">
+          <div class="post-top">
+          <div class="avatar">
+          <div class="img"><img src="${data.img_link}"/></div>
+          <div>
+          <div class="title">${data.title}</div>
+          <div class="sub-title">${data.sub_title}</div>
+          </div>
+          </div>
+          <div>
+          <div class="date">${dateForm(data.start_time)}</div>
+          <div class="time">${timeForm(data.start_time)}</div>
+          </div>
+
+          </div>
+          
+          <div class="post-body">${data.details}</div>
+
+          <div class="comments">
+          comments
+          </div>
+
+          </div>
+          
+          `)
+      })
     }
 
 

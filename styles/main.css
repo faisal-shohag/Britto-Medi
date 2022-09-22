@@ -117,30 +117,29 @@ body {
   font-weight: bold;
   text-align: center;
   color: #fff;
-  font-weight: bold;
-  font-family: Hind Siliguri;
+  font-weight: 900;
+  font-family: Kalpurush;
 }
 
 .q-card .options {
-  margin-top: 5px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
 .q-card .option {
-  font-family: Hind Siliguri;
+  font-family: Kalpurush;
   text-align: center;
 }
 
 .q-card .option {
   flex: 50%;
   margin: 3px;
-  padding: 3px;
+  padding: 2px;
   /* padding-left: 10px; */
   border-radius: 3px;
   background: #fff;
   /* border: 1px solid #eee; */
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .more {
