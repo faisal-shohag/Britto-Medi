@@ -794,32 +794,40 @@ router.on({
 
           //
           // console.log(data);
-
-          if(data.moneyId){
-            console.log(data.moneyId[UID].status)
-            if(data.moneyId[UID].status == 0){
-              $('.enroll').text('Pending');
-              $('#transText').html(`তুমি এর আগে একটি TRANS ID send করেছো। তোমার Send করা Id টিঃ ${data.moneyId[UID].transId}.  কিছুক্ষণের মধ্যেই তোমার সাথে যোগাযোগ করা হবে।`);
-              $('#sendTrans').show();
-              $('#sendTrans').html(`Send Again`);
-
+          if(UID){
+            if(data.moneyId){
+              console.log(data.moneyId[UID].status)
+              if(data.moneyId[UID].status == 0){
+                $('.enroll').text('Pending');
+                $('#transText').html(`তুমি এর আগে একটি TRANS ID send করেছো। তোমার Send করা Id টিঃ ${data.moneyId[UID].transId}.  কিছুক্ষণের মধ্যেই তোমার সাথে যোগাযোগ করা হবে।`);
+                $('#sendTrans').show();
+                $('#sendTrans').html(`Send Again`);
+  
+              }
+              else if(data.moneyId[UID].status == 1){
+                $('.enroll').html(`<i class="icofont-verification-check"></i> PAID!`);
+                $('.trans_modal_body').html(`
+                <div class="paid">
+                <i class="icofont-taka-true"></i>
+                Paid
+                </div>
+  
+                `);
+                $('#sendTrans').hide();
+              }else{
+                $('#sendTrans').show();
+                $('.enroll').text('Rejected!');
+                $('#transText').html(`<center>[REJECTED]</center><br>তুমি এর আগে একটি TRANS ID send করেছো। তোমার Send করা Id টিঃ ${data.moneyId[UID].transId}. ID টি সঠিক নয়। আবার সেন্ড করো অথবা 01318067123 এই নম্বরে কল করে সাহায্য নাও।`);
+              }
             }
-            else if(data.moneyId[UID].status == 1){
-              $('.enroll').html(`<i class="icofont-verification-check"></i> PAID!`);
-              $('.trans_modal_body').html(`
-              <div class="paid">
-              <i class="icofont-taka-true"></i>
-              Paid
-              </div>
-
-              `);
-              $('#sendTrans').hide();
-            }else{
-              $('#sendTrans').show();
-              $('.enroll').text('Rejected!');
-              $('#transText').html(`<center>[REJECTED]</center><br>তুমি এর আগে একটি TRANS ID send করেছো। তোমার Send করা Id টিঃ ${data.moneyId[UID].transId}. ID টি সঠিক নয়। আবার সেন্ড করো অথবা 01318067123 এই নম্বরে কল করে সাহায্য নাও।`);
-            }
+          }else{
+            $('.trans_modal_body').html(`
+            <center>
+              সাইন ইন করো প্রথমে।
+            <button class="btn btn-primary">Sign In</button></center>
+            `);
           }
+          
 
           
 
