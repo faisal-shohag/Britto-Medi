@@ -933,7 +933,7 @@ router.on({
           </div>
 
           <div class="comments">
-          <div class="comment-title">Comments<span id="cmnt_count"></span></div>
+          <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div>  <div id="refresh">Reload</div></div>
           
           <div class="comment-form"></div>
           <div id="all_comments">
@@ -947,6 +947,10 @@ router.on({
           </div>
           
           `);
+
+          $('#refresh').click(function(){
+            getLive();
+          })
 
           if(UID){
             if(data.reg_std && data.reg_std[UID]){
@@ -1034,6 +1038,7 @@ router.on({
           if(data.comments){
             
             let comments = Object.entries(data.comments);
+            comments.sort((a,b)=> new Date(b[1].at) - new Date(a[1].at));
             $('#cmnt_count').html(`(${comments.length})`)
             all_comments.innerHTML = ``;
             comments.forEach(cmnt=>{
