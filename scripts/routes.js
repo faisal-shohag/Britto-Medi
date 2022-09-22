@@ -903,7 +903,7 @@ router.on({
       `
       getLive();
       function getLive(){
-      store.collection('lives').doc(params.id).get().then(doc=>{
+     return store.collection('lives').doc(params.id).get().then(doc=>{
         console.log(params.id);
         let data = doc.data();
         $('.top-title').html(`${data.title}`);
