@@ -197,3 +197,32 @@ function getLives(callback){
 
 }
 
+
+
+//random id
+function randomString(length) {
+  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz'.split('');
+
+  if (! length) {
+      length = Math.floor(Math.random() * chars.length);
+  }
+
+  var str = '';
+  for (var i = 0; i < length; i++) {
+      str += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return str;
+}
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+

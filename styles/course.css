@@ -337,3 +337,41 @@ button{
     color: #c40f5a;
     font-weight: bold;
   }
+
+  form button{
+    margin: 5px;
+  }
+
+  .no-cmnt{
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  .comment-wrap{
+   padding: 10px;
+   border-top: 1px solid #eee;
+  }
+
+  .comment-avatar{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+  }
+
+  .comment-det{
+    
+  }
+
+  .comment-det .name{
+   font-size: 13px;
+  }
+
+  .comment-det .time{
+   font-size: 10px;
+  }
+
+  .comment-body{
+    font-size: 13px;
+    padding: 5px;
+  }

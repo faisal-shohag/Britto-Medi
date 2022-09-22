@@ -931,7 +931,15 @@ router.on({
           </div>
 
           <div class="comments">
-          comments
+          <div class="comment-title">Comments<span id="cmnt_count"></span></div>
+          
+          <div class="comment-form"></div>
+          <div id="all_comments">
+          <center><div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div></center>
+          </div>
+          
           </div>
 
           </div>
@@ -976,14 +984,73 @@ router.on({
                 })
               });
             }
+
+            $('.comment-form').html(`<form id="comment_form">
+            <div class="form-group">
+            <textarea class="form-control" id="comment_value" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Comment</button>
+            </form>`);
+              document.getElementById('comment_form').addEventListener('submit',e=>{
+                e.preventDefault();
+                let cmnt =  $('#comment_value').val();
+                if(cmnt.trim() != ''){
+                  store.collection('lives').doc(params.id).set({
+                    comments: {
+                      [randomString(6)]:{
+                        comment: cmnt,
+                        name: std_name,
+                        at: (new Date()).toISOString()
+                      }
+                    }
+                  }, {merge: true} ).then(()=>{
+                    Toast.fire({
+                      icon: 'success',
+                      title: 'Commented!'
+                    })
+                  })
+                }
+              })
+
+
           } else {
             $('#live_register').click(function() {
               Swal.fire({
                 'icon': 'warning',
-                text: 'YPlease sign in first!'
+                text: 'Please sign in first!'
               });
             });
+
+            $('.comment-form').html(`
+            <div class="reg_nb">You must sign in to comment!</div>
+            `)
           }
+
+          let all_comments = document.getElementById('all_comments');
+          if(data.comments){
+            
+            let comments = Object.entries(data.comments);
+            $('#cmnt_count').html(`(${comments.length})`)
+            all_comments.innerHTML = ``;
+            comments.forEach(cmnt=>{
+              all_comments.innerHTML += `
+              <div class="comment-wrap">
+              <div class="comment-avatar">
+              <img height="30px" src="../images/doctor.png">
+              <div class="comment-det">
+              <div class="name">${cmnt[1].name}</div>
+              <div class="time">${moment(cmnt[1].at).fromNow(true)} ago</div>
+              </div>
+              </div>
+              <div class="comment-body">${cmnt[1].comment}</div>
+              </div>
+              `
+            })
+          }else{
+            all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
+          }
+
+          
 
           
 
