@@ -977,10 +977,12 @@ router.on({
               });
             }
           } else {
+            $('#live_register').click(function() {
               Swal.fire({
                 'icon': 'warning',
-                text: 'Please Sign In First!'
+                text: 'YPlease sign in first!'
               });
+            });
           }
 
           
