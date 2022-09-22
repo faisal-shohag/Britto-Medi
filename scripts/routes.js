@@ -850,7 +850,7 @@ router.on({
        </div></center>
       </div>
       </div>
-      
+
       <div class="adv" id="live-adv-banner"><img src="../images/Ads/Live Banner.png"></div>
      
       </body>
@@ -897,12 +897,8 @@ router.on({
 
       <center><div class="spinner-border text-secondary" role="status">
       <span class="visually-hidden">Loading...</span>
-    </div></center>
-
-      
-      
+      </div></center>
       </div>
-      
       </div>
       `
 
@@ -926,7 +922,13 @@ router.on({
 
           </div>
           
-          <div class="post-body">${data.details}</div>
+          <div class="post-body">${data.details}
+          
+          <div class="live-nb">#পরীক্ষায় অংশগ্রহণ করতে অবশ্যই Registration করতে হবে। নিচে Register বাটনে ক্লিক করে Registration করে রাখো।</div>
+          </div>
+          <div class="live_option">
+          <button id="live_register" class="btn btn-success">Register</button>
+          </div>
 
           <div class="comments">
           comments
@@ -934,7 +936,55 @@ router.on({
 
           </div>
           
-          `)
+          `);
+
+          if(UID){
+            if(data.reg_std && data.reg_std[UID]){
+              $('#live_register').text('Registered');
+              $('#live_register').removeClass('btn-success');
+              $('#live_register').addClass('btn-secondary');
+              $('#live_register').click(function() {
+                Swal.fire({
+                  'icon': 'info',
+                  text: 'You have already registered!'
+                });
+              });
+            }else {
+              $('#live_register').click(function() {
+                Swal.fire({
+                  icon: 'question',
+                  text: 'Do you want to register?',
+                  confirmButton: true,
+                  cancelButton: true,
+                  confirmButtonText: 'Yes',
+                  cancelButtonText: 'No'
+                }).then(res=>{
+                  if(res.isConfirm){
+                      store.collection('lives').doc(params.id).update({
+                        reg_std:{
+                          [UID]: {
+                            name: std_name
+                          }
+                        }
+                      }).then(()=>{
+                        Swal.fire({
+                          icon: 'success',
+                          text: 'Registration completed!'
+                        })
+                      })
+                  }
+                })
+              });
+            }
+          } else {
+              Swal.fire({
+                'icon': 'warning',
+                text: 'Please Sign In First!'
+              });
+          }
+
+          
+
       })
     }
 
