@@ -313,3 +313,11 @@ button{
     background: #f5f4f5;
     margin-bottom: 10px;
   }
+
+  .adv{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+  .adv img{
+    width: 100%;
+  }

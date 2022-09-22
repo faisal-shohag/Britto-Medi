@@ -825,7 +825,7 @@ router.on({
             $('.trans_modal_body').html(`
             <center>
               সাইন ইন করো প্রথমে।<br>
-            <button class="btn btn-primary">Sign In</button></center>
+            <a href="#!/auth"><button class="btn btn-primary">Sign In</button></a></center>
             `);
           }
           
@@ -838,17 +838,21 @@ router.on({
     },
     '/live/list': function(){
       $('.top-title').html(`Lives`);
+
       app.innerHTML = `
       <div class="body">
+      
       <div class="list-wrap">
       <div class="list-title">Upcoming</div>
       <div class="list_upcoming" id="live_list">
-      <div class="spinner-border text-success" role="status">
+     <center> <div class="spinner-border text-success" role="status">
       <span class="visually-hidden">Loading...</span>
-       </div>
+       </div></center>
       </div>
       </div>
       
+      <div class="adv" id="live-adv-banner"><img src="../images/Ads/Live Banner.png"></div>
+     
       </body>
       `
 
