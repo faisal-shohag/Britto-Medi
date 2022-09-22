@@ -286,3 +286,30 @@ button{
     padding: 10px;
     border-top: 1px solid #eee;
   }
+
+  #live_list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+
+  .lc{
+    font-size: 13px;
+  }
+
+  .list-wrap{
+    border: 1px solid #eee;
+    padding: 0px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .list-title{
+    padding: 5px;
+    font-size: 20px;
+    /* font-weight: bold; */
+    font-family: poppins;
+    background: #f5f4f5;
+    margin-bottom: 10px;
+  }

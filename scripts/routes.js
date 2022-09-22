@@ -29,7 +29,7 @@ router.on({
         <div class="section">
         <div class="section-heading">
         <div class="sec-sec1"><div class="icon"><img src="../images/bell.png"></div><div class="text">Live Exams</div></div>
-        <div class="more">See All</div>
+        <a href="#!/live/list"><div class="more">See All</div></a>
         </div>
           
         <div class="live-card siliguri">
@@ -821,9 +821,10 @@ router.on({
               }
             }
           }else{
+            $('#sendTrans').hide();
             $('.trans_modal_body').html(`
             <center>
-              সাইন ইন করো প্রথমে।
+              সাইন ইন করো প্রথমে।<br>
             <button class="btn btn-primary">Sign In</button></center>
             `);
           }
@@ -839,10 +840,50 @@ router.on({
       $('.top-title').html(`Lives`);
       app.innerHTML = `
       <div class="body">
-      
+      <div class="list-wrap">
+      <div class="list-title">Upcoming</div>
+      <div class="list_upcoming" id="live_list">
+      <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+       </div>
+      </div>
+      </div>
       
       </body>
       `
+
+      getLives(live=>{
+        const list_upcoming = document.querySelector('.list_upcoming');
+        live_list.innerHTML = '';
+
+        for(let i=0; i<live.length; i++){
+          list_upcoming.innerHTML +=`
+          <div class="live-card kalpurush">
+          <div class="live-bg"><img src="${live[i].img_link}"/></div>
+          <div class="title">${live[i].title}</div>
+          <div class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
+          <div class="badge"><img src="../images/${live[i].type}.png"/></div>
+          <div class="live_countdown-${i} lc"></div>
+          <a href="#!/live/details/${live[i].id}">Details</a>
+          </div>
+        `;
+        liveBannerTimer(live[i].start_time, live[i].end_time, time=>{
+          $('.live_countdown-'+i).html(time);
+        });
+        
+        }
+
+        
+       
+
+        
+
+        // $('.live-card .details').html(`<a href="#!/live/details/${l.id}">Details</a>`)
+
+        
+
+      })
+
     },
     '/live/details/:id': function(params){
       $('.top-title').html(`Live`);
