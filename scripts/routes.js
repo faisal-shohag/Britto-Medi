@@ -914,7 +914,7 @@ router.on({
       getLive();
       function getLive(){
      return store.collection('lives').doc(params.id).get().then(doc=>{
-        console.log(params.id);
+        // console.log(params.id);
         let data = doc.data();
         $('.top-title').html(`${data.title}`);
           $('.live-post').html(`
@@ -964,7 +964,7 @@ router.on({
                   confirmButtonText: 'Yes',
                   cancelButtonText: 'No'
                 }).then(res=>{
-                  if(res.isConfirm){
+                  if(res.isConfirmed){
                       store.collection('lives').doc(params.id).update({
                         reg_std:{
                           [UID]: {
@@ -977,6 +977,8 @@ router.on({
                           text: 'Registration completed!'
                         });
                         getLive();
+                      }).catch(err=>{
+                        console.log(err);
                       })
                   }
                 })
@@ -1020,56 +1022,11 @@ router.on({
             <div class="reg_nb">You must sign in to comment!</div>
             `)
           }
-
-         
-/*
-          
-            
-            let comments = Object.entries(data.comments);
-            comments.sort((a,b)=> new Date(b[1].at) - new Date(a[1].at));
-            $('#cmnt_count').html(`(${comments.length})`)
-            all_comments.innerHTML = ``;
-            console.log(comments);
-            comments.forEach(cmnt=>{
-              let edit = `<div id="${cmnt[0]}" class="comment-delete">Delete</div>`
-              if(cmnt[1].UID != UID){
-                edit = '';
-              }
-              all_comments.innerHTML += `
-              <div class="comment-wrap">
-              <div class="comment-avatar">
-              ${edit}
-              <img height="30px" src="../images/doctor.png">
-              <div class="comment-det">
-              <div class="name">${cmnt[1].name}</div>
-              <div class="time">${moment(cmnt[1].at).fromNow(true)} ago</div>
-              </div>
-              </div>
-              <div class="comment-body">${cmnt[1].comment}</div>
-              </div>
-              `
-            });
-
-            $('.comment-delete').click(function(){
-              let id = $(this)[0].id;
-              store.collection('lives').doc(params.id).update({
-                comments: {
-                  [id]: firebase.firestore.deleteField()
-                }
-              });
-              getLive();
-            })
-            
-       
-            //all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
         
-*/
-          
-
-          
-
       });
     }
+
+    //comments
     let all_comments = document.getElementById('all_comments');
     store.collection('lives').doc(params.id).collection('comments').onSnapshot(snap=>{
       let comments = []; 
