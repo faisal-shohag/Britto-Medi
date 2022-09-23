@@ -993,7 +993,6 @@ router.on({
                 e.preventDefault();
                 let cmnt =  $('#comment_value').val();
                 if(cmnt.trim() != ''){
-                  getLive();
                   store.collection('lives').doc(params.id).collection('comments').add({     
                         comment: cmnt,
                         name: std_name,
