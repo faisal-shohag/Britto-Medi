@@ -899,6 +899,16 @@ router.on({
       <span class="visually-hidden">Loading...</span>
       </div></center>
       </div>
+
+      <div class="comments kalpurush">
+          <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div></div>
+          
+          <div class="comment-form"></div>
+          <div id="all_comments">
+          <center><div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div></center>
+          </div>
       </div>
       `
       getLive();
@@ -921,36 +931,17 @@ router.on({
           <div class="date">${dateForm(data.start_time)}</div>
           <div class="time">${timeForm(data.start_time)}</div>
           </div>
-
           </div>
-          
           <div class="post-body">${data.details}
-          
           <div class="live-nb">#পরীক্ষায় অংশগ্রহণ করতে অবশ্যই Registration করতে হবে। নিচে Register বাটনে ক্লিক করে Registration করে রাখো।</div>
           </div>
           <div class="live_option">
           <button id="live_register" class="btn btn-success">Register</button>
           </div>
-
-          <div class="comments">
-          <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div>  <div id="refresh">Reload</div></div>
-          
-          <div class="comment-form"></div>
-          <div id="all_comments">
-          <center><div class="spinner-border text-secondary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div></center>
           </div>
-          
           </div>
-
-          </div>
-          
           `);
 
-          $('#refresh').click(function(){
-            getLive();
-          })
 
           if(UID){
             if(data.reg_std && data.reg_std[UID]){
@@ -1003,15 +994,12 @@ router.on({
                 let cmnt =  $('#comment_value').val();
                 if(cmnt.trim() != ''){
                   getLive();
-                  store.collection('lives').doc(params.id).set({
-                    comments: {
-                      [randomString(6)]:{
+                  store.collection('lives').doc(params.id).collection('comments').add({     
                         comment: cmnt,
                         name: std_name,
+                        UID: UID,
                         at: (new Date()).toISOString()
-                      }
-                    }
-                  }, {merge: true} ).then(()=>{
+                  }).then(()=>{
                     Toast.fire({
                       icon: 'success',
                       title: 'Commented!'
@@ -1034,17 +1022,24 @@ router.on({
             `)
           }
 
-          let all_comments = document.getElementById('all_comments');
-          if(data.comments){
+         
+/*
+          
             
             let comments = Object.entries(data.comments);
             comments.sort((a,b)=> new Date(b[1].at) - new Date(a[1].at));
             $('#cmnt_count').html(`(${comments.length})`)
             all_comments.innerHTML = ``;
+            console.log(comments);
             comments.forEach(cmnt=>{
+              let edit = `<div id="${cmnt[0]}" class="comment-delete">Delete</div>`
+              if(cmnt[1].UID != UID){
+                edit = '';
+              }
               all_comments.innerHTML += `
               <div class="comment-wrap">
               <div class="comment-avatar">
+              ${edit}
               <img height="30px" src="../images/doctor.png">
               <div class="comment-det">
               <div class="name">${cmnt[1].name}</div>
@@ -1054,17 +1049,78 @@ router.on({
               <div class="comment-body">${cmnt[1].comment}</div>
               </div>
               `
+            });
+
+            $('.comment-delete').click(function(){
+              let id = $(this)[0].id;
+              store.collection('lives').doc(params.id).update({
+                comments: {
+                  [id]: firebase.firestore.deleteField()
+                }
+              });
+              getLive();
             })
-          }else{
-            all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
-          }
-
+            
+       
+            //all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
+        
+*/
           
 
           
 
-      })
-      }
+      });
+    }
+    let all_comments = document.getElementById('all_comments');
+    store.collection('lives').doc(params.id).collection('comments').onSnapshot(snap=>{
+      let comments = []; 
+      comments.sort((a, b) => new Date(b.at) - new Date(a.at));
+      
+      all_comments.innerHTML = ``;
+      snap.forEach(item=>{
+        comments.push({...item.data(), id: item.id});
+       });
+       $('#cmnt_count').html(`(${comments.length})`);
+       if(comments.length === 0) all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
+        
+       comments.forEach(cmnt=>{
+        let edit = `<div id="${cmnt.id}" class="comment-delete">Delete</div>`
+        if(cmnt.UID != UID){
+          edit = '';
+        }
+        all_comments.innerHTML += `
+        <div class="comment-wrap">
+        <div class="comment-avatar">
+        ${edit}
+        <img height="30px" src="../images/doctor.png">
+        <div class="comment-det">
+        <div class="name">${cmnt.name}</div>
+        <div class="time">${moment(cmnt.at).fromNow(true)} ago</div>
+        </div>
+        </div>
+        <div class="comment-body">${cmnt.comment}</div>
+        </div>
+        `
+      });
+
+      $('.comment-delete').click(function(){
+        let id = $(this)[0].id;
+        store.collection('lives').doc(params.id).collection('comments').doc(id).delete().then(()=> {
+          Toast.fire({
+            icon: 'success',
+            title: 'Deleted!'
+          })
+        }).catch(err=>{
+          console.log(err);
+        });
+      });
+
+       
+    })
+
+
+
+
   }
 
 
