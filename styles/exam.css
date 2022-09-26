@@ -429,3 +429,21 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   gap: 10px;
   flex-wrap: wrap;
 }
+
+#live_countdown{
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  justify-content: center;
+}
+
+.running{
+  font-size: 16px;
+  color: crimson;
+}
+
+.t-num{
+  background: orangered;
+  padding: 3px;
+  width: 40px;
+}

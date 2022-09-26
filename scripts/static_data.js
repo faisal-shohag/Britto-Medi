@@ -199,6 +199,8 @@ function getLives(callback){
 
 
 
+
+
 //random id
 function randomString(length) {
   var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz'.split('');
@@ -226,3 +228,45 @@ const Toast = Swal.mixin({
   }
 })
 
+
+
+function liveTimer(date, end, element, sdate){
+ $(element).html(``);
+ 
+  var countDownDate = new Date(date).getTime();
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+  
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+      if(end==-1){
+        $(sdate).html(`<div class="running">Running</div>`);
+        $(element).html(`
+        <div class="t-num">${hours}H</div>
+        <div class="t-num">${minutes}M</div>
+        <div class="t-num">${seconds}S</div>
+        `)
+      }else{
+        $(element).html(`
+        <div class="t-num">${days}D</div>
+        <div class="t-num">${hours}H</div>
+        <div class="t-num">${minutes}M</div>
+        <div class="t-num">${seconds}S</div>
+        `);
+      }
+      
+    if (distance < 0) {
+      clearInterval(x);
+      if(end==-1){
+        $(element).html('Finished')
+      }else{
+        liveTimer(end, -1, element, sdate);
+      }
+      
+    }
+  }, 1000);
+  }

@@ -1,0 +1,36 @@
+
+body {
+    margin: 0;
+    font-family: Poppins;
+  }
+  
+  #left {
+    position: fixed;
+    /* background-color: green; */
+    width: 50%;
+    height: 100%;
+    overflow: auto;
+    right: 0;
+    padding: 20px;
+  }
+  
+  #right {
+    position: fixed;
+    /* background-color: red; */
+    width: 50%;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    padding: 20px;
+  }
+
+  .ad_head{
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    background: cornflowerblue;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: Poppins;
+    color: #eee;
+  }

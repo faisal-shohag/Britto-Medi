@@ -132,25 +132,38 @@ router.on({
           })
         });
 
-        //live
-        getLives(lives=>{
-          let l = lives[0];
+        //Running Exam 
+        db.ref('app/live').on('value', snap=>{
+          let l = snap.val();
           $('#live_banner').html(`
           <div class="live-bg"><img src="${l.img_link}"/></div>
             <div class="title">${l.title}</div>
-            <div class="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
+            <div id="s-time" class="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
             <div class="badge"><img src="../images/${l.type}.png"/></div>
           `);
-
-          liveBannerTimer(l.start_time, l.end_time, time=>{
-            $('#live_countdown').html(time);
-          });
-
           $('.live-card .details').html(`<a href="#!/live/details/${l.id}">Details</a>`)
-
           
-
+          liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
         })
+
+
+        //live
+        // getLives(lives=>{
+        //   let l = lives[0];
+        //   // console.log(lives);
+        //   $('#live_banner').html(`
+        //   <div class="live-bg"><img src="${l.img_link}"/></div>
+        //     <div class="title">${l.title}</div>
+        //     <div class="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
+        //     <div class="badge"><img src="../images/${l.type}.png"/></div>
+        //   `);
+
+        //   liveBannerTimer(l.start_time, l.end_time, time=>{
+        //     $('#live_countdown').html(time);
+        //   });
+
+        //   $('.live-card .details').html(`<a href="#!/live/details/${l.id}">Details</a>`)
+        // });
 
 
         //courses
