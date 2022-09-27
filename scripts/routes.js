@@ -951,7 +951,7 @@ router.on({
       <span class="visually-hidden">Loading...</span>
       </div></center>
           <div class="live_option">
-          <button id="live_register" class="btn btn-success">Register</button>
+          <button id="live_register"  class="btn btn-success live-rg-${params.id}">Register</button>
           <div id="live_det">
             <div id="status"></div>
             <div id="timer"></div>
@@ -973,7 +973,7 @@ router.on({
           if(UID){
            
            
-
+         
             if(data.reg_std && data.reg_std[UID]){
               $('#live_register').text('Registered');
               $('#live_register').removeClass('btn-success');
@@ -985,33 +985,42 @@ router.on({
                 });
               });
             }else {
+              
               $('#live_register').click(function() {
-                Swal.fire({
-                  icon: 'question',
-                  text: 'Do you want to register?',
-                  confirmButton: true,
-                  cancelButton: true,
-                  confirmButtonText: 'Yes',
-                  cancelButtonText: 'No'
-                }).then(res=>{
-                  if(res.isConfirmed){
-                      store.collection('lives').doc(params.id).update({
-                        reg_std:{
-                          [UID]: {
-                            name: std_name
+                if(data.isReg){
+                  Swal.fire({
+                    icon: 'question',
+                    text: 'Do you want to register?',
+                    confirmButton: true,
+                    cancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                  }).then(res=>{
+                    if(res.isConfirmed){
+                        store.collection('lives').doc(params.id).update({
+                          reg_std:{
+                            [UID]: {
+                              name: std_name
+                            }
                           }
-                        }
-                      }).then(()=>{
-                        Swal.fire({
-                          icon: 'success',
-                          text: 'Registration completed!'
-                        });
-                        getLive();
-                      }).catch(err=>{
-                        console.log(err);
-                      })
-                  }
-                })
+                        }).then(()=>{
+                          Swal.fire({
+                            icon: 'success',
+                            text: 'Registration completed!'
+                          });
+                          getLive();
+                        }).catch(err=>{
+                          console.log(err);
+                        })
+                    }
+                  });
+                }else{
+                  Swal.fire({
+                    icon: 'warning',
+                    text: 'Registration is turned off!'
+                  })
+                }
+                  
               });
             }
 

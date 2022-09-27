@@ -278,7 +278,8 @@ router.on({
                 isPublished: false,
                 show_q: false,
                 duration: add_course.duration.value,
-                neg: add_course.neg.value
+                neg: add_course.neg.value,
+                isReg: true
 
             }
 
@@ -772,7 +773,9 @@ router.on({
         </div>
 
         <div class="e-status"></div>
-        <button id="publish_q" class="btn btn-primary">Toggle Publish</button>
+        <button id="publish_q" class="btn btn-primary">Toggle Publish Q</button>
+        <button id="publish_res" class="btn btn-primary">Toggle Publish Result</button>
+        <button id="publish_reg" class="btn btn-primary">Toggle Register</button>
   
         <div class="comments kalpurush">
             <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div></div>
@@ -791,11 +794,13 @@ router.on({
           // console.log(params.id);
           let data = doc.data();
         //   console.log(data);
-          if(!data.show_q){
-            $('.e-status').html(`Show: false`)
-          }else{
-            $('.e-status').html(`Show: True`)
-          }
+        
+            $('.e-status').html(`
+            <div class="stat">Question Show: ${data.show_q}</div>
+            <div class="stat">isPublished: ${data.isPublished}</div>
+            <div class="stat">isReg: ${data.isReg}</div>
+            `)
+          
 
           $('#publish_q').click(function(){
             Swal.fire({
@@ -807,8 +812,33 @@ router.on({
                         show_q: !data.show_q
                     }).then(()=>{Swal.fire({icon:'success', text:'Changed!'})})
                 }
-            })
-            
+            });
+          });
+
+          $('#publish_res').click(function(){
+            Swal.fire({
+                icon:'question',
+                text: 'Are you sure?'
+            }).then((res)=>{
+                if(res.isConfirmed){
+                    store.collection('lives').doc(params.id).update({
+                        isPublished: !data.isPublished
+                    }).then(()=>{Swal.fire({icon:'success', text:'Changed!'})})
+                }
+            });
+          })
+
+          $('#publish_reg').click(function(){
+            Swal.fire({
+                icon:'question',
+                text: 'Are you sure?'
+            }).then((res)=>{
+                if(res.isConfirmed){
+                    store.collection('lives').doc(params.id).update({
+                        isReg: !data.isReg
+                    }).then(()=>{Swal.fire({icon:'success', text:'Changed!'})})
+                }
+            });
           })
 
           $('.top-title').html(`${data.title}`);
@@ -854,9 +884,6 @@ router.on({
             clearInterval(y);
             liveDetailsTimer(data.start_time, data.end_time, '#live_det #timer', '#live_det #status', `.st-${params.id}`)
             if(UID){
-             
-             
-  
               if(data.reg_std && data.reg_std[UID]){
                 $('#live_register').text('Registered');
                 $('#live_register').removeClass('btn-success');
@@ -940,52 +967,52 @@ router.on({
       }
   
       //comments
-      let all_comments = document.getElementById('all_comments');
-      store.collection('lives').doc(params.id).collection('comments').onSnapshot(snap=>{
-        let comments = []; 
-        comments.sort((a, b) => new Date(b.at) - new Date(a.at));
+    //   let all_comments = document.getElementById('all_comments');
+    //   store.collection('lives').doc(params.id).collection('comments').onSnapshot(snap=>{
+    //     let comments = []; 
+    //     comments.sort((a, b) => new Date(b.at) - new Date(a.at));
         
-        all_comments.innerHTML = ``;
-        snap.forEach(item=>{
-          comments.push({...item.data(), id: item.id});
-         });
-         $('#cmnt_count').html(`(${comments.length})`);
-         if(comments.length === 0) all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
+    //     all_comments.innerHTML = ``;
+    //     snap.forEach(item=>{
+    //       comments.push({...item.data(), id: item.id});
+    //      });
+    //      $('#cmnt_count').html(`(${comments.length})`);
+    //      if(comments.length === 0) all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
           
-         comments.forEach(cmnt=>{
-          let edit = `<div id="${cmnt.id}" class="comment-delete">Delete</div>`
-          if(cmnt.UID != UID){
-            edit = '';
-          }
-          all_comments.innerHTML += `
-          <div class="comment-wrap">
-          <div class="comment-avatar">
-          ${edit}
-          <img height="30px" src="../images/doctor.png">
-          <div class="comment-det">
-          <div class="name">${cmnt.name}</div>
-          <div class="time">${moment(cmnt.at).fromNow(true)} ago</div>
-          </div>
-          </div>
-          <div class="comment-body">${cmnt.comment}</div>
-          </div>
-          `
-        });
+    //      comments.forEach(cmnt=>{
+    //       let edit = `<div id="${cmnt.id}" class="comment-delete">Delete</div>`
+    //       if(cmnt.UID != UID){
+    //         edit = '';
+    //       }
+    //       all_comments.innerHTML += `
+    //       <div class="comment-wrap">
+    //       <div class="comment-avatar">
+    //       ${edit}
+    //       <img height="30px" src="../images/doctor.png">
+    //       <div class="comment-det">
+    //       <div class="name">${cmnt.name}</div>
+    //       <div class="time">${moment(cmnt.at).fromNow(true)} ago</div>
+    //       </div>
+    //       </div>
+    //       <div class="comment-body">${cmnt.comment}</div>
+    //       </div>
+    //       `
+    //     });
   
-        $('.comment-delete').click(function(){
-          let id = $(this)[0].id;
-          store.collection('lives').doc(params.id).collection('comments').doc(id).delete().then(()=> {
-            Toast.fire({
-              icon: 'success',
-              title: 'Deleted!'
-            })
-          }).catch(err=>{
-            console.log(err);
-          });
-        });
+    //     $('.comment-delete').click(function(){
+    //       let id = $(this)[0].id;
+    //       store.collection('lives').doc(params.id).collection('comments').doc(id).delete().then(()=> {
+    //         Toast.fire({
+    //           icon: 'success',
+    //           title: 'Deleted!'
+    //         })
+    //       }).catch(err=>{
+    //         console.log(err);
+    //       });
+    //     });
   
          
-      })
+    //   })
   
   
   
