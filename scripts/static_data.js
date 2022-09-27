@@ -262,7 +262,8 @@ function liveTimer(date, end, element, sdate){
     if (distance < 0) {
       clearInterval(x);
       if(end==-1){
-        $(element).html('Finished')
+        $(element).html('~.~');
+        $(sdate).html(`<div class="running">Finished</div>`);
       }else{
         liveTimer(end, -1, element, sdate);
       }
@@ -270,3 +271,68 @@ function liveTimer(date, end, element, sdate){
     }
   }, 1000);
   }
+
+
+  var y;
+//live det timer
+function liveDetailsTimer(date, end, element, sdate, button){
+  $(element).html(``);
+  $(sdate).html(``);
+   var countDownDate = new Date(date).getTime();
+   y = setInterval(function() {
+     var now = new Date().getTime();
+     var distance = countDownDate - now;
+   
+     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+   
+       if(end==-1){
+         $(sdate).html(`Running`);
+         $(element).html(`
+         <div class="t-num">${hours}H</div>
+         <div class="t-num">${minutes}M</div>
+         <div class="t-num">${seconds}S</div>
+         `);
+       }else{
+        $(sdate).html(`Beginning`);
+        $(element).html(`
+         
+         <div class="t-num">${days}D</div>
+         <div class="t-num">${hours}H</div>
+         <div class="t-num">${minutes}M</div>
+         <div class="t-num">${seconds}S</div>
+         `);
+       }
+       
+     if (distance < 0) {
+       clearInterval(y);
+       if(end==-1){
+         $(element).html('Finished');
+         $(sdate).html(``);
+         $(button).html(`<button id="btn-result" class="btn btn-primary">See Result</div>`);
+       }else{
+        $(button).html(`<button id="btn-running" class="btn btn-primary">Start</div>`);
+        if(UID){
+          $( document ).ready(function() {
+            console.log( "ready!" );
+            $('#btn-running').click(function(){
+              console.log('running')
+              router.navigate('#!/live/start/'+button.split('-')[1]);
+            })
+        }); 
+        }else{
+          Swal.fire({
+            icon: 'warning',
+            text: 'Please login first!'
+          })
+        }
+        
+        
+        liveDetailsTimer(end, -1, element, sdate, button);
+       }
+       
+     }
+   }, 1000);
+   }

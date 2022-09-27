@@ -447,3 +447,26 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   padding: 3px;
   width: 40px;
 }
+
+#live_det #timer{
+  display: flex;
+  font-size: 14px;
+  /* gap: 3px; */
+  justify-content: center;
+  align-items: center;
+}
+#timer .t-num{
+  text-align: center;
+  color: #eee;
+  font-size: 10px;
+  background: #4b6cb7;
+}
+
+#live_det #status, #status .running{
+  text-align: center;
+  font-size: 12px;
+  background: #4b6cb7;
+  color: #eee;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 10px;
+}

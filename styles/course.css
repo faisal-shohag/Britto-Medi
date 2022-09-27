@@ -296,6 +296,13 @@ button{
 
   .lc{
     font-size: 13px;
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .lc .t-num{
+    background: green;
   }
 
   .list-wrap{

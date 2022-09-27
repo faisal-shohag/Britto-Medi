@@ -878,15 +878,13 @@ router.on({
           <div class="live-card kalpurush">
           <div class="live-bg"><img src="${live[i].img_link}"/></div>
           <div class="title">${live[i].title}</div>
-          <div class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
+          <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
           <div class="badge"><img src="../images/${live[i].type}.png"/></div>
           <div class="live_countdown-${i} lc"></div>
           <a href="#!/live/details/${live[i].id}">Details</a>
           </div>
         `;
-        liveBannerTimer(live[i].start_time, live[i].end_time, time=>{
-          $('.live_countdown-'+i).html(time);
-        });
+        liveTimer(live[i].start_time, live[i].end_time, '.live_countdown-'+i, '#s-time-'+i);
         
         }
 
@@ -948,15 +946,33 @@ router.on({
           <div class="post-body">${data.details}
           <div class="live-nb">#পরীক্ষায় অংশগ্রহণ করতে অবশ্যই Registration করতে হবে। নিচে Register বাটনে ক্লিক করে Registration করে রাখো।</div>
           </div>
+          <center id="opt-loader"><div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+      </div></center>
           <div class="live_option">
           <button id="live_register" class="btn btn-success">Register</button>
+          <div id="live_det">
+            <div id="status"></div>
+            <div id="timer"></div>
+          </div>
+          <div class="st-${params.id} start-button"></div>
           </div>
           </div>
           </div>
           `);
+          $('.live_option').hide();
+          setTimeout(function(){
+            $('.live_option').show();
+            $('#opt-loader').hide();
+          },2000)
 
-
+          
+          clearInterval(y);
+          liveDetailsTimer(data.start_time, data.end_time, '#live_det #timer', '#live_det #status', `.st-${params.id}`)
           if(UID){
+           
+           
+
             if(data.reg_std && data.reg_std[UID]){
               $('#live_register').text('Registered');
               $('#live_register').removeClass('btn-success');
