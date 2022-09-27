@@ -1372,6 +1372,233 @@ router.on({
                   `
             }
       }else{
+        //PUBLISHED RESULT
+        $('.top-title').html(`${snap.data().title}`);
+        app.innerHTML = `
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="answer_tab" data-bs-toggle="tab" data-bs-target="#answer" type="button" role="tab" aria-controls="home" aria-selected="true">Answesheet</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="result_tab" data-bs-toggle="tab" data-bs-target="#standing" type="button" role="tab" aria-controls="profile" aria-selected="false">Result</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="answer" role="tabpanel" aria-labelledby="home-tab">
+        <div class="answersheet"></div>
+        </div>
+        <div class="tab-pane fade" id="standing" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="standings"></div>
+        </div>
+      </div>
+
+        `
+        let myexam = snap.data();
+                  $('.answersheet').html(`
+                  <div class="body">
+                      <div class="exam-container">
+                     <div class="exam_top">
+                      <div class="exam-title kalpurush">
+                      <div class="exam_name">${myexam.title}</div><small>সময়: ${parseInt(myexam.duration)} মিনিট | নেগেটিভ: ${myexam.neg} </small>
+                      </div>
+                      <div style="display: none;" class="score">
+                      <div class="mark"></div>
+                      <div class="score-wa"></div>
+                      <div class="score-na"></div>
+                      <div class="score-time"></div>
+                      </div>
+                      <div class="exam-nb kalpurush"></div>
+                     </div>
+                     <div class="parc">
+                     <div>
+                     Obtained
+                     <div class="parcentage" id="correctP"></div>
+                     </div>
+                     <div>
+                     Wrong
+                     <div class="parcentage" id="wrongP"></div>
+                     </div>
+                     <div>
+                     Negative
+                     <div class="parcentage" id="negativeP"></div>
+                     </div>
+                     <div>
+                     Answered
+                     <div class="parcentage" id="answeredP"></div>
+                     </div>
+                     </div>
+                  
+                      <div class="questions"></div>
+                     
+                     
+                      </div>
+                      </div>
+                  `);
+                  var ans = [],
+                    exp = [],
+                    userAns = (myexam.reg_std[UID].ans).split('|').map(Number),
+                    score = 0,
+                    wrong = 0,
+                    na = 0,
+                    neg = myexam.neg;
+                  questions = myexam.questions;
+                  // shuffle(questions);
+                   for (let q = 0; q <questions.length; q++) {
+                    ans.push(parseInt(questions[q].ans)+q*4);
+                    exp.push(questions[q].ex);
+                    var elem = document.querySelector(".exam-container .questions");
+                    document.querySelector(".exam-container .questions").innerHTML += `
+                       <div class="q-wrap">
+                              <div class="q-logo"></div>
+                          <div class="question">
+                             ${q + 1}. ${questions[q].q}
+                          </div>
+                          <div class="option">
+                              <div class="opt" id="${
+                                q + 1 + q * 3
+                              }"><div class="st"></div><div>${questions[q].opt[0]}</div></div>
+                              <div class="opt" id="${
+                                q + 2 + q * 3
+                              }"><div class="st"></div><div>${questions[q].opt[1]}</div></div>
+                              <div class="opt" id="${
+                                q + 3 + q * 3
+                              }"><div class="st"></div><div>${questions[q].opt[2]}</div></div>
+                              <div class="opt" id="${
+                                q + 4 + q * 3
+                              }"><div class="st"></div><div>${questions[q].opt[3]}</div></div>
+                          </div>
+                          <div class="explanation" id="exp-${q}"></div>
+                      </div>
+                       `;
+                  }
+                  // MathJax.typeset();
+        
+
+                              let e;
+                              $(".explanation").show();
+                           
+                              let found;
+                              for (let k = 0; k < ans.length; ++k) {
+                                e = k;
+                                e = "#exp-" + e;
+                                $(e).html(
+                                  `<b style="color: green;">Solution:</b><br>${exp[k]}`
+                                );
+        
+                                $("#" + ans[k] + " .st").addClass("cr");
+        
+                                $(
+                                  $($($("#" + ans[k])[0].parentNode)[0].parentNode)[0]
+                                    .children[0]
+                                ).html(
+                                  '<div class="not-ans"> <i class="icofont-warning-alt"></i></div>'
+                                );
+                              }
+        
+                              for (let i = 0; i < userAns.length; ++i) {
+                                found = true;
+                                for (let j = 0; j < ans.length; ++j) {
+                                  if (parseInt(userAns[i]) === ans[j]) { 
+                                    score++;
+                                    $("#" + userAns[i] + " .st").addClass("cr");
+                                    $(
+                                      $(
+                                        $($("#" + userAns[i])[0].parentNode)[0]
+                                          .parentNode
+                                      )[0].children[0]
+                                    ).html(
+                                      '<div class="correct"> <i class="icofont-check-circled"></i> </div>'
+                                    );
+                                    found = true;
+                                    break;
+                                  } else found = false;
+                                }
+        
+                                if (!found) {
+                                  wrong++;
+                                  $("#" + userAns[i] + " .st").addClass("wa");
+                                  $(
+                                    $(
+                                      $($("#" + userAns[i])[0].parentNode)[0].parentNode
+                                    )[0].children[0]
+                                  ).html(
+                                    '<div class="wrong"> <i class="icofont-close-circled"></i>  </div>'
+                                  );
+                                }
+                              }
+                              MathJax.typeset();
+        
+                              $(".score").show();
+                              $(".mark").html(
+                                `<i class="icofont-check-circled"></i><br>স্কোর</br> <small>সঠিক: ${score} </small> <br/> <span class="score-num">${score-(wrong*neg)}/${questions.length}</span>`
+                              );
+                              $(".score-wa").html(
+                                `<i class="icofont-close-circled"></i><br/>ভুল </br><small>নেগেটিভ: ${wrong*neg}</small><br/> <span class="score-num">${wrong}</span>`
+                              );
+                              $(".score-na").html(
+                                `<i class="icofont-warning-alt"></i><br />ফাঁকা </br> <span class="score-num">${
+                                  questions.length - (score + wrong)
+                                }</span>`
+                              );
+                              // $(".score-time").html(
+                              //   `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
+                              //     initialMin - 1 - minute
+                              //   }:${59 - sec}</span>`
+                              // );
+                              
+                              
+                              $('#correctP').html(`${((score/questions.length)*100).toPrecision(3)}%
+                              `)
+                              $('#wrongP').html(`${((wrong/questions.length)*100).toPrecision(3)}%
+                              `)
+                              $('#negativeP').html(`${(((wrong*neg)/questions.length)*100).toPrecision(3)}%
+                              `)
+                              $('#answeredP').html(`${(100-(((questions.length - (score + wrong))/(questions.length))*100)).toPrecision(3)}%
+                              `)                                 
+                
+          
+          $('#result_tab').click(function(){
+            const standings = document.querySelector('.standings');
+            standings.innerHTML = '';
+            let Objresults = Object.entries(myexam.reg_std);
+            console.log(Objresults);
+            let results = [];
+            for(let i=0; i<Objresults.length; i++){
+              results.push({...Objresults[i][1], id:Objresults[i][0]});
+            }
+            results.sort((a, b)=>{
+              return b.score - a.score;
+            })
+            console.log(results);
+            for(let i=0; i<results.length; i++){
+              if(UID){
+                if(UID === results[i].id){
+                  standings.innerHTML += `
+                  <div class="stand me">
+                  <div class="std_name">${i+1}. ${results[i].name}</div>
+                  <div class="score">${results[i].score}</div>
+                  </div>
+                  `
+                }else{
+                  standings.innerHTML += `
+                  <div class="stand">
+                  <div class="std_name">${i+1}. ${results[i].name}</div>
+                  <div class="score">${results[i].score}</div>
+                  </div>
+                  `
+                }
+              }else{
+                standings.innerHTML += `
+                  <div class="stand">
+                  <div class="name">${i+1}. ${results[i].name}</div>
+                  <div class="score">${results[i].score}</div>
+                  </div>
+                  `
+              }
+              
+            }
+           
+          })
 
       }
        
