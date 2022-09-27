@@ -485,9 +485,11 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
 }
 
 .sad .sad_text{
-  font-size: 25px;
+  font-size: 20px;
   font-family: 'Poppins', Kalpurush;
   color: #666464;
+  padding: 10px;
+  text-align: center;
 }
 
 .sad_subtext{

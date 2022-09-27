@@ -1345,7 +1345,8 @@ router.on({
                 app.innerHTML = `
                 <div class="sad">
                 <div class="sad_img"><img src="../images/goal.png"></div>
-                <div class="sad_text">You have not registered to this game!</div>
+                <div class="sad_text">You have not registered to this exam!</div>
+                <div class="sad_subtext">But you will be able to see the result after published!</div>
                 </div>
                 `
               }
