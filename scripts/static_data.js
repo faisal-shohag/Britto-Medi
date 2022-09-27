@@ -313,13 +313,14 @@ function liveDetailsTimer(date, end, element, sdate, button){
          $(element).html('Finished');
          $(sdate).html(``);
          $(button).html(`<button id="btn-result" class="btn btn-primary">See Result</div>`);
+         $('#btn-result').click(function(){
+          router.navigate('#!/live/start/'+button.split('-')[1]);
+        })
        }else{
         $(button).html(`<button id="btn-running" class="btn btn-primary">Start</div>`);
         if(UID){
           $( document ).ready(function() {
-            console.log( "ready!" );
             $('#btn-running').click(function(){
-              console.log('running')
               router.navigate('#!/live/start/'+button.split('-')[1]);
             })
         }); 
