@@ -997,13 +997,15 @@ router.on({
                     cancelButtonText: 'No'
                   }).then(res=>{
                     if(res.isConfirmed){
-                        store.collection('lives').doc(params.id).update({
+                        store.collection('lives').doc(params.id).set({
                           reg_std:{
                             [UID]: {
-                              name: std_name
+                              name: std_name,
+                              attend: false,
+                              score: 0
                             }
                           }
-                        }).then(()=>{
+                        },{merge: true}).then(()=>{
                           Swal.fire({
                             icon: 'success',
                             text: 'Registration completed!'
@@ -1135,7 +1137,7 @@ router.on({
                 //Registered
                   if(!snap.data().reg_std[UID].attend){
                     //Not Attend Before 
-                    store.collection('lives').doc(params.id).update({
+                    store.collection('lives').doc(params.id).set({
                       reg_std: {
                         [UID]:{
                           attend: true,
@@ -1143,7 +1145,7 @@ router.on({
                         }
 
                       }
-                    });
+                    }, {merge: true});
                     if(new Date(snap.data().end_time) > new Date()){
                       //Available by time
                       if(snap.data().show_q){new Date()
@@ -1303,14 +1305,14 @@ router.on({
 
                                     console.log(score);
                                     let myAns = userAns.join('|');
-                                    store.collection('lives').doc(params.id).update({
+                                    store.collection('lives').doc(params.id).set({
                                       reg_std: {
                                         [UID]: {
                                           score: score,
                                           ans: myAns
                                         }
                                       }
-                                    }).then(()=>{
+                                    }, {merge: true}).then(()=>{
                                       app.innerHTML = `
                                       <div class="sad">
                                       <div class="sad_img"><img src="../images/goal.png"></div>
