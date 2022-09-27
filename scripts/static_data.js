@@ -135,6 +135,7 @@ var x = setInterval(function() {
 }, 1000);
 }
 
+var x;
 //live banner timer
 function liveBannerTimer(date, end, callback){
   let s = new Date(date);
@@ -146,7 +147,7 @@ function liveBannerTimer(date, end, callback){
   }
 
   var countDownDate = new Date(date).getTime();
-  var x = setInterval(function() {
+   x = setInterval(function() {
     var now = new Date().getTime();
     var distance = countDownDate - now;
   

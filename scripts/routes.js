@@ -872,7 +872,7 @@ router.on({
       getLives(live=>{
         const list_upcoming = document.querySelector('.list_upcoming');
         live_list.innerHTML = '';
-
+        clearInterval(x);
         for(let i=0; i<live.length; i++){
           list_upcoming.innerHTML +=`
           <div class="live-card kalpurush">
@@ -884,6 +884,7 @@ router.on({
           <a href="#!/live/details/${live[i].id}">Details</a>
           </div>
         `;
+      
         liveTimer(live[i].start_time, live[i].end_time, '.live_countdown-'+i, '#s-time-'+i);
         
         }
@@ -1106,7 +1107,270 @@ router.on({
 
 
 
-  }
+    },
+    '/live/start/:id': function(params){
+      $('.top-title').html(``);
+
+      app.innerHTML = `
+      <center><div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+      </div></center>
+      `
+
+    store.collection('lives').doc(params.id).get().then(snap=>{
+        if(!snap.data().isPublished){
+        //Not Published Result  
+            if(UID){
+              //Logged IN
+              if(snap.data().reg_std[UID]){
+                //Registered
+                  if(!snap.data().reg_std[UID].attend){
+                    //Not Attend Before 
+                    store.collection('lives').doc(params.id).update({
+                      reg_std: {
+                        [UID]:{
+                          attend: true,
+                          score:0
+                        }
+
+                      }
+                    });
+                    if(new Date(snap.data().end_time) > new Date()){
+                      //Available by time
+                      if(snap.data().show_q){new Date()
+                        //Show Question
+                        app.innerHTML = `
+                        <div id="live_question" class="live_questions"></div>
+                        `
+                        $('.countdown').show();
+                        let myexam = snap.data();
+                        $('.live_questions').html(`
+                        <div class="body">
+                            <div class="exam-container">
+                          <div class="exam_top">
+                            <div class="exam-title kalpurush">
+                            <div class="exam_name">${myexam.title}</div><small>সময়: ${myexam.duration} মিনিট | নেগেটিভ: ${myexam.neg} </small>
+                            </div>
+                            <div style="display: none;" class="score">
+                            <div class="score-time"></div>
+                            </div>
+                            <div class="exam-nb kalpurush"></div>
+                          </div>
+
+                        
+                            <div class="questions"></div>
+                          
+                          <center> <div class="submit btn-primary kalpurush" id="submit">Submit</div></center>
+                          
+                            </div>
+                            </div>
+                        `);
+                        var ans = [],
+                          exp = [],
+                          userAns = [],
+                          score = 0,
+                          wrong = 0,
+                          na = 0,
+                          neg = 0;
+                        questions = myexam.questions;
+                        shuffle(questions);
+                        // console.log(questions);
+                        // $(".exam-nb").html(`${myexam.details.notice}`);
+              
+                        for (let q = 0; q <questions.length; q++) {
+                          $(".score").hide();
+                          ans.push(parseInt(questions[q].ans)+q*4);
+                          exp.push(questions[q].ex);
+                          var elem = document.querySelector(".exam-container .questions");
+                          document.querySelector(".exam-container .questions").innerHTML += `
+                            <div class="q-wrap">
+                                    <div class="q-logo"></div>
+                                <div class="question">
+                                  ${q + 1}. ${questions[q].q}
+                                </div>
+                                <div class="option">
+                                    <div class="opt" id="${
+                                      q + 1 + q * 3
+                                    }"><div class="st"></div><div>${questions[q].opt[0]}</div></div>
+                                    <div class="opt" id="${
+                                      q + 2 + q * 3
+                                    }"><div class="st"></div><div>${questions[q].opt[1]}</div></div>
+                                    <div class="opt" id="${
+                                      q + 3 + q * 3
+                                    }"><div class="st"></div><div>${questions[q].opt[2]}</div></div>
+                                    <div class="opt" id="${
+                                      q + 4 + q * 3
+                                    }"><div class="st"></div><div>${questions[q].opt[3]}</div></div>
+                                </div>
+                                <div class="explanation" id="exp-${q}"></div>
+                            </div>
+                            `;
+                        }
+              
+                        $(".opt").on("click", function () {
+                          userAns.push(parseInt($(this)[0].id));
+                          $($(this)[0].parentNode.children[0]).off("click");
+                          $($(this)[0].parentNode.children[1]).off("click");
+                          $($(this)[0].parentNode.children[2]).off("click");
+                          $($(this)[0].parentNode.children[3]).off("click");
+                          $($(this)[0]).css({
+                            background: "#384dc5",
+                            color: "var(--light)",
+                            "font-weight": "bold",
+                            "box-shadow" : "0px 2px 5px rgba(0,0,0,.2)"
+                          });
+                        });
+                        MathJax.typeset();
+              
+                        //timer
+                        var sec = 0;
+                        var minute = parseInt(myexam.duration);
+                        var initialMin = parseInt(myexam.duration);
+                        var timer = setInterval(function () {
+                          if (sec === 0) {
+                            minute--;
+                            sec = 60;
+                          }
+                          sec--;
+                          let min=minute, secs=sec;
+                          if(minute<10) min = "0"+min;
+                          if(sec<10) secs = "0"+secs;
+                          if (minute <= 0 && sec <= 0) {
+                            $("#submit").click();
+                            clearInterval(timer);
+                            
+                          } else {
+                            $(".countdown").html(
+                              `<img src="../images/clock.png" height="20px"> <div> ${min} : ${secs}</div>`
+                            );
+                          }
+                        }, 1000);
+              
+                        jQuery(document).ready(function ($) {
+                          if (window.history && window.history.pushState) {
+                            $(window).on("popstate", function () {
+                              clearInterval(timer);
+                              $(".countdown").hide(20);
+                            });
+                          }
+                        });
+              
+                        $("#submit")
+                          .off()
+                          .click(function () {
+                                    clearInterval(timer);
+                                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                                    $("#submit").hide();
+                                    let e;
+                                    let found;
+                                    for (let k = 0; k < ans.length; ++k) {
+                                      e = k;
+                                      e = "#exp-" + e;
+                                    }
+              
+                                    for (let i = 0; i < userAns.length; ++i) {
+                                      found = true;
+                                      for (let j = 0; j < ans.length; ++j) {
+                                        if (parseInt(userAns[i]) === ans[j]) { 
+                                          score++;
+                                          found = true;
+                                          break;
+                                        } else found = false;
+                                      }
+              
+                                      if (!found) {
+                                        wrong++;
+                                      }
+                                    }
+                                    MathJax.typeset();
+              
+                                    $(".score").show();
+                                    
+                                    $(".score-time").html(
+                                      `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
+                                        initialMin - 1 - minute
+                                      }:${59 - sec}</span>`
+                                    );
+
+                                    console.log(score);
+                                    let myAns = userAns.join('|');
+                                    store.collection('lives').doc(params.id).update({
+                                      reg_std: {
+                                        [UID]: {
+                                          score: score,
+                                          ans: myAns
+                                        }
+                                      }
+                                    }).then(()=>{
+                                      app.innerHTML = `
+                                      <div class="sad">
+                                      <div class="sad_img"><img src="../images/goal.png"></div>
+                                      <div class="sad_text">Successfully Submitted!</div>
+                                      <div class="sad_subtext">Result will publish soon!</div>
+                                      </div>
+                                      `
+                                      Swal.fire({
+                                        icon: 'success',
+                                        text: 'Successfully submitted!'
+                                      })
+                                    })
+                                      
+                                
+                      })
+
+              
+                      }
+                    }else{
+                      //Not available by time
+                      app.innerHTML=`
+                      <div class="sad">
+                      <div class="sad_img"><img src="../images/goal.png"></div>
+                      <div class="sad_text">Exam finished!</div>
+                      <div class="sad_subtext">Result will be publish soon!</div>
+                      </div>
+                      `    
+                    }
+                  }else{
+                    //Attend before
+                    app.innerHTML = `
+                      <div class="sad">
+                      <div class="sad_img"><img src="../images/goal.png"></div>
+                      <div class="sad_text">You have participated in this exam!</div>
+                      <div class="sad_subtext">Result will be published soon!</div>
+                      </div>
+                      `
+                  }
+              }else{
+                //Not Registered
+                app.innerHTML = `
+                <div class="sad">
+                <div class="sad_img"><img src="../images/goal.png"></div>
+                <div class="sad_text">You have not registered to this game!</div>
+                </div>
+                `
+              }
+
+            }else{
+              //Not logged In
+              app.innerHTML=`
+                  <div class="sad">
+                  <div class="sad_img"><img src="../images/goal.png"></div>
+                  <div class="sad_text">Please login!</div>
+                  </div>
+                  `
+            }
+      }else{
+
+      }
+       
+        
+    })
+
+
+      
+    }
+
+
 
 
 

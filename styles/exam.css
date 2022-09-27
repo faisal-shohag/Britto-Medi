@@ -470,3 +470,28 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   border-top-left-radius: 5px;
   border-top-right-radius: 10px;
 }
+
+.sad{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  gap: 10px;
+}
+
+.sad img{
+  height: 100px;
+}
+
+.sad .sad_text{
+  font-size: 25px;
+  font-family: 'Poppins', Kalpurush;
+  color: #666464;
+}
+
+.sad_subtext{
+  font-family: 'Poppins';
+  color: crimson;
+  font-style: italic;
+}

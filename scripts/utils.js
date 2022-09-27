@@ -204,47 +204,63 @@ router.on({
         app.innerHTML = `
         <body>
         <form id="add_course">
-        <div>
-        <input type="text" name="title" placeholder="title"/>
+        <div class="mb-3">
+        <input type="text" class="form-control" name="title" placeholder="title"/>
         </div>
 
-        <div>
-        <input type="text" name="sub_title" placeholder="sub_title"/>
+        <div class="mb-3">
+        <input type="text" name="sub_title" class="form-control" placeholder="sub_title"/>
         </div>
 
-        <div>
+        <div class="mb-3">
         Start time
-        <input type="datetime-local" name="start_time" placeholder="time"/>
+        <input type="datetime-local" class="form-control" name="start_time" placeholder="time"/>
         </div>
 
-        <div>
+        <div class="mb-3">
         End time
-        <input type="datetime-local" name="end_time" placeholder="time"/>
+        <input type="datetime-local" class="form-control" name="end_time" placeholder="time"/>
         </div>
 
-        <div>
-        <textarea type="text" name="details" placeholder="details"></textarea>
+        <div class="mb-3">
+        <textarea type="text" class="form-control" name="details" placeholder="details"></textarea>
         </div>
 
-        <div>
-        <input type="number" name="duration" placeholder="Duration">
+        <div class="mb-3">
+        <input type="number" class="form-control" name="duration" placeholder="Duration">
+        </div>
+
+        <div class="mb-3">
+        <input type="number" class="form-control" name="neg" placeholder="Negative">
         </div>
 
 
-
+        <div class="mb-3">
         <select name="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
         <option selected>type</option>
         <option value="Free">Free</option>
         <option value="Pro">Premium</option>
         </select>
+        </div>
 
-
-        <div>
-        <input type="text" name="img_link" placeholder="img_link"/>
+        <div class="mb-3">
+        <input type="text" class="form-control" name="img_link" placeholder="img_link"/>
         </div>
         
         <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
+        <br>
+        <div class="list-wrap">
+        <div class="list-title">Exams</div>
+        <div class="list_upcoming" id="live_list">
+       <center> <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+         </div></center>
+        </div>
+        </div>
+
+
         </body>
         `
         const add_course = document.getElementById('add_course');
@@ -258,7 +274,11 @@ router.on({
                 end_time: (new Date(add_course.end_time.value)).toString(),
                 details: add_course.details.value,
                 type: add_course.type.value,
-                img_link: add_course.img_link.value
+                img_link: add_course.img_link.value,
+                isPublished: false,
+                show_q: false,
+                duration: add_course.duration.value,
+                neg: add_course.neg.value
 
             }
 
@@ -270,6 +290,31 @@ router.on({
             }).catch(error=> {
                 console.log(error);
             })
+        });
+
+        store.collection('lives').get().then(snap=>{
+            live_list.innerHTML = '';   
+            let i=-1; 
+            snap.forEach(item=>{
+                i++;
+                    let live = item.data();
+                    // console.log(live);
+                const list_upcoming = document.querySelector('.list_upcoming');
+                clearInterval(x);
+                    list_upcoming.innerHTML +=`
+                    <div class="live-card kalpurush">
+                    <div class="live-bg"><img src="${live.img_link}"/></div>
+                    <div class="title">${live.title}</div>
+                    <div id="s-time-${i}" class="time">${dateForm(live.start_time)} ${timeForm(live.start_time)}</div>
+                    <div class="badge"><img src="../images/${live.type}.png"/></div>
+                    <div class="live_countdown-${i} lc"></div>
+                    <a href="#!/live/details/${item.id}">Details</a>
+                    </div>
+                    `;
+            
+                    liveTimer(live.start_time, live.end_time, '.live_countdown-'+i, '#s-time-'+i);
+                    
+                })
         })
     },
     '/AddQ': function(){
@@ -376,7 +421,7 @@ router.on({
         
                     <div id="left">
                     <div class="ad_head">Temporary Question Set for Exam</div>
-                    <center><button id="publish" class="btn btn-info">+Publish</button></center><br>
+                    <center><button id="publish" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add_q_e">+Publish</button></center><br>
                     <div class="questions_temp">
                     <center><div class="spinner-grow" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -385,7 +430,38 @@ router.on({
                     </div>
                     </div>
 
+
+
+                    <div class="modal fade" id="add_q_e" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                           <div class="exams">
+                           <center><div class="spinner-border text-success" role="status">
+                           <span class="visually-hidden">Loading...</span>
+                         </div></center>
+                           </div>
+                           <div class="mb-3">
+                           <label for="e_id" class="form-label">ID</label>
+                           <input type="text" class="form-control" id="e_id" aria-describedby="emailHelp">
+                           <div id="emailHelp" class="form-text">Exam ID</div>
+                         </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="submit_q" type="button" class="btn btn-primary">OK</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
         `
+       
+
         $('#lq').hide()
         $('#publish').hide();
         $('#show-qbf').click(function(){$('#lq').show()})
@@ -597,8 +673,33 @@ router.on({
 
         //publish the temporary question
         $('#publish').click(function(){
-            console.log(TemporaryQuestions);
-        })
+            let exams = document.querySelector('.exams');
+           
+            store.collection('lives').get().then(snap=> {
+                exams.innerHTML = '';
+                snap.forEach(item =>{
+                    // console.log(item.data())
+                    exams.innerHTML += `
+                <div class="exam_name">${item.data().title}</div>
+                <div class="exam_id">${item.id}</div>
+                `
+                });
+                
+            });
+
+            $('#submit_q').click(function(){
+              let id = $('#e_id').val();
+              store.collection('lives').doc(id).update({
+                questions: TemporaryQuestions
+              }).then(()=>{
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Published!'
+                })
+              })
+                
+            })
+           })
     
 
     },
@@ -658,7 +759,239 @@ router.on({
         //      }
         //  })
 
-    }
+    },
+    '/live/details/:id': function(params){
+        $('.top-title').html(`Live`);
+        app.innerHTML = `
+        <div class="body">
+        <div class="live-post">
+  
+        <center><div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+        </div></center>
+        </div>
+
+        <div class="e-status"></div>
+        <button id="publish_q" class="btn btn-primary">Toggle Publish</button>
+  
+        <div class="comments kalpurush">
+            <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div></div>
+            
+            <div class="comment-form"></div>
+            <div id="all_comments">
+            <center><div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div></center>
+            </div>
+        </div>
+        `
+        getLive();
+        function getLive(){
+       return store.collection('lives').doc(params.id).get().then(doc=>{
+          // console.log(params.id);
+          let data = doc.data();
+        //   console.log(data);
+          if(!data.show_q){
+            $('.e-status').html(`Show: false`)
+          }else{
+            $('.e-status').html(`Show: True`)
+          }
+
+          $('#publish_q').click(function(){
+            Swal.fire({
+                icon:'question',
+                text: 'Are you sure?'
+            }).then((res)=>{
+                if(res.isConfirmed){
+                    store.collection('lives').doc(params.id).update({
+                        show_q: !data.show_q
+                    }).then(()=>{Swal.fire({icon:'success', text:'Changed!'})})
+                }
+            })
+            
+          })
+
+          $('.top-title').html(`${data.title}`);
+            $('.live-post').html(`
+            <div class="post">
+            <div class="post-top">
+            <div class="avatar">
+            <div class="img"><img src="${data.img_link}"/></div>
+            <div>
+            <div class="title">${data.title}</div>
+            <div class="sub-title">${data.sub_title}</div>
+            </div>
+            </div>
+            <div>
+            <div class="date">${dateForm(data.start_time)}</div>
+            <div class="time">${timeForm(data.start_time)}</div>
+            </div>
+            </div>
+            <div class="post-body">${data.details}
+            <div class="live-nb">#পরীক্ষায় অংশগ্রহণ করতে অবশ্যই Registration করতে হবে। নিচে Register বাটনে ক্লিক করে Registration করে রাখো।</div>
+            </div>
+            <center id="opt-loader"><div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+        </div></center>
+            <div class="live_option">
+            <button id="live_register" class="btn btn-success">Register</button>
+            <div id="live_det">
+              <div id="status"></div>
+              <div id="timer"></div>
+            </div>
+            <div class="st-${params.id} start-button"></div>
+            </div>
+            </div>
+            </div>
+            `);
+            $('.live_option').hide();
+            setTimeout(function(){
+              $('.live_option').show();
+              $('#opt-loader').hide();
+            },2000)
+  
+            
+            clearInterval(y);
+            liveDetailsTimer(data.start_time, data.end_time, '#live_det #timer', '#live_det #status', `.st-${params.id}`)
+            if(UID){
+             
+             
+  
+              if(data.reg_std && data.reg_std[UID]){
+                $('#live_register').text('Registered');
+                $('#live_register').removeClass('btn-success');
+                $('#live_register').addClass('btn-secondary');
+                $('#live_register').click(function() {
+                  Swal.fire({
+                    'icon': 'info',
+                    text: 'You have already registered!'
+                  });
+                });
+              }else {
+                $('#live_register').click(function() {
+                  Swal.fire({
+                    icon: 'question',
+                    text: 'Do you want to register?',
+                    confirmButton: true,
+                    cancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                  }).then(res=>{
+                    if(res.isConfirmed){
+                        store.collection('lives').doc(params.id).update({
+                          reg_std:{
+                            [UID]: {
+                              name: std_name
+                            }
+                          }
+                        }).then(()=>{
+                          Swal.fire({
+                            icon: 'success',
+                            text: 'Registration completed!'
+                          });
+                          getLive();
+                        }).catch(err=>{
+                          console.log(err);
+                        })
+                    }
+                  })
+                });
+              }
+  
+              $('.comment-form').html(`<form id="comment_form">
+              <div class="form-group">
+              <textarea class="form-control" id="comment_value" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Comment</button>
+              </form>`);
+                document.getElementById('comment_form').addEventListener('submit',e=>{
+                  e.preventDefault();
+                  let cmnt =  $('#comment_value').val();
+                  if(cmnt.trim() != ''){
+                    store.collection('lives').doc(params.id).collection('comments').add({     
+                          comment: cmnt,
+                          name: std_name,
+                          UID: UID,
+                          at: (new Date()).toISOString()
+                    }).then(()=>{
+                      Toast.fire({
+                        icon: 'success',
+                        title: 'Commented!'
+                      })
+                    })
+                  }
+                })
+  
+  
+            } else {
+              $('#live_register').click(function() {
+                Swal.fire({
+                  'icon': 'warning',
+                  text: 'Please sign in first!'
+                });
+              });
+  
+              $('.comment-form').html(`
+              <div class="reg_nb">You must sign in to comment!</div>
+              `)
+            }
+          
+        });
+      }
+  
+      //comments
+      let all_comments = document.getElementById('all_comments');
+      store.collection('lives').doc(params.id).collection('comments').onSnapshot(snap=>{
+        let comments = []; 
+        comments.sort((a, b) => new Date(b.at) - new Date(a.at));
+        
+        all_comments.innerHTML = ``;
+        snap.forEach(item=>{
+          comments.push({...item.data(), id: item.id});
+         });
+         $('#cmnt_count').html(`(${comments.length})`);
+         if(comments.length === 0) all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
+          
+         comments.forEach(cmnt=>{
+          let edit = `<div id="${cmnt.id}" class="comment-delete">Delete</div>`
+          if(cmnt.UID != UID){
+            edit = '';
+          }
+          all_comments.innerHTML += `
+          <div class="comment-wrap">
+          <div class="comment-avatar">
+          ${edit}
+          <img height="30px" src="../images/doctor.png">
+          <div class="comment-det">
+          <div class="name">${cmnt.name}</div>
+          <div class="time">${moment(cmnt.at).fromNow(true)} ago</div>
+          </div>
+          </div>
+          <div class="comment-body">${cmnt.comment}</div>
+          </div>
+          `
+        });
+  
+        $('.comment-delete').click(function(){
+          let id = $(this)[0].id;
+          store.collection('lives').doc(params.id).collection('comments').doc(id).delete().then(()=> {
+            Toast.fire({
+              icon: 'success',
+              title: 'Deleted!'
+            })
+          }).catch(err=>{
+            console.log(err);
+          });
+        });
+  
+         
+      })
+  
+  
+  
+  
+      
+    },
     
 
 
