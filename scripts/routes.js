@@ -588,7 +588,6 @@ router.on({
                       <div class="form-group">
                       
                           <div class="input-group"> 
-                          
                           <input class="form-control" id="phoneNumber" name="phone" type="text" placeholder="Mobile number without +88"> </div>
                           <div class="form-tips kalpurush">Phone number without "+88" ex: 0131xxxxx</div>
                       </div>

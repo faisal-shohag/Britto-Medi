@@ -49,6 +49,7 @@ mjx-math {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-height: 45px;
 }
 
 .logo {
@@ -522,9 +523,26 @@ form {
 }
 
 .warn{
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 10px; */
   font-size: 14px;
+}
+
+
+.signInButton{
+  background: var(--primary);
+  padding: 5px;
+  border-radius: 5px;
+  color: #eee;
+  box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.warn a{
+  color: #007bff !important;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: underline !important;
 }

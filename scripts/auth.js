@@ -1,6 +1,8 @@
 firebase.auth().useDeviceLanguage();
 
 function authExecute(){
+  $('.form-tips').show();
+  $('.varify').hide();
     let phoneNumber;
     let code;
     const getCodeButton = document.getElementById("confirm-code");
@@ -41,9 +43,11 @@ function authExecute(){
       auth
         .signInWithPhoneNumber(phoneNumber, appVerifier)
         .then((confirmationResult) => {
+          $('.form-tips').hide();
+          $('.varify').show();
           const sentCodeId = confirmationResult.verificationId;
           $(".warn").html(`
-         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি যেতে ১-২ মিনিটের মত সময় লাগতে পারে।  যদি না গিয়ে থাকে তাহলে <a href="https://brittomedi.netlify.app/#!/auth">আবার</a> চেষ্টা করুন। 
+         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি যেতে ১ মিনিটের মত সময় লাগতে পারে।  যদি না গিয়ে থাকে তাহলে <a href="https://brittomedi.netlify.app/#!/auth">আবার</a> চেষ্টা করুন। 
          `);
           // console.log(confirmationResult);
           $('#recaptcha-container').hide();
@@ -86,9 +90,9 @@ function authExecute(){
           console.error(error);
           Swal.fire({
             icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-            footer: '',
+            title: "Code Error",
+            text: "Code you provided was wrong! Please resend code and enter correctly!",
+            footer: 'Any Issue? Contact: 01318067123',
           });
         });
     };
@@ -240,7 +244,7 @@ firebase.auth().onAuthStateChanged(user=> {
     else{
         $('.user-panel').show();
         $('.user-panel').html(`
-        <a href="/#!/auth"><button class="btn btn-primary">Sign In</button></a>
+        <a href="/#!/auth"><div class="signInButton">Sign In</div></a>
         `);
     }
 });
