@@ -134,16 +134,18 @@ router.on({
 
         //Running Exam 
         db.ref('app/live').on('value', snap=>{
-          let l = snap.val();
-          $('#live_banner').html(`
+          store.collection('lives').doc(snap.val().id).get().then(live=>{
+            let l = live.data();
+            $('#live_banner').html(`
           <div class="live-bg"><img src="${l.img_link}"/></div>
             <div class="title">${l.title}</div>
             <div id="s-time" class="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
             <div class="badge"><img src="../images/${l.type}.png"/></div>
           `);
-          $('.live-card .details').html(`<a href="#!/live/details/${l.id}">Details</a>`)
+          $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
           
           liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
+          })
         })
 
 
@@ -1133,218 +1135,230 @@ router.on({
         //Not Published Result  
             if(UID){
               //Logged IN
-              if(snap.data().reg_std[UID]){
+              if(snap.data().reg_std && snap.data().reg_std[UID]){
                 //Registered
                   if(!snap.data().reg_std[UID].attend){
+                    if(snap.data().show_q){
                     //Not Attend Before 
-                    store.collection('lives').doc(params.id).set({
-                      reg_std: {
-                        [UID]:{
-                          attend: true,
-                          score:0
-                        }
+                        store.collection('lives').doc(params.id).set({
+                          reg_std: {
+                            [UID]:{
+                              attend: true,
+                              score:0
+                            }
 
-                      }
-                    }, {merge: true});
-                    if(new Date(snap.data().end_time) > new Date()){
-                      //Available by time
-                      if(snap.data().show_q){new Date()
-                        //Show Question
-                        app.innerHTML = `
-                        <div id="live_question" class="live_questions"></div>
-                        `
-                        $('.countdown').show();
-                        let myexam = snap.data();
-                        $('.live_questions').html(`
-                        <div class="body">
-                            <div class="exam-container">
-                          <div class="exam_top">
-                            <div class="exam-title kalpurush">
-                            <div class="exam_name">${myexam.title}</div><small>Time: ${myexam.duration} min | NFEW: ${myexam.neg} </small>
-                            </div>
-                            <div style="display: none;" class="score">
-                            <div class="score-time"></div>
-                            </div>
-                            <div class="exam-nb kalpurush"></div>
-                          </div>
-
-                        
-                            <div class="questions"></div>
-                          
-                          <center> <div class="submit btn-primary kalpurush" id="submit">Submit</div></center>
-                          
-                            </div>
-                            </div>
-                        `);
-                        var ans = [],
-                          exp = [],
-                          userAns = [],
-                          score = 0,
-                          wrong = 0,
-                          na = 0,
-                          neg = 0;
-                        questions = myexam.questions;
-                        // shuffle(questions);
-                        // console.log(questions);
-                        // $(".exam-nb").html(`${myexam.details.notice}`);
-              
-                        for (let q = 0; q <questions.length; q++) {
-                          $(".score").hide();
-                          ans.push(parseInt(questions[q].ans)+q*4);
-                          exp.push(questions[q].ex);
-                          var elem = document.querySelector(".exam-container .questions");
-                          document.querySelector(".exam-container .questions").innerHTML += `
-                            <div class="q-wrap">
-                                    <div class="q-logo"></div>
-                                <div class="question">
-                                  ${q + 1}. ${questions[q].q}
-                                </div>
-                                <div class="option">
-                                    <div class="opt" id="${
-                                      q + 1 + q * 3
-                                    }"><div class="st"></div><div>${questions[q].opt[0]}</div></div>
-                                    <div class="opt" id="${
-                                      q + 2 + q * 3
-                                    }"><div class="st"></div><div>${questions[q].opt[1]}</div></div>
-                                    <div class="opt" id="${
-                                      q + 3 + q * 3
-                                    }"><div class="st"></div><div>${questions[q].opt[2]}</div></div>
-                                    <div class="opt" id="${
-                                      q + 4 + q * 3
-                                    }"><div class="st"></div><div>${questions[q].opt[3]}</div></div>
-                                </div>
-                                <div class="explanation" id="exp-${q}"></div>
-                            </div>
-                            `;
-                        }
-              
-                        $(".opt").on("click", function () {
-                          userAns.push(parseInt($(this)[0].id));
-                          $($(this)[0].parentNode.children[0]).off("click");
-                          $($(this)[0].parentNode.children[1]).off("click");
-                          $($(this)[0].parentNode.children[2]).off("click");
-                          $($(this)[0].parentNode.children[3]).off("click");
-                          $($(this)[0]).css({
-                            background: "#384dc5",
-                            color: "var(--light)",
-                            "font-weight": "bold",
-                            "box-shadow" : "0px 2px 5px rgba(0,0,0,.2)"
-                          });
-                        });
-                        MathJax.typeset();
-              
-                        //timer
-                        var sec = 0;
-                        var minute = parseInt(myexam.duration);
-                        var initialMin = parseInt(myexam.duration);
-                        var timer = setInterval(function () {
-                          if (sec === 0) {
-                            minute--;
-                            sec = 60;
                           }
-                          sec--;
-                          let min=minute, secs=sec;
-                          if(minute<10) min = "0"+min;
-                          if(sec<10) secs = "0"+secs;
-                          if (minute <= 0 && sec <= 0) {
-                            $("#submit").click();
-                            clearInterval(timer);
+                        }, {merge: true});
+                        if(new Date(snap.data().end_time) > new Date()){
+                          //Available by time
+                          if(snap.data().show_q){new Date()
+                            //Show Question
+                            app.innerHTML = `
+                            <div id="live_question" class="live_questions"></div>
+                            `
+                            $('.countdown').show();
+                            let myexam = snap.data();
+                            $('.live_questions').html(`
+                            <div class="body">
+                                <div class="exam-container">
+                              <div class="exam_top">
+                                <div class="exam-title kalpurush">
+                                <div class="exam_name">${myexam.title}</div><small>Time: ${myexam.duration} min | NFEW: ${myexam.neg} </small>
+                                </div>
+                                <div style="display: none;" class="score">
+                                <div class="score-time"></div>
+                                </div>
+                                <div class="exam-nb kalpurush"></div>
+                              </div>
+
                             
-                          } else {
-                            $(".countdown").html(
-                              `<img src="../images/clock.png" height="20px"> <div> ${min} : ${secs}</div>`
-                            );
-                          }
-                        }, 1000);
-              
-                        jQuery(document).ready(function ($) {
-                          if (window.history && window.history.pushState) {
-                            $(window).on("popstate", function () {
-                              clearInterval(timer);
-                              $(".countdown").hide(20);
+                                <div class="questions"></div>
+                              
+                              <center> <div class="submit btn-primary kalpurush" id="submit">Submit</div></center>
+                              
+                                </div>
+                                </div>
+                            `);
+                            var ans = [],
+                              exp = [],
+                              userAns = [],
+                              score = 0,
+                              wrong = 0,
+                              na = 0,
+                              neg = 0;
+                            questions = myexam.questions;
+                            // shuffle(questions);
+                            // console.log(questions);
+                            // $(".exam-nb").html(`${myexam.details.notice}`);
+                  
+                            for (let q = 0; q <questions.length; q++) {
+                              $(".score").hide();
+                              ans.push(parseInt(questions[q].ans)+q*4);
+                              exp.push(questions[q].ex);
+                              var elem = document.querySelector(".exam-container .questions");
+                              document.querySelector(".exam-container .questions").innerHTML += `
+                                <div class="q-wrap">
+                                        <div class="q-logo"></div>
+                                    <div class="question">
+                                      ${q + 1}. ${questions[q].q}
+                                    </div>
+                                    <div class="option">
+                                        <div class="opt" id="${
+                                          q + 1 + q * 3
+                                        }"><div class="st"></div><div>${questions[q].opt[0]}</div></div>
+                                        <div class="opt" id="${
+                                          q + 2 + q * 3
+                                        }"><div class="st"></div><div>${questions[q].opt[1]}</div></div>
+                                        <div class="opt" id="${
+                                          q + 3 + q * 3
+                                        }"><div class="st"></div><div>${questions[q].opt[2]}</div></div>
+                                        <div class="opt" id="${
+                                          q + 4 + q * 3
+                                        }"><div class="st"></div><div>${questions[q].opt[3]}</div></div>
+                                    </div>
+                                    <div class="explanation" id="exp-${q}"></div>
+                                </div>
+                                `;
+                            }
+                  
+                            $(".opt").on("click", function () {
+                              userAns.push(parseInt($(this)[0].id));
+                              $($(this)[0].parentNode.children[0]).off("click");
+                              $($(this)[0].parentNode.children[1]).off("click");
+                              $($(this)[0].parentNode.children[2]).off("click");
+                              $($(this)[0].parentNode.children[3]).off("click");
+                              $($(this)[0]).css({
+                                background: "#384dc5",
+                                color: "var(--light)",
+                                "font-weight": "bold",
+                                "box-shadow" : "0px 2px 5px rgba(0,0,0,.2)"
+                              });
                             });
-                          }
-                        });
-              
-                        $("#submit")
-                          .off()
-                          .click(function () {
-                                    clearInterval(timer);
-                                    $("html, body").animate({ scrollTop: 0 }, "slow");
-                                    $("#submit").hide();
-                                    let e;
-                                    let found;
-                                    for (let k = 0; k < ans.length; ++k) {
-                                      e = k;
-                                      e = "#exp-" + e;
-                                    }
-              
-                                    for (let i = 0; i < userAns.length; ++i) {
-                                      found = true;
-                                      for (let j = 0; j < ans.length; ++j) {
-                                        if (parseInt(userAns[i]) === ans[j]) { 
-                                          score++;
+                            MathJax.typeset();
+                  
+                            //timer
+                            var sec = 0;
+                            var minute = parseInt(myexam.duration);
+                            var initialMin = parseInt(myexam.duration);
+                            var timer = setInterval(function () {
+                              if (sec === 0) {
+                                minute--;
+                                sec = 60;
+                              }
+                              sec--;
+                              let min=minute, secs=sec;
+                              if(minute<10) min = "0"+min;
+                              if(sec<10) secs = "0"+secs;
+                              if (minute <= 0 && sec <= 0) {
+                                $("#submit").click();
+                                clearInterval(timer);
+                                
+                              } else {
+                                $(".countdown").html(
+                                  `<img src="../images/clock.png" height="20px"> <div> ${min} : ${secs}</div>`
+                                );
+                              }
+                            }, 1000);
+                  
+                            jQuery(document).ready(function ($) {
+                              if (window.history && window.history.pushState) {
+                                $(window).on("popstate", function () {
+                                  clearInterval(timer);
+                                  $(".countdown").hide(20);
+                                });
+                              }
+                            });
+                  
+                            $("#submit")
+                              .off()
+                              .click(function () {
+                                        clearInterval(timer);
+                                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                                        $("#submit").hide();
+                                        let e;
+                                        let found;
+                                        for (let k = 0; k < ans.length; ++k) {
+                                          e = k;
+                                          e = "#exp-" + e;
+                                        }
+                  
+                                        for (let i = 0; i < userAns.length; ++i) {
                                           found = true;
-                                          break;
-                                        } else found = false;
-                                      }
-              
-                                      if (!found) {
-                                        wrong++;
-                                      }
-                                    }
-                                    MathJax.typeset();
-              
-                                    $(".score").show();
-                                    
-                                    $(".score-time").html(
-                                      `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
-                                        initialMin - 1 - minute
-                                      }:${59 - sec}</span>`
-                                    );
-
-                                    console.log(score);
-                                    let myAns = userAns.join('|');
-                                    store.collection('lives').doc(params.id).set({
-                                      reg_std: {
-                                        [UID]: {
-                                          score: score,
-                                          ans: myAns,
-                                          time: {
-                                            min: initialMin - 1 - minute,
-                                            sec: 59-sec
+                                          for (let j = 0; j < ans.length; ++j) {
+                                            if (parseInt(userAns[i]) === ans[j]) { 
+                                              score++;
+                                              found = true;
+                                              break;
+                                            } else found = false;
+                                          }
+                  
+                                          if (!found) {
+                                            wrong++;
                                           }
                                         }
-                                      }
-                                    }, {merge: true}).then(()=>{
-                                      app.innerHTML = `
-                                      <div class="sad">
-                                      <div class="sad_img"><img src="../images/goal.png"></div>
-                                      <div class="sad_text">Successfully Submitted!</div>
-                                      <div class="sad_subtext">Result will publish soon!</div>
-                                      </div>
-                                      `
-                                      Swal.fire({
-                                        icon: 'success',
-                                        text: 'Successfully submitted!'
-                                      })
-                                    })
-                                      
-                                
-                      })
+                                        MathJax.typeset();
+                  
+                                        $(".score").show();
+                                        
+                                        $(".score-time").html(
+                                          `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
+                                            initialMin - 1 - minute
+                                          }:${59 - sec}</span>`
+                                        );
 
-              
-                      }
-                    }else{
-                      //Not available by time
+                                        console.log(score);
+                                        let myAns = userAns.join('|');
+                                        store.collection('lives').doc(params.id).set({
+                                          reg_std: {
+                                            [UID]: {
+                                              score: score,
+                                              ans: myAns,
+                                              time: {
+                                                min: initialMin - 1 - minute,
+                                                sec: 59-sec
+                                              }
+                                            }
+                                          }
+                                        }, {merge: true}).then(()=>{
+                                          app.innerHTML = `
+                                          <div class="sad">
+                                          <div class="sad_img"><img src="../images/goal.png"></div>
+                                          <div class="sad_text">Successfully Submitted!</div>
+                                          <div class="sad_subtext">Result will publish soon!</div>
+                                          </div>
+                                          `
+                                          Swal.fire({
+                                            icon: 'success',
+                                            text: 'Successfully submitted!'
+                                          })
+                                        })
+                                          
+                                    
+                          })
+
+                  
+                          }
+                        }else{
+                          //Not available by time
+                          app.innerHTML=`
+                          <div class="sad">
+                          <div class="sad_img"><img src="../images/goal.png"></div>
+                          <div class="sad_text">Exam finished!</div>
+                          <div class="sad_subtext">Result will be publish soon!</div>
+                          </div>
+                          `    
+                        }
+                    } else {
                       app.innerHTML=`
-                      <div class="sad">
-                      <div class="sad_img"><img src="../images/goal.png"></div>
-                      <div class="sad_text">Exam finished!</div>
-                      <div class="sad_subtext">Result will be publish soon!</div>
-                      </div>
-                      `    
+                          <div class="sad">
+                          <div class="sad_img"><img src="../images/queue.png"></div>
+                          <div class="sad_text">Exam is in queue!</div>
+                          <div class="sad_subtext">Question is examining by Expert! It may take a while. We will let you know when start!</div>
+                          </div>
+                          `  
                     }
+                  
+
                   }else{
                     //Attend before
                     app.innerHTML = `
@@ -1355,11 +1369,13 @@ router.on({
                       </div>
                       `
                   }
+
+
               }else{
                 //Not Registered
                 app.innerHTML = `
                 <div class="sad">
-                <div class="sad_img"><img src="../images/goal.png"></div>
+                <div class="sad_img"><img src="../images/oops.png"></div>
                 <div class="sad_text">You have not registered to this exam!</div>
                 <div class="sad_subtext">But you will be able to see the result after published!</div>
                 </div>
