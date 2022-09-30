@@ -310,7 +310,7 @@ function liveDetailsTimer(date, end, element, sdate, button){
      if (distance < 0) {
        clearInterval(y);
        if(end==-1){
-         $(element).html('Finished');
+         $(element).html('<div class="finished">Finished</div>');
          $(sdate).html(``);
          $(button).html(`<button id="btn-result" class="btn btn-primary">See Result</div>`);
          $('#btn-result').click(function(){

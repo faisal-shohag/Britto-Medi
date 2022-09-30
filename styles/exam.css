@@ -14,14 +14,16 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     text-align: center;
     margin-bottom: 15px;
-    padding: 10px 0px;
+    /* padding: 10px 0px; */
     border-radius: 5px;
     /* background:#ffff; */
+    width: 100%;
 }
 
-.exam-title{
+.exam_name{
     font-size: 18px;
     font-weight: bold;
+    color: #7f2dcc;
 }
 
 .exam-nb{
@@ -54,10 +56,15 @@
     font-family: 'Poppins', Kalpurush;
   }
   
-  .mark, .score-wa, .score-ng, .score-na, .score-time{
+  .exam-container .mark, .score-wa, .score-ng, .score-na, .score-time{
     background: #fff;
     min-width: 65px;
+    /* padding: 10px; */
     position: relative;
+  }
+
+  .score small{
+    font-size: 10px;
   }
   
   #mark{
@@ -137,6 +144,7 @@
     font-weight: bold;
     font-family: 'Poppins';
     margin-bottom: 10px;
+    color: #2d2e2e;
   }
   
   .parcentage{
@@ -262,7 +270,7 @@
 }
 
 .cr{
-    background: #43b12e;
+    background: #338d21;
     height: 30px;
     width: 30px;
     border-radius: 50%;
@@ -383,6 +391,7 @@
   border-radius: 3px;
  }
 
+ 
 
 
 .score_card{
@@ -424,9 +433,9 @@
     z-index: 9999;
     color: #fff;
     background: #4b6cb7;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .exam-container{
@@ -534,4 +543,12 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
 
 .stand.me{
   background: crimson;
+}
+
+.finished{
+  background: rgb(39, 110, 39);
+  padding: 8px;
+  color: #eee;
+  font-size: 16px;
+  border-radius: 5px;
 }

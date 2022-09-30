@@ -1160,7 +1160,7 @@ router.on({
                             <div class="exam-container">
                           <div class="exam_top">
                             <div class="exam-title kalpurush">
-                            <div class="exam_name">${myexam.title}</div><small>সময়: ${myexam.duration} মিনিট | নেগেটিভ: ${myexam.neg} </small>
+                            <div class="exam_name">${myexam.title}</div><small>Time: ${myexam.duration} min | NFEW: ${myexam.neg} </small>
                             </div>
                             <div style="display: none;" class="score">
                             <div class="score-time"></div>
@@ -1403,7 +1403,7 @@ router.on({
                       <div class="exam-container">
                      <div class="exam_top">
                       <div class="exam-title kalpurush">
-                      <div class="exam_name">${myexam.title}</div><small>সময়: ${parseInt(myexam.duration)} মিনিট | নেগেটিভ: ${myexam.neg} </small>
+                      <div class="exam_name">${myexam.title}</div><small>Time: ${parseInt(myexam.duration)} min | NFEW: ${myexam.neg} </small>
                       </div>
                       <div style="display: none;" class="score">
                       <div class="mark"></div>
@@ -1537,18 +1537,18 @@ router.on({
         
                               $(".score").show();
                               $(".mark").html(
-                                `<i class="icofont-check-circled"></i><br>স্কোর</br> <small>সঠিক: ${score} </small> <br/> <span class="score-num">${score-(wrong*neg)}/${questions.length}</span>`
+                                `<i class="icofont-check-circled"></i><br>Score</br> <small>Correct: ${score} </small> <br/> <span class="score-num">${score-(wrong*neg)}/${questions.length}</span>`
                               );
                               $(".score-wa").html(
-                                `<i class="icofont-close-circled"></i><br/>ভুল </br><small>নেগেটিভ: ${wrong*neg}</small><br/> <span class="score-num">${wrong}</span>`
+                                `<i class="icofont-close-circled"></i><br/>Wrong </br><small>Neg: ${wrong*neg}</small><br/> <span class="score-num">${wrong}</span>`
                               );
                               $(".score-na").html(
-                                `<i class="icofont-warning-alt"></i><br />ফাঁকা </br> <span class="score-num">${
+                                `<i class="icofont-warning-alt"></i><br />Empty </br> <span class="score-num">${
                                   questions.length - (score + wrong)
                                 }</span>`
                               );
                                $(".score-time").html(
-                                `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
+                                `<i class="icofont-ui-clock"></i><br />Time <br> <span class="score-num">${
                                   myexam.reg_std[UID].time.min
                                 }:${myexam.reg_std[UID].time.sec}</span>`
                               );
