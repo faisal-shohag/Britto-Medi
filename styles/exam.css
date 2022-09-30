@@ -350,6 +350,10 @@
     justify-content: center;
 }
 
+.q-logo i{
+  font-size: 25px;
+}
+
 .countdown{
     font-size: 25px;
     /* width: 100%; */

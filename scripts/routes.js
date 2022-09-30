@@ -1549,8 +1549,8 @@ router.on({
                               );
                                $(".score-time").html(
                                 `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
-                                  myexam.time.min
-                                }:${myexam.time.sec}</span>`
+                                  myexam.reg_std[UID].time.min
+                                }:${myexam.reg_std[UID].time.sec}</span>`
                               );
                               
                               
