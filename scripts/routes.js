@@ -1184,7 +1184,7 @@ router.on({
                           na = 0,
                           neg = 0;
                         questions = myexam.questions;
-                        shuffle(questions);
+                        // shuffle(questions);
                         // console.log(questions);
                         // $(".exam-nb").html(`${myexam.details.notice}`);
               
@@ -1309,7 +1309,11 @@ router.on({
                                       reg_std: {
                                         [UID]: {
                                           score: score,
-                                          ans: myAns
+                                          ans: myAns,
+                                          time: {
+                                            min: initialMin - 1 - minute,
+                                            sec: 59-sec
+                                          }
                                         }
                                       }
                                     }, {merge: true}).then(()=>{
@@ -1437,10 +1441,13 @@ router.on({
                   var ans = [],
                     exp = [],
                     userAns = (myexam.reg_std[UID].ans).split('|').map(Number),
+
                     score = 0,
                     wrong = 0,
                     na = 0,
                     neg = myexam.neg;
+
+                    console.log(userAns);
                   questions = myexam.questions;
                   // shuffle(questions);
                    for (let q = 0; q <questions.length; q++) {
@@ -1540,11 +1547,11 @@ router.on({
                                   questions.length - (score + wrong)
                                 }</span>`
                               );
-                              // $(".score-time").html(
-                              //   `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
-                              //     initialMin - 1 - minute
-                              //   }:${59 - sec}</span>`
-                              // );
+                               $(".score-time").html(
+                                `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
+                                  myexam.time.min
+                                }:${myexam.time.sec}</span>`
+                              );
                               
                               
                               $('#correctP').html(`${((score/questions.length)*100).toPrecision(3)}%
@@ -1569,7 +1576,7 @@ router.on({
             results.sort((a, b)=>{
               return b.score - a.score;
             })
-            console.log(results);
+            // console.log(results);
             for(let i=0; i<results.length; i++){
               if(UID){
                 if(UID === results[i].id){
