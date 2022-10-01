@@ -776,6 +776,7 @@ router.on({
         <button id="publish_q" class="btn btn-primary">Toggle Publish Q</button>
         <button id="publish_res" class="btn btn-primary">Toggle Publish Result</button>
         <button id="publish_reg" class="btn btn-primary">Toggle Register</button>
+        <button id="publish_front" class="btn btn-primary">Post On Front Page</button>
   
         <div class="comments kalpurush">
             <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div></div>
@@ -837,6 +838,20 @@ router.on({
                     store.collection('lives').doc(params.id).update({
                         isReg: !data.isReg
                     }).then(()=>{Swal.fire({icon:'success', text:'Changed!'})})
+                }
+            });
+          })
+
+          $('#publish_front').click(function(){
+            Swal.fire({
+                icon:'question',
+                text: 'Are you sure?'
+            }).then((res)=>{
+                if(res.isConfirmed){
+                    db.ref('app/live').update({
+                        id: params.id
+                    });
+                    Swal.fire({icon:'success', text:'Changed!'})
                 }
             });
           })

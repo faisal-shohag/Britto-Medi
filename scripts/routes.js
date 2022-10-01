@@ -143,7 +143,7 @@ router.on({
             <div class="badge"><img src="../images/${l.type}.png"/></div>
           `);
           $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
-          
+            clearInterval(z);
           liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
           })
         })

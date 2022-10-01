@@ -256,12 +256,13 @@ const Toast = Swal.mixin({
 })
 
 
+var z;
 
 function liveTimer(date, end, element, sdate){
  $(element).html(``);
  
   var countDownDate = new Date(date).getTime();
-  var x = setInterval(function() {
+  z = setInterval(function() {
     var now = new Date().getTime();
     var distance = countDownDate - now;
   
