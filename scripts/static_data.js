@@ -198,6 +198,32 @@ function getLives(callback){
 
 }
 
+function getPast(callback){
+  store.collection('lives').get().then(docs=>{
+
+    let pasts = [];
+    docs.forEach(item=>{
+      let end = new Date(item.data().end_time);
+      let d = new Date();
+      if(end.getTime() < d){
+        pasts.push({...item.data(), id: item.id});
+      }
+      
+    });
+
+    pasts.sort((a, b) => {
+      return new Date(a.start_time) - new Date(b.start_time);
+    })
+    if(callback){
+      callback(pasts);
+    }
+
+
+  });
+
+
+}
+
 
 
 

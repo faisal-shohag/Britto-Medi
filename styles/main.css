@@ -487,6 +487,7 @@ form {
 .form-tips{
   font-size: 10px;
   color: var(--orange);
+  padding: 10px;
 }
 
 .modal-title{
@@ -545,4 +546,24 @@ form {
   font-weight: bold;
   font-size: 16px;
   text-decoration: underline !important;
+}
+
+.britto{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.britto img{
+  height: 70px;
+}
+
+.britto-text{
+  font-family: Poppins;
+}
+
+.list-wrap .sad{
+  margin-top: 0;
 }

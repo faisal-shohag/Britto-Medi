@@ -3,7 +3,7 @@ const app = document.getElementById('app');
 
 router.on({
     '/': function() {
-        $('.top-title').text('Britto Medi');
+        $('.top-title').text('Britto Edu.');
         $('.countdown').hide();
 
         app.innerHTML = `
@@ -580,9 +580,16 @@ router.on({
       $('.top-title').text('Sign In');
       app.innerHTML = `
       <div class="body">
+     
   <div class="container mt-5 mb-5 d-flex justify-content-center">
+    
       <div class="card px-1 py-4">
           <div class="card-body">
+          <div class="britto">
+          <img src="../images/puzzle.png"/>
+          <div class="britto-text">Britto Edu.</div>
+          </div>
+
               <div class="row">
                   <div class="col-sm-12">
                       <div class="form-group">
@@ -612,9 +619,13 @@ router.on({
           </div>
           </div>
           </div>
-          </div></div><br>
-          <button class="btn btn-primary btn-block confirm-button" id="sign-in-button" >Sign In</button>
           </div>
+          </div><br>
+          <button class="btn btn-primary btn-block confirm-button" id="sign-in-button" >Sign In</button>
+          
+          </div>
+
+
           </div>
   
           </div>
@@ -865,15 +876,31 @@ router.on({
       </div>
       </div>
 
-      <div class="adv" id="live-adv-banner"><img src="../images/Ads/Live Banner.png"></div>
+      <div style="display: none;" class="adv" id="live-adv-banner"><img src="../images/Ads/Live Banner.png"></div>
      
+      <div class="list-wrap">
+      <div class="list-title">Past Exams</div>
+      <div class="list_past" id="past_list>
+     <center> <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+       </div></center>
+      </div>
+      </div>
+
       </body>
       `
 
       getLives(live=>{
         const list_upcoming = document.querySelector('.list_upcoming');
-        live_list.innerHTML = '';
-        clearInterval(x);
+       list_upcoming.innerHTML = '';
+  
+        if(live.length==0){
+          list_upcoming.innerHTML = `<div class="sad">
+          <div class="sad_img"><img src="../images/anxiety.png"></div>
+          <div class="sad_text">No Exam is Here!</div>
+          <div class="sad_subtext">...</div>
+          </div>`;
+        }
         for(let i=0; i<live.length; i++){
           list_upcoming.innerHTML +=`
           <div class="live-card kalpurush">
@@ -885,10 +912,37 @@ router.on({
           <a href="#!/live/details/${live[i].id}">Details</a>
           </div>
         `;
-      
+        clearInterval(x);
         liveTimer(live[i].start_time, live[i].end_time, '.live_countdown-'+i, '#s-time-'+i);
         
         }
+
+        getPast(live=>{
+          const list_past = document.querySelector('.list_past');
+          list_past.innerHTML = '';
+          if(live.length==0){
+            list_past.innerHTML = `<div class="sad">
+            <div class="sad_img"><img src="../images/anxiety.png"></div>
+            <div class="sad_text">No Exam is Here!</div>
+            <div class="sad_subtext">...</div>
+            </div>`;
+          }
+          for(let i=0; i<live.length; i++){
+            list_upcoming.innerHTML +=`
+            <div class="live-card kalpurush">
+            <div class="live-bg"><img src="${live[i].img_link}"/></div>
+            <div class="title">${live[i].title}</div>
+            <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
+            <div class="badge"><img src="../images/${live[i].type}.png"/></div>
+            <div class="live_countdown-${i} lc"></div>
+            <a href="#!/live/details/${live[i].id}">Details</a>
+            </div>
+          `;
+          }
+        
+          //liveTimer(live[i].start_time, live[i].end_time, '.live_countdown-'+i, '#s-time-'+i);
+          
+          })
 
         
        
