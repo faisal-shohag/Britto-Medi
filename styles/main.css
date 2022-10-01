@@ -324,8 +324,26 @@ button {
   border-radius: 10px;
   background: #222;
   color: #eee;
+  position: relative;
 }
 
+/* .course-button{
+  position: absolute;
+} */
+
+.interested{
+  padding: 3px;
+  background: #227936;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+.interest-count{
+  font-size: 10px;
+  color: #007bff;
+}
 .course-card .photo img {
   height: 60px;
 }

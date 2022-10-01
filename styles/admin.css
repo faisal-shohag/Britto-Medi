@@ -3,12 +3,14 @@ body {
     margin: 0;
     font-family: Poppins;
   }
+
+
   
   #left {
     position: fixed;
     /* background-color: green; */
     width: 50%;
-    height: 100%;
+    height: 90%;
     overflow: auto;
     right: 0;
     padding: 20px;
@@ -18,10 +20,11 @@ body {
     position: fixed;
     /* background-color: red; */
     width: 50%;
-    height: 100%;
+    height: 90%;
     left: 0;
     overflow: auto;
     padding: 20px;
+
   }
 
   .ad_head{

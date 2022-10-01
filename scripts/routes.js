@@ -93,8 +93,8 @@ router.on({
 
         <div class="section">
         <div class="section-heading">
-        <div class="sec-sec1"><div class="icon"><img src="../images/courses.png"></div><div class="text">Courses</div></div>
-       <div class="more">See more</div>
+        <div class="sec-sec1"><div class="icon"><img src="../images/courses.png"></div><div class="text">Courses<small>(Coming soon...)</small></div></div>
+       <div class="more">...</div>
         </div>
      
         <div id="course_list" class="vert-scroll siliguri">
@@ -175,7 +175,7 @@ router.on({
           snap.forEach(item=>{
            let data =  courseData(item.data());
             course_list.innerHTML += `
-          <a href="#!/course/${item.id}"> <div class="course-card">
+          <a href="#!"> <div class="course-card">
          <div class="photo"><img src="${data.img_link}"/></div>
          <div class="details">
          <div class="title">${data.title}</div>
@@ -185,7 +185,29 @@ router.on({
          </div></a>
             
             `
+
+            // $('.interested').click(function(){
+            //   if(UID){
+            //     let id = ($(this)[0].id).split('-')[1];
+            //     console.log(id);
+            //     Swal.fire({
+            //       icon: 'info',
+            //       text: 'This course is coming soon. We will let you know!'
+            //     })
+
+            //   } else {
+            //     Swal.fire({
+            //       icon: 'warning',
+            //       text: 'Please login first!',
+            //       footer: 'Britto Edu.'
+            //     })
+            //   }
+             
+            // })
+
+
           });
+
         }).catch(err=>{
           console.log(err);
         });

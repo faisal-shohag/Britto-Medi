@@ -109,64 +109,63 @@ router.on({
             
         })
     },
-
     'courses/': function() {
         app.innerHTML = `
-        <body>
+        <div class="body">
         <form id="add_course">
-        <div>
-        <input type="text" name="title" placeholder="title"/>
+        <div class="input-group mb-3">
+        <input type="text" class="form-control" name="title" placeholder="title"/>
         </div>
 
-        <div>
-        <input type="text" name="sub_title" placeholder="sub_title"/>
+        <div class="input-group mb-3">
+        <input type="text" class="form-control" name="sub_title" placeholder="sub_title"/>
         </div>
 
-        <div>
         Start time
-        <input type="datetime-local" name="start_time" placeholder="time"/>
+        <div class="input-group mb-3">
+        <input type="datetime-local" class="form-control" name="start_time" placeholder="time"/>
         </div>
 
-        <div>
         End time
-        <input type="datetime-local" name="end_time" placeholder="time"/>
+        <div class="input-group mb-3">
+        <input type="datetime-local" class="form-control" name="end_time" placeholder="time"/>
         </div>
 
-        <div>
-        <textarea type="text" name="details" placeholder="details"></textarea>
+        <div class="input-group mb-3">
+        <textarea type="text" name="details" class="form-control" placeholder="details"></textarea>
         </div>
 
-        <div>
-        <input type="text" name="subject_exam" placeholder="subject_exam"/>
+        <div class="input-group mb-3">
+        <input type="text" name="subject_exam" class="form-control" placeholder="subject_exam"/>
         </div>
 
-        <div>
-        <input type="text" name="previous_year" placeholder="previous_year"/>
+        <div class="input-group mb-3">
+        <input type="text" name="previous_year" class="form-control" placeholder="previous_year"/>
         </div>
 
-        <div>
-        <input type="text" name="model_test" placeholder="model_test"/>
+        <div class="input-group mb-3">
+        <input type="text" name="model_test" class="form-control" placeholder="model_test"/>
         </div>
 
-        <div>
-        <input type="number" name="fee" placeholder="fee"/>
+        <div class="input-group mb-3">
+        <input type="number" name="fee" class="form-control" placeholder="fee"/>
         </div>
 
-        <div>
-        <input type="number" name="prev_fee" placeholder="prev_fee"/>
+        <div class="input-group mb-3">
+        <input type="number" name="prev_fee" class="form-control" placeholder="prev_fee"/>
         </div>
 
-        <div>
-        <input type="text" name="course_plan_link" placeholder="course_plan_link"/>
+        <div class="input-group mb-3">
+        <input type="text" name="course_plan_link" class="form-control" placeholder="course_plan_link"/>
         </div>
 
-        <div>
-        <input type="text" name="img_link" placeholder="img_link"/>
+        <div class="input-group mb-3">
+        <input type="text" name="img_link" class="form-control" placeholder="img_link"/>
         </div>
         
         <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        </body>
+        </div>
         `
 
 
@@ -202,7 +201,7 @@ router.on({
     },
     '/live': function() {
         app.innerHTML = `
-        <body>
+        <div class="body">
         <form id="add_course">
         <div class="mb-3">
         <input type="text" class="form-control" name="title" placeholder="title"/>
@@ -231,7 +230,7 @@ router.on({
         </div>
 
         <div class="mb-3">
-        <input type="number" class="form-control" name="neg" placeholder="Negative">
+        <input type="text" class="form-control" name="neg" placeholder="Negative">
         </div>
 
 
@@ -261,7 +260,7 @@ router.on({
         </div>
 
 
-        </body>
+        </div>
         `
         const add_course = document.getElementById('add_course');
 
@@ -278,15 +277,18 @@ router.on({
                 isPublished: false,
                 show_q: false,
                 duration: add_course.duration.value,
-                neg: add_course.neg.value,
+                neg: parseInt(add_course.neg.value),
                 isReg: true
 
             }
 
             console.log(data);
             store.collection('lives').add(data)
-            .then(doc=>{
-                console.log(doc.id);
+            .then(()=>{
+               Swal.fire({
+                icon: 'success',
+                text: 'Exam Added!'
+               })
 
             }).catch(error=> {
                 console.log(error);
@@ -422,7 +424,13 @@ router.on({
         
                     <div id="left">
                     <div class="ad_head">Temporary Question Set for Exam</div>
-                    <center><button id="publish" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add_q_e">+Publish</button></center><br>
+                    <center>
+                    <button id="publish" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add_q_e">+Publish</button>
+                    <button id="delete_temp" class="btn btn-danger">-Delete</button>
+                    
+                    </center>
+                    
+                    <br>
                     <div class="questions_temp">
                     <center><div class="spinner-grow" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -471,6 +479,7 @@ router.on({
         const lq = document.getElementById('lq');
         let qlen = 0;
 
+
         let TemporaryQuestions = [];
        db.ref('liveTemporary').on('value', snap=>{
           if(snap.val() != null){
@@ -508,6 +517,18 @@ router.on({
           }
            
        });
+
+       $('#delete_temp').click(function(){
+        Swal.fire({
+            icon: 'question',
+            text: 'Delete?'
+        }).then(res=>{
+            if(res.isConfirmed){
+                db.ref('liveTemporary/questions').remove();
+            }
+        })
+       })
+       
 
         db.ref('tags').on('value', snap=>{
             let tags = document.getElementById('tags');
@@ -562,7 +583,12 @@ router.on({
                 ans: parseInt(lq.ans.value),
                 ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`,
                 tags: tags,
-            });
+            }).then(()=>{
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Added!'
+                  })
+            })
         });
 
         //Get from bank
@@ -577,16 +603,16 @@ router.on({
             tags.push(checkboxes[i].value)
             }
             // console.log('getting...')
-            console.log(tags);
+            // console.log(tags);
             
             let questions = [];
             store.collection('bank').where("tags", "array-contains", tags[1]).get().then(doc=>{
                
                 doc.forEach(element => {
                     if(tags[0] == "Chapters"){
-                        questions.push(element.data());
+                        questions.push({...element.data(), id: element.id});
                     }else if(element.data().tags.includes(tags[0])){
-                        questions.push(element.data());
+                        questions.push({...element.data(), id: element.id});
                     }
                     
                 });
@@ -602,6 +628,7 @@ router.on({
             <button id="${questions[i].q}|${questions[i].opt[0]}|${questions[i].opt[1]}|${questions[i].opt[2]}|${questions[i].opt[3]}|${questions[i].ans}|${questions[i].ex}" class="add_quiz btn btn-success">+ Daily Quiz</button></center>
             <div class="question">
             ${i+1}. ${questions[i].q}
+            <small>${questions[i].id}</small>
             </div>
             <div class="option">
             <div class="opt" id="${i+1+i*3}"><div class="st"></div>${questions[i].opt[0]}</div>
@@ -777,7 +804,7 @@ router.on({
         <button id="publish_res" class="btn btn-primary">Toggle Publish Result</button>
         <button id="publish_reg" class="btn btn-primary">Toggle Register</button>
         <button id="publish_front" class="btn btn-primary">Post On Front Page</button>
-  
+        <center><a href="#!/live/edit/${params.id}">Edit</a></center>
         <div class="comments kalpurush">
             <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div></div>
             
@@ -787,6 +814,7 @@ router.on({
             <span class="visually-hidden">Loading...</span>
           </div></center>
             </div>
+    
         </div>
         `
         getLive();
@@ -1034,6 +1062,109 @@ router.on({
   
       
     },
+    '/live/edit/:id': function(params) {
+        app.innerHTML = `
+        <div class="body">
+        <form id="add_course">
+        <div class="mb-3">
+        <input type="text" class="form-control" name="title" placeholder="title"/>
+        </div>
+
+        <div class="mb-3">
+        <input type="text" name="sub_title" class="form-control" placeholder="sub_title"/>
+        </div>
+
+        <div class="mb-3">
+        Start time
+        <input type="datetime-local" id="start_time" class="form-control" name="start_time" placeholder="time"/>
+        </div>
+
+        <div class="mb-3">
+        End time
+        <input type="datetime-local" id="end_time" class="form-control" name="end_time" placeholder="time"/>
+        </div>
+
+        <div class="mb-3">
+        <textarea type="text" class="form-control" name="details" placeholder="details"></textarea>
+        </div>
+
+        <div class="mb-3">
+        <input type="number" class="form-control" name="duration" placeholder="Duration">
+        </div>
+
+        <div class="mb-3">
+        <input type="text" class="form-control" name="neg" placeholder="Negative">
+        </div>
+
+
+        <div class="mb-3">
+        <select name="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option selected>type</option>
+        <option value="Free">Free</option>
+        <option value="Pro">Premium</option>
+        </select>
+        </div>
+
+        <div class="mb-3">
+        <input type="text" class="form-control" name="img_link" placeholder="img_link"/>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+
+ 
+
+
+        </div>
+        `
+        const add_course = document.getElementById('add_course');
+
+        store.collection('lives').doc(params.id).onSnapshot(snap=>{
+            let l = snap.data();
+            add_course.title.value = l.title;
+            add_course.sub_title.value = l.sub_title;
+            document.getElementById('start_time').valueAsDate = new Date(l.start_time);
+            document.getElementById('end_time').valueAsDate = new Date(l.end_time);
+            add_course.details.value = l.details;
+            add_course.duration.value = l.duration;
+            add_course.neg.value = l.neg;
+            add_course.type.value = l.type;
+            add_course.img_link.value = l.img_link;
+
+        })
+       
+        add_course.addEventListener('submit', e=> {
+            e.preventDefault();
+            let data = {
+                title: add_course.title.value,
+                sub_title: add_course.sub_title.value,
+                start_time: (new Date(add_course.start_time.value)).toString(),
+                end_time: (new Date(add_course.end_time.value)).toString(),
+                details: add_course.details.value,
+                type: add_course.type.value,
+                img_link: add_course.img_link.value,
+                isPublished: false,
+                show_q: false,
+                duration: add_course.duration.value,
+                neg: parseFloat(add_course.neg.value),
+                isReg: true
+
+            }
+
+            console.log(data);
+            store.collection('lives').doc(params.id).set({
+              ...data
+            }, {merge: true})
+            .then(()=>{
+                Swal.fire(
+                    'Updated', 'success'
+                )
+
+            }).catch(error=> {
+                console.log(error);
+            })
+        });
+    }
     
 
 
