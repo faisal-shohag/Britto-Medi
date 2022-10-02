@@ -1988,7 +1988,9 @@ router.on({
       
       <div class="news_wrap">
       
-      
+      <center><div class="spinner-grow text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div></center>
       
       </div>
       
@@ -1998,6 +2000,7 @@ router.on({
       store.collection('news').doc(params.id).get().then(snap=>{
         const news =  document.querySelector('.news_wrap');
         let d = (new Date(snap.data().created_at)).toString();
+        $('.top-title').html(`<div class="news_top_title">${snap.data().title}</div>`);
         news.innerHTML = `
         <div class="news-head">
         <div class="title">${snap.data().title}</div>

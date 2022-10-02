@@ -973,6 +973,12 @@ font-family: 'Poppins', Kalpurush;
   font-family: 'Poppins', Kalpurush;
   margin-top: 10px;
 }
+
+.news-head{
+border-bottom: 1px solid #eee;
+padding-bottom: 5px;
+}
+
 .news-head .title{
   font-size: 17px;
   font-weight: bold;
@@ -998,6 +1004,18 @@ font-family: 'Poppins', Kalpurush;
   border-top: 1px solid #eee;
   margin-top: 20px;
 
+}
+
+.news_top_title{
+  text-align: left;
+  width: 200px;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Hind Siliguri;
 }
 
 .skeleton-box {
