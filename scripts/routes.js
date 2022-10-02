@@ -1877,8 +1877,143 @@ router.on({
         }
 
         app.innerHTML = `
+        <div class="body">
+        <div class="news-list">
+        
+        <ul class="o-vertical-spacing o-vertical-spacing--l">
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+        
+       
+
+        </div>
+        
+        </div>
+        `
+
+        store.collection('news').onSnapshot(snap=>{
+         const news_list = document.querySelector('.news-list');
+         news_list.innerHTML = '';
+
+         let news = [];
+          snap.forEach(nw=>{
+            nw = {...nw.data(), id: nw.id};
+            let d  = (new Date(nw.created_at)).toString();
+            news.push({...nw, created_at: d});
+          });
+
+          news.sort((a, b) => {
+            return new Date(b.created_at) - new Date(a.created_at);
+          });
+          
+          news.forEach(nw=>{
+            news_list.innerHTML += `
+           <a href="#!/news_details/${nw.id}"> <div class="news">
+            <div class="img"><img src="${nw.img_link}"/></div>
+            <div class="details">
+            <div class="title">${nw.title}</div>
+            <div class="date">${dateForm(nw.created_at)} | ${timeForm(nw.created_at)}</div>
+            </div>
+            </div></a>
+            `
+          });
+
+        })
+    },
+    "news_details/:id": function(params){
+      $('.footer').hide();
+      $('.top-title').html(`News`);
+      app.innerHTML = `
+      <div class="body">
+      
+      <div class="news_wrap">
+      
+      
+      
+      </div>
+      
+      </div>
+      `
+
+      store.collection('news').doc(params.id).get().then(snap=>{
+        const news =  document.querySelector('.news_wrap');
+        let d = (new Date(snap.data().created_at)).toString();
+        news.innerHTML = `
+        <div class="news-head">
+      <div class="title">${snap.data().title}</div>
+      <div class="date">${dateForm(d)} | ${timeForm(d)}</div>
+      </div>
+
+      <div class="news_img"><img src="${snap.data().img_link}"></div>
+
+      <div class="news-body">
+        ${snap.data().news}
+      </div>
         
         `
+      })
     }
 
 

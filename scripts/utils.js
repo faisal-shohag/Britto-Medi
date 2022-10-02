@@ -31,6 +31,15 @@ router.on({
             <div class="title">Add Q</div>
             </div>
             </div></a>
+
+
+            <a href="#!/addNews"><div class="course-card">
+            <div class="details">
+            <div class="title">Add News</div>
+            </div>
+            </div></a>
+
+
         </div>
       
       </div>
@@ -560,7 +569,7 @@ router.on({
         //add to the bank
         lq.addEventListener('submit', e=>{
             e.preventDefault();
-            let exp = (lq.ex.value).trim() == '' ? '' : `<br> ${(lq.ex.value).replace('\n', '<br/>')}`;
+            let exp = (lq.ex.value).trim() == '' ? '' : `<br> ${(lq.ex.value).replaceAll('\n', '<br/>')}`;
             let options= [lq.opt1.value, lq.opt2.value, lq.opt3.value, lq.opt4.value]
             let data = {
                 q: lq.q.value,
@@ -1244,7 +1253,59 @@ router.on({
       
        
       
-      },
+    },
+    "/addNews": function(){
+   app.innerHTML =  `
+   <div class="body">
+   <form id="nw">
+
+   <div class="input-group mb-3">
+   <span class="input-group-text">Title</span>
+   <input type="text" class="form-control" name="title" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1" required>
+  </div>
+
+  <div class="input-group mb-3">
+   <textarea style="height: 250px" type="text" class="form-control" name="news" placeholder="News" aria-label="Title" aria-describedby="basic-addon1" required></textarea>
+  </div>
+
+  <div class="input-group mb-3">
+   <span class="input-group-text">Image Link</span>
+   <input type="text" class="form-control" name="img_link" placeholder="image_link" aria-label="link" aria-describedby="basic-addon1" required>
+  </div>
+
+  <button type="submit" class="btn btn-success">Submit</button>
+   
+   </form>
+   
+   
+   </div>
+   `
+   const nw = document.getElementById('nw');
+
+   nw.addEventListener('submit', e=> {
+    e.preventDefault();
+    let data = {
+        title: nw.title.value,
+        news: (nw.news.value).replaceAll('\n', '<br/>'),
+        img_link: nw.img_link.value,
+    }
+
+    console.log(data);
+
+    store.collection('news').add({
+        ...data, created_at: (new Date()).toISOString()
+    }).then(()=>{
+        Swal.fire({
+            icon: 'success',
+            text: 'Added Successfully!'
+        })
+    })
+    
+
+   })
+
+
+    }
     
 
 
