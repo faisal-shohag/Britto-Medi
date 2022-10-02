@@ -1959,7 +1959,7 @@ router.on({
           snap.forEach(nw=>{
             nw = {...nw.data(), id: nw.id};
             let d  = (new Date(nw.created_at)).toString();
-            news.push({...nw, created_at: d});
+            news.push({...nw});
           });
 
           news.sort((a, b) => {
@@ -1972,7 +1972,7 @@ router.on({
             <div class="img"><img src="${nw.img_link}"/></div>
             <div class="details">
             <div class="title">${nw.title}</div>
-            <div class="date">${dateForm(nw.created_at)} | ${timeForm(nw.created_at)}</div>
+            <div class="date"><i class="icofont-wall-clock"></i> ${moment(nw.created_at).fromNow()}</div>
             </div>
             </div></a>
             `
