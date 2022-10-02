@@ -2015,6 +2015,28 @@ router.on({
         
         `
       })
+    },
+    "/notice": function(){
+      $('.top-title').html(`Notice`);
+      $('.footer').show();
+      $('.footertext').hide();
+        $('.footerIcon').removeClass('footerIconActive');
+            if($('.ntc')[0].classList[3] === undefined){
+        $('.ntc').addClass('footerIconActive');
+        $($($('.ntc')[0].parentNode)[0].lastElementChild).show();
+        //$('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeIn top_dir"><img src="../images/pencil-case.png" height="30px"></div> <div class="animate__animated animate__fadeIn top_text">Resources</div></div>`);
+        }
+      app.innerHTML = `
+      <div class="body">
+      
+      <div class="sad">
+        <div class="sad_img"><img src="../images/document.png"></div>
+        <div class="sad_text">No notice is published yet!</div>
+        <div class="sad_subtext">...</div>
+      </div>
+      
+      </div>
+      `
     }
 
 
