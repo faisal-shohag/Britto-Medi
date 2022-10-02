@@ -142,7 +142,7 @@ router.on({
 
         //Running Exam 
         db.ref('app/live').on('value', snap=>{
-          store.collection('lives').doc(snap.val().id).get().then(live=>{
+          store.collection('lives').doc(snap.val().id).onSnapshot(live=>{
             let l = live.data();
             $('#live_banner').html(`
           <div class="live-bg"><img src="${l.img_link}"/></div>
@@ -177,7 +177,7 @@ router.on({
 
 
         //courses
-        store.collection('courses').get().then(snap=> {
+        store.collection('courses').onSnapshot(snap=> {
           let course_list = document.getElementById('course_list');
           course_list.innerHTML = '';
           snap.forEach(item=>{
@@ -216,9 +216,7 @@ router.on({
 
           });
 
-        }).catch(err=>{
-          console.log(err);
-        });
+        })
     },
     '/select_practice': function() {
       $('.footer').hide();
@@ -2002,15 +2000,15 @@ router.on({
         let d = (new Date(snap.data().created_at)).toString();
         news.innerHTML = `
         <div class="news-head">
-      <div class="title">${snap.data().title}</div>
-      <div class="date">${dateForm(d)} | ${timeForm(d)}</div>
-      </div>
+        <div class="title">${snap.data().title}</div>
+        <div class="date">${dateForm(d)} | ${timeForm(d)}</div>
+        </div>
 
-      <div class="news_img"><img src="${snap.data().img_link}"></div>
+        <div class="news_img"><img src="${snap.data().img_link}"></div>
 
-      <div class="news-body">
-        ${snap.data().news}
-      </div>
+        <div class="news-body">
+          ${snap.data().news}
+        </div>
         
         `
       })
