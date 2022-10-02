@@ -3,6 +3,14 @@ const app = document.getElementById('app');
 
 router.on({
     '/': function() {
+      $('.footer').show();
+      $('.footertext').hide();
+      $('.footerIcon').removeClass('footerIconActive');
+      if($('.hm')[0].classList[3] === undefined){
+        $('.hm').addClass('footerIconActive');
+        $($($('.hm')[0].parentNode)[0].lastElementChild).show();
+      }
+
         $('.top-title').text('Britto Edu.');
         $('.countdown').hide();
 
@@ -213,6 +221,7 @@ router.on({
         });
     },
     '/select_practice': function() {
+      $('.footer').hide();
         $('.top-title').text('Practice Exams');
         app.innerHTML = `
         <div class="body">
@@ -350,7 +359,8 @@ router.on({
         
     },
     '/start_practice/:subj/:chap/:key': function(params){
-        $('.top-title').text('');
+      $('.footer').hide();
+      $('.top-title').text('');
         app.innerHTML=`<div class="exam-doc" id="practice-exam"></div>`;
         store.collection('subjectExams').doc(params.subj).collection(params.chap).doc(params.key).get().then(snap=> {
             // $('.app_loader').hide();
@@ -599,6 +609,7 @@ router.on({
    
     },
     '/auth': function(){
+      $('.footer').hide();
       $('.top-title').text('Sign In');
       app.innerHTML = `
       <div class="body">
@@ -661,6 +672,7 @@ router.on({
           authExecute();
     },
     'profile/:uid': function(){
+      $('.footer').hide();
       $('.top-title').html(`Profile`);
       app.innerHTML = `
       <div class="body">
@@ -686,6 +698,7 @@ router.on({
       })
     },
     '/course/:id':function(params){
+      $('.footer').hide();
       $('.top-title').html(`Course`);
       app.innerHTML =`
       <div class="course-wrap">
@@ -884,6 +897,7 @@ router.on({
 
     },
     '/live/list': function(){
+      $('.footer').hide();
       $('.top-title').html(`Lives`);
 
       app.innerHTML = `
@@ -979,6 +993,7 @@ router.on({
 
     },
     '/live/details/:id': function(params){
+      $('.footer').hide();
       $('.top-title').html(`Live`);
       app.innerHTML = `
       <div class="body">
@@ -1197,6 +1212,7 @@ router.on({
 
     },
     '/live/start/:id': function(params){
+      $('.footer').hide();
       $('.top-title').html(``);
 
       app.innerHTML = `
@@ -1705,7 +1721,167 @@ router.on({
 
 
       
+    },
+    "/resource":function(params){
+      $('.top-title').html(`Resources`);
+      $('.footer').show();
+      $('.footertext').hide();
+        $('.footerIcon').removeClass('footerIconActive');
+            if($('.rsc')[0].classList[3] === undefined){
+        $('.rsc').addClass('footerIconActive');
+        $($($('.rsc')[0].parentNode)[0].lastElementChild).show();
+        //$('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeIn top_dir"><img src="../images/pencil-case.png" height="30px"></div> <div class="animate__animated animate__fadeIn top_text">Resources</div></div>`);
+        }
+      app.innerHTML = `
+      <div class="body">
+      <a href="#!/add_resources"><div class="floating-button"><img src="../images/plus.png"></div></a>
+      <div class="search-bar">
+      <div class="search-icon"><img src="../images/search.png"></div>
+      <input autocomplete="off" id="search-book" placeholder="সার্চ করুন..." type="text" name="search">
+      </div>
+    
+      <div id="search-result">
+      <div class="search-result"></div>
+      </div>
+    
+      <div class="resource-head">Newly Added</div>
+      <div class="new-resources">
+      <div class="progress">
+      <div class="indeterminate red" ></div>
+    </div>
+      </div>
+    
+    
+      <div class="resource-head">All Resources</div>
+      <div class="all-resources">
+      <div class="resource-item">
+      <div class="progress ">
+      <div class="indeterminate red" ></div>
+    </div>
+    </div>
+    
+    <div class="resource-item">
+    <div class="progress ">
+    <div class="indeterminate red" ></div>
+    </div>
+    </div>
+    
+    <div class="resource-item">
+    <div class="progress ">
+    <div class="indeterminate red" ></div>
+    </div>
+    </div>
+    
+    <div class="resource-item">
+    <div class="progress ">
+    <div class="indeterminate red" ></div>
+    </div>
+    </div>
+    
+    <div class="resource-item">
+    <div class="progress ">
+    <div class="indeterminate red" ></div>
+    </div>
+    </div>
+    
+    <div class="resource-item">
+    <div class="progress ">
+    <div class="indeterminate red" ></div>
+    </div>
+    </div>
+    
+      </div>
+      </div>
+      `
+    
+      const newr = document.querySelector('.new-resources');
+      store.collection('books').orderBy("creationTime", "desc").limit(6).onSnapshot(snap=>{
+        newr.innerHTML = "";
+        snap.forEach(item=>{
+            newr.innerHTML += `
+            <a target="_blank" href="${item.data().link}"><div class="resource-item">
+            <div class="book-cat">${item.data().cat}</div>
+            <div class="book-cover"><img src="${item.data().cover}"></div>
+            <div class="book-title">${item.data().title}</div>
+            <div class="book-size">${item.data().size}</div>
+            <div class="book-author">${item.data().author}</div>
+            </div></a>
+            `
+        });
+    
+      });
+    
+      const allr = document.querySelector('.all-resources');
+      const search_result = document.querySelector('.search-result');
+        store.collection('books').onSnapshot(snap=>{
+          allr.innerHTML = "";
+          search_result.innerHTML = "";
+          snap.forEach(item=>{
+            allr.innerHTML += `
+            <a target="_blank" href="${item.data().link}"><div class="resource-item">
+            <div class="book-cat">${item.data().cat}</div>
+            <div class="book-cover"><img src="${item.data().cover}"></div>
+            <div class="book-title">${item.data().title}</div>
+            <div class="book-author">${item.data().author}</div>
+            </div></a>
+            `
+    
+            search_result.innerHTML += `
+            <div id="search-item">
+            <a target="_blank" href="${item.data().link}"><div class="search-item">
+            <div class="book-cover-s"><img src="${item.data().cover}"></div>
+            <div class="search-details">
+            <div class="book-title-s">${item.data().title}</div>
+            <div class="book-author">${item.data().author}</div>
+            <div class="book-cat-s">${item.data().cat}</div>
+            </div>
+            </div></a></div>
+            `
+          })
+        });
+    
+        //Searching books
+        document.getElementById('search-book').addEventListener('keyup', e=>{
+          if(e.key = 'Enter'){
+            e.preventDefault();
+            let filter = ($('#search-book')[0].value).toUpperCase();
+            if(filter.length>0) $('.search-result').show();
+            else $('.search-result').hide();
+            let allPost = document.querySelectorAll('.book-title-s');
+            for(let i=0; i<allPost.length; i++){
+              s_tag = allPost[i].innerText.toUpperCase();
+              
+              if(s_tag.indexOf(filter) > -1) {
+                allPost[i].parentNode.parentNode.parentNode.style.display = "block";
+                // $('.search-result').hide();
+              } else{
+                allPost[i].parentNode.parentNode.parentNode.style.display = "none";
+                // $('.search-result').show();
+              }
+    
+            }
+          }
+        });
+        if(UID !== '094Rbu13YbWc9On6KnuJIUv3QMx2') $('.floating-button').hide();
+    
+    }, 
+    "/news":function(params){
+      $('.top-title').html(`News`);
+      $('.footer').show();
+      $('.footertext').hide();
+        $('.footerIcon').removeClass('footerIconActive');
+            if($('.nws')[0].classList[3] === undefined){
+        $('.nws').addClass('footerIconActive');
+        $($($('.nws')[0].parentNode)[0].lastElementChild).show();
+        //$('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeIn top_dir"><img src="../images/pencil-case.png" height="30px"></div> <div class="animate__animated animate__fadeIn top_text">Resources</div></div>`);
+        }
+
+        app.innerHTML = `
+        
+        `
     }
+
+
 
 
 
@@ -1715,4 +1891,6 @@ router.on({
 
 
 
-
+router.notFound(function(){
+  app.innerHTML=`404`;
+});

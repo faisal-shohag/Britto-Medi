@@ -73,6 +73,7 @@ body {
 #app {
   margin-top: 35px;
   padding-top: 20px;
+  margin-bottom: 65px;
 }
 
 .body{
@@ -584,4 +585,349 @@ form {
 
 .list-wrap .sad{
   margin-top: 0;
+}
+
+
+.search-bar {
+  display: flex;
+  width: 100%;
+  /* padding: 10px; */
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+
+}
+
+.search-bar img{
+  height: 30px;
+}
+
+.search-bar input, input[type="radio"] + label, input[type="checkbox"] + label:before, select option, select {
+  width: 100%;
+  padding-left: 10px !important;
+  line-height: 1.4 !important;
+  background-color: #f9f9f9 !important;
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 3px !important;
+  -webkit-transition: 0.35s ease-in-out;
+  -moz-transition: 0.35s ease-in-out;
+  -o-transition: 0.35s ease-in-out;
+  transition: 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  font-family: Lato, Kalpurush;
+}
+
+.search-bar input[type=text]:focus {
+  border: 1px solid rgb(81, 39, 233) !important;
+  box-shadow: 0 0px 0 0 rgb(212, 22, 22) !important;
+  /* box-shadow: rgba(230, 58, 28, 0.2) 0px 7px 29px 0px; */
+  /* -webkit-border-image: -webkit-gradient(linear, left top, left bottom, from(#00abeb), to(#fff), color-stop(0.5, #fff), color-stop(0.5, #66cc00)) 21 30 30 21 repeat repeat; */
+}
+
+.new-resources{
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  overflow-x: scroll;
+  margin-bottom: 20px;
+  /* justify-content: center; */
+  padding-bottom: 10px;
+  /* padding-left: 20px; */
+  font-family: 'Poppins', Kalpurush;
+}
+
+.all-resources{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 40px;
+  font-family: 'Poppins', Kalpurush;
+}
+
+
+.resource-head{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: 'Poppins', Kalpurush;
+}
+
+.resource-item{
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+ align-items: center;
+ /* padding: 5px; */
+ position: relative;
+ /* height: 120px; */
+  width: 90px;
+  font-family: 'Poppins', Kalpurush;
+}
+
+.book-cat{
+  position: absolute;
+  top: 0;
+  right: 0%;
+  font-size: 10px;
+  background-color: rgba(48, 45, 45, 0.993);
+  color: var(--light);
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-family: 'Poppins', Kalpurush;
+}
+
+.book-cat-s{
+  font-size: 9px;
+}
+
+.book-cover{
+  
+ overflow: hidden;
+ border-radius: 5px;
+ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.book-cover img{
+   height: 120px;
+   width: 90px;
+}
+
+.book-title{
+  /* font-weight: bold; */
+  font-weight: 15px;
+  color: #313aaa;
+  width: 90px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Poppins', Kalpurush;
+  font-size: 15px;
+}
+
+.book-author{
+  font-size: 13px;
+  color: grey;
+}
+
+
+
+.floating-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ height: 50px;
+ width: 50px;
+ overflow: hidden;
+ border-radius: 50%;
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ position: fixed;
+ z-index: 99999;
+ background: #fff;
+ bottom: 6%;
+ left: 43%;
+ /* right: 5%; */
+ /* cursor: pointer; */
+}
+
+
+.floating-button img{
+  height: 30px;
+}  /* text-align: center; */
+
+.progress{
+  background: #f1f1f1;;
+}
+
+.search-item{
+ display: flex;
+ gap: 10px;
+ width: 100%;
+ border-radius: 5px;
+ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+/* margin-bottom: 5px; */
+font-family: 'Poppins', Kalpurush;
+}
+
+.book-cover-s{
+  
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+ }
+
+ .book-title-s{
+  font-size: 10px;
+ }
+ 
+ .book-cover-s img{
+    height: 60px;
+    width: 40px;
+ }
+
+ .search-result{
+   display: none;
+  position: fixed;
+  background: #fff;
+  /* padding: 5px; */
+  border-radius: 5px;
+  z-index: 99;
+  width: 95%;
+
+ }
+
+/* .search-details{
+
+} */
+
+.book-title-s{
+  font-weight: bold;
+  font-weight: 15px;
+  color: #313aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 10px;
+}
+
+
+
+.search-item .book-author{
+  font-size: 10px;
+}
+
+.book-size{
+  font-size: 10px;
+  font-weight: bold;
+  color: crimson;
+}
+
+.firebaseui-callback-indicator-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Kalpurush;
+}
+
+.scroll-card{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 7px;
+}
+
+.card-head{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 10px;
+}
+
+.card-circle-img img{
+ height: 50px;
+}
+
+.card-title{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.card-sub-title{
+  font-size: 10px;
+  font-weight: bold;
+  color: grey;
+}
+
+.horz-line{
+  height: 1px;
+  background: rgb(228, 225, 225);
+  width: 100%;
+  margin-top: 5px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 99;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 -2px 5px 0px rgba(0, 0, 0, 0.2);
+  padding: 0px 15px;
+  height: 55px;
+  font-family:'Lato', Kalpurush;
+  flex-direction: row;
+}
+
+#footer{
+  display: block;
+}
+
+
+
+.footer a {
+  color: #817b7b;
+}
+
+.footerMenu {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+  position: relative;
+  padding-top: 5px;
+}
+
+
+.footerMenu img{
+  height: 30px;
+  
+}
+
+.ucnt {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background: #28a745;
+  color: #fff;
+  border-radius: 50%;
+  right: 0;
+}
+
+.sz {
+  font-size: 25px;
+}
+
+.footertext {
+  font-weight: bold;
+  display: none;
+  font-size: 13px;
+  font-family: Hind Siliguri;
+  background: -webkit-linear-gradient(45deg, rgb(56, 58, 204), rgb(204, 35, 167));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.footerIcon{
+  filter: grayscale(90%);
+  
+}
+
+.footerIconActive {
+  filter: grayscale(0%);
+  /* font-size: 25px; */
+  font-weight: bold;
+  -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
