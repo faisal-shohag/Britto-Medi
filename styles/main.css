@@ -953,6 +953,21 @@ font-family: 'Poppins', Kalpurush;
 .news .title{
   font-size: 17px;
   font-weight: bold;
+  /* text-align: left; */
+  width: 190px;
+  overflow: hidden;
+  /* position: relative; */
+  /* display: inline-block; */
+  /* text-decoration: none; */
+  display: inline;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word; 
+  
+
 }
 
 .news .details .date{
