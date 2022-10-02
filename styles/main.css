@@ -954,7 +954,8 @@ font-family: 'Poppins', Kalpurush;
   font-size: 17px;
   font-weight: bold;
   /* text-align: left; */
-  width: 190px;
+  width: 100%;
+  padding-right: 10px;
   overflow: hidden;
   /* position: relative; */
   /* display: inline-block; */
@@ -968,6 +969,10 @@ font-family: 'Poppins', Kalpurush;
   word-wrap: break-word; 
   
 
+}
+
+.news .details{
+  position: relative;
 }
 
 .news .details .date{
