@@ -2,7 +2,7 @@ const router = new Navigo(null, true, '#!');
 const app = document.getElementById('app');
 
 router.on({
-    '/': function() {
+    '/home': function() {
       $('.footer').show();
       $('.footertext').hide();
       $('.footerIcon').removeClass('footerIconActive');
