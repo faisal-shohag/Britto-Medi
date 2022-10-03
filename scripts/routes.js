@@ -2095,3 +2095,5 @@ router.on({
 router.notFound(function(){
   app.innerHTML=`404`;
 });
+
+history.pushState({page: 1}, "home", "#!/")
