@@ -673,10 +673,12 @@ router.on({
       $('.footer').hide();
       $('.top-title').html(`Profile`);
       app.innerHTML = `
-      <div class="body">
-      <div class="avatar-circle">
+      <div class="">
+
+      <div class="profile-top">
+      <center><div class="avatar-circle">
       <img src="../images/doctor.png">
-      </div>
+      </div></center>
 
       <div class="profile-details">
       <div class="profile-name">
@@ -686,6 +688,46 @@ router.on({
       </div>
       <div class="profile-inst"></div>
       </div>
+
+      <div class="profile-data">
+      
+      <div class="stat-top">
+
+      <div class="stat-item">
+      <div class="text">Rank</div>
+      <div class="count">0</div>
+      </div>
+
+      <div class="stat-item">
+      <div class="text">Exam</div>
+      <div class="count">0</div>
+      </div>
+
+      <div class="stat-item">
+      <div class="text">Score</div>
+      <div class="count">0</div>
+      </div>
+
+
+      </div>
+      </div>
+      </div>
+
+      <div class="profile-bottom">
+      <div class="profile-head">
+      Exams
+      </div>
+
+      <div classs="exams">
+      <div class="sad">
+      <div class="sad_img"><img src="../images/exam.png"></div>
+      <div class="sad_text">No exam to show!</div>
+      <div class="sad_subtext">If you participated, will be updated soon!</div>
+    </div>
+      </div>
+      
+      </div>
+
     </div>
       `
 
@@ -693,7 +735,7 @@ router.on({
         $('.top-title').text(data.name);
         $('.profile-name').text(data.name);
         $('.profile-inst').text(data.inst);
-      })
+      });
     },
     '/course/:id':function(params){
       $('.footer').hide();

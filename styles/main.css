@@ -521,10 +521,16 @@ form {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid #eee;
 }
 
 .avatar-circle img{
   height: 100px;
+  width: 100px;
 }
 
 .profile-details{
