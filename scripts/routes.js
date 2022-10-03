@@ -954,7 +954,6 @@ router.on({
 
       <div style="display: none;" class="adv" id="live-adv-banner"><img src="../images/Ads/Live Banner.png"></div>
      
-      <a href="https://www.africau.edu/images/default/sample.pdf">PDF Download</a>
       <div class="list-wrap">
       <div class="list-title">Past Exams</div>
       <div class="list_past" id="past_list>
