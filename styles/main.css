@@ -1032,6 +1032,11 @@ padding-bottom: 5px;
 
 }
 
+.news-body a{
+  color: #007bff !important;
+  font-weight: bold;
+}
+
 .news_top_title{
   text-align: left;
   width: 200px;
