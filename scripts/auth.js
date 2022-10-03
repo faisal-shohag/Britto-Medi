@@ -208,6 +208,10 @@ firebase.auth().onAuthStateChanged(user=> {
                                 text: 'All set! Lets begin the journey!'
                             })
 
+                            setTimeout(function(){
+                              window.location.reload();
+                            }, 1000)
+
                             $('#info_modal').modal('hide');
                         })
                     }
