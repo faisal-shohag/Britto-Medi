@@ -131,8 +131,8 @@ router.on({
         </div>
 
         <center>
-        <a href="../images/Ads/Science Routine.png"><button class="btn btn-danger"><i class="icofont-download"></i> Science</button></a>
-        <a href="../images/Ads/Humanity Routine.png"><button class="btn btn-success"> <i class="icofont-download"></i> Humanity</button></a>
+        <button id="sci" class="btn btn-danger rtn"><i class="icofont-download"></i> Science</button>
+        <button id="hum" class="btn btn-success rtn"> <i class="icofont-download"></i> Humanity</button>
         </center>
 
 
@@ -154,7 +154,38 @@ router.on({
     
         
         </div>
+
+
+        <div class="modal fade" id="routineModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Routine</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="rtn-img"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
         `
+
+        //routine
+        $('.rtn').click(function(){
+          let g = $(this)[0].id;
+          if(g=='sci'){
+            $('#rtn-img').html(`<img src="../images/Ads/Science Routine.png"/>`)
+            $('#routineModal').modal('show');
+          }else{
+            $('#rtn-img').html(`<img src="../images/Ads/Humanity Routine.png"/>`)
+            $('#routineModal').modal('show');
+          }
+        });
 
         //daily quiz
         db.ref('app/dailyQuize').on("value", snap=> {

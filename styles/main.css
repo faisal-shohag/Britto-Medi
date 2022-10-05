@@ -1230,3 +1230,11 @@ padding-bottom: 5px;
   font-size: 10px;
   color: #4d4d4d;
 }
+
+#rtn-img{
+  position: relative;
+}
+
+#rtn-img img{
+  width: 100%;
+}
