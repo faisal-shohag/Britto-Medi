@@ -55,7 +55,7 @@ router.on({
 
         <div class="section">
         <div class="section-heading">
-        <div class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">Practice Exams</div></div>
+        <div class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">Science</div></div>
         <div class="more">2100+ Questions</div>
         </div>
         <a href="#!/select_practice">
@@ -93,11 +93,35 @@ router.on({
 
         </div>
 
-        <center><div class="button-custom">Select Manually</div></center>
-       
+  
         </div>
         </a>
+        
+        <div class="section">
+        <div class="section-heading">
+        <div class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">Humanity</div></div>
+        <div class="more">800+ Questions</div>
+        </div>
+        <a href="#!/subjects">
+        <div class="horz-scroll siliguri">
+       
+        <div class="sub-sq">
+        <div class="icon"><img src="../images/literature.png"/></div>
+        <div class="title">বাংলা ১</div>
+        </div>
 
+        <div class="sub-sq">
+        <div class="icon"><img src="../images/b2.png"/></div>
+        <div class="title">বাংলা ২</div>
+        </div>
+
+        <div class="sub-sq">
+        <div class="icon"><img src="../images/grammar.png"/></div>
+        <div class="title">English 2</div>
+        </div>
+
+        </div>
+        </a>
 
         <div class="section">
         <div class="section-heading">
@@ -356,6 +380,106 @@ router.on({
 
         
     },
+    "/subjects": function(){
+      $('.footer').hide();
+      // $('.app_loader').show();
+      $('.top-title').text('Practice Exams(Humanity)');
+          app.innerHTML = `
+    <div class="sl">
+      <div class="sl_menu">
+      <a href="#!/practice/subject/b1"> 
+      <div class="sl_item">
+      <div class="sl_icon"><img src="../images/literature.png"></div>
+      <div class="sl_name">বাংলা ১ম পত্র</div>
+      </div>
+      </a>
+      <a href="#!/practice/subject/b2">
+      <div class="sl_item">
+      <div class="sl_icon"><img src="../images/b2.png"></div>
+      <div class="sl_name">বাংলা ২য়  পত্র</div>
+      </div>
+      </a>
+      <a href="#!/practice/subject/e">
+      <div class="sl_item">
+      <div class="sl_icon"><img src="../images/grammar.png"></div>
+      <div class="sl_name">English 2nd</div>
+      </div>
+      </a>
+
+    
+    <a href="#!/practice/subject/ict">
+    <div class="sl_item">
+    <div class="sl_icon"><img src="../images/ict.png"></div>
+    <div class="sl_name">ICT</div>
+    </div>
+    </a>
+    
+    </div>
+      </div>
+          `
+    },
+    "/practice/subject/:id": function(params){
+      $('.footer').hide();
+      app.innerHTML = `
+      <div class="chapters">
+      </div>
+      `
+      
+      db.ref('app/practiceRef/'+params.id).once('value', snap=>{
+        $('.app_loader').hide();
+        let html = ``;
+        let chapters = [];
+        snap.forEach(item=>{
+          chapters.push({
+            i:item.val().i,
+            name: item.val().name,
+            author: item.val().author,
+            key: item.key
+          })
+        });
+    
+        //sorting
+        chapters.sort(function(a, b){
+          return a.i - b.i;
+        });
+    
+        for(let i=0; i<chapters.length; i++){
+          html += `
+          <a href="#!/practice/list/${params.id}/${chapters[i].key}/${chapters[i].name}"> <div  class="chap_item ${params.id}_list"><div><div class="name_logo">${oneLetter(chapters[i].name)}</div></div><div><div class="chapterName">${chapters[i].name}</div><div class="author">${chapters[i].author}</div></div></div></a>
+          `
+        }
+        //  console.log(chapters)
+        $('.chapters').html(html);
+        if($('.chapters')[0].innerHTML === ""){
+          $('.chapters').html('<center><div class="big_no_exam animate_animated animate__bounceIn"><div class=""><i class="icofont-warning-alt"></i></div><div>পরীক্ষা নেই!</div></div></center>');
+        }
+      })
+    
+    
+    },
+    
+    "/practice/list/:subj/:chap/:chapName": function(params){
+      $('.footer').hide();
+      $('.app_loader').show();
+      $('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeInRight top_dir"><i class="icofont-simple-left"></i></div> <div class="animate__animated animate__fadeIn top_text">${params.chapName}</div></div>`);
+      app.innerHTML = `
+      <div class="chapters" id="chaps">
+      </div>
+      `
+      store.collection('subjectExams').doc(params.subj).collection(params.chap).onSnapshot(snap=>{
+        $('.app_loader').hide();
+        const ex = document.querySelector('#chaps');
+        ex.innerHTML="";
+        
+        snap.forEach(item=>{
+          ex.innerHTML += `
+          <a href="#!/start_practice/${params.subj}/${params.chap}/${item.id}"> <div class="chap_item ${params.subj}_list"><div><div class="name_logo">${oneLetter(item.data().details.exam_name)}</div></div><div><div class="chapterName">${item.data().details.exam_name}</div><div class="author">${item.data().questions.length}টি প্রশ্ন</div></div></div></a>
+          `
+        })
+      })
+    },
+
+
     '/start_practice/:subj/:chap/:key': function(params){
       $('.footer').hide();
       $('.top-title').text('');
@@ -1902,7 +2026,7 @@ router.on({
             }
           }
         });
-        if(UID !== '094Rbu13YbWc9On6KnuJIUv3QMx2') $('.floating-button').hide();
+        if(UID === 'DDkJGuxqAlNCxJO1QjnJT4bAoyX2') $('.floating-button').hide();
     
     }, 
     "/news":function(params){
@@ -2096,3 +2220,7 @@ router.notFound(function(){
 });
 
 history.pushState({page: 1}, "home", "#!/")
+
+$(a).click(function(){
+  history.pushState({page: 1}, "home", "#!/")
+});
