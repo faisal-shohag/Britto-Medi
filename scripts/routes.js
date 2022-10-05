@@ -52,6 +52,18 @@ router.on({
     
         </div>
 
+        <div class="section">
+        <div class="section-heading">
+        <div class="sec-sec1"><div class="icon"><img src="../images/routine.png"></div><div class="text">Live Exam Routine</div></div>
+        <div class="more">...</div>
+        </div>
+
+        <center>
+        <button id="sci" class="btn btn-danger rtn"><i class="icofont-download"></i> Science(HSC)</button>
+        <button id="hum" class="btn btn-success rtn"> <i class="icofont-download"></i> Humanity(HSC)</button>
+        </center>
+        <br>
+
 
         <div class="section">
         <div class="section-heading">
@@ -124,16 +136,7 @@ router.on({
         </a>
         <br>
 
-        <div class="section">
-        <div class="section-heading">
-        <div class="sec-sec1"><div class="icon"><img src="../images/routine.png"></div><div class="text">Live Exam Routine</div></div>
-        <div class="more">...</div>
-        </div>
-
-        <center>
-        <button id="sci" class="btn btn-danger rtn"><i class="icofont-download"></i> Science</button>
-        <button id="hum" class="btn btn-success rtn"> <i class="icofont-download"></i> Humanity</button>
-        </center>
+       
 
 
         <div style="display: none" class="section">
@@ -179,10 +182,10 @@ router.on({
         $('.rtn').click(function(){
           let g = $(this)[0].id;
           if(g=='sci'){
-            $('#rtn-img').html(`<img src="../images/Ads/Science Routine.png"/>`)
+            $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
             $('#routineModal').modal('show');
           }else{
-            $('#rtn-img').html(`<img src="../images/Ads/Humanity Routine.png"/>`)
+            $('#rtn-img').html(`<img src="../images/Ads/hsc_humanity.png"/>`)
             $('#routineModal').modal('show');
           }
         });

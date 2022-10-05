@@ -37,3 +37,8 @@ body {
     font-family: Poppins;
     color: #eee;
   }
+
+  .question small{
+    font-size: 10px;
+    color: rgb(122, 121, 121);
+  }
