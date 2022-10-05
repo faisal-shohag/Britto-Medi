@@ -122,14 +122,27 @@ router.on({
 
         </div>
         </a>
+        <br>
 
         <div class="section">
+        <div class="section-heading">
+        <div class="sec-sec1"><div class="icon"><img src="../images/routine.png"></div><div class="text">Live Exam Routine</div></div>
+        <div class="more">...</div>
+        </div>
+
+        <center>
+        <a href="../images/Ads/Science Routine.png"><button class="btn btn-danger"><i class="icofont-download"></i> Science</button></a>
+        <a href="../images/Ads/Humanity Routine.png"><button class="btn btn-success"> <i class="icofont-download"></i> Humanity</button></a>
+        </center>
+
+
+        <div style="display: none" class="section">
         <div class="section-heading">
         <div class="sec-sec1"><div class="icon"><img src="../images/courses.png"></div><div class="text">Courses<small>(Coming soon...)</small></div></div>
        <div class="more">...</div>
         </div>
      
-        <div id="course_list" class="vert-scroll siliguri">
+        <div style="display:none" id="course_list" class="vert-scroll siliguri">
         <center><div class="spinner-border text-success" role="status">
         <span class="visually-hidden">Loading...</span>
       </div></center>
