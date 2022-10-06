@@ -859,7 +859,7 @@ router.on({
         
         </div>
         `
-
+        let prev_tags;
         const lq = document.getElementById('lq-edit');
         store.collection('bank').doc(params.id).onSnapshot(snap=>{
             let d = snap.data();
@@ -871,6 +871,7 @@ router.on({
             lq.opt4.value = d.opt[3];
             lq.ans.value = d.ans;
             lq.ex.value = ex.replace(/.*/, "").substr(1);
+            prev_tags = lq.tags;
 
         });
 
@@ -900,7 +901,7 @@ router.on({
                 opt: options,
                 ans: parseInt(lq.ans.value),
                 ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`,
-                tags: tags,
+                tags: prev_tags,
             },{merge: true}).then(()=>{
                 Toast.fire({
                     icon: 'success',
