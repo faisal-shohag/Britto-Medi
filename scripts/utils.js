@@ -334,6 +334,7 @@ router.on({
 
         <div id="content">
         <div id="right"> 
+        <center><div class="total-q"></div></center>
         <div class="ad_head">Add Question/View Question Bank</div>
        <center> <button id="show-qbf" class="btn btn-success">Show</button>
         <button id="hide-qbf" class="btn btn-warning">Hide</button></br></center>
@@ -485,7 +486,14 @@ router.on({
                 console.log(user.uid)
 
         
-       
+       //total q
+       store.collection('bank').onSnapshot(s=>{
+        let i=0;
+        s.forEach(item=>{
+            i++;
+        });
+        $('.total-q').html(`Total Questions: <span>${i}</span>`)
+       })
 
         $('#lq').hide()
         $('#publish').hide();
