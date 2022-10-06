@@ -874,7 +874,7 @@ router.on({
             lq.opt4.value = d.opt[3];
             lq.ans.value = d.ans;
             lq.ex.value = ex.replace(/.*/, "").substr(1);
-            prev_tags = lq.tags;
+            prev_tags = d.tags;
 
         });
 
