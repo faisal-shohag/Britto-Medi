@@ -810,7 +810,7 @@ router.on({
         <form id="lq-edit">
         <div class="input-group mb-3">
         <span class="input-group-text">q</span>
-        <input type="text" class="form-control" name="q" placeholder="question" aria-label="Username" aria-describedby="basic-addon1" required>
+        <textarea type="text" class="form-control" name="q" placeholder="question" aria-label="Username" aria-describedby="basic-addon1" required></textarea>
        </div>
 
        <div class="input-group mb-3">
