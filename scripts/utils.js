@@ -603,9 +603,11 @@ router.on({
                 ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`,
                 tags: tags,
             }).then(()=>{
-                Toast.fire({
+                Swal.fire({             
                     icon: 'success',
-                    title: 'Added!'
+                    title: 'Added to the bank!',
+                    showConfirmButton: false,
+                    timer: 1000
                   })
             })
         });
