@@ -590,7 +590,7 @@ router.on({
             let exp = (lq.ex.value).trim() == '' ? '' : `<br> ${(lq.ex.value).replaceAll('\n', '<br/>')}`;
             let options= [lq.opt1.value, lq.opt2.value, lq.opt3.value, lq.opt4.value]
             let data = {
-                q: lq.q.value,
+                q: (lq.q.value).replaceAll('\n', '<br>'),
                 opt: options,
                 ans: parseInt(lq.ans.value),
                 ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`
@@ -605,7 +605,7 @@ router.on({
             }
             console.log(tags);
             store.collection("bank").add({
-                q: lq.q.value,
+                q: (lq.q.value).replaceAll('\n', '<br>'),
                 opt: options,
                 ans: parseInt(lq.ans.value),
                 ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`,
@@ -804,6 +804,7 @@ router.on({
 
     },
     '/edit/:id': function(params){
+        $('.top-title').html(`Edit`);
         app.innerHTML = `
         <div class="body">
         
@@ -846,10 +847,9 @@ router.on({
         <textarea class="form-control" name="ex" id="exampleFormControlTextarea1" rows="3"></textarea>
       </div>
 
-      tags**
-      <div id="tags"></div>
+      <div style="display: none;" id="tags"></div>
 
-      <select class="form-select form-select-sm" name="chap" aria-label=".form-select-sm example" required>
+      <select style="display:none;" class="form-select form-select-sm" name="chap" aria-label=".form-select-sm example" required>
         <option selected>Chapters</option>
         <option value="chap1">Chapter 1</option>
         <option value="chap2">Chapter 2</option>
@@ -879,7 +879,8 @@ router.on({
         store.collection('bank').doc(params.id).onSnapshot(snap=>{
             let d = snap.data();
            let ex = (d.ex).replaceAll('<br>', '\n');
-            lq.q.value = d.q;
+  
+            lq.q.value = (d.q).replaceAll('<br>', '\n');
             lq.opt1.value = d.opt[0];
             lq.opt2.value = d.opt[1];
             lq.opt3.value = d.opt[2];
@@ -897,7 +898,7 @@ router.on({
             let exp = (lq.ex.value).trim() == '' ? '' : `<br> ${(lq.ex.value).replaceAll('\n', '<br/>')}`;
             let options= [lq.opt1.value, lq.opt2.value, lq.opt3.value, lq.opt4.value]
             let data = {
-                q: lq.q.value,
+                q: (lq.q.value).replaceAll('\n', '<br>'),
                 opt: options,
                 ans: parseInt(lq.ans.value),
                 ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`
@@ -912,7 +913,7 @@ router.on({
             }
             console.log(tags);
             store.collection("bank").doc(params.id).set({
-                q: lq.q.value,
+                q: (lq.q.value).replaceAll('\n', '<br>'),
                 opt: options,
                 ans: parseInt(lq.ans.value),
                 ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`,
