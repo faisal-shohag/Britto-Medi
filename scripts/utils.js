@@ -403,6 +403,7 @@ router.on({
             </form>
             <br>
         
+            <center><div class="q-count"></div></center>
             <div class="ad_head">Get Question From Bank</div>
             <form id="gq">
             tags**
@@ -640,6 +641,7 @@ router.on({
                     
                 });
                 len = questions.length;
+                $('.q-count').html(`(${len})`);
            
             var ans = [];
             for(let i=0; i<questions.length; i++){

@@ -46,3 +46,9 @@ body {
   .question .q{
     color: blue;
   }
+
+  .q-count{
+    font-family: Poppins;
+    color: red;
+    font-size: 20px;
+  }
