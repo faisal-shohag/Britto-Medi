@@ -505,7 +505,7 @@ router.on({
 
 
         let TemporaryQuestions = [];
-       db.ref('liveTemporary/'+user.uid).on('value', snap=>{
+       db.ref('liveTemporary').on('value', snap=>{
         const questions_view = document.querySelector('.questions_temp'); 
         if(snap.val() != null){
             $('#publish').show();
@@ -551,7 +551,7 @@ router.on({
             text: 'Delete?'
         }).then(res=>{
             if(res.isConfirmed){
-                db.ref(`liveTemporary/${user.uid}/questions`).remove();
+                db.ref(`liveTemporary/questions`).remove();
             }
         })
        })
@@ -721,7 +721,7 @@ router.on({
 
                         }).then(res=>{
                             if(res.isConfirmed){
-                                db.ref(`liveTemporary/${user.uid}/questions`).update({
+                                db.ref(`liveTemporary/questions`).update({
                                     [qlen]: {
                                         q: data[0],
                                         opt: [data[1], data[2], data[3], data[4]],
