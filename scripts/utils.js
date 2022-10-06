@@ -613,6 +613,10 @@ router.on({
         const gq = document.getElementById('gq');
         gq.addEventListener('submit', e=>{
             e.preventDefault();
+            const questions_view = document.querySelector('.questions_bank');
+            questions_view.innerHTML = `<br><br><center><div class="spinner-grow text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div></center>`;
 
             let tags=[gq.chap.value];
             
@@ -626,8 +630,7 @@ router.on({
             let questions = [];
             store.collection('bank').where("tags", "array-contains", tags[1]).onSnapshot(doc=>{
                questions = [];
-               const questions_view = document.querySelector('.questions_bank');
-               questions_view.innerHTML = '';
+              questions_view.innerHTML = '';
                 doc.forEach(element => {
                     if(tags[0] == "Chapters"){
                         questions.push({...element.data(), id: element.id});
