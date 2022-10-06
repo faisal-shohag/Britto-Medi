@@ -624,8 +624,10 @@ router.on({
             // console.log(tags);
             
             let questions = [];
-            store.collection('bank').where("tags", "array-contains", tags[1]).get().then(doc=>{
-               
+            store.collection('bank').where("tags", "array-contains", tags[1]).onSnapshot(doc=>{
+               questions = [];
+               const questions_view = document.querySelector('.questions_bank');
+               questions_view.innerHTML = '';
                 doc.forEach(element => {
                     if(tags[0] == "Chapters"){
                         questions.push({...element.data(), id: element.id});
@@ -635,15 +637,12 @@ router.on({
                     
                 });
                 len = questions.length;
-            const questions_view = document.querySelector('.questions_bank');
-            questions_view.innerHTML = '';
+           
             var ans = [];
             for(let i=0; i<questions.length; i++){
             ans.push(parseInt(questions[i].ans)+i*4);
             questions_view.innerHTML += `
             <div class="q-wrap">
-            <center><button id="${questions[i].q}|${questions[i].opt[0]}|${questions[i].opt[1]}|${questions[i].opt[2]}|${questions[i].opt[3]}|${questions[i].ans}|${questions[i].ex}" class="add_q btn btn-success">+ Question</button>
-            <button id="${questions[i].q}|${questions[i].opt[0]}|${questions[i].opt[1]}|${questions[i].opt[2]}|${questions[i].opt[3]}|${questions[i].ans}|${questions[i].ex}" class="add_quiz btn btn-success">+ Daily Quiz</button></center>
             <div class="question">
             ${i+1}. ${questions[i].q}
             <small>${questions[i].id}</small>
@@ -655,11 +654,44 @@ router.on({
             <div class="opt" id="${i+4+i*3}"><div class="st"></div>${questions[i].opt[3]}</div>
             </div>
             <div class="solution"><b>Solution:</b></br> ${questions[i].ex}</div>
+            <center><button id="${questions[i].q}|${questions[i].opt[0]}|${questions[i].opt[1]}|${questions[i].opt[2]}|${questions[i].opt[3]}|${questions[i].ans}|${questions[i].ex}" class="add_q btn btn-success">+ Question</button>
+            <button id="${questions[i].q}|${questions[i].opt[0]}|${questions[i].opt[1]}|${questions[i].opt[2]}|${questions[i].opt[3]}|${questions[i].ans}|${questions[i].ex}" class="add_quiz btn btn-info">+ Daily Quiz</button>
+            <button id="del-${questions[i].id}" class="delete-b-q btn btn-danger">- Delete</button>
+            <a class="btn btn-warning" href="#!/edit/${questions[i].id}">+-Edit<a/>
+            </center>
             </div>`
             }
             for(let a=0; a<ans.length; a++){
                 $("#" + ans[a] + " .st").addClass("cr");
             }
+
+            //delete
+            $('.delete-b-q').click(function(){
+                Swal.fire({
+                    icon: 'question',
+                    text: 'Are you sure?',
+                    showConfirmButton: true,
+                    showCancelButton: true
+                }).then(res=>{
+                   if(res.isConfirmed){
+                    let id = ($(this)[0].id).split('-')[1];
+                    store.collection('bank').doc(id).delete().then(()=>{
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Deleted successfully!'
+                        })
+                    }).catch((error)=>{
+                        console.log(error);
+                        Swal.fire({
+                            icon: 'error',
+                            text: 'Unable to delete file!'
+                        })
+                    })
+                   }
+
+                })
+                
+            })
 
                MathJax.typeset();
 
@@ -755,6 +787,145 @@ router.on({
     });
     
 
+    },
+    '/edit/:id': function(params){
+        app.innerHTML = `
+        <div class="body">
+        
+        <form id="lq-edit">
+        <div class="input-group mb-3">
+        <span class="input-group-text">q</span>
+        <input type="text" class="form-control" name="q" placeholder="question" aria-label="Username" aria-describedby="basic-addon1" required>
+       </div>
+
+       <div class="input-group mb-3">
+        <span class="input-group-text">A</span>
+        <input type="text" class="form-control" name="opt1" placeholder="Option 1" aria-label="Username" aria-describedby="basic-addon1" required>
+       </div>
+
+       <div class="input-group mb-3">
+        <span class="input-group-text">B</span>
+        <input type="text" class="form-control" name="opt2" placeholder="Option 2" aria-label="Username" aria-describedby="basic-addon1" required>
+       </div>
+
+       <div class="input-group mb-3">
+        <span class="input-group-text">C</span>
+        <input type="text" class="form-control" name="opt3" placeholder="Option 3" aria-label="Username" aria-describedby="basic-addon1" required>
+       </div>
+
+       <div class="input-group mb-3">
+        <span class="input-group-text">D</span>
+        <input type="text" class="form-control" name="opt4" placeholder="Option 4" aria-label="Username" aria-describedby="basic-addon1" required>
+       </div>
+
+       <select class="form-select form-select-sm" name="ans" aria-label=".form-select-sm example" required>
+        <option selected>Select Ans</option>
+        <option value="1">A</option>
+        <option value="2">B</option>
+        <option value="3">C</option>
+        <option value="4">D</option>
+        </select>
+
+     <div class="mb-3">
+        <label for="exampleFormControlTextarea1"  class="form-label">Explanation</label>
+        <textarea class="form-control" name="ex" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+
+      tags**
+      <div id="tags"></div>
+
+      <select class="form-select form-select-sm" name="chap" aria-label=".form-select-sm example" required>
+        <option selected>Chapters</option>
+        <option value="chap1">Chapter 1</option>
+        <option value="chap2">Chapter 2</option>
+        <option value="chap3">Chapter 3</option>
+        <option value="chap4">Chapter 4</option>
+        <option value="chap5">Chapter 5</option>
+        <option value="chap6">Chapter 6</option>
+        <option value="chap7">Chapter 7</option>
+        <option value="chap8">Chapter 8</option>
+        <option value="chap9">Chapter 9</option>
+        <option value="chap10">Chapter 10</option>
+        <option value="chap12">Chapter 12</option>
+        <option value="chap13">Chapter 13</option>
+        <option value="chap14">Chapter 14</option>
+        <option value="chap15">Chapter 15</option>
+        <option value="chap16">Chapter 16</option>
+        </select><br>
+
+            <center><button type="submit" class="btn btn-primary">Add Question to Bank</button></center>
+            </form>
+        
+        
+        </div>
+        `
+
+        const lq = document.getElementById('lq-edit');
+        store.collection('bank').doc(params.id).onSnapshot(snap=>{
+            let d = snap.data();
+           let ex = (d.ex).replaceAll('<br>', '\n');
+            lq.q.value = d.q;
+            lq.opt1.value = d.opt[0];
+            lq.opt2.value = d.opt[1];
+            lq.opt3.value = d.opt[2];
+            lq.opt4.value = d.opt[3];
+            lq.ans.value = d.ans;
+            lq.ex.value = ex.replace(/.*/, "").substr(1);
+
+        });
+
+        
+
+        lq.addEventListener('submit', e=>{
+            e.preventDefault();
+            let exp = (lq.ex.value).trim() == '' ? '' : `<br> ${(lq.ex.value).replaceAll('\n', '<br/>')}`;
+            let options= [lq.opt1.value, lq.opt2.value, lq.opt3.value, lq.opt4.value]
+            let data = {
+                q: lq.q.value,
+                opt: options,
+                ans: parseInt(lq.ans.value),
+                ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`
+            }
+
+        //    db.ref(`liveTemporary/questions/${len}`).update(data);
+            let tags=[lq.chap.value];
+            
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+            for (var i = 0; i < checkboxes.length; i++) {
+            tags.push(checkboxes[i].value)
+            }
+            console.log(tags);
+            store.collection("bank").doc(params.id).set({
+                q: lq.q.value,
+                opt: options,
+                ans: parseInt(lq.ans.value),
+                ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`,
+                tags: tags,
+            },{merge: true}).then(()=>{
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Added!'
+                  })
+            })
+        });
+
+        //tags
+        db.ref('tags').on('value', snap=>{
+            let tags = document.getElementById('tags');
+            tags.innerHTML = '';
+            let t = snap.val();
+            for(let i=0; i<t.length; i++){
+                tags.innerHTML += `
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="${t[i]}">
+                <label class="form-check-label" for="flexCheckDefault">
+                    ${t[i]}
+                </label>
+                </div>
+                `
+            }
+
+        })
     },
     '/addFromPrev': function(){
         app.innerHTML = `
