@@ -213,7 +213,7 @@ router.on({
 
         //Running Exam 
         db.ref('app/live').once('value', snap=>{
-          store.collection('lives').doc(snap.val().id).onSnapshot(live=>{
+          store.collection('lives').doc(snap.val().id).get().then(live=>{
             let l = live.data();
             $('#live_banner').html(`
           <div class="live-bg"><img src="${l.img_link}"/></div>
