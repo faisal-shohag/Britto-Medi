@@ -250,6 +250,7 @@ firebase.auth().onAuthStateChanged(user=> {
         $('.user-panel').html(`
         <a href="/#!/auth"><div class="signInButton">Sign In</div></a>
         `);
+        router.navigate('/auth');
     }
 });
 
