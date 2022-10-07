@@ -212,7 +212,7 @@ router.on({
         });
 
         //Running Exam 
-        db.ref('app/live').on('value', snap=>{
+        db.ref('app/live').once('value', snap=>{
           store.collection('lives').doc(snap.val().id).onSnapshot(live=>{
             let l = live.data();
             $('#live_banner').html(`
@@ -228,7 +228,7 @@ router.on({
         })
 
 
-        //live
+        // live
         // getLives(lives=>{
         //   let l = lives[0];
         //   // console.log(lives);
@@ -525,8 +525,6 @@ router.on({
         })
       })
     },
-
-
     '/start_practice/:subj/:chap/:key': function(params){
       $('.footer').hide();
       $('.top-title').text('');
