@@ -743,7 +743,7 @@ router.on({
                     if (window.history && window.history.pushState) {
                       $(window).on("popstate", function () {
                         clearInterval(timer);
-                        $(".countdown").hide(20);
+                        $(".ex_submit").hide(20);
                       });
                     }
                   });
@@ -1555,7 +1555,10 @@ router.on({
                             
                                 <div class="questions"></div>
                               
-                              <center> <div class="submit btn-primary kalpurush" id="submit">Submit</div></center>
+                              <center><div class="exam_submit" id="submit">
+                              <div class="ex-timer"></div>
+                              <div class="ex-submit">Submit</div>
+                              </div></center>
                               
                                 </div>
                                 </div>
@@ -1635,7 +1638,7 @@ router.on({
                                 clearInterval(timer);
                                 
                               } else {
-                                $(".countdown").html(
+                                $(".ex-timer").html(
                                   `<img src="../images/clock.png" height="20px"> <div> ${min} : ${secs}</div>`
                                 );
                               }
@@ -1645,7 +1648,7 @@ router.on({
                               if (window.history && window.history.pushState) {
                                 $(window).on("popstate", function () {
                                   clearInterval(timer);
-                                  $(".countdown").hide(20);
+                                  $(".exam_submit").hide(20);
                                 });
                               }
                             });
