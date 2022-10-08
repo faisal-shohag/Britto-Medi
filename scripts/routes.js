@@ -1656,7 +1656,16 @@ router.on({
                             $("#submit")
                               .off()
                               .click(function () {
-                                        clearInterval(timer);
+                                Swal.fire({
+                                  icon: 'question',
+                                  text: 'Do you want to submit?',
+                                  showConfirmButton: true,
+                                  showCancelButton: true,
+                                  confirmButtonText: 'Yes'
+          
+                              }).then(res=>{
+                                if(res.isConfirmed){
+                                  clearInterval(timer);
                                         $("html, body").animate({ scrollTop: 0 }, "slow");
                                         $("#submit").hide();
                                         let e;
@@ -1715,7 +1724,11 @@ router.on({
                                             icon: 'success',
                                             text: 'Successfully submitted!'
                                           })
-                                        })
+                                        });
+
+                                }
+                              })
+                                        
                                           
                                     
                           })
