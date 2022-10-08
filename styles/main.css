@@ -1238,3 +1238,52 @@ padding-bottom: 5px;
 #rtn-img img{
   width: 100%;
 }
+
+.students{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.std{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  font-family: 'Poppins', Kalpurush;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  background: #9598a82c;
+}
+
+.std_p{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+}
+
+.std_inst{
+  font-size: 10px;
+}
+
+
+
+.std.me{
+  background: crimson;
+  color: #eee;
+}
+
+
+
+.std_rank{
+padding: 1px;
+box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+width: 20px;
+height: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 13px;
+border-radius: 2px;
+background: #161616;
+color: #eee;
+}

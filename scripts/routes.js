@@ -16,8 +16,10 @@ router.on({
 
         app.innerHTML = `
         <div class="body">
+
+      
         
-        <div class="section">
+        <div  class="section">
         <div class="section-heading">
         <div class="sec-sec1"><div class="icon"><img src="../images/megaphone.png"></div><div class="text">Daily Quiz</div></div>
         </div>
@@ -178,6 +180,8 @@ router.on({
 
         `
 
+       
+
         //routine
         $('.rtn').click(function(){
           let g = $(this)[0].id;
@@ -190,7 +194,7 @@ router.on({
           }
         });
 
-        //daily quiz
+       // daily quiz
         db.ref('app/dailyQuize').on("value", snap=> {
           $('#dq').text(snap.val().data.q);
           const dopt = document.getElementById('dopt');
@@ -288,6 +292,66 @@ router.on({
           });
 
         })
+    },
+    '/students': function(){
+      app.innerHTML = `
+      <div classs="body">
+      <div class="students"><div>
+      </div>
+      `
+       const std = document.querySelector('.students');
+       store.collection('users').orderBy("creationTime", "desc").limit(100).get().then(users=>{
+       std.innerHTML = ``;
+       let i = 0;
+        users.forEach(usr=>{
+          i++;
+           usr = usr.data();
+          if(UID){
+            if(UID === usr.uid){
+              std.innerHTML += `
+              <div class="std me">
+              
+              <div class="std_p">
+              <div class="std_rank">${i}</div>
+              <div>
+              <div class="std_name">${usr.name}</div>
+              <div class="std_inst">${usr.inst}</div>
+              </div>
+              </div>
+              <div class="std_score">...</div>
+              </div>
+              `
+            }else{
+              std.innerHTML += `
+              <div class="std">
+              
+              <div class="std_p">
+              <div class="std_rank">${i}</div>
+              <div>
+              <div class="std_name">${usr.name}</div>
+              <div class="std_inst">${usr.inst}</div>
+              </div>
+              </div>
+              <div class="std_score">...</div>
+              </div>
+              `
+            }
+          }else{
+            std.innerHTML += `
+            <div class="std">
+            <div class="std_p">
+            <div class="std_rank">${i}</div>
+            <div>
+            <div class="std_name">${usr.name}</div>
+            <div class="std_inst">${usr.inst}</div>
+            </div>
+            </div>
+            <div class="std_score">...</div>
+            </div>
+              `
+          }
+        })
+      })
     },
     '/select_practice': function() {
       $('.footer').hide();
