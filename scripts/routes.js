@@ -633,7 +633,10 @@ router.on({
                   
                       <div class="questions"></div>
                      
-                     <center> <div class="submit btn-primary kalpurush" id="submit">Submit</div></center>
+                     <center> <div class="exam_submit" id="submit">
+                     <div class="ex-timer"></div>
+                     <div class="ex-submit">Submit</div>
+                     </div></center>
                      
                       </div>
                       </div>
@@ -723,13 +726,14 @@ router.on({
                       $("#submit").click();
                       // localStorage.removeItem('sec');
                       // localStorage.removeItem('min');
+                      $('.questions').hide();
                       clearInterval(timer);
                       
                     } else {
                       // localStorage.setItem('sec', sec);
                       // localStorage.setItem('min', min);
                       // console.log(localStorage.getItem('sec'))
-                      $(".countdown").html(
+                      $(".ex-timer").html(
                         `<img src="../images/clock.png" height="30px"> <div> ${min} : ${secs}</div>`
                       );
                     }
@@ -747,92 +751,105 @@ router.on({
                   $("#submit")
                     .off()
                     .click(function () {
+                      Swal.fire({
+                        icon: 'question',
+                        text: 'Do you want to submit?',
+                        showConfirmButton: true,
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes'
+
+                    }).then(res=>{
+                      if(res.isConfirmed) {
+
                       $('.parc').show();
-                              clearInterval(timer);
-                              $("html, body").animate({ scrollTop: 0 }, "slow");
-                              $("#submit").hide();
-                              let e;
-                              $(".explanation").show();
-                           
-                              let found;
-                              for (let k = 0; k < ans.length; ++k) {
-                                e = k;
-                                e = "#exp-" + e;
-                                $(e).html(
-                                  `<b style="color: green;">Solution:</b><br>${exp[k]}`
-                                );
-        
-                                $("#" + ans[k] + " .st").addClass("cr");
-        
-                                $(
-                                  $($($("#" + ans[k])[0].parentNode)[0].parentNode)[0]
-                                    .children[0]
-                                ).html(
-                                  '<div class="not-ans"> <i class="icofont-warning-alt"></i></div>'
-                                );
-                              }
-        
-                              for (let i = 0; i < userAns.length; ++i) {
-                                found = true;
-                                for (let j = 0; j < ans.length; ++j) {
-                                  if (parseInt(userAns[i]) === ans[j]) { 
-                                    score++;
-                                    $("#" + userAns[i] + " .st").addClass("cr");
-                                    $(
-                                      $(
-                                        $($("#" + userAns[i])[0].parentNode)[0]
-                                          .parentNode
-                                      )[0].children[0]
-                                    ).html(
-                                      '<div class="correct"> <i class="icofont-check-circled"></i> </div>'
-                                    );
-                                    found = true;
-                                    break;
-                                  } else found = false;
-                                }
-        
-                                if (!found) {
-                                  wrong++;
-                                  $("#" + userAns[i] + " .st").addClass("wa");
-                                  $(
-                                    $(
-                                      $($("#" + userAns[i])[0].parentNode)[0].parentNode
-                                    )[0].children[0]
-                                  ).html(
-                                    '<div class="wrong"> <i class="icofont-close-circled"></i>  </div>'
-                                  );
-                                }
-                              }
-                              MathJax.typeset();
-        
-                              $(".score").show();
-                              $(".mark").html(
-                                `<i class="icofont-check-circled"></i><br>স্কোর</br> <small>সঠিক: ${score} </small> <br/> <span class="score-num">${score-(wrong*neg)}/${questions.length}</span>`
-                              );
-                              $(".score-wa").html(
-                                `<i class="icofont-close-circled"></i><br/>ভুল </br><small>নেগেটিভ: ${wrong*neg}</small><br/> <span class="score-num">${wrong}</span>`
-                              );
-                              $(".score-na").html(
-                                `<i class="icofont-warning-alt"></i><br />ফাঁকা </br> <span class="score-num">${
-                                  questions.length - (score + wrong)
-                                }</span>`
-                              );
-                              $(".score-time").html(
-                                `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
-                                  initialMin - 1 - minute
-                                }:${59 - sec}</span>`
-                              );
-                              
-                              
-                              $('#correctP').html(`${((score/questions.length)*100).toPrecision(3)}%
-                              `)
-                              $('#wrongP').html(`${((wrong/questions.length)*100).toPrecision(3)}%
-                              `)
-                              $('#negativeP').html(`${(((wrong*neg)/questions.length)*100).toPrecision(3)}%
-                              `)
-                              $('#answeredP').html(`${(100-(((questions.length - (score + wrong))/(questions.length))*100)).toPrecision(3)}%
-                              `)                                 
-                          Swal.fire("সাবমিট হয়েছে!", "", "success");
+                      clearInterval(timer);
+                      $("html, body").animate({ scrollTop: 0 }, "slow");
+                      $("#submit").hide();
+                      let e;
+                      $(".explanation").show();
+                   
+                      let found;
+                      for (let k = 0; k < ans.length; ++k) {
+                        e = k;
+                        e = "#exp-" + e;
+                        $(e).html(
+                          `<b style="color: green;">Solution:</b><br>${exp[k]}`
+                        );
+
+                        $("#" + ans[k] + " .st").addClass("cr");
+
+                        $(
+                          $($($("#" + ans[k])[0].parentNode)[0].parentNode)[0]
+                            .children[0]
+                        ).html(
+                          '<div class="not-ans"> <i class="icofont-warning-alt"></i></div>'
+                        );
+                      }
+
+                      for (let i = 0; i < userAns.length; ++i) {
+                        found = true;
+                        for (let j = 0; j < ans.length; ++j) {
+                          if (parseInt(userAns[i]) === ans[j]) { 
+                            score++;
+                            $("#" + userAns[i] + " .st").addClass("cr");
+                            $(
+                              $(
+                                $($("#" + userAns[i])[0].parentNode)[0]
+                                  .parentNode
+                              )[0].children[0]
+                            ).html(
+                              '<div class="correct"> <i class="icofont-check-circled"></i> </div>'
+                            );
+                            found = true;
+                            break;
+                          } else found = false;
+                        }
+
+                        if (!found) {
+                          wrong++;
+                          $("#" + userAns[i] + " .st").addClass("wa");
+                          $(
+                            $(
+                              $($("#" + userAns[i])[0].parentNode)[0].parentNode
+                            )[0].children[0]
+                          ).html(
+                            '<div class="wrong"> <i class="icofont-close-circled"></i>  </div>'
+                          );
+                        }
+                      }
+                      MathJax.typeset();
+
+                      $(".score").show();
+                      $(".mark").html(
+                        `<i class="icofont-check-circled"></i><br>স্কোর</br> <small>সঠিক: ${score} </small> <br/> <span class="score-num">${score-(wrong*neg)}/${questions.length}</span>`
+                      );
+                      $(".score-wa").html(
+                        `<i class="icofont-close-circled"></i><br/>ভুল </br><small>নেগেটিভ: ${wrong*neg}</small><br/> <span class="score-num">${wrong}</span>`
+                      );
+                      $(".score-na").html(
+                        `<i class="icofont-warning-alt"></i><br />ফাঁকা </br> <span class="score-num">${
+                          questions.length - (score + wrong)
+                        }</span>`
+                      );
+                      $(".score-time").html(
+                        `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
+                          initialMin - 1 - minute
+                        }:${59 - sec}</span>`
+                      );
+                      
+                      
+                      $('#correctP').html(`${((score/questions.length)*100).toPrecision(3)}%
+                      `)
+                      $('#wrongP').html(`${((wrong/questions.length)*100).toPrecision(3)}%
+                      `)
+                      $('#negativeP').html(`${(((wrong*neg)/questions.length)*100).toPrecision(3)}%
+                      `)
+                      $('#answeredP').html(`${(100-(((questions.length - (score + wrong))/(questions.length))*100)).toPrecision(3)}%
+                      `)                                 
+                  Swal.fire("সাবমিট হয়েছে!", "", "success");
+
+                      }
+                    })
                 })
           })
    
