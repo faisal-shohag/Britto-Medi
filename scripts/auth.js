@@ -281,12 +281,6 @@ function isAuth(call){
 //facebook
 function facebook(){
 
-  //function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      console.log(response);
-      statusChangeCallback(response);
-    });
-  //}
 
   
   var provider = new firebase.auth.FacebookAuthProvider();
