@@ -914,10 +914,15 @@ router.on({
   </div>
   
   </div>
-         
+
+  <div id="fb_auth" class="btn btn-primary">Log in with Facebook</div> 
           `
   
           authExecute();
+
+          $('#fb_auth').click(function(){
+            facebook();
+          })
     },
     'profile/:uid': function(){
       $('.footer').hide();

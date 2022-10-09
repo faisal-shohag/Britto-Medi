@@ -821,6 +821,7 @@ firebase.auth().onAuthStateChanged(user=> {
                     
             
                     lq.addEventListener('submit', e=>{
+                      
                         e.preventDefault();
                         let exp = (lq.ex.value).trim() == '' ? '' : `<br> ${(lq.ex.value).replaceAll('\n', '<br/>')}`;
                         let options= [lq.opt1.value, lq.opt2.value, lq.opt3.value, lq.opt4.value]
