@@ -364,6 +364,7 @@ router.on({
               <div>
               <div class="std_name">${usr.name}</div>
               <div class="std_inst">${usr.inst}</div>
+              <div class="std_inst">${usr.phone}</div>
               </div>
               </div>
               <div class="std_score">...</div>
@@ -378,6 +379,7 @@ router.on({
               <div>
               <div class="std_name">${usr.name}</div>
               <div class="std_inst">${usr.inst}</div>
+              <div class="std_inst">${usr.phone}</div>
               </div>
               </div>
               <div class="std_score">...</div>
@@ -392,6 +394,7 @@ router.on({
             <div>
             <div class="std_name">${usr.name}</div>
             <div class="std_inst">${usr.inst}</div>
+            <div class="std_inst">${usr.phone}</div>
             </div>
             </div>
             <div class="std_score">...</div>
