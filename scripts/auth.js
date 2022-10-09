@@ -12,10 +12,7 @@ function authExecute(){
     const auth = firebase.auth();
 
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      "recaptcha-container", {
-        'size': 'invisible',
-        
-      }
+      "recaptcha-container",
     );
     recaptchaVerifier.render().then((widgetId) => {
       window.recaptchaWidgetId = widgetId;
