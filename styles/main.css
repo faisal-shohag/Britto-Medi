@@ -1327,3 +1327,28 @@ color: #eee;
   bottom: 10%;
 }
 
+.participants{
+  font-family: Poppins;
+}
+
+.pt{
+  display: flex;
+  padding: 5px;
+  justify-content: space-between;
+  font-size: 14px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+}
+
+.pt_status{
+  color: rgb(201, 197, 197);
+}
+.pt_status .icofont-tick-mark{ 
+  color: #28a745;
+}
+
+.title-with-count{
+  font-family: Poppins;
+  margin-top: 10px;
+margin-bottom: 10px;
+}

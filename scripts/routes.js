@@ -1294,7 +1294,7 @@ router.on({
       </div></center>
       </div>
 
-      <div class="comments kalpurush">
+      <div style="display:none;" class="comments kalpurush">
           <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div></div>
           
           <div class="comment-form"></div>
@@ -1303,6 +1303,14 @@ router.on({
           <span class="visually-hidden">Loading...</span>
         </div></center>
           </div>
+
+         
+          
+          </div>
+
+          <div class="title-with-count"></div>
+          <div class="participants"></div>
+
       </div>
       `
       getLive();
@@ -1408,29 +1416,29 @@ router.on({
               });
             }
 
-            $('.comment-form').html(`<form id="comment_form">
-            <div class="form-group">
-            <textarea class="form-control" id="comment_value" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Comment</button>
-            </form>`);
-              document.getElementById('comment_form').addEventListener('submit',e=>{
-                e.preventDefault();
-                let cmnt =  $('#comment_value').val();
-                if(cmnt.trim() != ''){
-                  store.collection('lives').doc(params.id).collection('comments').add({     
-                        comment: cmnt,
-                        name: std_name,
-                        UID: UID,
-                        at: (new Date()).toISOString()
-                  }).then(()=>{
-                    Toast.fire({
-                      icon: 'success',
-                      title: 'Commented!'
-                    })
-                  })
-                }
-              })
+            // $('.comment-form').html(`<form id="comment_form">
+            // <div class="form-group">
+            // <textarea class="form-control" id="comment_value" rows="3"></textarea>
+            // </div>
+            // <button type="submit" class="btn btn-primary">Comment</button>
+            // </form>`);
+            //   document.getElementById('comment_form').addEventListener('submit',e=>{
+            //     e.preventDefault();
+            //     let cmnt =  $('#comment_value').val();
+            //     if(cmnt.trim() != ''){
+            //       store.collection('lives').doc(params.id).collection('comments').add({     
+            //             comment: cmnt,
+            //             name: std_name,
+            //             UID: UID,
+            //             at: (new Date()).toISOString()
+            //       }).then(()=>{
+            //         Toast.fire({
+            //           icon: 'success',
+            //           title: 'Commented!'
+            //         })
+            //       })
+            //     }
+            //   })
 
 
           } else {
@@ -1441,15 +1449,38 @@ router.on({
               });
             });
 
-            $('.comment-form').html(`
-            <div class="reg_nb">You must sign in to comment!</div>
-            `)
+            // $('.comment-form').html(`
+            // <div class="reg_nb">You must sign in to comment!</div>
+            // `)
           }
+
+           //participants
+           let pt = Object.entries(data.reg_std);
+           //console.log(pt);
+          const pt_view = document.querySelector('.participants');
+          pt_view.innerHTML =``;
+          $('.title-with-count').html(`Paricipants(${pt.length})`);
+           for(let i=0; i<pt.length; i++){
+            console.log(pt[i][1]);
+            let pt_status = `<i class="icofont-tick-mark"></i>`;
+            if(!pt[i][1].attend) pt_status = `<i class="icofont-ui-press"></i>`
+              pt_view.innerHTML += `
+              <div class="pt">
+              <div class="pt_name">${pt[i][1].name}</div>
+              <div class="pt_status">${pt_status}</div>
+              </div>
+              `
+           }
+           
         
       });
     }
 
+   
+
+
     //comments
+    /*
     let all_comments = document.getElementById('all_comments');
     store.collection('lives').doc(params.id).collection('comments').onSnapshot(snap=>{
       let comments = []; 
@@ -1493,9 +1524,11 @@ router.on({
           console.log(err);
         });
       });
-
+       
        
     })
+
+    */
 
 
 
