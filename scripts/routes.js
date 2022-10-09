@@ -220,10 +220,10 @@ router.on({
           store.collection('lives').doc(snap.val().id).get().then(live=>{
             let l = live.data();
             $('#live_banner').html(`
-          <div class="live-bg"><img src="${l.img_link}"/></div>
+          <a href="#!/live/details/${snap.val().id}"><div class="live-bg"><img src="${l.img_link}"/></div>
             <div class="title">${l.title}</div>
             <div id="s-time" class="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
-            <div class="badge"><img src="../images/${l.type}.png"/></div>
+            <div class="badge"><img src="../images/${l.type}.png"/></div></a>
           `);
           $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
             clearInterval(z);
@@ -1459,7 +1459,7 @@ router.on({
            //console.log(pt);
           const pt_view = document.querySelector('.participants');
           pt_view.innerHTML =``;
-          $('.title-with-count').html(`Paricipants(${pt.length})`);
+          $('.title-with-count').html(`Participants(${pt.length})`);
            for(let i=0; i<pt.length; i++){
             console.log(pt[i][1]);
             let pt_status = `<i class="icofont-tick-mark"></i>`;
