@@ -16,14 +16,27 @@ router.on({
 
         app.innerHTML = `
         <div class="body">
+        <div class="section">
+        <div class="section-heading">
+        <div class="sec-sec1"><div class="icon"><img src="../images/top-rated.png"></div><div id="top_title" class="text">Top 3 </div></div>
+        </div>
+
+        <div id="last_exam" class="top-result">
+        
+
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+
+        </div>
 
       
         
-        <div  class="section">
+        <div style="display:none"  class="section">
         <div class="section-heading">
         <div class="sec-sec1"><div class="icon"><img src="../images/megaphone.png"></div><div class="text">Daily Quiz</div></div>
         </div>
-        <div class="q-card grad-1">
+        <div style="display:none" class="q-card grad-1">
       
         <div id="dq" class="question">
         <center><div class="spinner-border text-light" role="status"></div></center>
@@ -179,7 +192,42 @@ router.on({
       </div>
 
         `
+           //Last Exam Result
+        store.collection('lives').doc('FrbFxLyOthT0MJhDRplg').get().then(snap=>{
+            let myexam = snap.data();
+          let Objresults = Object.entries(myexam.reg_std);
+          console.log(Objresults);
+          let results = [];
+          for(let i=0; i<Objresults.length; i++){
+            results.push({...Objresults[i][1], id:Objresults[i][0]});
+          }
+          results.sort((a, b)=>{
+            return b.score - a.score;
+          })
+          // console.log(results);
+          $('#top_title').text('Top 3 ('+myexam.title+')')
+          $('.top-result').html(`
+          <div class="top_std second">
+        <div class="top_std_img"><img src="../images/doctor.png"></div>
+        <div class="top_std_name">${(results[1].name).split(' ')[0]}(${results[1].score})</div>
+        </div>
 
+        <div class="top_std first">
+        <div class="top_std_img"><img src="../images/doctor.png"></div>
+        <div class="top_std_name">${((results[0].name).split(' ')[0])}(${results[0].score})</div>
+        </div>
+
+        <div class="top_std third">
+        <div class="top_std_img"><img src="../images/doctor.png"></div>
+        <div class="top_std_name">${((results[2].name).split(' ')[0])}(${results[2].score})</div>
+        </div>
+
+        <a class="res_links" href="#!/live/start/FrbFxLyOthT0MJhDRplg"><div >See full result</div></a>
+          `)
+      
+        })
+
+       
        
 
         //routine
@@ -195,25 +243,25 @@ router.on({
         });
 
        // daily quiz
-        db.ref('app/dailyQuize').on("value", snap=> {
-          $('#dq').text(snap.val().data.q);
-          const dopt = document.getElementById('dopt');
-          dopt.innerHTML = '';
-          for(let i=0; i<snap.val().data.options.length; i++){
-            dopt.innerHTML +=`
-            <div id="dq_${i+1}" class="option">${snap.val().data.options[i]} </div>
-            `
-          }
+        // db.ref('app/dailyQuize').on("value", snap=> {
+        //   $('#dq').text(snap.val().data.q);
+        //   const dopt = document.getElementById('dopt');
+        //   dopt.innerHTML = '';
+        //   for(let i=0; i<snap.val().data.options.length; i++){
+        //     dopt.innerHTML +=`
+        //     <div id="dq_${i+1}" class="option">${snap.val().data.options[i]} </div>
+        //     `
+        //   }
 
-          $('.q-card .option').click(function(){
-            let val = parseInt(($(this)[0].id).split('_')[1]);
-            $('#dq_'+snap.val().data.ans).css({'background' : 'green', 'color': '#fff'});
-            if(val != snap.val().data.ans){
-              $('#dq_'+val).css({'background': 'red', 'color': '#fff'});
-            }
+        //   $('.q-card .option').click(function(){
+        //     let val = parseInt(($(this)[0].id).split('_')[1]);
+        //     $('#dq_'+snap.val().data.ans).css({'background' : 'green', 'color': '#fff'});
+        //     if(val != snap.val().data.ans){
+        //       $('#dq_'+val).css({'background': 'red', 'color': '#fff'});
+        //     }
             
-          })
-        });
+        //   })
+        // });
 
         //Running Exam 
         db.ref('app/live').once('value', snap=>{
@@ -1844,6 +1892,10 @@ router.on({
 
         `
         let myexam = snap.data();
+        if(myexam.reg_std[UID] && myexam.reg_std[UID].ans){
+
+        
+      
                   $('.answersheet').html(`
                   <div class="body">
                       <div class="exam-container">
@@ -2008,13 +2060,20 @@ router.on({
                               `)
                               $('#answeredP').html(`${(100-(((questions.length - (score + wrong))/(questions.length))*100)).toPrecision(3)}%
                               `)                                 
-                
+        }else{
+          $('.answersheet').html(`
+          <div class="sad">
+                <div class="sad_img"><img src="../images/oops.png"></div>
+                <div class="sad_text">You have not participated in this exam!</div>
+                </div>
+          `)
+        }
           
           $('#result_tab').click(function(){
             const standings = document.querySelector('.standings');
             standings.innerHTML = '';
             let Objresults = Object.entries(myexam.reg_std);
-            console.log(Objresults);
+            //console.log(Objresults);
             let results = [];
             for(let i=0; i<Objresults.length; i++){
               results.push({...Objresults[i][1], id:Objresults[i][0]});

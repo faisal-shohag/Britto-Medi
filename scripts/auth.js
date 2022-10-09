@@ -1,8 +1,10 @@
 firebase.auth().useDeviceLanguage();
+//firebase.auth().settings.appVerificationDisabledForTesting = true;
 
 function authExecute(){
   $('.form-tips').show();
   $('.varify').hide();
+
     let phoneNumber;
     let code;
     const getCodeButton = document.getElementById("confirm-code");
@@ -10,7 +12,9 @@ function authExecute(){
     const auth = firebase.auth();
 
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      "recaptcha-container"
+      "recaptcha-container",{
+        'size': 'invisible',
+      }
     );
     recaptchaVerifier.render().then((widgetId) => {
       window.recaptchaWidgetId = widgetId;
