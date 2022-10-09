@@ -915,7 +915,7 @@ router.on({
   
   </div>
 
-  <div id="fb_auth" class="btn btn-primary">Log in with Facebook</div> 
+  <div style="display:none;" id="fb_auth" class="btn btn-primary">Log in with Facebook</div> 
           `
   
           authExecute();
