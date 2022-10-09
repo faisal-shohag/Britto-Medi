@@ -221,6 +221,7 @@ firebase.auth().onAuthStateChanged(user=> {
             }else{
               std_name = snap.data().name
                 $('.user-panel').show();
+                $('.sp').hide();
                 $('.user-panel').html(`
                 <div class="user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img class="rounded-circle" src="./images/doctor.png"></div>
                 <ul class="dropdown-menu">
