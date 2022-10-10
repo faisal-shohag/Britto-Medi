@@ -76,8 +76,7 @@ router.on({
         </div>
 
         <center>
-        <button id="sci" class="btn btn-danger rtn"><i class="icofont-download"></i> Science(HSC)</button>
-        <button id="hum" class="btn btn-success rtn"> <i class="icofont-download"></i> Humanity(HSC)</button>
+        <button id="hum" class="btn btn-success rtn"> <i class="icofont-download"></i> Humanity(2nd Time)</button>
         </center>
         <br>
 
@@ -239,7 +238,7 @@ router.on({
             $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
             $('#routineModal').modal('show');
           }else{
-            $('#rtn-img').html(`<img src="../images/Ads/hsc_humanity.png"/>`)
+            $('#rtn-img').html(`<img src="https://i.postimg.cc/gc3BRJ2g/Study-Plan-for-Humanity.png"/>`)
             $('#routineModal').modal('show');
           }
         });
