@@ -178,12 +178,14 @@ function getLives(callback){
     let ended = [];
     docs.forEach(item=>{
       let start = new Date(item.data().start_time);
+      let end = new Date(item.data().end_time);
       let d = new Date();
+
     
       if(start.getTime() >= d){
         // console.log(item.data())
         lives.push({...item.data(), id: item.id});
-      }else{
+      }else if(end.getTime() < d){
         ended.push({...item.data(), id: item.id});
       }
       
