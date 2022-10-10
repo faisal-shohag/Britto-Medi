@@ -1259,7 +1259,7 @@ router.on({
      
       <div class="list-wrap">
       <div class="list-title">Past Exams</div>
-      <div class="list_past" id="past_list>
+      <div class="list_past" id="past_list">
      <center> <div class="spinner-border text-success" role="status">
       <span class="visually-hidden">Loading...</span>
        </div></center>
@@ -1269,7 +1269,7 @@ router.on({
       </body>
       `
 
-      getLives(live=>{
+      getLives((live, ended)=>{
         const list_upcoming = document.querySelector('.list_upcoming');
        list_upcoming.innerHTML = '';
   
@@ -1296,41 +1296,35 @@ router.on({
         
         }
 
-        getPast(live=>{
+        
           const list_past = document.querySelector('.list_past');
           list_past.innerHTML = '';
-          if(live.length==0){
+          if(ended.length==0){
             list_past.innerHTML = `<div class="sad">
             <div class="sad_img"><img src="../images/anxiety.png"></div>
             <div class="sad_text">No Exam is Here!</div>
             <div class="sad_subtext">...</div>
             </div>`;
           }
-          for(let i=0; i<live.length; i++){
-            list_upcoming.innerHTML +=`
+          for(let i=0; i<ended.length; i++){
+            list_past.innerHTML +=`
             <div class="live-card kalpurush">
-            <div class="live-bg"><img src="${live[i].img_link}"/></div>
-            <div class="title">${live[i].title}</div>
-            <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
-            <div class="badge"><img src="../images/${live[i].type}.png"/></div>
-            <div class="live_countdown-${i} lc"></div>
-            <a href="#!/live/details/${live[i].id}">Details</a>
+            <div class="live-bg"><img src="${ended[i].img_link}"/></div>
+            <div class="title">${ended[i].title}</div>
+            <div id="s-time-${i}" class="time">${dateForm(ended[i].start_time)} ${timeForm(ended[i].start_time)}</div>
+            <div class="badge"><img src="../images/${ended[i].type}.png"/></div>
+            <a href="#!/live/details/${ended[i].id}">Details</a>
             </div>
           `;
           }
         
-          //liveTimer(live[i].start_time, live[i].end_time, '.live_countdown-'+i, '#s-time-'+i);
-          
-          })
+         
 
         
        
 
         
 
-        // $('.live-card .details').html(`<a href="#!/live/details/${l.id}">Details</a>`)
-
-        
 
       })
 
@@ -1514,7 +1508,7 @@ router.on({
           pt_view.innerHTML =``;
           $('.title-with-count').html(`Participants(${pt.length})`);
            for(let i=0; i<pt.length; i++){
-            console.log(pt[i][1]);
+            // console.log(pt[i][1]);
             let pt_status = `<i class="icofont-tick-mark"></i>`;
             if(!pt[i][1].attend) pt_status = `<i class="icofont-ui-press"></i>`
               pt_view.innerHTML += `
@@ -2458,8 +2452,8 @@ router.notFound(function(){
   app.innerHTML=`404`;
 });
 
-history.pushState({page: 1}, "home", "#!/")
+//history.pushState({page: 1}, "home", "#!/")
 
-$(a).click(function(){
+$('a').click(function(){
   history.pushState({page: 1}, "home", "#!/")
 });
