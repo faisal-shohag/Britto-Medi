@@ -1371,6 +1371,7 @@ color: #eee;
   margin-bottom: 20px;
   border-radius: 5px;
   color: #eee;
+  width: 100%;
 }
 
 .top_std{
@@ -1406,7 +1407,7 @@ align-items: center;
 
 .res_links{
   position: absolute;
-  width: 100%;
+  /* width: 100%; */
   left: 40%;
   bottom: 2%;
   font-size: 12px;

@@ -16,9 +16,11 @@ router.on({
 
         app.innerHTML = `
         <div class="body">
+
         <div class="section">
         <div class="section-heading">
         <div class="sec-sec1"><div class="icon"><img src="../images/top-rated.png"></div><div id="top_title" class="text">Top 3 </div></div>
+        </div>
         </div>
 
         <div id="last_exam" class="top-result">
