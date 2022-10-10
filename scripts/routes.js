@@ -2129,12 +2129,7 @@ router.on({
 
                         $("#" + ans[k] + " .st").addClass("cr");
 
-                        $(
-                          $($($("#" + ans[k])[0].parentNode)[0].parentNode)[0]
-                            .children[0]
-                        ).html(
-                          '<div class="not-ans"> <i class="icofont-warning-alt"></i></div>'
-                        );
+                       
                       }
 
                      
