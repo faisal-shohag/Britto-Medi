@@ -238,7 +238,7 @@ router.on({
             $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
             $('#routineModal').modal('show');
           }else{
-            $('#rtn-img').html(`<img src="https://i.postimg.cc/gc3BRJ2g/Study-Plan-for-Humanity.png"/>`)
+            $('#rtn-img').html(`<img src="https://i.postimg.cc/g2Jv04Jb/Study-Plan-for-Humanity.png"/>`)
             $('#routineModal').modal('show');
           }
         });
