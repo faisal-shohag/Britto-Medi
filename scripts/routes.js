@@ -198,7 +198,7 @@ router.on({
         store.collection('lives').doc('FrbFxLyOthT0MJhDRplg').get().then(snap=>{
             let myexam = snap.data();
           let Objresults = Object.entries(myexam.reg_std);
-          console.log(Objresults);
+          // console.log(Objresults);
           let results = [];
           for(let i=0; i<Objresults.length; i++){
             results.push({...Objresults[i][1], id:Objresults[i][0]});

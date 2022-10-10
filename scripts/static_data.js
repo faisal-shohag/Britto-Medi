@@ -294,7 +294,7 @@ function liveTimer(date, end, element, sdate){
     if (distance < 0) {
       clearInterval(z);
       if(end==-1){
-        $(element).html('~.~');
+        $(element).html('');
         $(sdate).html(`<div class="running">Finished</div>`);
       }else{
         liveTimer(end, -1, element, sdate);
