@@ -1286,13 +1286,9 @@ router.on({
           <div class="title">${live[i].title}</div>
           <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
           <div class="badge"><img src="../images/${live[i].type}.png"/></div>
-          <div class="live_countdown-${i} lc"></div>
-          <a href="#!/live/details/${live[i].id}">Details</a>
+          <a href="#!/live/details/${live[i].id}">Register</a>
           </div>
-        `;
-        clearInterval(z);
-        liveTimer(live[i].start_time, live[i].end_time, '.live_countdown-'+i, '#s-time-'+i);
-        
+        `;   
         }
 
         

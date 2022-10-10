@@ -1414,3 +1414,7 @@ align-items: center;
   color: #eee !important;
   text-decoration: underline !important;
 }
+
+.list-wrap .live-bg img{
+  height: 70px;
+}
