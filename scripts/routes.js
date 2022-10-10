@@ -1892,10 +1892,7 @@ router.on({
         `
         let myexam = snap.data();
         if(myexam.reg_std[UID] && myexam.reg_std[UID].ans){
-
-        
-      
-                  $('.answersheet').html(`
+            $('.answersheet').html(`
                   <div class="body">
                       <div class="exam-container">
                      <div class="exam_top">
@@ -1975,7 +1972,6 @@ router.on({
                       </div>
                        `;
                   }
-                  // MathJax.typeset();
         
 
                               let e;
@@ -2061,11 +2057,95 @@ router.on({
                               `)                                 
         }else{
           $('.answersheet').html(`
-          <div class="sad">
-                <div class="sad_img"><img src="../images/oops.png"></div>
-                <div class="sad_text">You have not participated in this exam!</div>
-                </div>
-          `)
+          <div class="body">
+              <div class="exam-container">
+             <div class="exam_top">
+              <div class="exam-title kalpurush">
+              <div class="exam_name">${myexam.title}</div><small>Time: ${parseInt(myexam.duration)} min | NFEW: ${myexam.neg} </small>
+              </div>
+            <div class="warning"><i class="icofont-ban"></i> You didn't participated in this exam.</div>
+            
+              <div class="exam-nb kalpurush"></div>
+             </div>
+          
+
+            
+          
+              <div class="questions"></div>
+             
+             </div>
+             
+              </div>
+          `);
+          var ans = [],
+            exp = [],
+            score = 0,
+            wrong = 0,
+            na = 0,
+            neg = myexam.neg;
+
+        
+          questions = myexam.questions;
+          // shuffle(questions);
+           for (let q = 0; q <questions.length; q++) {
+            ans.push(parseInt(questions[q].ans)+q*4);
+            exp.push(questions[q].ex);
+            var elem = document.querySelector(".exam-container .questions");
+            document.querySelector(".exam-container .questions").innerHTML += `
+               <div class="q-wrap">
+                      <div class="q-logo"></div>
+                  <div class="question">
+                     ${q + 1}. ${questions[q].q}
+                  </div>
+                  <div class="option">
+                      <div class="opt" id="${
+                        q + 1 + q * 3
+                      }"><div class="st"></div><div>${questions[q].opt[0]}</div></div>
+                      <div class="opt" id="${
+                        q + 2 + q * 3
+                      }"><div class="st"></div><div>${questions[q].opt[1]}</div></div>
+                      <div class="opt" id="${
+                        q + 3 + q * 3
+                      }"><div class="st"></div><div>${questions[q].opt[2]}</div></div>
+                      <div class="opt" id="${
+                        q + 4 + q * 3
+                      }"><div class="st"></div><div>${questions[q].opt[3]}</div></div>
+                  </div>
+                  <div class="explanation" id="exp-${q}"></div>
+              </div>
+               `;
+          }
+
+                      let e;
+                      $(".explanation").show();
+                   
+                      
+                      for (let k = 0; k < ans.length; ++k) {
+                        e = k;
+                        e = "#exp-" + e;
+                        $(e).html(
+                          `<b style="color: green;">Solution:</b><br>${exp[k]}`
+                        );
+
+                        $("#" + ans[k] + " .st").addClass("cr");
+
+                        $(
+                          $($($("#" + ans[k])[0].parentNode)[0].parentNode)[0]
+                            .children[0]
+                        ).html(
+                          '<div class="not-ans"> <i class="icofont-warning-alt"></i></div>'
+                        );
+                      }
+
+                     
+
+                        
+                      
+                      MathJax.typeset();
+
+                      
+                      
+                                                     
         }
           
           $('#result_tab').click(function(){
