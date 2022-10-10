@@ -1290,7 +1290,7 @@ router.on({
           <a href="#!/live/details/${live[i].id}">Details</a>
           </div>
         `;
-        clearInterval(x);
+        clearInterval(z);
         liveTimer(live[i].start_time, live[i].end_time, '.live_countdown-'+i, '#s-time-'+i);
         
         }

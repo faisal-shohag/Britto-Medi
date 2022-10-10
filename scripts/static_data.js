@@ -187,6 +187,8 @@ function getLives(callback){
         lives.push({...item.data(), id: item.id});
       }else if(end.getTime() < d){
         ended.push({...item.data(), id: item.id});
+      }else{
+        
       }
       
     });

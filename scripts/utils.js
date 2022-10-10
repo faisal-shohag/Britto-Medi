@@ -281,8 +281,8 @@ firebase.auth().onAuthStateChanged(user=> {
                         let data = {
                             title: add_course.title.value,
                             sub_title: add_course.sub_title.value,
-                            start_time: firebase.firestore.Timestamp.fromDate(new Date(add_course.start_time.value)),
-                            end_time: firebase.firestore.Timestamp.fromDate(new Date(add_course.end_time.value)),
+                            start_time: (new Date(add_course.start_time.value)).toString(),
+                            end_time: (new Date(add_course.end_time.value)).toString(),
                             details: add_course.details.value,
                             type: add_course.type.value,
                             img_link: add_course.img_link.value,
