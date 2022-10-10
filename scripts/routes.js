@@ -2058,6 +2058,7 @@ router.on({
         }else{
           $('.answersheet').html(`
           <div class="body">
+          <div id="pdf">Download</div>
               <div class="exam-container">
              <div class="exam_top">
               <div class="exam-title kalpurush">
@@ -2138,7 +2139,15 @@ router.on({
                       
                       MathJax.typeset();
 
-                      
+                      const exam_container = document.querySelector('.exam-container');
+                      $('#pdf').click(function(){
+                        html2pdf(exam_container, {
+                          filename: 'Exam_cover_page.pdf',
+                          image: { type: 'jpeg', quality: 0.98 },
+                          html2canvas: { scale: 2},
+                          jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+                      })
+                      })
                       
                                                      
         }
