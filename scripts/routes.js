@@ -242,7 +242,7 @@ router.on({
             $('#routineModal').modal('show');
           }
         });
-
+        https://i.postimg.cc/gc3BRJ2g/Study-Plan-for-Humanity.png
        // daily quiz
         // db.ref('app/dailyQuize').on("value", snap=> {
         //   $('#dq').text(snap.val().data.q);
@@ -2526,8 +2526,8 @@ router.notFound(function(){
   app.innerHTML=`404`;
 });
 
-//history.pushState({page: 1}, "home", "#!/")
+history.pushState({page: 1}, "home", "#!/")
 
-$('a').click(function(){
-  history.pushState({page: 1}, "home", "#!/")
-});
+// $('a').click(function(){
+//   history.pushState({page: 1}, "home", "#!/")
+// });
