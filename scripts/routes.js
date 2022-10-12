@@ -742,8 +742,8 @@ router.on({
         
                   //timer
                   var sec = 0;
-                  var minute = parseInt(questions.length/2);
-                  var initialMin = parseInt(questions.length/2);
+                  var minute = parseInt(questions.length);
+                  var initialMin = parseInt(questions.length);
                  // console.log("exam: "+minute);
                   // if(localStorage.getItem('sec') != null) sec = parseInt(localStorage.getItem('sec'));
                   // if(localStorage.getItem('min') != null) minute = parseInt(localStorage.getItem('min'));
