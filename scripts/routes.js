@@ -767,7 +767,7 @@ router.on({
                       $("#submit").click();
                       // localStorage.removeItem('sec');
                       // localStorage.removeItem('min');
-                      $('.questions').hide();
+                      // $('.questions').hide();
                       clearInterval(timer);
                       
                     } else {
