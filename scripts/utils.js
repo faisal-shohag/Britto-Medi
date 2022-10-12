@@ -1513,7 +1513,7 @@ firebase.auth().onAuthStateChanged(user=> {
                    </div>
 
                     <div class="ad_head">----Question Adding Section----</div>
-                    <div class="input-group mb-3">
+                    <div style="display:none;" class="input-group mb-3">
                     <span  class="input-group-text">Auto Q</span>
                     <textarea type="text" class="form-control" id="paste" placeholder="Paste here..." aria-label="Username" aria-describedby="basic-addon1" ></textarea>
                    </div>
