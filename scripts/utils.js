@@ -1513,7 +1513,12 @@ firebase.auth().onAuthStateChanged(user=> {
                    </div>
 
                     <div class="ad_head">----Question Adding Section----</div>
+                    <div class="input-group mb-3">
+                    <span  class="input-group-text">Auto Q</span>
+                    <textarea type="text" class="form-control" id="paste" placeholder="Paste here..." aria-label="Username" aria-describedby="basic-addon1" ></textarea>
+                   </div>
                     <form id="lq">
+                   
                     <div class="input-group mb-3">
                     <span class="input-group-text">q</span>
                     <textarea type="text" class="form-control" name="q" placeholder="question" aria-label="Username" aria-describedby="basic-addon1" required></textarea>
@@ -1596,7 +1601,7 @@ firebase.auth().onAuthStateChanged(user=> {
       <form id="eq">
       <div class="input-group mb-3">
       <span class="input-group-text">q</span>
-      <textarea type="text" class="form-control" name="q" placeholder="question" aria-label="Username" aria-describedby="basic-addon1" required></textarea>
+      <textarea type="text" class="form-control" id="q" name="q" placeholder="question" aria-label="Username" aria-describedby="basic-addon1" required></textarea>
      </div>
 
      <div class="input-group mb-3">
@@ -1644,6 +1649,11 @@ firebase.auth().onAuthStateChanged(user=> {
 
                     
                     `
+
+                  
+
+                   
+
                     $('#show_set').hide();
 
                     $('#hide_set').click(function(){
@@ -1712,7 +1722,6 @@ firebase.auth().onAuthStateChanged(user=> {
                     let index;
                     $('.q_edit').click(function(){
                          index = parseInt(($(this)[0].id).split('-')[1]);
-                        // console.log(index);
                         eq.q.value = (questions[index].q).replaceAll('<br>', '\n');
                         eq.ex.value = (questions[index].ex).replaceAll('<br>', '\n');
                         eq.opt1.value = (questions[index].opt[0])
@@ -1720,21 +1729,25 @@ firebase.auth().onAuthStateChanged(user=> {
                         eq.opt3.value = (questions[index].opt[2])
                         eq.opt4.value = (questions[index].opt[3])
                         eq.ans.value = (questions[index].ans)
+
+                        $('#edit_trigger').click(function(){
+                            $('#edit_q').modal('hide');
+                            let options= [eq.opt1.value, eq.opt2.value, eq.opt3.value, eq.opt4.value]
+                            let data = {
+                                q: (eq.q.value).replaceAll('\n', '<br>'),
+                                opt: options,
+                                ans: parseInt(eq.ans.value),
+                                ex: (eq.ex.value).replaceAll('\n', '<br/>')
+                            }
+                            console.log(index);
+                            if(index)
+                            db.ref(`add_to_chap/${user.uid}/questions/${index}`).update(
+                                data
+                            )
+                        })
                     });
 
-                    $('#edit_trigger').click(function(){
-                        $('#edit_q').modal('hide');
-                        let options= [eq.opt1.value, eq.opt2.value, eq.opt3.value, eq.opt4.value]
-                        let data = {
-                            q: (eq.q.value).replaceAll('\n', '<br>'),
-                            opt: options,
-                            ans: parseInt(eq.ans.value),
-                            ex: (eq.ex.value).replaceAll('\n', '<br/>')
-                        }
-                        db.ref(`add_to_chap/${user.uid}/questions/${index}`).update(
-                            data
-                        )
-                    })
+                    
 
 
                  }else {
@@ -1811,6 +1824,21 @@ firebase.auth().onAuthStateChanged(user=> {
 
                     //Question adding
                     let lq = document.getElementById('lq');
+
+                     //auto fill paste text
+                     $("#paste").bind("paste", function(e){
+                        let pasteData = (e.originalEvent.clipboardData.getData('text')).trim();
+                        let data = pasteData.split('\n');
+                        let sym;
+                        if(pasteData.includes('.')) sym = '.'
+                        else if(pasteData.includes(')')) sym = ')'
+                        lq.q.value = data[0];
+                        lq.opt1.value = (data[1].split(sym)[1]).trim();
+                        lq.opt2.value = (data[2].split(sym)[1]).trim();
+                        lq.opt3.value = (data[3].split(sym)[1]).trim();
+                        lq.opt4.value = (data[4].split(sym)[1]).trim();
+
+                    })
                    
                       
                       lq.addEventListener('submit', e=>{

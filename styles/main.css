@@ -1418,3 +1418,8 @@ align-items: center;
 .list-wrap .live-bg img{
   height: 70px;
 }
+
+.top-title{
+  font-family: 'Poppins', Kalpurush;
+  font-weight: bold;
+}

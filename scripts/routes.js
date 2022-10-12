@@ -83,74 +83,100 @@ router.on({
 
         <div class="section">
         <div class="section-heading">
-        <div class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">Science</div></div>
-        <div class="more">2100+ Questions</div>
+        <div class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">Practice</div></div>
+        <div class="more">3100+ Questions</div>
         </div>
-        <a href="#!/select_practice">
-        <div class="horz-scroll siliguri">
-       
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/molecular.png"/></div>
-        <div class="title">জীববিজ্ঞান ১</div>
-        </div>
+        <div class="sl">
+  <div class="sl_menu">
+  <a href="#!/practice/subject/b1"> 
+  <div class="sl_item">
+  <div class="sl_icon"><img src="../images/literature.png"></div>
+  <div class="sl_name">বাংলা ১ম পত্র</div>
+  </div>
+  </a>
+  <a href="#!/practice/subject/b2">
+  <div class="sl_item">
+  <div class="sl_icon"><img src="../images/reading.png"></div>
+  <div class="sl_name">বাংলা ২য়  পত্র</div>
+  </div>
+  </a>
+  <a href="#!/practice/subject/e">
+  <div class="sl_item">
+  <div class="sl_icon"><img src="../images/grammar.png"></div>
+  <div class="sl_name">English 2nd</div>
+  </div>
+  </a>
 
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/butterfly.png"/></div>
-        <div class="title">জীববিজ্ঞান ২</div>
-        </div>
+  <a href="#!/practice/subject/phy1">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/phy1.png"></div>
+<div class="sl_name">পদার্থ ১ম</div>
+</div>
+</a>
 
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/chemistry.png"/></div>
-        <div class="title">রসায়ন ১</div>
-        </div>
+<a href="#!/practice/subject/phy2">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/phy2.png"></div>
+<div class="sl_name">পদার্থ ২য় </div>
+</div>
+</a>
 
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/test-tube.png"/></div>
-        <div class="title">রসায়ন ২</div>
-        </div>
+<a href="#!/practice/subject/chem1">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/che1.png"></div>
+<div class="sl_name">রসায়ন ১ম</div>
+</div>
+</a>
 
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/physics.png"/></div>
-        <div class="title">পদার্থ ১</div>
-        </div>
+<a href="#!/practice/subject/chem2">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/che2.png"></div>
+<div class="sl_name">রসায়ন ২য়</div>
+</div>
+</a>
 
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/magnet.png"/></div>
-        <div class="title">পদার্থ ২</div>
-        </div>
 
-        </div>
+<a href="#!/practice/subject/bio1">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/leaf.png"></div>
+<div class="sl_name">জীববিজ্ঞান ১ম</div>
+</div>
+</a>
 
-  
-        </div>
-        </a>
+<a href="#!/practice/subject/bio2">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/zoology.png"></div>
+<div class="sl_name">জীববিজ্ঞান ২য়</div>
+</div>
+</a>
+
+<a href="#!/practice/subject/math1">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/math1.png"></div>
+<div class="sl_name">উচ্চ. গণিত ১ম</div>
+</div>
+</a>
+
+<a href="#!/practice/subject/math2">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/math2.png"></div>
+<div class="sl_name">উচ্চ. গণিত ২য়</div>
+</div>
+</a>
+
+<a href="#!/practice/subject/ict">
+<div class="sl_item">
+<div class="sl_icon"><img src="../images/ict.png"></div>
+<div class="sl_name">ICT</div>
+</div>
+</a>
+
+</div>
+  </div>
         
-        <div class="section">
-        <div class="section-heading">
-        <div class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">Humanity</div></div>
-        <div class="more">800+ Questions</div>
-        </div>
-        <a href="#!/subjects">
-        <div class="horz-scroll siliguri">
-       
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/literature.png"/></div>
-        <div class="title">বাংলা ১</div>
-        </div>
-
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/b2.png"/></div>
-        <div class="title">বাংলা ২</div>
-        </div>
-
-        <div class="sub-sq">
-        <div class="icon"><img src="../images/grammar.png"/></div>
-        <div class="title">English 2</div>
-        </div>
-
-        </div>
-        </a>
-        <br>
+        
+        
+        
 
        
 
@@ -543,46 +569,9 @@ router.on({
 
         
     },
-    "/subjects": function(){
-      $('.footer').hide();
-      // $('.app_loader').show();
-      $('.top-title').text('Practice Exams(Humanity)');
-          app.innerHTML = `
-    <div class="sl">
-      <div class="sl_menu">
-      <a href="#!/practice/subject/b1"> 
-      <div class="sl_item">
-      <div class="sl_icon"><img src="../images/literature.png"></div>
-      <div class="sl_name">বাংলা ১ম পত্র</div>
-      </div>
-      </a>
-      <a href="#!/practice/subject/b2">
-      <div class="sl_item">
-      <div class="sl_icon"><img src="../images/b2.png"></div>
-      <div class="sl_name">বাংলা ২য়  পত্র</div>
-      </div>
-      </a>
-      <a href="#!/practice/subject/e">
-      <div class="sl_item">
-      <div class="sl_icon"><img src="../images/grammar.png"></div>
-      <div class="sl_name">English 2nd</div>
-      </div>
-      </a>
-
-    
-    <a href="#!/practice/subject/ict">
-    <div class="sl_item">
-    <div class="sl_icon"><img src="../images/ict.png"></div>
-    <div class="sl_name">ICT</div>
-    </div>
-    </a>
-    
-    </div>
-      </div>
-          `
-    },
     "/practice/subject/:id": function(params){
       $('.footer').hide();
+      $('.top-title').text(tag[params.id]);
       app.innerHTML = `
       <div class="chapters">
       </div>
