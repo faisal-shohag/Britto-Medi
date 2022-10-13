@@ -594,7 +594,7 @@ firebase.auth().onAuthStateChanged(user=> {
                     })
                     
                     //add to the bank
-                    lq.addEventListener('submit', e=>{
+                    $('#add_q_l_modal').hide();      lq.addEventListener('submit', e=>{
                         e.preventDefault();
                         let exp = (lq.ex.value).trim() == '' ? '' : `<br> ${(lq.ex.value).replaceAll('\n', '<br/>')}`;
                         let options= [lq.opt1.value, lq.opt2.value, lq.opt3.value, lq.opt4.value]
@@ -1513,7 +1513,7 @@ firebase.auth().onAuthStateChanged(user=> {
                    </div>
 
                     <div class="ad_head">----Question Adding Section----</div>
-                    <div style="display:none;" class="input-group mb-3">
+                    <div style="display:;" class="input-group mb-3">
                     <span  class="input-group-text">Auto Q</span>
                     <textarea type="text" class="form-control" id="paste" placeholder="Paste here..." aria-label="Username" aria-describedby="basic-addon1" ></textarea>
                    </div>
@@ -1567,8 +1567,10 @@ firebase.auth().onAuthStateChanged(user=> {
                         <center><div class="q-count"></div></center>
                         <div class="ad_head">----Exam----</div>
                         <center>
-                    <button id="publish" class="btn btn-success">Publish</button>
+                    <button id="publish" class="btn btn-success">Publish as Practice</button>
                     <button id="delete" class="btn btn-danger">Delete</button>
+                    <button id="add_q_l_modal"  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#add_q_to_exam">Add Questions to Live Exam
+                 </button>
                     </center>
 
                         <div class="exam_top">
@@ -1647,10 +1649,36 @@ firebase.auth().onAuthStateChanged(user=> {
   </div>
 </div>
 
-                    
-                    `
+<!-- Modal -->
+<div class="modal fade" id="add_q_to_exam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Questions to live exam</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+    <form id="exam_id">
+      <div id="input_exam">
+      <center>Loading....</center>
+      </div>
+    </form>
 
-                  
+    
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" i class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="add_q_live" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+     `
+
+   
+     
 
                    
 
@@ -1673,6 +1701,7 @@ firebase.auth().onAuthStateChanged(user=> {
 
                     $('#publish').hide();
                     $('#delete').hide();
+                    $('#add_q_l_modal').hide();
                     db.ref(`add_to_chap/${user.uid}`).on('value', snap=>{
                         
                        if(snap.val()){
@@ -1690,6 +1719,7 @@ firebase.auth().onAuthStateChanged(user=> {
                         $('.q-count').html(`(${questions.length})`);
                            $('#publish').show();
                            $('#delete').show();
+                           $('#add_q_l_modal').show();
                            questions_view.innerHTML = '';
                            var ans = [];
                        for(let i=0; i<questions.length; i++){
@@ -1740,7 +1770,7 @@ firebase.auth().onAuthStateChanged(user=> {
                                 ex: (eq.ex.value).replaceAll('\n', '<br/>')
                             }
                             console.log(index);
-                            if(index)
+                            if(index!=undefined)
                             db.ref(`add_to_chap/${user.uid}/questions/${index}`).update(
                                 data
                             )
@@ -1753,6 +1783,7 @@ firebase.auth().onAuthStateChanged(user=> {
                  }else {
                     $('#publish').hide();
                     $('#delete').hide();
+                    $('#add_q_l_modal').hide();
                     //$('.exam_top').hide();
                     questions_view.innerHTML = '<center>Empty</center>';
                 }
@@ -1830,8 +1861,9 @@ firebase.auth().onAuthStateChanged(user=> {
                         let pasteData = (e.originalEvent.clipboardData.getData('text')).trim();
                         let data = pasteData.split('\n');
                         let sym;
-                        if(pasteData.includes('.')) sym = '.'
-                        else if(pasteData.includes(')')) sym = ')'
+                        
+                        if(pasteData.includes(')')) sym = ')'
+                        else if(pasteData.includes('.')) sym = '.'
                         lq.q.value = data[0];
                         lq.opt1.value = (data[1].split(sym)[1]).trim();
                         lq.opt2.value = (data[2].split(sym)[1]).trim();
@@ -1860,6 +1892,45 @@ firebase.auth().onAuthStateChanged(user=> {
     
                         
                     });
+
+                    //publish
+                    $('#add_q_l_modal').click(function(){
+                        getLives((live, ended)=>{
+                            const input_exam = document.getElementById('input_exam');
+                            input_exam.innerHTML = '';
+                            for(let i=0; i<live.length; i++){
+                                input_exam.innerHTML +=`
+                                <div class="input-group">
+                                <div class="input-group-text">
+                                  <input class="form-check-input mt-0" name="e_id" type="radio" value="${live[i].id}" aria-label="Radio button for following text input">
+                                </div>
+                                ${live[i].title}
+                              </div>
+                                `;   
+                            }
+                        });
+                
+                        
+                        
+                
+                     });
+                
+                    
+                     $('#add_q_live').click(function(){
+                        const exam_id = document.getElementById('exam_id');
+                        let id = exam_id.e_id.value;
+                        console.log(questions)
+                        store.collection('lives').doc(id).update({
+                            questions: questions
+                        })
+                        .then(()=>{
+                            $('#add_q_to_exam').modal('hide');
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'Successfully Published to the live exam!'
+                            });
+                        });
+                     })
                 }
 
             }).resolve();

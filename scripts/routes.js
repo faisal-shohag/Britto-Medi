@@ -643,7 +643,7 @@ router.on({
                       <div class="exam-container">
                      <div class="exam_top">
                       <div class="exam-title kalpurush">
-                      <div class="exam_name">${myexam.details.exam_name}</div><small>সময়: ${parseInt(myexam.questions.length/2)} মিনিট | নেগেটিভ: ${0} </small>
+                      <div class="exam_name">${myexam.details.exam_name}</div><small>সময়: ${parseInt(myexam.questions.length)} মিনিট | নেগেটিভ: ${0} </small>
                       </div>
                       <div style="display: none;" class="score">
                       <div class="mark"></div>
