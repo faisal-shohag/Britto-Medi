@@ -327,22 +327,22 @@ router.on({
 
 
         //courses
-        store.collection('courses').onSnapshot(snap=> {
-          let course_list = document.getElementById('course_list');
-          course_list.innerHTML = '';
-          snap.forEach(item=>{
-           let data =  courseData(item.data());
-            course_list.innerHTML += `
-          <a href="#!"> <div class="course-card">
-         <div class="photo"><img src="${data.img_link}"/></div>
-         <div class="details">
-         <div class="title">${data.title}</div>
-         <div class="sub-title">Total exam: ${data.total_exam}</div>
-         <div class="fee"><del class="del">${data.prev_fee}tk</del> ${data.fee} <span class="discount">(${data.discount}% off)</span></div>
-         </div>
-         </div></a>
+        // store.collection('courses').onSnapshot(snap=> {
+        //   let course_list = document.getElementById('course_list');
+        //   course_list.innerHTML = '';
+        //   snap.forEach(item=>{
+        //    let data =  courseData(item.data());
+        //     course_list.innerHTML += `
+        //   <a href="#!"> <div class="course-card">
+        //  <div class="photo"><img src="${data.img_link}"/></div>
+        //  <div class="details">
+        //  <div class="title">${data.title}</div>
+        //  <div class="sub-title">Total exam: ${data.total_exam}</div>
+        //  <div class="fee"><del class="del">${data.prev_fee}tk</del> ${data.fee} <span class="discount">(${data.discount}% off)</span></div>
+        //  </div>
+        //  </div></a>
             
-            `
+        //     `
 
             // $('.interested').click(function(){
             //   if(UID){
@@ -364,9 +364,9 @@ router.on({
             // })
 
 
-          });
+          // });
 
-        })
+        // })
     },
     '/students': function(){
       app.innerHTML = `
@@ -574,11 +574,75 @@ router.on({
       $('.top-title').text(tag[params.id]);
       app.innerHTML = `
       <div class="chapters">
+      <ul class="o-vertical-spacing o-vertical-spacing--l">
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
       </div>
       `
       
       db.ref('app/practiceRef/'+params.id).once('value', snap=>{
-        $('.app_loader').hide();
         let html = ``;
         let chapters = [];
         snap.forEach(item=>{
@@ -616,6 +680,71 @@ router.on({
       $('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeInRight top_dir"><i class="icofont-simple-left"></i></div> <div class="animate__animated animate__fadeIn top_text">${params.chapName}</div></div>`);
       app.innerHTML = `
       <div class="chapters" id="chaps">
+      <ul class="o-vertical-spacing o-vertical-spacing--l">
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
       </div>
       `
       store.collection('subjectExams').doc(params.subj).collection(params.chap).onSnapshot(snap=>{
@@ -633,7 +762,11 @@ router.on({
     '/start_practice/:subj/:chap/:key': function(params){
       $('.footer').hide();
       $('.top-title').text('');
-        app.innerHTML=`<div class="exam-doc" id="practice-exam"></div>`;
+        app.innerHTML=`<div class="exam-doc" id="practice-exam">
+        <center><div class="spinner-grow text-success" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                       </div></center>
+        </div>`;
         store.collection('subjectExams').doc(params.subj).collection(params.chap).doc(params.key).get().then(snap=> {
             // $('.app_loader').hide();
                   $('.countdown').show();
@@ -672,7 +805,9 @@ router.on({
                      </div>
                      </div>
                   
-                      <div class="questions"></div>
+                      <div class="questions">
+                      
+                      </div>
                      
                      <center> <div class="exam_submit" id="submit">
                      <div class="ex-timer"></div>
