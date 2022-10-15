@@ -2678,6 +2678,7 @@ router.on({
       <div id="page"></div>
       </div>
      `);
+     $('#pos').html(`?`)
     
       let i=0;
       let ladder = [];
@@ -2685,7 +2686,7 @@ router.on({
       // console.log(ss);
       for(let i=0; i<ss.length; i++){
         if(ss[i][0] === myuid){
-          $('.tp').text(i);
+          $('#pos').html(`${i+1}`)
         }
         ladder.push({
           name: ss[i][1].name,
@@ -2697,7 +2698,7 @@ router.on({
       ladder.sort((a,b)=>{return b.score - a.score});
       // console.log(ladder)
     
-      
+      $('.tp').text(ladder.length);
   
       $('.top3content').html(`
       <div class="twrap"><div class="top2"><img src="https://robohash.org/${ladder[1].name}.png?set=set1"></div> <div class="topName">${getNickName(ladder[1].name)}</div></div>
