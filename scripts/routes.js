@@ -1,11 +1,8 @@
 const router = new Navigo(null, true, '#!');
 const app = document.getElementById('app');
 
-setTimeout(function(){
-
-
-console.log(myuid)
-if(myuid == 'DDkJGuxqAlNCxJO1QjnJT4bAoyX2'){
+// setTimeout(function(){
+// if(myuid == 'DDkJGuxqAlNCxJO1QjnJT4bAoyX2'){
 
 router.on({
     '/': function() {
@@ -2646,16 +2643,16 @@ router.on({
 
 }).resolve();
 
-}else{
-  app.innerHTML = `
-  <center>
-  We will come back very soon!
-  We are just testing all the thing working well or not!
-  Stay with us!
-  </center>
-  `
-}
-}, 5000)
+// }else{
+//   app.innerHTML = `
+//   <center>
+//   We will come back very soon!
+//   We are just testing all the thing working well or not!
+//   Stay with us!
+//   </center>
+//   `
+// }
+// }, 5000)
 
 router.notFound(function(){
   app.innerHTML=`404`;
