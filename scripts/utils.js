@@ -963,7 +963,7 @@ firebase.auth().onAuthStateChanged(user=> {
                       let data = doc.data();
                     //   console.log(data);
                       let res = Object.entries(data.reg_std);
-                      console.log(res);
+                    //   console.log(res);
                         const results = document.querySelector('.results');
                         results.innerHTML = '';
 
@@ -980,10 +980,10 @@ firebase.auth().onAuthStateChanged(user=> {
                         r.sort(function(a, b){
                             return b.score - a.score; 
                         });
-                        console.log(r);
+                        // console.log(r);
                       for(let i=0; i<res.length; i++){
                         results.innerHTML += `
-                        <div id="${r[i].uid}|${r[i].score}" class="res add_rank">
+                        <div id="${r[i].uid}|${r[i].score}|${r[i].name}" class="res add_rank">
                         ${i+1}. ${r[i].name} - ${r[i].score}
                         
                         </div>
@@ -991,19 +991,27 @@ firebase.auth().onAuthStateChanged(user=> {
                         `
                       }
 
-                    //     $('.add_rank').click(function(){
+                    //   let ss = {
+                    //     "Jarin ahona":27,
+                    //     "Maria":29,
+                    //     "Israt Jahan Urmi": 32,
+                    //     "Meherunnahar": 24,
+                    //     "Imran Khan": 21,
+                    //     "Tinni Das Gupta": 0,
+
+                    // }
+                    
+
+                    //       $('.add_rank').click(function(){
                     //     let myid = ($(this)[0].id).split('|');
                         
-                    //     store.collection('globalRank').doc('lives').update({
-                    //         live_exams: {
-                    //             [params.id]:{
-                    //                 name: data.title,
-                    //                 score: myid[1],
-                    //                 date: data.start_time
+                    //     store.collection('globalRank').doc('hum').set({
+                    //         [myid[0]]: {
+                    //                 score: parseInt(myid[1])+ss[myid[2]],                              
                     //             }
-                    //         }
-                    //     }).then(()=>{
-                    //         console.log('Sent!');
+                            
+                    //     }, {merge: true}).then(()=>{
+                    //         console.log(`${myid[2]} - Sent!`);
                     //     })
                     //   });
 

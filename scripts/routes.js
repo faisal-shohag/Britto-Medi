@@ -2642,7 +2642,161 @@ router.on({
       
       </div>
       `
-    }
+    },
+    "/rank" : function(){
+      $('.app_loader').show();
+      $('.footer').show();
+      $('.footertext').hide();
+      $('.footerIcon').removeClass('footerIconActive');
+      if($('.rnk')[0].classList[3] === undefined){
+        $('.rnk').addClass('footerIconActive');
+        $($($('.rnk')[0].parentNode)[0].lastElementChild).show();
+      }
+      $('.top-title').html(`Rank`);
+    
+      app.innerHTML = `<div class="body"><span class="rank-doc">
+      <center>
+      <div class="spinner-grow text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </center>
+      </span></div>`;
+      store.collection("globalRank").doc('hum').get().then(snap=> {
+        $('.app_loader').hide();
+     $('.rank-doc').html(`
+      <div class="ladder">
+      <div class="top3content">
+      <center>
+      <div class="spinner-grow text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </center>
+    
+      </div>
+      <div class="my_pos"><img src="../images/position.png" height="30px"> Your Merit: <span id="pos"></span>/<span class="tp"></span></div>
+      <div id="board" class="board"></div>
+      <div id="page"></div>
+      </div>
+     `);
+    
+      let i=0;
+      let ladder = [];
+      let ss = Object.entries(snap.data());
+      // console.log(ss);
+      for(let i=0; i<ss.length; i++){
+        if(ss[i][0] === myuid){
+          $('.tp').text(i);
+        }
+        ladder.push({
+          name: ss[i][1].name,
+          score: ss[i][1].score,
+          inst: ss[i][1].inst,
+          uid: ss[i][0]
+        })
+      }
+      ladder.sort((a,b)=>{return b.score - a.score});
+      // console.log(ladder)
+    
+      
+  
+      $('.top3content').html(`
+      <div class="twrap"><div class="top2"><img src="https://robohash.org/${ladder[1].name}.png?set=set1"></div> <div class="topName">${getNickName(ladder[1].name)}</div></div>
+      <div class="twrap"><div class="top1"><img src="https://robohash.org/${ladder[0].name}.png?set=set1"></div> <div class="topName">${getNickName(ladder[0].name)}</div> <div class="crown"><img src="../images/crown.png"></div></div>
+      <div class="twrap"><div class="top3"><img src="https://robohash.org/${ladder[2].name}.png?set=set1"></div> <div class="topName">${getNickName(ladder[2].name)}</div></div>
+      `)
+
+    
+      let board = document.getElementById('board');
+      $('#page').pagination({
+        dataSource: ladder,
+        pageSize: 20,
+        callback: function(data, pagination) {
+           board.innerHTML = ``;
+            let k = 0;
+            ladder.forEach(item=>{
+              
+              k++;
+            if(k===1){
+              board.innerHTML += `
+              <a href="#!/profile/${item.uid}">
+              <div class="l">
+              <div style="display:flex; gap: 10px;">
+              <div class="pandn">
+              <div class="top-pos"><img src="../images/badge1.png" height="30px"></div>
+              </div>
+    
+              <div class="s-info">
+              <div class="l-name">${item.name}</div>
+              <div class="instName">${item.inst}</div>
+              </div>
+              </div>
+    
+    
+              <div class="sandt">
+              <div class="l-score" >${item.score}</div>
+              </div>
+             
+             
+              </div>
+              
+              </a>
+              `
+            }
+            else if(item.id === myuid){
+              board.innerHTML += `
+              <a href="#!/myprofile">
+              <div class="l" style="background: crimson; color: #fff">
+              <div style="display:flex; gap: 10px;">
+              <div class="pandn">
+              <div class="u-pos">${k}</div>
+              </div>
+    
+              <div class="s-info">
+              <div class="l-name">${item.name}</div>
+              <div class="instName">${item.inst}</div>
+              </div>
+              </div>
+    
+    
+              <div class="sandt">
+              <div class="l-score" style="color: #fff">${item.score}</div>
+              </div>
+             
+             
+              </div>
+              
+              </a>
+              `
+            }else{
+              board.innerHTML += `
+              <a href="#!/profile/${item.uid}">
+              <div class="l">
+              <div style="display:flex; gap: 10px;">
+              <div class="pandn">
+              <div class="u-pos">${k}</div>
+              </div>
+    
+              <div class="s-info">
+              <div class="l-name">${item.name}</div>
+              <div class="instName">${item.inst}</div>
+              </div>
+              </div>
+    
+    
+              <div class="sandt">
+              <div class="l-score" >${item.score}</div>
+              </div>
+             
+             
+              </div>
+              </a>
+              `
+            }
+            });
+        }
+      });
+    });
+    },
 
 
 
@@ -2672,3 +2826,10 @@ history.pushState({page: 1}, "home", "#!/")
 // $('a').click(function(){
 //   history.pushState({page: 1}, "home", "#!/")
 // });
+
+function getNickName(myname){
+myname = myname.trim();
+myname = myname.split(' ');
+// console.log(myname);
+return  myname[myname.length-1];
+}
