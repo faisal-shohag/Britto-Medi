@@ -252,7 +252,7 @@ router.on({
         <div class="top_std_name">${((results[2].name).split(' ')[0])}(${results[2].score})</div>
         </div>
 
-        <a class="res_links" href="#!/live/start/FrbFxLyOthT0MJhDRplg"><div >See full result</div></a>
+        <a class="res_links" href="#!/live/start/L6CwNh8W7JPzNSosjBTW"><div >See full result</div></a>
           `)
       
         })
