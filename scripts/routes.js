@@ -2679,15 +2679,12 @@ router.on({
       </div>
      `);
      $('#pos').html(`?`)
-    
+    console.log(myuid)
       let i=0;
       let ladder = [];
       let ss = Object.entries(snap.data());
       // console.log(ss);
       for(let i=0; i<ss.length; i++){
-        if(ss[i][0] === myuid){
-          $('#pos').html(`${i+1}`)
-        }
         ladder.push({
           name: ss[i][1].name,
           score: ss[i][1].score,
@@ -2744,6 +2741,9 @@ router.on({
               `
             }
             else if(item.id === myuid){
+              
+                $('#pos').html(`${k}`)
+              
               board.innerHTML += `
               <a href="#!/myprofile">
               <div class="l" style="background: crimson; color: #fff">
