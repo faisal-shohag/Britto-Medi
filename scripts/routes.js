@@ -2740,7 +2740,7 @@ router.on({
               </a>
               `
             }
-            else if(item.id === myuid){
+            else if(item.uid === myuid){
               
                 $('#pos').html(`${k}`)
               
