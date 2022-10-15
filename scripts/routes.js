@@ -223,7 +223,7 @@ router.on({
 
         `
            //Last Exam Result
-        store.collection('lives').doc('FrbFxLyOthT0MJhDRplg').get().then(snap=>{
+        store.collection('lives').doc('L6CwNh8W7JPzNSosjBTW').get().then(snap=>{
             let myexam = snap.data();
           let Objresults = Object.entries(myexam.reg_std);
           // console.log(Objresults);

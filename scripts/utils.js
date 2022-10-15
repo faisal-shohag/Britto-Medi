@@ -952,16 +952,8 @@ firebase.auth().onAuthStateChanged(user=> {
                     <button id="publish_reg" class="btn btn-primary">Toggle Register</button>
                     <button id="publish_front" class="btn btn-primary">Post On Front Page</button>
                     <center><a href="#!/live/edit/${params.id}">Edit</a></center>
-                    <div class="comments kalpurush">
-                        <div class="comment-title"><div>Comments<span id="cmnt_count"></span></div></div>
-                        
-                        <div class="comment-form"></div>
-                        <div id="all_comments">
-                        <center><div class="spinner-border text-secondary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div></center>
-                        </div>
-                
+                    
+                    <div class="results"></div>
                     </div>
                     `
                     getLive();
@@ -970,6 +962,67 @@ firebase.auth().onAuthStateChanged(user=> {
                       // console.log(params.id);
                       let data = doc.data();
                     //   console.log(data);
+                      let res = Object.entries(data.reg_std);
+                      console.log(res);
+                        const results = document.querySelector('.results');
+                        results.innerHTML = '';
+
+                        let r = [];
+
+                        for(let i=0; i<res.length; i++){
+                            r.push({
+                                name: res[i][1].name,
+                                uid: res[i][0],
+                                score: res[i][1].score,                    
+                            });
+                        }
+
+                        r.sort(function(a, b){
+                            return b.score - a.score; 
+                        });
+                        console.log(r);
+                      for(let i=0; i<res.length; i++){
+                        results.innerHTML += `
+                        <div id="${r[i].uid}|${r[i].score}" class="res add_rank">
+                        ${i+1}. ${r[i].name} - ${r[i].score}
+                        
+                        </div>
+
+                        `
+                      }
+
+                    //     $('.add_rank').click(function(){
+                    //     let myid = ($(this)[0].id).split('|');
+                        
+                    //     store.collection('globalRank').doc('lives').update({
+                    //         live_exams: {
+                    //             [params.id]:{
+                    //                 name: data.title,
+                    //                 score: myid[1],
+                    //                 date: data.start_time
+                    //             }
+                    //         }
+                    //     }).then(()=>{
+                    //         console.log('Sent!');
+                    //     })
+                    //   });
+
+                    //   $('.add_prfl').click(function(){
+                    //     let myid = ($(this)[0].id).split('|');
+                        
+                    //     store.collection('users').doc(myid[0]).update({
+                    //         live_exams: {
+                    //             [params.id]:{
+                    //                 name: data.title,
+                    //                 score: myid[1],
+                    //                 date: data.start_time
+                    //             }
+                    //         }
+                    //     }).then(()=>{
+                    //         console.log('Sent!');
+                    //     })
+                    //   });
+
                     
                         $('.e-status').html(`
                         <div class="stat">Question Show: ${data.show_q}</div>
@@ -1054,7 +1107,6 @@ firebase.auth().onAuthStateChanged(user=> {
                     <span class="visually-hidden">Loading...</span>
                     </div></center>
                         <div class="live_option">
-                        <button id="live_register" class="btn btn-success">Register</button>
                         <div id="live_det">
                           <div id="status"></div>
                           <div id="timer"></div>
@@ -1073,85 +1125,7 @@ firebase.auth().onAuthStateChanged(user=> {
                         
                         clearInterval(y);
                         liveDetailsTimer(data.start_time, data.end_time, '#live_det #timer', '#live_det #status', `.st-${params.id}`)
-                        if(UID){
-                          if(data.reg_std && data.reg_std[UID]){
-                            $('#live_register').text('Registered');
-                            $('#live_register').removeClass('btn-success');
-                            $('#live_register').addClass('btn-secondary');
-                            $('#live_register').click(function() {
-                              Swal.fire({
-                                'icon': 'info',
-                                text: 'You have already registered!'
-                              });
-                            });
-                          }else {
-                            $('#live_register').click(function() {
-                              Swal.fire({
-                                icon: 'question',
-                                text: 'Do you want to register?',
-                                confirmButton: true,
-                                cancelButton: true,
-                                confirmButtonText: 'Yes',
-                                cancelButtonText: 'No'
-                              }).then(res=>{
-                                if(res.isConfirmed){
-                                    store.collection('lives').doc(params.id).update({
-                                      reg_std:{
-                                        [UID]: {
-                                          name: std_name
-                                        }
-                                      }
-                                    }).then(()=>{
-                                      Swal.fire({
-                                        icon: 'success',
-                                        text: 'Registration completed!'
-                                      });
-                                      getLive();
-                                    }).catch(err=>{
-                                      console.log(err);
-                                    })
-                                }
-                              })
-                            });
-                          }
-              
-                          $('.comment-form').html(`<form id="comment_form">
-                          <div class="form-group">
-                          <textarea class="form-control" id="comment_value" rows="3"></textarea>
-                          </div>
-                          <button type="submit" class="btn btn-primary">Comment</button>
-                          </form>`);
-                            document.getElementById('comment_form').addEventListener('submit',e=>{
-                              e.preventDefault();
-                              let cmnt =  $('#comment_value').val();
-                              if(cmnt.trim() != ''){
-                                store.collection('lives').doc(params.id).collection('comments').add({     
-                                      comment: cmnt,
-                                      name: std_name,
-                                      UID: UID,
-                                      at: (new Date()).toISOString()
-                                }).then(()=>{
-                                  Toast.fire({
-                                    icon: 'success',
-                                    title: 'Commented!'
-                                  })
-                                })
-                              }
-                            })
-              
-              
-                        } else {
-                          $('#live_register').click(function() {
-                            Swal.fire({
-                              'icon': 'warning',
-                              text: 'Please sign in first!'
-                            });
-                          });
-              
-                          $('.comment-form').html(`
-                          <div class="reg_nb">You must sign in to comment!</div>
-                          `)
-                        }
+                       
                       
                     });
                   }
