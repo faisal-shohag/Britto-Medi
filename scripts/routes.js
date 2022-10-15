@@ -1486,7 +1486,11 @@ router.on({
       function getLive(){
      return store.collection('lives').doc(params.id).get().then(doc=>{
         // console.log(params.id);
+        
         let data = doc.data();
+
+        
+
         $('.top-title').html(`${data.title}`);
           $('.live-post').html(`
           <div class="post">
@@ -1520,6 +1524,11 @@ router.on({
           </div>
           </div>
           `);
+          
+          if(data.isPublished){
+            $('#live_register').hide();
+          }
+
           $('.live_option').hide();
           setTimeout(function(){
             $('.live_option').show();
