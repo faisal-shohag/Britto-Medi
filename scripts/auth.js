@@ -148,12 +148,14 @@ function singOut(){
 
 var UID = false;
 var std_name = false;
+var myuid = '';
 function authCheck(send){
 
 firebase.auth().onAuthStateChanged(user=> {
   $('.sp').hide();
     if(user) {
       UID = user.uid;
+      myuid = user.uid;
         store.collection('users').doc(user.uid).get().then(snap=>{
         
             // console.log(snap.data());

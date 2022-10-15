@@ -1,6 +1,12 @@
 const router = new Navigo(null, true, '#!');
 const app = document.getElementById('app');
 
+setTimeout(function(){
+
+
+console.log(myuid)
+if(myuid == 'DDkJGuxqAlNCxJO1QjnJT4bAoyX2'){
+
 router.on({
     '/': function() {
       $('.footer').show();
@@ -1768,7 +1774,7 @@ router.on({
                               score = 0,
                               wrong = 0,
                               na = 0,
-                              neg = 0;
+                              neg = myexam.neg;
                             questions = myexam.questions;
                             // shuffle(questions);
                             // console.log(questions);
@@ -2640,7 +2646,16 @@ router.on({
 
 }).resolve();
 
-
+}else{
+  app.innerHTML = `
+  <center>
+  We will come back very soon!
+  We are just testing all the thing working well or not!
+  Stay with us!
+  </center>
+  `
+}
+}, 5000)
 
 router.notFound(function(){
   app.innerHTML=`404`;
