@@ -2632,21 +2632,26 @@ router.on({
         }
       app.innerHTML = `
       <div class="body">
-
-      <div class="progress_chart">
-      <div class="section_title"><img src="../images/growth.png"> লাইভ এক্সাম পরিসংখ্যান(%)</div>
-      <canvas id="myChart"></canvas>
+      <center>
+      <div class="spinner-grow text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
-      
-      <div class="exams"></div>
-      
-      
+      <center>
       </div>
       `
 
       store.collection('users').doc(params.id).get().then(snap=>{
-        // console.log(snap.data());
+        
         if(snap.data().live_exams){
+          app.innerHTML = `
+          <div class="body">
+          <div class="progress_chart">
+          <div class="section_title"><img src="../images/growth.png"> লাইভ এক্সাম পরিসংখ্যান(%)</div>
+          <canvas id="myChart"></canvas>
+          </div>
+          <div class="exams"></div>
+          </div>
+          `
           let live_exams = snap.data().live_exams;
         live_exams = Object.entries(live_exams);
         let lives = [];
@@ -2730,10 +2735,10 @@ router.on({
           app.innerHTML = `
           <body>
           <div class="sad">
-        <div class="sad_img"><img src="../images/progress.png"></div>
-        <div class="sad_text">Attend to live exam to show your progress!</div>
-        <div class="sad_subtext">...</div>
-      </div>
+          <div class="sad_img"><img src="../images/progress.png"></div>
+          <div class="sad_text">Praticipate in live exams & see your progress here!</div>
+          <div class="sad_subtext">...</div>
+          </div>
           </body>
           `
         }
