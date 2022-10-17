@@ -2736,6 +2736,7 @@ router.on({
 
         //progrsss chart
         Chart.defaults.global.defaultFontFamily = "Hind Siliguri";
+        Chart.defaults.global.legend.display = false;
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -2786,7 +2787,7 @@ router.on({
 
         //pie 
         let pie_chart = document.getElementById("pie_chart");
-        Chart.defaults.global.legend.display = false;
+        
         var pieData = {
             labels: [
                 "ভুল",
