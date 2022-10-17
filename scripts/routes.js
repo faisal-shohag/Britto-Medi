@@ -2801,6 +2801,7 @@ router.on({
                         "crimson",
                         "green",
                         "indigo",
+                        "orange"
                     ]
                 }],
                 options: {
