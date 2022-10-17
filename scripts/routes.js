@@ -2645,8 +2645,20 @@ router.on({
         if(snap.data().live_exams){
           app.innerHTML = `
           <div class="body">
+          <div class="pie">
+          <div class="section_title"><img src="../images/pie.png"> এক্সাম পরিসংখ্যান</div>
+          <div class="progress_pie">
+          
+          <div class="chart_state">
+          </div>
+          <div class="chart">
+          <canvas id="pie_chart" width="100%" height="100%"></canvas>
+          </div>
+          </div>
+          </div>
+
           <div class="progress_chart">
-          <div class="section_title"><img src="../images/growth.png"> লাইভ এক্সাম পরিসংখ্যান(%)</div>
+          <div class="section_title"><img src="../images/bar.png"> লাইভ এক্সাম পরিসংখ্যান(%)</div>
           <canvas id="myChart"></canvas>
           </div>
           <div class="exams"></div>
@@ -2657,26 +2669,58 @@ router.on({
         let lives = [];
         let data = [];
         let lebels = []
+        let totalQ = 0;
+        let totalW = 0;
+        let totalC = 0;
         for(i in live_exams){
           lives.push({
             name: live_exams[i][1].name,
-            score: parseInt(live_exams[i][1].score),
+            score: parseFloat(live_exams[i][1].score),
             date: live_exams[i][1].date,
             id: live_exams[i][0],
-            total: live_exams[i][1].total
+            total: parseInt(live_exams[i][1].total)
           });
+          totalQ += parseInt(live_exams[i][1].total);
+          let neg = parseFloat(live_exams[i][1].neg);
+          let wrong = parseInt(live_exams[i][1].total)-parseFloat(live_exams[i][1].score);
+          if(neg>0){
+            totalW += (wrong/1.25);
+            totalC += parseInt(live_exams[i][1].total)-(wrong/1.5);
+          }else{
+            totalW += (parseInt(live_exams[i][1].total) - parseInt(live_exams[i][1].score))
+            totalC += parseInt(live_exams[i][1].total) - ((parseInt(live_exams[i][1].total) - parseInt(live_exams[i][1].score)))
+          }
           
         }
+
+        $('.chart_state').html(`
+        <div>
+        <div class="chart_lebel">মোট উত্তর করেছো: </div>
+        <div class="chart_value">${totalQ} টি</div>
+        </div>
+        <div>
+        <div class="chart_lebel">সঠিক:</div>
+        <div class="chart_value">${totalC} টি</div>
+        </div>
+        <div>
+        <div class="chart_lebel">ভুল: </div>
+        <div class="chart_value">${totalW} টি</div>
+        </div>
+        <div>
+        <div class="chart_lebel">মোট এক্সাম: </div>
+        <div class="chart_value">${lives.length} টি</div>
+        </div>
+        `)
 
         lives.sort((a,b)=>new Date(a.date) - new Date(b.date));
         const exams = document.querySelector('.exams');
         exams.innerHTML = '';
         for(i in lives){
-          data.push(100 * (parseInt(lives[i].score)/lives[i].total));
+          data.push(100 * (parseFloat(lives[i].score)/lives[i].total));
           lebels.push(lives[i].name);
           exams.innerHTML += `
           <a href="#!/live/start/${lives[i].id}"><div class="live_exam_prg">
-          <div class="prg_prg" style="width: ${(100 * (parseInt(lives[i].score)/lives[i].total)).toPrecision(2)}%; height: 100%"></div>
+          <div class="prg_prg" style="width: ${(100 * (parseFloat(lives[i].score)/lives[i].total)).toPrecision(2)}%; height: 100%"></div>
           <div class="prg_det">
           <div class="prg_name">${lives[i].name}</div>
           <div class="prg_date">${dateForm(lives[i].date)} ${timeForm(lives[i].date)}</div>
@@ -2686,9 +2730,12 @@ router.on({
           `
         }
 
+
+
        
 
         //progrsss chart
+        Chart.defaults.global.defaultFontFamily = "Hind Siliguri";
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -2713,7 +2760,7 @@ router.on({
                 }
               },
               title: {
-                display: true,
+                display: false,
                 text: 'Live Exam Progress in Parcentage'
               },
               scales: {
@@ -2735,6 +2782,39 @@ router.on({
               // Add to prevent default behaviour of full-width/height 
             }
           }
+        });
+
+        //pie 
+        let pie_chart = document.getElementById("pie_chart");
+        Chart.defaults.global.legend.display = false;
+        var pieData = {
+            labels: [
+                "ভুল",
+                "সঠিক",
+                "মোট উত্তর",
+                "মোট এক্সাম" 
+            ],
+            datasets: [
+                {
+                    data: [totalW, totalC, totalQ, lives.length],
+                    backgroundColor: [
+                        "crimson",
+                        "green",
+                        "indigo",
+                    ]
+                }],
+                options: {
+                  plugins:{
+                    legend: {
+                      display: false
+                    }
+                  }
+                }
+        };
+
+        var pieChart = new Chart(pie_chart, {
+          type: 'pie',
+          data: pieData
         });
 
         }else{

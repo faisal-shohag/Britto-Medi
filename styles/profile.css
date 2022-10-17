@@ -89,7 +89,7 @@
 }
 
 .section_title{
- padding: 10px;
+ /* padding: 10px; */
  font-family: Hind Siliguri;
  color: rgb(72, 22, 189);
  font-size: 17px;
@@ -141,7 +141,7 @@
 
 .prg_mark .total{
  font-size: 16px;
- color: rgb(166, 150, 206);
+ color: rgb(184, 169, 218);
 }
 
 .prg_prg{
@@ -153,7 +153,23 @@
     border-top-left-radius: 5px;
 }
 
-canvas{
-    font-family: Poppins;
+
+
+.pie{
+  font-family: Hind Siliguri;
+  padding: 10px;
+  margin: 20px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
 }
 
+.progress_pie{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart_state div{
+  display: flex;
+  gap: 10px;
+}
