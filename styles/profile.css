@@ -97,9 +97,53 @@
  display: flex;
  gap: 10px;
  align-items: center;
- 
+
 }
 
 .section_title img{
     height: 25px;
+}
+
+.exams{
+ margin-top: 20px;
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+}
+
+.live_exam_prg{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 5px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.prg_name{
+    font-size: 16px;
+}
+
+.prg_date{
+    font-size: 10px;
+    color: rgb(78, 79, 80);
+}
+
+.prg_mark{
+    font-size: 20px;
+    color: rgb(37, 109, 69);
+}
+
+.prg_mark span{
+    font-size: 13px;
+}
+
+.prg_prg{
+    position: absolute;
+    background: rgba(54, 99, 28, 0.199);
+    z-index: -1;
+    left: 0;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
 }
