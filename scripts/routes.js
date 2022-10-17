@@ -2675,21 +2675,18 @@ router.on({
           data.push(100 * (parseInt(lives[i].score)/lives[i].total));
           lebels.push(lives[i].name);
           exams.innerHTML += `
-          <div class="live_exam_prg">
+          <a href="#!/live/start/${lives[i].id}"><div class="live_exam_prg">
           <div class="prg_prg" style="width: ${(100 * (parseInt(lives[i].score)/lives[i].total)).toPrecision(2)}%; height: 100%"></div>
           <div class="prg_det">
           <div class="prg_name">${lives[i].name}</div>
           <div class="prg_date">${dateForm(lives[i].date)} ${timeForm(lives[i].date)}</div>
           </div>
           <div class="prg_mark">${lives[i].score} <span>(${(100 * (parseInt(lives[i].score)/lives[i].total)).toPrecision(2)}%)</span></div>
-          </div>
+          </div></a>
           `
         }
 
-        console.log(lives);
-        
-        console.log(data)
-        console.log(lebels)
+       
 
         //progrsss chart
         var ctx = document.getElementById("myChart").getContext('2d');
@@ -2706,6 +2703,15 @@ router.on({
                     borderWidth: 2 // Specify bar border width
                 }]},
             options: {
+              plugins:{
+                legend: {
+                  lebels: {
+                    font: {
+                      family: "'Poppins'"
+                    }
+                  }
+                }
+              },
               title: {
                 display: true,
                 text: 'Live Exam Progress in Parcentage'

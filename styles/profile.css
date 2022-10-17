@@ -147,3 +147,11 @@
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
 }
+
+canvas{
+    font-family: Poppins;
+}
+
+#myChart{
+    font-family: Poppins;
+}
