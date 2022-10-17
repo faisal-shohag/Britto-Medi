@@ -2716,7 +2716,7 @@ router.on({
         const exams = document.querySelector('.exams');
         exams.innerHTML = '';
         for(i in lives){
-          data.push(100 * (parseFloat(lives[i].score)/lives[i].total));
+          data.push(parseInt(100 * (parseFloat(lives[i].score)/lives[i].total)));
           lebels.push(lives[i].name);
           exams.innerHTML += `
           <a href="#!/live/start/${lives[i].id}"><div class="live_exam_prg">
