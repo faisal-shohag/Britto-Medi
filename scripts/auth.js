@@ -154,7 +154,7 @@ function authCheck(send){
 firebase.auth().onAuthStateChanged(user=> {
   $('.sp').hide();
     if(user) {
-      // history.pushState({page: 1}, "home", "#!/")
+      history.pushState({page: 1}, "home", "#!/")
       UID = user.uid;
       myuid = user.uid;
         store.collection('users').doc(user.uid).get().then(snap=>{
