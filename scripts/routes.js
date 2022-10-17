@@ -2681,7 +2681,7 @@ router.on({
           <div class="prg_name">${lives[i].name}</div>
           <div class="prg_date">${dateForm(lives[i].date)} ${timeForm(lives[i].date)}</div>
           </div>
-          <div class="prg_mark">${lives[i].score} <span>(${(100 * (parseInt(lives[i].score)/lives[i].total)).toPrecision(2)}%)</span></div>
+          <div class="prg_mark">${lives[i].score}/<span class="total">${lives[i].total}</span> <span>(${(100 * (parseInt(lives[i].score)/lives[i].total)).toPrecision(2)}%)</span></div>
           </div></a>
           `
         }

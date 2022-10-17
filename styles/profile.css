@@ -139,6 +139,11 @@
     font-size: 13px;
 }
 
+.prg_mark .total{
+ font-size: 16px;
+ color: rgb(166, 150, 206);
+}
+
 .prg_prg{
     position: absolute;
     background: rgba(54, 99, 28, 0.199);
@@ -152,6 +157,3 @@ canvas{
     font-family: Poppins;
 }
 
-#myChart{
-    font-family: Poppins;
-}
