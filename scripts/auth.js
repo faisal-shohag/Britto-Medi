@@ -154,6 +154,7 @@ function authCheck(send){
 firebase.auth().onAuthStateChanged(user=> {
   $('.sp').hide();
     if(user) {
+      history.pushState({page: 1}, "home", "#!/")
       UID = user.uid;
       myuid = user.uid;
         store.collection('users').doc(user.uid).get().then(snap=>{
@@ -253,12 +254,25 @@ firebase.auth().onAuthStateChanged(user=> {
                 
             }
         })
+
+        $('.prg-link').html(`
+        <a href="#!/progress/${user.uid}"><div class="footerMenu">   
+        <div class="footerIcon sz prg"><img src="./images/progress.png"></div>
+        <div class="footertext">Progress</div>
+      </div>
+    </a>
+        `)
     }
     else{
         $('.user-panel').show();
         $('.user-panel').html(`
         <a href="/#!/auth"><div class="signInButton">Sign In</div></a>
         `);
+        $('#app').html(`
+        <center>Please Sign In!</center>
+        `);
+        $('.footer').hide();
+
         router.navigate('/auth');
     }
 });

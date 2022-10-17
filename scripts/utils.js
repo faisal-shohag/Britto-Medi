@@ -983,7 +983,7 @@ firebase.auth().onAuthStateChanged(user=> {
                         // console.log(r);
                       for(let i=0; i<res.length; i++){
                         results.innerHTML += `
-                        <div id="${r[i].uid}|${r[i].score}|${r[i].name}" class="res add_rank">
+                        <div id="${r[i].uid}|${r[i].score}|${r[i].name}" class="res add_prfl">
                         ${i+1}. ${r[i].name} - ${r[i].score}
                         
                         </div>
@@ -1015,21 +1015,21 @@ firebase.auth().onAuthStateChanged(user=> {
                     //     })
                     //   });
 
-                    //   $('.add_prfl').click(function(){
-                    //     let myid = ($(this)[0].id).split('|');
+                      $('.add_prfl').click(function(){
+                        let myid = ($(this)[0].id).split('|');
                         
-                    //     store.collection('users').doc(myid[0]).update({
-                    //         live_exams: {
-                    //             [params.id]:{
-                    //                 name: data.title,
-                    //                 score: myid[1],
-                    //                 date: data.start_time
-                    //             }
-                    //         }
-                    //     }).then(()=>{
-                    //         console.log('Sent!');
-                    //     })
-                    //   });
+                        store.collection('users').doc(myid[0]).set({
+                            live_exams: {
+                                [params.id]:{
+                                    name: data.title,
+                                    score: parseInt(myid[1]),
+                                    date: data.start_time
+                                }
+                            }
+                        }, {merge: true}).then(()=>{
+                            console.log('Sent!');
+                        })
+                      });
 
                     
                         $('.e-status').html(`

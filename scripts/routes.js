@@ -676,7 +676,6 @@ router.on({
     
     
     },
-    
     "/practice/list/:subj/:chap/:chapName": function(params){
       $('.footer').hide();
       $('.app_loader').show();
@@ -2470,14 +2469,14 @@ router.on({
     }, 
     "/news":function(params){
       $('.top-title').html(`News`);
-      $('.footer').show();
-      $('.footertext').hide();
-        $('.footerIcon').removeClass('footerIconActive');
-            if($('.nws')[0].classList[3] === undefined){
-        $('.nws').addClass('footerIconActive');
-        $($($('.nws')[0].parentNode)[0].lastElementChild).show();
-        //$('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeIn top_dir"><img src="../images/pencil-case.png" height="30px"></div> <div class="animate__animated animate__fadeIn top_text">Resources</div></div>`);
-        }
+      $('.footer').hide();
+      // $('.footertext').hide();
+      //   $('.footerIcon').removeClass('footerIconActive');
+      //       if($('.nws')[0].classList[3] === undefined){
+      //   $('.nws').addClass('footerIconActive');
+      //   $($($('.nws')[0].parentNode)[0].lastElementChild).show();
+      //   //$('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeIn top_dir"><img src="../images/pencil-case.png" height="30px"></div> <div class="animate__animated animate__fadeIn top_text">Resources</div></div>`);
+      //   }
 
         app.innerHTML = `
         <div class="body">
@@ -2621,27 +2620,122 @@ router.on({
         `
       })
     },
-    "/notice": function(){
-      $('.top-title').html(`Notice`);
+    "/progress/:id": function(params){
+      $('.top-title').html(`Progress`);
       $('.footer').show();
       $('.footertext').hide();
         $('.footerIcon').removeClass('footerIconActive');
-            if($('.ntc')[0].classList[3] === undefined){
-        $('.ntc').addClass('footerIconActive');
-        $($($('.ntc')[0].parentNode)[0].lastElementChild).show();
+            if($('.prg')[0].classList[3] === undefined){
+        $('.prg').addClass('footerIconActive');
+        $($($('.prg')[0].parentNode)[0].lastElementChild).show();
         //$('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeIn top_dir"><img src="../images/pencil-case.png" height="30px"></div> <div class="animate__animated animate__fadeIn top_text">Resources</div></div>`);
         }
       app.innerHTML = `
       <div class="body">
-      
-      <div class="sad">
-        <div class="sad_img"><img src="../images/document.png"></div>
-        <div class="sad_text">No notice is published yet!</div>
-        <div class="sad_subtext">...</div>
+
+      <div class="progress_chart">
+      <div class="section_title"><img src="../images/growth.png"> লাইভ এক্সাম পরিসংখ্যান</div>
+      <canvas id="myChart"></canvas>
       </div>
+      
+      
       
       </div>
       `
+
+      store.collection('users').doc(params.id).get().then(snap=>{
+        // console.log(snap.data());
+        if(snap.data().live_exams){
+          let live_exams = snap.data().live_exams;
+        live_exams = Object.entries(live_exams);
+        let lives = [];
+        let data = [];
+        let lebels = []
+        for(i in live_exams){
+          lives.push({
+            name: live_exams[i][1].name,
+            score: parseInt(live_exams[i][1].score),
+            date: live_exams[i][1].date,
+            id: live_exams[i][0],
+            total: live_exams[i][1].total
+          });
+          
+        }
+
+        lives.sort((a,b)=>new Date(a.date) - new Date(b.date));
+
+        for(i in lives){
+          data.push(100 * (parseInt(lives[i].score)/lives[i].total));
+          lebels.push(lives[i].name);
+        }
+
+        console.log(lives);
+        
+        console.log(data)
+        console.log(lebels)
+
+        //progrsss chart
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: lebels,
+                datasets: [{
+                    label: 'Live Exam', // Name the series
+                    data: data, // Specify the data values array
+                    fill: false,
+                    borderColor: 'crimson', // Add custom color border (Line)
+                    backgroundColor: 'crimson', // Add custom color background (Points and Fill)
+                    borderWidth: 2 // Specify bar border width
+                }]},
+            options: {
+              title: {
+                display: true,
+                text: 'Live Exam Progress in Parcentage'
+              },
+              scales: {
+                xAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Exam Name'
+                  },
+              
+                }],
+                yAxes: [{
+                  display: true,
+                  scaleLabel: {
+                      display: true,
+                      labelString: 'marks in %'
+                    },
+              }]
+              // Add to prevent default behaviour of full-width/height 
+            }
+          }
+        });
+
+        }else{
+          app.innerHTML = `
+          <body>
+          <div class="sad">
+        <div class="sad_img"><img src="../images/progress.png"></div>
+        <div class="sad_text">Attend to live exam to show your progress!</div>
+        <div class="sad_subtext">...</div>
+      </div>
+          </body>
+          `
+        }
+        
+
+      })
+
+      
+    
+      
+
+
+
+
     },
     "/rank" : function(){
       $('.app_loader').show();
@@ -2805,6 +2899,7 @@ router.on({
 
 
 
+
 }).resolve();
 
 // }else{
@@ -2822,7 +2917,7 @@ router.notFound(function(){
   app.innerHTML=`404`;
 });
 
-history.pushState({page: 1}, "home", "#!/")
+
 
 // $('a').click(function(){
 //   history.pushState({page: 1}, "home", "#!/")
