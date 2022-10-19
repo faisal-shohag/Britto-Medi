@@ -138,7 +138,7 @@ function singOut(){
           .auth()
           .signOut()
           .then(() => {
-            router.navigate('/')
+            router.navigate('/auth')
             window.location.reload();
           })
           .catch((e) => {
@@ -169,20 +169,30 @@ firebase.auth().onAuthStateChanged(user=> {
                       <h5 class="modal-title" id="staticBackdropLabel">Complete your profile</h5>
                       <button type="button" class="btn-close" data-bs-disModal titlemiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body cyp">
                         <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="input-group"> <input id="std_name" class="form-control" type="text" placeholder="Name"> </div>
                             </div>
                         </div>
-                    </div>
+                    </div> <br>
 
                         <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group"> 
-                                <div class="input-group"> <input id="std_inst" class="form-control" type="text" placeholder="Institute"> </div>
+                            <div class="form-group">
+                                <div class="input-group"> <input id="std_inst" class="form-control" type="text" placeholder="College/Institute"> </div>
                             </div>
+                        </div>
+                    </div><br>
+
+                        <div class="row">
+                        <div class="col-sm-12">
+                        <select id="grp" class="form-select" aria-label="Default select example">
+                        <option selected value="">Select your group</option>
+                        <option value="sci">Science</option>
+                        <option value="hum">Humanity</option>
+                      </select>
                         </div>
                     </div>
 
@@ -201,27 +211,61 @@ firebase.auth().onAuthStateChanged(user=> {
                 $('#submit_info').click(function(){
                     let name = $('#std_name').val();
                     let inst = $('#std_inst').val();
+                    let group = $('#grp').val();
 
-                    if(name.trim() == '' || inst.trim()==''){
+                    if(name.trim() == '' || inst.trim()=='' || group.trim() == ''){
                         Swal.fire({
                             icon: 'warning',
                             text: 'Please provide all the informations!'
                         });
                     }else {
-                        store.collection('users').doc(user.uid).update({
+
+                      console.log(name)
+                      console.log(inst)
+                      console.log(group);
+                      $('#submit_info').hide();
+                      $('.cyp').html(`
+                      <center><div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                      </div> <br>
+                      Creating your profile....
+                      </center>
+                      `);
+
+                        store.collection('users').doc(user.uid).set({
                             name: name,
-                            inst: inst
-                        }).then(()=>{
-                            Swal.fire({
-                                icon: 'success',
-                                text: 'All set! Lets begin the journey!'
-                            })
+                            inst: inst,
+                            group: group
+                        }, {merge: true}).then(()=>{
+                          $('.cyp').html(`
+                          <center><div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                          </div><br>
+                          <div class=="animate__animated animate__fadeIn">Organizing your data...</div>
+                          </center>
+                          `);
+                        });
 
-                            setTimeout(function(){
-                              window.location.reload();
-                            }, 1000)
+                        store.collection('globalRank').doc(group).set({
+                          [user.uid] : {
+                            name: name,
+                            inst: inst,
+                            score: 0
+                          }
+                        }, {merge: true}).then(()=>{
+                          $('.cyp').html(`
+                      <center class=="animate__animated animate__fadeIn" style="color: green;">
+                          Your profile is created successfully.<br>Reloading in 1.5 second!
+                      </center>
+                      `);
 
+                          
+                          setTimeout(()=>{
                             $('#info_modal').modal('hide');
+                            window.location.reload();
+                          }, 1500);
+
+                          
                         })
                     }
 
