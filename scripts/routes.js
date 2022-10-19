@@ -1945,7 +1945,8 @@ router.on({
                                             total: myexam.questions.length,
                                             date: (new Date()).toString(),
                                             neg: parseFloat(neg),
-                                            score: score-(wrong*neg)
+                                            score: score-(wrong*neg),
+                                            wrong: wrong
                                           }
                                         }
                                         }, {merge: true}).then(()=>{
@@ -3152,7 +3153,7 @@ router.on({
               k++;
             if(k===1){
               board.innerHTML += `
-              <a href="#!/profile/${item.uid}">
+              <a href="#!/progress/${item.uid}">
               <div class="l">
               <div style="display:flex; gap: 10px;">
               <div class="pandn">
@@ -3181,7 +3182,7 @@ router.on({
                 $('#pos').html(`${k}`)
               
               board.innerHTML += `
-              <a href="#!/myprofile">
+              <a href="#!/progress/${item.uid}">
               <div class="l" style="background: crimson; color: #fff">
               <div style="display:flex; gap: 10px;">
               <div class="pandn">
@@ -3206,7 +3207,7 @@ router.on({
               `
             }else{
               board.innerHTML += `
-              <a href="#!/profile/${item.uid}">
+              <a href="#!/progress/${item.uid}">
               <div class="l">
               <div style="display:flex; gap: 10px;">
               <div class="pandn">
