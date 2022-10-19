@@ -149,6 +149,8 @@ function singOut(){
 var UID = false;
 var std_name = false;
 var myuid = '';
+var mygroup = 'unRated';
+var myscore = 0;
 function authCheck(send){
 
 firebase.auth().onAuthStateChanged(user=> {
@@ -157,8 +159,10 @@ firebase.auth().onAuthStateChanged(user=> {
       history.pushState({page: 1}, "home", "#!/")
       UID = user.uid;
       myuid = user.uid;
+      
+
         store.collection('users').doc(user.uid).get().then(snap=>{
-        
+
             // console.log(snap.data());
             if(!snap.data().name) {
                 $('.get-info').html(`
@@ -273,6 +277,7 @@ firebase.auth().onAuthStateChanged(user=> {
 
             }else{
               std_name = snap.data().name
+              mygroup = snap.data().group
                 $('.user-panel').show();
                
                 $('.user-panel').html(`
@@ -293,6 +298,22 @@ firebase.auth().onAuthStateChanged(user=> {
 
                 if(send){
                     send(data);
+                }
+
+                //counting scores
+                if(snap.data().live_exams){               
+                  let live_exams = snap.data().live_exams;
+                  live_exams = Object.entries(live_exams);
+                
+                    for(i in live_exams){
+                      myscore += parseFloat(live_exams[i][1].score);
+                    }
+
+                   // console.log(myscore);
+                   
+
+                }else {
+                  myscore = 0;
                 }
 
                 

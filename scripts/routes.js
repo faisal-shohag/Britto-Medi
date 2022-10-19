@@ -1735,7 +1735,7 @@ router.on({
                           reg_std: {
                             [UID]:{
                               attend: true,
-                              score:0
+                              score: 0
                             }
 
                           }
@@ -1754,7 +1754,7 @@ router.on({
                                 <div class="exam-container">
                               <div class="exam_top">
                                 <div class="exam-title kalpurush">
-                                <div class="exam_name">${myexam.title}</div><small>Time: ${myexam.duration} min | NFEW: ${myexam.neg} </small>
+                                <div class="exam_name">${myexam.title}</div><small>Time: ${myexam.duration} min | NFEW: ${parseFloat(myexam.neg)} </small>
                                 </div>
                                 <div style="display: none;" class="score">
                                 <div class="score-time"></div>
@@ -1779,7 +1779,7 @@ router.on({
                               score = 0,
                               wrong = 0,
                               na = 0,
-                              neg = myexam.neg;
+                              neg = parseFloat(myexam.neg);
                             questions = myexam.questions;
                             // shuffle(questions);
                             // console.log(questions);
@@ -1914,7 +1914,7 @@ router.on({
                                         store.collection('lives').doc(params.id).set({
                                           reg_std: {
                                             [UID]: {
-                                              score: score,
+                                              score: score-(wrong*neg),
                                               ans: myAns,
                                               time: {
                                                 min: initialMin - 1 - minute,
@@ -1925,9 +1925,11 @@ router.on({
                                         }, {merge: true}).then(()=>{
                                           app.innerHTML = `
                                           <div class="sad">
-                                          <div class="sad_img"><img src="../images/goal.png"></div>
-                                          <div class="sad_text">Successfully Submitted!</div>
-                                          <div class="sad_subtext">Result will publish soon!</div>
+                                          <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                          <span class="visually-hidden">Loading...</span>
+                                          </div><br>
+                                          <div  class="sad_text animte__animated animate_fadeIn">Submitting your answer sheet!</div>
+                                          <div class="sad_subtext">Please wait!</div>
                                           </div>
                                           `
                                           Swal.fire({
@@ -1935,6 +1937,44 @@ router.on({
                                             text: 'Successfully submitted!'
                                           })
                                         });
+
+                                        store.collection('users').doc(UID).set({
+                                          live_exams: {
+                                          [params.id]: {
+                                            name: myexam.title,
+                                            total: myexam.questions.length,
+                                            date: (new Date()).toString(),
+                                            neg: parseFloat(neg),
+                                            score: score-(wrong*neg)
+                                          }
+                                        }
+                                        }, {merge: true}).then(()=>{
+                                          app.innerHTML = `
+                                          <div class="sad">
+                                          <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                          <span class="visually-hidden">Loading...</span>
+                                          </div><br>
+                                          <div  class="sad_text animte__animated animate_fadeIn">Organizing your score!</div>
+                                          <div class="sad_subtext">Please wait!</div>
+                                          </div>
+                                          `
+                                        })
+
+                                        console.log(myscore);
+
+                                        store.collection('globalRank').doc(mygroup).set({
+                                          [UID]:{   
+                                            score: myscore + (score-(wrong*neg))
+                                          }
+                                        }, {merge: true}).then(()=>{
+                                          app.innerHTML = `
+                                          <div class="sad">
+                                          <div class="sad_img"><img src="https://i.postimg.cc/HLv7Y86M/7518748.png"></div>
+                                          <div  class="sad_text animte__animated animate_fadeIn">Successfully submitted your exam!</div>
+                                          <div class="sad_subtext">Result will be published soon!</div>
+                                          </div>
+                                          `
+                                        })
 
                                 }
                               })
@@ -2305,7 +2345,7 @@ router.on({
                 }
               }else{
                 standings.innerHTML += `
-                  <div class="stand">
+                <div class="stand">
                   <div class="name">${i+1}. ${results[i].name}</div>
                   <div class="score">${results[i].score}</div>
                   </div>
@@ -2323,6 +2363,195 @@ router.on({
 
 
       
+    },
+    "/live/ans/:examId/:userId": function(params){
+      app.innerHTML = `
+      <div class="body">
+      <center>Loading....</center>
+      </div>
+      `
+      store.collection('lives').doc(params.examId).get().then(snap=>{
+        $('.top-title').html(`${snap.data().title}`);
+        app.innerHTML = `
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="answer_tab" data-bs-toggle="tab" data-bs-target="#answer" type="button" role="tab" aria-controls="home" aria-selected="true">Answesheet</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="result_tab" data-bs-toggle="tab" data-bs-target="#standing" type="button" role="tab" aria-controls="profile" aria-selected="false">Result</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="answer" role="tabpanel" aria-labelledby="home-tab">
+        <div class="answersheet"></div>
+        </div>
+        <div class="tab-pane fade" id="standing" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="standings"></div>
+        </div>
+      </div>
+        `
+        let myexam = snap.data();
+            $('.answersheet').html(`
+                  <div class="body">
+                  <div class="exam-container">
+                  <div class="exam_top">
+                  <div class="exam-title kalpurush">
+                  <div class="exam_name">${myexam.title}</div><small>Time: ${parseInt(myexam.duration)} min | NFEW: ${myexam.neg} </small>
+                  </div>
+                  <div style="display: none;" class="score">
+                  <div class="mark"></div>
+                  <div class="score-wa"></div>
+                  <div class="score-na"></div>
+                  <div class="score-time"></div>
+                  </div>
+                  <div class="exam-nb kalpurush"></div>
+                  </div>
+                  <div class="parc">
+                  <div>
+                     Obtained
+                     <div class="parcentage" id="correctP"></div>
+                     </div>
+                     <div>
+                     Wrong
+                     <div class="parcentage" id="wrongP"></div>
+                     </div>
+                     <div>
+                     Negative
+                     <div class="parcentage" id="negativeP"></div>
+                     </div>
+                     <div>
+                     Answered
+                     <div class="parcentage" id="answeredP"></div>
+                     </div>
+                     </div>
+                    <div class="questions"></div>
+                    </div>
+                    </div>
+                  `);
+                  var ans = [],
+                    exp = [],
+                    userAns = (myexam.reg_std[params.userId].ans).split('|').map(Number),
+
+                    score = 0,
+                    wrong = 0,
+                    na = 0,
+                    neg = parseFloat(myexam.neg);
+
+                    console.log(userAns);
+                  questions = myexam.questions;
+                  // shuffle(questions);
+                   for (let q = 0; q <questions.length; q++) {
+                    ans.push(parseInt(questions[q].ans)+q*4);
+                    exp.push(questions[q].ex);
+                    var elem = document.querySelector(".exam-container .questions");
+                    document.querySelector(".exam-container .questions").innerHTML += `
+                       <div class="q-wrap">
+                              <div class="q-logo"></div>
+                          <div class="question">
+                             ${q + 1}. ${questions[q].q}
+                          </div>
+                          <div class="option">
+                              <div class="opt" id="${
+                                q + 1 + q * 3
+                              }"><div class="st"></div><div>${questions[q].opt[0]}</div></div>
+                              <div class="opt" id="${
+                                q + 2 + q * 3
+                              }"><div class="st"></div><div>${questions[q].opt[1]}</div></div>
+                              <div class="opt" id="${
+                                q + 3 + q * 3
+                              }"><div class="st"></div><div>${questions[q].opt[2]}</div></div>
+                              <div class="opt" id="${
+                                q + 4 + q * 3
+                              }"><div class="st"></div><div>${questions[q].opt[3]}</div></div>
+                          </div>
+                          <div class="explanation" id="exp-${q}"></div>
+                      </div>
+                       `;
+                  }
+        
+
+                              let e;
+                              $(".explanation").show();
+                           
+                              let found;
+                              for (let k = 0; k < ans.length; ++k) {
+                                e = k;
+                                e = "#exp-" + e;
+                                $(e).html(
+                                  `<b style="color: green;">Solution:</b><br>${exp[k]}`
+                                );
+        
+                                $("#" + ans[k] + " .st").addClass("cr");
+        
+                                $(
+                                  $($($("#" + ans[k])[0].parentNode)[0].parentNode)[0]
+                                    .children[0]
+                                ).html(
+                                  '<div class="not-ans"> <i class="icofont-warning-alt"></i></div>'
+                                );
+                              }
+        
+                              for (let i = 0; i < userAns.length; ++i) {
+                                found = true;
+                                for (let j = 0; j < ans.length; ++j) {
+                                  if (parseInt(userAns[i]) === ans[j]) { 
+                                    score++;
+                                    $("#" + userAns[i] + " .st").addClass("cr");
+                                    $(
+                                      $(
+                                        $($("#" + userAns[i])[0].parentNode)[0]
+                                          .parentNode
+                                      )[0].children[0]
+                                    ).html(
+                                      '<div class="correct"> <i class="icofont-check-circled"></i> </div>'
+                                    );
+                                    found = true;
+                                    break;
+                                  } else found = false;
+                                }
+        
+                                if (!found) {
+                                  wrong++;
+                                  $("#" + userAns[i] + " .st").addClass("wa");
+                                  $(
+                                    $(
+                                      $($("#" + userAns[i])[0].parentNode)[0].parentNode
+                                    )[0].children[0]
+                                  ).html(
+                                    '<div class="wrong"> <i class="icofont-close-circled"></i>  </div>'
+                                  );
+                                }
+                              }
+                              MathJax.typeset();
+        
+                              $(".score").show();
+                              $(".mark").html(
+                                `<i class="icofont-check-circled"></i><br>Score</br> <small>Correct: ${score} </small> <br/> <span class="score-num">${score-(wrong*neg)}/${questions.length}</span>`
+                              );
+                              $(".score-wa").html(
+                                `<i class="icofont-close-circled"></i><br/>Wrong </br><small>Neg: ${wrong*neg}</small><br/> <span class="score-num">${wrong}</span>`
+                              );
+                              $(".score-na").html(
+                                `<i class="icofont-warning-alt"></i><br />Empty </br> <span class="score-num">${
+                                  questions.length - (score + wrong)
+                                }</span>`
+                              );
+                               $(".score-time").html(
+                                `<i class="icofont-ui-clock"></i><br />Time <br> <span class="score-num">${
+                                  myexam.reg_std[params.userId].time.min
+                                }:${myexam.reg_std[params.userId].time.sec}</span>`
+                              );
+                              
+                              
+                              $('#correctP').html(`${((score/questions.length)*100).toPrecision(3)}%
+                              `)
+                              $('#wrongP').html(`${((wrong/questions.length)*100).toPrecision(3)}%
+                              `)
+                              $('#negativeP').html(`${(((wrong*neg)/questions.length)*100).toPrecision(3)}%
+                              `)
+                              $('#answeredP').html(`${(100-(((questions.length - (score + wrong))/(questions.length))*100)).toPrecision(3)}%
+                              `)
+      })
     },
     "/resource":function(params){
       $('.top-title').html(`Resources`);
@@ -2672,6 +2901,7 @@ router.on({
         let totalQ = 0;
         let totalW = 0;
         let totalC = 0;
+        let totalAns = 0;
         for(i in live_exams){
           lives.push({
             name: live_exams[i][1].name,
@@ -2682,33 +2912,41 @@ router.on({
           });
           totalQ += parseInt(live_exams[i][1].total);
           let neg = parseFloat(live_exams[i][1].neg);
-          let wrong = parseInt(live_exams[i][1].total)-parseFloat(live_exams[i][1].score);
-          if(neg>0){
-            totalW += (wrong/1.25);
-            totalC += parseInt(live_exams[i][1].total)-(wrong/1.5);
-          }else{
-            totalW += (parseInt(live_exams[i][1].total) - parseInt(live_exams[i][1].score))
-            totalC += parseInt(live_exams[i][1].total) - ((parseInt(live_exams[i][1].total) - parseInt(live_exams[i][1].score)))
-          }
-          
+          let wrong = parseFloat(live_exams[i][1].wrong);
+            totalW += wrong;
+            totalC += parseFloat(live_exams[i][1].score) + (wrong*neg);
+            totalAns += parseFloat(live_exams[i][1].score) + (wrong*neg) + wrong;
         }
 
         $('.chart_state').html(`
         <div>
-        <div class="chart_lebel">মোট উত্তর করেছো: </div>
-        <div class="chart_value">${totalQ} টি</div>
-        </div>
-        <div>
         <div class="chart_lebel">সঠিক:</div>
         <div class="chart_value">${totalC} টি</div>
         </div>
+
         <div>
         <div class="chart_lebel">ভুল: </div>
         <div class="chart_value">${totalW} টি</div>
         </div>
+
         <div>
         <div class="chart_lebel">মোট এক্সাম: </div>
         <div class="chart_value">${lives.length} টি</div>
+        </div>
+
+        <div>
+        <div class="chart_lebel">মোট প্রশ্ন: </div>
+        <div class="chart_value">${totalQ} টি</div>
+        </div>
+        
+        <div>
+        <div class="chart_lebel">উত্তর করেছো: </div>
+        <div class="chart_value">${totalAns} টি</div>
+        </div>
+
+        <div>
+        <div class="chart_lebel">ফাঁকা রেখেছো: </div>
+        <div class="chart_value">${totalQ - totalAns} টি</div>
         </div>
         `)
 
@@ -2792,17 +3030,16 @@ router.on({
             labels: [
                 "ভুল",
                 "সঠিক",
-                "মোট উত্তর",
-                "মোট এক্সাম" 
+                "ফাঁকা",
             ],
             datasets: [
                 {
-                    data: [totalW, totalC, totalQ, lives.length],
+                    data: [totalW, totalC, totalQ-totalAns],
                     backgroundColor: [
-                        "crimson",
-                        "green",
-                        "indigo",
-                        "orange"
+                        "#e74c3c",
+                        "#52be80",
+                        "#3498db",
+                        // "orange"
                     ]
                 }],
                 options: {

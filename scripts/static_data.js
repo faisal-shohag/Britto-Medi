@@ -406,7 +406,20 @@ function liveDetailsTimer(date, end, element, sdate, button){
         if(UID){
           $( document ).ready(function() {
             $('#btn-running').click(function(){
-              router.navigate('#!/live/start/'+button.split('-')[1]);
+              Swal.fire({
+                icon: 'question',
+                html: 'Do you want to start the exam?<br><small>একবার এক্সাম স্টার্ট করলে দ্বিতীয়বার আর সুযোগ পাবে না। সাবমিট না করেই বেড়িয়ে এলে স্কোর শূন্য হিসেবে গণ্য করা হবে!</small>',
+                footer: '<div style="color: crimson;">Britto Edu.</div>',
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+              }).then(res=>{
+                if(res.isConfirmed){
+                  router.navigate('#!/live/start/'+button.split('-')[1]);
+                }
+              })
+              
             })
         }); 
         }else{
