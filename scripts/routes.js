@@ -2869,216 +2869,221 @@ router.on({
       <center>
       </div>
       `
-
-      store.collection('users').doc(params.id).get().then(snap=>{
+db.ref('app/Control').once('value', control=>{
+  if(control.val().isRank === true){
+    store.collection('users').doc(params.id).get().then(snap=>{
+      if(snap.data().live_exams){
+        app.innerHTML = `
+        <div class="body">
+        <div class="pie">
+        <div class="section_title"><img src="../images/pie.png"> এক্সাম পরিসংখ্যান</div>
+        <div class="progress_pie">
         
-        if(snap.data().live_exams){
-          app.innerHTML = `
-          <div class="body">
-          <div class="pie">
-          <div class="section_title"><img src="../images/pie.png"> এক্সাম পরিসংখ্যান</div>
-          <div class="progress_pie">
-          
-          <div class="chart_state">
-          </div>
-          <div class="chart">
-          <canvas id="pie_chart" width="100%" height="100%"></canvas>
-          </div>
-          </div>
-          </div>
-
-          <div class="progress_chart">
-          <div class="section_title"><img src="../images/bar.png"> লাইভ এক্সাম পরিসংখ্যান(%)</div>
-          <canvas id="myChart"></canvas>
-          </div>
-          <div class="exams"></div>
-          </div>
-          `
-          let live_exams = snap.data().live_exams;
-        live_exams = Object.entries(live_exams);
-        let lives = [];
-        let data = [];
-        let lebels = []
-        let totalQ = 0;
-        let totalW = 0;
-        let totalC = 0;
-        let totalAns = 0;
-        for(i in live_exams){
-          lives.push({
-            name: live_exams[i][1].name,
-            score: parseFloat(live_exams[i][1].score),
-            date: live_exams[i][1].date,
-            id: live_exams[i][0],
-            total: parseInt(live_exams[i][1].total)
-          });
-          totalQ += parseInt(live_exams[i][1].total);
-          let neg = parseFloat(live_exams[i][1].neg);
-          let wrong = parseFloat(live_exams[i][1].wrong);
-            totalW += wrong;
-            totalC += parseFloat(live_exams[i][1].score) + (wrong*neg);
-            totalAns += parseFloat(live_exams[i][1].score) + (wrong*neg) + wrong;
-        }
-
-        $('.chart_state').html(`
-        <div>
-        <div class="chart_lebel">সঠিক:</div>
-        <div class="chart_value">${totalC} টি</div>
+        <div class="chart_state">
+        </div>
+        <div class="chart">
+        <canvas id="pie_chart" width="100%" height="100%"></canvas>
+        </div>
+        </div>
         </div>
 
-        <div>
-        <div class="chart_lebel">ভুল: </div>
-        <div class="chart_value">${totalW} টি</div>
+        <div class="progress_chart">
+        <div class="section_title"><img src="../images/bar.png"> লাইভ এক্সাম পরিসংখ্যান(%)</div>
+        <canvas id="myChart"></canvas>
         </div>
-
-        <div>
-        <div class="chart_lebel">মোট এক্সাম: </div>
-        <div class="chart_value">${lives.length} টি</div>
+        <div class="exams"></div>
         </div>
+        `
+        let live_exams = snap.data().live_exams;
+      live_exams = Object.entries(live_exams);
+      let lives = [];
+      let data = [];
+      let lebels = []
+      let totalQ = 0;
+      let totalW = 0;
+      let totalC = 0;
+      let totalAns = 0;
+      for(i in live_exams){
+        lives.push({
+          name: live_exams[i][1].name,
+          score: parseFloat(live_exams[i][1].score),
+          date: live_exams[i][1].date,
+          id: live_exams[i][0],
+          total: parseInt(live_exams[i][1].total)
+        });
+        totalQ += parseInt(live_exams[i][1].total);
+        let neg = parseFloat(live_exams[i][1].neg);
+        let wrong = parseFloat(live_exams[i][1].wrong);
+          totalW += wrong;
+          totalC += parseFloat(live_exams[i][1].score) + (wrong*neg);
+          totalAns += parseFloat(live_exams[i][1].score) + (wrong*neg) + wrong;
+      }
 
-        <div>
-        <div class="chart_lebel">মোট প্রশ্ন: </div>
-        <div class="chart_value">${totalQ} টি</div>
+      $('.chart_state').html(`
+      <div>
+      <div class="chart_lebel">সঠিক:</div>
+      <div class="chart_value">${totalC} টি</div>
+      </div>
+
+      <div>
+      <div class="chart_lebel">ভুল: </div>
+      <div class="chart_value">${totalW} টি</div>
+      </div>
+
+      <div>
+      <div class="chart_lebel">মোট এক্সাম: </div>
+      <div class="chart_value">${lives.length} টি</div>
+      </div>
+
+      <div>
+      <div class="chart_lebel">মোট প্রশ্ন: </div>
+      <div class="chart_value">${totalQ} টি</div>
+      </div>
+      
+      <div>
+      <div class="chart_lebel">উত্তর করেছো: </div>
+      <div class="chart_value">${totalAns} টি</div>
+      </div>
+
+      <div>
+      <div class="chart_lebel">ফাঁকা রেখেছো: </div>
+      <div class="chart_value">${totalQ - totalAns} টি</div>
+      </div>
+      `)
+
+      lives.sort((a,b)=>new Date(a.date) - new Date(b.date));
+      const exams = document.querySelector('.exams');
+      exams.innerHTML = '';
+      for(i in lives){
+        data.push(parseInt(100 * (parseFloat(lives[i].score)/lives[i].total)));
+        lebels.push(lives[i].name);
+        exams.innerHTML += `
+        <a href="#!/live/start/${lives[i].id}"><div class="live_exam_prg">
+        <div class="prg_prg" style="width: ${(100 * (parseFloat(lives[i].score)/lives[i].total)).toPrecision(2)}%; height: 100%"></div>
+        <div class="prg_det">
+        <div class="prg_name">${lives[i].name}</div>
+        <div class="prg_date">${dateForm(lives[i].date)} ${timeForm(lives[i].date)}</div>
         </div>
-        
-        <div>
-        <div class="chart_lebel">উত্তর করেছো: </div>
-        <div class="chart_value">${totalAns} টি</div>
-        </div>
-
-        <div>
-        <div class="chart_lebel">ফাঁকা রেখেছো: </div>
-        <div class="chart_value">${totalQ - totalAns} টি</div>
-        </div>
-        `)
-
-        lives.sort((a,b)=>new Date(a.date) - new Date(b.date));
-        const exams = document.querySelector('.exams');
-        exams.innerHTML = '';
-        for(i in lives){
-          data.push(parseInt(100 * (parseFloat(lives[i].score)/lives[i].total)));
-          lebels.push(lives[i].name);
-          exams.innerHTML += `
-          <a href="#!/live/start/${lives[i].id}"><div class="live_exam_prg">
-          <div class="prg_prg" style="width: ${(100 * (parseFloat(lives[i].score)/lives[i].total)).toPrecision(2)}%; height: 100%"></div>
-          <div class="prg_det">
-          <div class="prg_name">${lives[i].name}</div>
-          <div class="prg_date">${dateForm(lives[i].date)} ${timeForm(lives[i].date)}</div>
-          </div>
-          <div class="prg_mark">${lives[i].score}/<span class="total">${lives[i].total}</span> <span>(${(100 * (parseInt(lives[i].score)/lives[i].total)).toPrecision(2)}%)</span></div>
-          </div></a>
-          `
-        }
+        <div class="prg_mark">${lives[i].score}/<span class="total">${lives[i].total}</span> <span>(${(100 * (parseInt(lives[i].score)/lives[i].total)).toPrecision(2)}%)</span></div>
+        </div></a>
+        `
+      }
 
 
 
-       
+     
 
-        //progrsss chart
-        Chart.defaults.global.defaultFontFamily = "Hind Siliguri";
-        Chart.defaults.global.legend.display = false;
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: lebels,
-                datasets: [{
-                    label: 'Live Exam', // Name the series
-                    data: data, // Specify the data values array
-                    fill: false,
-                    borderColor: 'crimson', // Add custom color border (Line)
-                    backgroundColor: 'crimson', // Add custom color background (Points and Fill)
-                    borderWidth: 2 // Specify bar border width
-                }]},
-            options: {
-              plugins:{
-                legend: {
-                  lebels: {
-                    font: {
-                      family: "'Poppins'"
-                    }
+      //progrsss chart
+      Chart.defaults.global.defaultFontFamily = "Hind Siliguri";
+      Chart.defaults.global.legend.display = false;
+      var ctx = document.getElementById("myChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: lebels,
+              datasets: [{
+                  label: 'Live Exam', // Name the series
+                  data: data, // Specify the data values array
+                  fill: false,
+                  borderColor: 'crimson', // Add custom color border (Line)
+                  backgroundColor: 'crimson', // Add custom color background (Points and Fill)
+                  borderWidth: 2 // Specify bar border width
+              }]},
+          options: {
+            plugins:{
+              legend: {
+                lebels: {
+                  font: {
+                    family: "'Poppins'"
                   }
                 }
-              },
-              title: {
-                display: false,
-                text: 'Live Exam Progress in Parcentage'
-              },
-              scales: {
-                xAxes: [{
+              }
+            },
+            title: {
+              display: false,
+              text: 'Live Exam Progress in Parcentage'
+            },
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
                   display: true,
-                  scaleLabel: {
+                  labelString: 'Exam Name'
+                },
+            
+              }],
+              yAxes: [{
+                display: true,
+                scaleLabel: {
                     display: true,
-                    labelString: 'Exam Name'
+                    labelString: 'marks in %'
                   },
-              
-                }],
-                yAxes: [{
-                  display: true,
-                  scaleLabel: {
-                      display: true,
-                      labelString: 'marks in %'
-                    },
-              }]
-              // Add to prevent default behaviour of full-width/height 
-            }
+            }]
+            // Add to prevent default behaviour of full-width/height 
           }
-        });
+        }
+      });
 
-        //pie 
-        let pie_chart = document.getElementById("pie_chart");
-        
-        var pieData = {
-            labels: [
-                "ভুল",
-                "সঠিক",
-                "ফাঁকা",
-            ],
-            datasets: [
-                {
-                    data: [totalW, totalC, totalQ-totalAns],
-                    backgroundColor: [
-                        "#e74c3c",
-                        "#52be80",
-                        "#3498db",
-                        // "orange"
-                    ]
-                }],
-                options: {
-                  plugins:{
-                    legend: {
-                      display: false
-                    }
+      //pie 
+      let pie_chart = document.getElementById("pie_chart");
+      
+      var pieData = {
+          labels: [
+              "ভুল",
+              "সঠিক",
+              "ফাঁকা",
+          ],
+          datasets: [
+              {
+                  data: [totalW, totalC, totalQ-totalAns],
+                  backgroundColor: [
+                      "#e74c3c",
+                      "#52be80",
+                      "#3498db",
+                      // "orange"
+                  ]
+              }],
+              options: {
+                plugins:{
+                  legend: {
+                    display: false
                   }
                 }
-        };
+              }
+      };
 
-        var pieChart = new Chart(pie_chart, {
-          type: 'pie',
-          data: pieData
-        });
+      var pieChart = new Chart(pie_chart, {
+        type: 'pie',
+        data: pieData
+      });
 
-        }else{
-          app.innerHTML = `
-          <body>
-          <div class="sad">
-          <div class="sad_img"><img src="../images/progress.png"></div>
-          <div class="sad_text">Praticipate in live exams & see your progress here!</div>
-          <div class="sad_subtext">...</div>
-          </div>
-          </body>
-          `
-        }
-        
-
-      })
-
-      
-    
+      }else{
+        app.innerHTML = `
+        <body>
+        <div class="sad">
+        <div class="sad_img"><img src="../images/progress.png"></div>
+        <div class="sad_text">Praticipate in live exams & see your progress here!</div>
+        <div class="sad_subtext">...</div>
+        </div>
+        </body>
+        `
+      }
       
 
-
-
-
+    })
+  } else {
+    app.innerHTML = `
+        <body>
+        <div class="sad">
+        <div class="sad_img"><img src="../images/progress.png"></div>
+        <div class="sad_text">We hide your rank & progress during exam.</div>
+        <div class="sad_subtext">...</div>
+        </div>
+        </body>
+        `
+  }
+})
+     
     },
     "/rank" : function(){
       $('.app_loader').show();
@@ -3098,6 +3103,8 @@ router.on({
       </div>
     </center>
       </span></div>`;
+      db.ref('app/Control').once('value', control=>{
+        if(control.val().isRank === true){
       store.collection("globalRank").doc('hum').get().then(snap=> {
         $('.app_loader').hide();
      $('.rank-doc').html(`
@@ -3233,7 +3240,21 @@ router.on({
             });
         }
       });
-    });
+        });
+      } else {
+        app.innerHTML = `
+            <body>
+            <div class="sad">
+            <div class="sad_img"><img src="../images/rank.png"></div>
+            <div class="sad_text">We hide your rank & progress during exam.</div>
+            <div class="sad_subtext">...</div>
+            </div>
+            </body>
+            `
+      }
+
+      });
+
     },
 
 
