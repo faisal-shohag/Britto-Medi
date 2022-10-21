@@ -962,7 +962,11 @@ firebase.auth().onAuthStateChanged(user=> {
                       // console.log(params.id);
                       let data = doc.data();
                     //   console.log(data);
-                      let res = Object.entries(data.reg_std);
+                     let res;
+                        if(data.reg_std){
+                            res = Object.entries(data.reg_std);
+                        
+                        
                     //   console.log(res);
                         const results = document.querySelector('.results');
                         results.innerHTML = '';
@@ -989,6 +993,7 @@ firebase.auth().onAuthStateChanged(user=> {
                         </div>
 
                         `
+                      }
                       }
 
                     //   let ss = {
