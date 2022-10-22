@@ -576,6 +576,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100px;
 }
 
 .ex-timer img{
@@ -583,14 +584,40 @@
 }
 
 .ex-submit{
-  background: rgb(74, 77, 119);
+  background: rgb(46, 143, 54);
   padding: 5px;
-  color: #eee;
+  color: rgb(247, 247, 247);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  box-shadow: 0px 4px 4px rgba(84, 190, 57, 0.5);
+  font-family: Hind Siliguri;
+  /* font-weight: bold; */
+  width: 80px;
+}
+
+.ans-count{
+  /* background: #4b6cb7; */
+  padding: 5px 5px;
+  /* color: crimson; */
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  width: 65px;
+  display: none;
+  color: #666464;
+}
+
+#u_ans{
+  color: rgb(12, 99, 158);
+}
+
+#t_q{
+  font-size: 14px;
+  color: #666464;
 }
 
 .warning{

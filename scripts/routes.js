@@ -819,7 +819,8 @@ router.on({
                      
                      <center> <div class="exam_submit" id="submit">
                      <div class="ex-timer"></div>
-                     <div class="ex-submit">Submit</div>
+                     <div class="ans-count"><span id="u_ans">0</span>/<span id="t_q"></span></div>
+                     <div class="ex-submit">সাবমিট</div>
                      </div></center>
                      
                       </div>
@@ -834,6 +835,7 @@ router.on({
                     na = 0,
                     neg = 0;
                   questions = myexam.questions;
+                  $('#t_q').text(questions.length);
                   shuffle(questions);
                   // console.log(questions);
                   $(".exam-nb").html(`${myexam.details.notice}`);
@@ -867,8 +869,12 @@ router.on({
                       </div>
                        `;
                   }
-        
+                  
+                  let click = 0;
                   $(".opt").on("click", function () {
+                    $('.ans-count').show();
+                    click++;
+                    $('#u_ans').text(click);
                     userAns.push(parseInt($(this)[0].id));
                     $($(this)[0].parentNode.children[0]).off("click");
                     $($(this)[0].parentNode.children[1]).off("click");
