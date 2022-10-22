@@ -6,6 +6,7 @@ const app = document.getElementById('app');
 
 router.on({
     '/': function() {
+      $('.top').show();
       $('.footer').show();
       $('.footertext').hide();
       $('.footerIcon').removeClass('footerIconActive');
@@ -372,6 +373,7 @@ router.on({
         // })
     },
     '/students': function(){
+      $('.top').show();
       app.innerHTML = `
       <div classs="body">
       <div class="students"><div>
@@ -435,6 +437,7 @@ router.on({
       })
     },
     '/select_practice': function() {
+      $('.top').show();
       $('.footer').hide();
         $('.top-title').text('Practice Exams');
         app.innerHTML = `
@@ -573,6 +576,7 @@ router.on({
         
     },
     "/practice/subject/:id": function(params){
+      $('.top').show();
       $('.footer').hide();
       $('.top-title').text(tag[params.id]);
       app.innerHTML = `
@@ -677,6 +681,7 @@ router.on({
     
     },
     "/practice/list/:subj/:chap/:chapName": function(params){
+      $('.top').show();
       $('.footer').hide();
       $('.app_loader').show();
       $('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeInRight top_dir"><i class="icofont-simple-left"></i></div> <div class="animate__animated animate__fadeIn top_text">${params.chapName}</div></div>`);
@@ -762,6 +767,7 @@ router.on({
       })
     },
     '/start_practice/:subj/:chap/:key': function(params){
+      $('.top').hide();
       $('.footer').hide();
       $('.top-title').text('');
         app.innerHTML=`<div class="exam-doc" id="practice-exam">
@@ -942,7 +948,10 @@ router.on({
                       $('.parc').show();
                       clearInterval(timer);
                       $("html, body").animate({ scrollTop: 0 }, "slow");
-                      $("#submit").hide();
+                      $("#submit").unbind('click');
+                      $("#submit .ex-submit").html(`
+                      <i class="icofont-check-circled"></i>
+                      `);
                       let e;
                       $(".explanation").show();
                    
@@ -1035,6 +1044,7 @@ router.on({
    
     },
     '/auth': function(){
+      $('.top').show();
       $('.footer').hide();
       $('.top-title').text('Sign In');
       app.innerHTML = `
@@ -1098,6 +1108,7 @@ router.on({
           authExecute();
     },
     'profile/:uid': function(){
+      $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`Profile`);
       app.innerHTML = `
@@ -1166,6 +1177,7 @@ router.on({
       });
     },
     '/course/:id':function(params){
+      $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`Course`);
       app.innerHTML =`
@@ -1365,6 +1377,7 @@ router.on({
 
     },
     '/live/list': function(){
+      $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`Lives`);
 
@@ -1451,6 +1464,7 @@ router.on({
 
     },
     '/live/details/:id': function(params){
+      $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`Live`);
       app.innerHTML = `
@@ -1712,6 +1726,7 @@ router.on({
 
     },
     '/live/start/:id': function(params){
+      $('.top').hide();
       $('.footer').hide();
       $('.top-title').html(``);
 
@@ -2366,6 +2381,7 @@ router.on({
       
     },
     "/live/ans/:examId/:userId": function(params){
+      $('.top').show();
       app.innerHTML = `
       <div class="body">
       <center>Loading....</center>
@@ -2555,6 +2571,7 @@ router.on({
       })
     },
     "/resource":function(params){
+      $('.top').show();
       $('.top-title').html(`Resources`);
       $('.footer').show();
       $('.footertext').hide();
@@ -2698,6 +2715,7 @@ router.on({
     
     }, 
     "/news":function(params){
+      $('.top').show();
       $('.top-title').html(`News`);
       $('.footer').hide();
       // $('.footertext').hide();
@@ -2814,7 +2832,8 @@ router.on({
 
         })
     },
-    "news_details/:id": function(params){
+    "/news_details/:id": function(params){
+      $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`News`);
       app.innerHTML = `
@@ -2851,6 +2870,7 @@ router.on({
       })
     },
     "/progress/:id": function(params){
+      $('.top').show();
       $('.top-title').html(`Progress`);
       $('.footer').show();
       $('.footertext').hide();
@@ -3086,6 +3106,7 @@ db.ref('app/Control').once('value', control=>{
      
     },
     "/rank" : function(){
+      $('.top').show();
       $('.app_loader').show();
       $('.footer').show();
       $('.footertext').hide();
