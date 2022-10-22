@@ -178,12 +178,6 @@ router.on({
 </div>
   </div>
         
-        
-        
-        
-
-       
-
 
         <div style="display: none" class="section">
         <div class="section-heading">
@@ -784,7 +778,7 @@ router.on({
                       <div class="exam-container">
                      <div class="exam_top">
                       <div class="exam-title kalpurush">
-                      <div class="exam_name">${myexam.details.exam_name}</div><small>সময়: ${parseInt(myexam.questions.length)} মিনিট | নেগেটিভ: ${0} </small>
+                      <div class="exam_name">${myexam.details.exam_name}</div><small>সময়: ${bnNumber(myexam.questions.length)} মিনিট | নেগেটিভ: ০ </small>
                       </div>
                       <div style="display: none;" class="score">
                       <div class="mark"></div>
@@ -817,9 +811,9 @@ router.on({
                       
                       </div>
                      
-                     <center> <div class="exam_submit" id="submit">
+                     <center> <div class="exam_submit animate__animated animate__flipInX" id="submit">
                      <div class="ex-timer"></div>
-                     <div class="ans-count"><span id="u_ans">0</span>/<span id="t_q"></span></div>
+                     <div class="ans-count animate__animated animate__bounceIn"><span id="u_ans"></span>/<span id="t_q"></span></div>
                      <div class="ex-submit">সাবমিট</div>
                      </div></center>
                      
@@ -835,7 +829,7 @@ router.on({
                     na = 0,
                     neg = 0;
                   questions = myexam.questions;
-                  $('#t_q').text(questions.length);
+                  $('#t_q').text(bnNumber(questions.length));
                   shuffle(questions);
                   // console.log(questions);
                   $(".exam-nb").html(`${myexam.details.notice}`);
@@ -849,7 +843,7 @@ router.on({
                        <div class="q-wrap">
                               <div class="q-logo"></div>
                           <div class="question">
-                             ${q + 1}. ${questions[q].q}
+                             ${bnNumber(q + 1)}. ${questions[q].q}
                           </div>
                           <div class="option">
                               <div class="opt" id="${
@@ -874,7 +868,7 @@ router.on({
                   $(".opt").on("click", function () {
                     $('.ans-count').show();
                     click++;
-                    $('#u_ans').text(click);
+                    $('#u_ans').text(bnNumber(click));
                     userAns.push(parseInt($(this)[0].id));
                     $($(this)[0].parentNode.children[0]).off("click");
                     $($(this)[0].parentNode.children[1]).off("click");
@@ -924,7 +918,7 @@ router.on({
                       // localStorage.setItem('min', min);
                       // console.log(localStorage.getItem('sec'))
                       $(".ex-timer").html(
-                        `<img src="../images/clock.png" height="30px"> <div> ${min} : ${sec}</div>`
+                        `<img src="../images/clock.png" height="30px"> <div> ${bnNumber(min)} : ${bnNumber(secs)}</div>`
                       );
                     }
                   }, 1000);
@@ -943,10 +937,11 @@ router.on({
                     .click(function () {
                       Swal.fire({
                         icon: 'question',
-                        text: 'Do you want to submit?',
+                        text: 'তুমি কি সাবমিট করতে চাও?',
                         showConfirmButton: true,
                         showCancelButton: true,
-                        confirmButtonText: 'Yes'
+                        confirmButtonText: 'হ্যাঁ',
+                        cancelButtonText: 'না'
 
                     }).then(res=>{
                       if(res.isConfirmed) {
@@ -1014,32 +1009,32 @@ router.on({
 
                       $(".score").show();
                       $(".mark").html(
-                        `<i class="icofont-check-circled"></i><br>স্কোর</br> <small>সঠিক: ${score} </small> <br/> <span class="score-num">${score-(wrong*neg)}/${questions.length}</span>`
+                        `<i class="icofont-check-circled"></i><br>স্কোর</br> <small>সঠিক: ${bnNumber(score)} </small> <br/> <span class="score-num">${bnNumber(score-(wrong*neg))}/${bnNumber(questions.length)}</span>`
                       );
                       $(".score-wa").html(
-                        `<i class="icofont-close-circled"></i><br/>ভুল </br><small>নেগেটিভ: ${wrong*neg}</small><br/> <span class="score-num">${wrong}</span>`
+                        `<i class="icofont-close-circled"></i><br/>ভুল </br><small>নেগেটিভ: ${bnNumber(wrong*neg)}</small><br/> <span class="score-num">${bnNumber(wrong)}</span>`
                       );
                       $(".score-na").html(
                         `<i class="icofont-warning-alt"></i><br />ফাঁকা </br> <span class="score-num">${
-                          questions.length - (score + wrong)
+                          bnNumber(questions.length - (score + wrong))
                         }</span>`
                       );
                       $(".score-time").html(
                         `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
-                          initialMin - 1 - minute
-                        }:${59 - sec}</span>`
+                          bnNumber(initialMin - 1 - minute)
+                        }:${bnNumber(59 - sec)}</span>`
                       );
                       
                       
-                      $('#correctP').html(`${((score/questions.length)*100).toPrecision(3)}%
+                      $('#correctP').html(`${bnNumber(parseInt((score/questions.length)*100))}%
                       `)
-                      $('#wrongP').html(`${((wrong/questions.length)*100).toPrecision(3)}%
+                      $('#wrongP').html(`${bnNumber(parseInt((wrong/questions.length)*100))}%
                       `)
-                      $('#negativeP').html(`${(((wrong*neg)/questions.length)*100).toPrecision(3)}%
+                      $('#negativeP').html(`${bnNumber(parseInt(((wrong*neg)/questions.length)*100))}%
                       `)
-                      $('#answeredP').html(`${(100-(((questions.length - (score + wrong))/(questions.length))*100)).toPrecision(3)}%
+                      $('#answeredP').html(`${bnNumber(parseFloat(100-(((questions.length - (score + wrong))/(questions.length))*100)))}%
                       `)                                 
-                  Swal.fire("সাবমিট হয়েছে!", "", "success");
+                  // Swal.fire("সাবমিট হয়েছে!", "", "success");
 
                       }
                     })

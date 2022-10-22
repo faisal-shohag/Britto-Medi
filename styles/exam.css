@@ -142,7 +142,7 @@
     align-items: center;
     text-align: center;
     font-weight: bold;
-    font-family: 'Poppins';
+    font-family: 'Poppins', Kalpurush;
     margin-bottom: 10px;
     color: #2d2e2e;
   }
@@ -577,6 +577,9 @@
   align-items: center;
   gap: 10px;
   width: 100px;
+  font-family: 'Poppins', Kalpurush;
+  font-size: 17px;
+  /* font-weight: bold; */
 }
 
 .ex-timer img{
@@ -609,6 +612,7 @@
   width: 65px;
   display: none;
   color: #666464;
+  font-family: 'Poppins', Kalpurush;
 }
 
 #u_ans{

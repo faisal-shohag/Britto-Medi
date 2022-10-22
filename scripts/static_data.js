@@ -437,7 +437,7 @@ function liveDetailsTimer(date, end, element, sdate, button){
    }, 1000);
    }
 
-   let bnNum = {
+   let bnNumbers = {
     1: "১",
     2: "২",
     3: "৩",
@@ -454,11 +454,11 @@ function liveDetailsTimer(date, end, element, sdate, button){
     let num = parseInt(bnNum);
 
     if(num<10){
-      return bnNum[num];
+      return "০"+bnNumbers[num];
       
     }else{
       let fnum = parseInt(num/10);
-      console.log(fnum)
-      return bnNum[fnum]+""+bnNum[num%10];
+      // console.log(fnum)
+      return bnNumbers[fnum]+""+bnNumbers[num%10];
     }
   }

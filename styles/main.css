@@ -1655,3 +1655,8 @@ white-space: nowrap;
   color: goldenrod;
   font-size: 25px;
 }
+
+.swal2-styled{
+  font-family: 'Poppins', Kalpurush !important;
+}
+
