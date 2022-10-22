@@ -924,7 +924,7 @@ router.on({
                       // localStorage.setItem('min', min);
                       // console.log(localStorage.getItem('sec'))
                       $(".ex-timer").html(
-                        `<img src="../images/clock.png" height="30px"> <div> ${min} : ${secs}</div>`
+                        `<img src="../images/clock.png" height="30px"> <div> ${min} : ${sec}</div>`
                       );
                     }
                   }, 1000);

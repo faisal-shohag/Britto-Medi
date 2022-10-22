@@ -436,3 +436,29 @@ function liveDetailsTimer(date, end, element, sdate, button){
      }
    }, 1000);
    }
+
+   let bnNum = {
+    1: "১",
+    2: "২",
+    3: "৩",
+    4: "৪",
+    5: "৫",
+    6: "৬",
+    7: "৭",
+    8: "৮",
+    9: "৯",
+    0: "০",
+   }
+
+  function bnNumber(bnNum){
+    let num = parseInt(bnNum);
+
+    if(num<10){
+      return bnNum[num];
+      
+    }else{
+      let fnum = parseInt(num/10);
+      console.log(fnum)
+      return bnNum[fnum]+""+bnNum[num%10];
+    }
+  }
