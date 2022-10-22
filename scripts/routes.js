@@ -1026,13 +1026,13 @@ router.on({
                       );
                       
                       
-                      $('#correctP').html(`${bnNumber(parseInt((score/questions.length)*100))}%
+                      $('#correctP').html(`${(parseInt((score/questions.length)*100))}%
                       `)
-                      $('#wrongP').html(`${bnNumber(parseInt((wrong/questions.length)*100))}%
+                      $('#wrongP').html(`${(parseInt((wrong/questions.length)*100))}%
                       `)
-                      $('#negativeP').html(`${bnNumber(parseInt(((wrong*neg)/questions.length)*100))}%
+                      $('#negativeP').html(`${(parseInt(((wrong*neg)/questions.length)*100))}%
                       `)
-                      $('#answeredP').html(`${bnNumber(parseFloat(100-(((questions.length - (score + wrong))/(questions.length))*100)))}%
+                      $('#answeredP').html(`${(parseFloat(100-(((questions.length - (score + wrong))/(questions.length))*100)))}%
                       `)                                 
                   // Swal.fire("সাবমিট হয়েছে!", "", "success");
 
