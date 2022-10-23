@@ -908,6 +908,7 @@ router.on({
         
                     if (minute <= 0 && sec <= 0) {
                       $("#submit").click();
+                      
                       // localStorage.removeItem('sec');
                       // localStorage.removeItem('min');
                       // $('.questions').hide();
@@ -927,10 +928,31 @@ router.on({
                     if (window.history && window.history.pushState) {
                       $(window).on("popstate", function () {
                         clearInterval(timer);
-                        $(".ex_submit").hide(20);
+                            //   Swal.fire({
+                            //           icon: 'question',
+                            //           text: 'তুমি কি সত্যিই এক্সাম থেকে বের হতে চাও?',
+                            //           showCancelButton: true,
+                            //           confirmButtonText: 'হ্যাঁ',
+                            //           cancelButtonText: 'না'
+                            //         }).then(res=>{
+                            //           if(res.isConfirmed){
+                                        
+                                        
+                            //             this.history.back();
+                            //             this.close();
+                            //           }else{
+                            //             history.pushState(null, document.title, location.href);
+                            //           }
+
+                            // })             
                       });
                     }
                   });
+
+              
+
+              
+                 
         
                   $("#submit")
                     .off()
@@ -1766,7 +1788,7 @@ router.on({
                             $('.countdown').show();
                             let myexam = snap.data();
                             $('.live_questions').html(`
-                            <div class="body">
+                            <div class="body live_container">
                                 <div class="exam-container">
                               <div class="exam_top">
                                 <div class="exam-title kalpurush">
@@ -1781,9 +1803,10 @@ router.on({
                             
                                 <div class="questions"></div>
                               
-                              <center><div class="exam_submit" id="submit">
+                              <center><div class="exam_submit animate__animated animate__flipInX" id="submit">
                               <div class="ex-timer"></div>
-                              <div class="ex-submit">Submit</div>
+                              <div class="ans-count animate__animated animate__bounceIn"><span id="u_ans"></span>/<span id="t_q"></span></div>
+                              <div class="ex-submit">সাবমিট</div>
                               </div></center>
                               
                                 </div>
@@ -1797,6 +1820,7 @@ router.on({
                               na = 0,
                               neg = parseFloat(myexam.neg);
                             questions = myexam.questions;
+                            $('#t_q').text(questions.length);
                             // shuffle(questions);
                             // console.log(questions);
                             // $(".exam-nb").html(`${myexam.details.notice}`);
@@ -1830,8 +1854,13 @@ router.on({
                                 </div>
                                 `;
                             }
+
+                            let click = 0;
                   
                             $(".opt").on("click", function () {
+                              $('.ans-count').show();
+                              click++;
+                              $('#u_ans').text(click)
                               userAns.push(parseInt($(this)[0].id));
                               $($(this)[0].parentNode.children[0]).off("click");
                               $($(this)[0].parentNode.children[1]).off("click");
@@ -1865,7 +1894,7 @@ router.on({
                                 
                               } else {
                                 $(".ex-timer").html(
-                                  `<img src="../images/clock.png" height="20px"> <div> ${min} : ${secs}</div>`
+                                  `<img src="../images/clock.png" height="20px"> <div> ${min} : ${secs} • LIVE</div>`
                                 );
                               }
                             }, 1000);
@@ -1917,13 +1946,13 @@ router.on({
                                         }
                                         MathJax.typeset();
                   
-                                        $(".score").show();
+                                        // $(".score").show();
                                         
-                                        $(".score-time").html(
-                                          `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
-                                            initialMin - 1 - minute
-                                          }:${59 - sec}</span>`
-                                        );
+                                        // $(".score-time").html(
+                                        //   `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
+                                        //     initialMin - 1 - minute
+                                        //   }:${59 - sec}</span>`
+                                        // );
 
                                         console.log(score);
                                         let myAns = userAns.join('|');
@@ -2188,6 +2217,14 @@ router.on({
                                   if (parseInt(userAns[i]) === ans[j]) { 
                                     score++;
                                     $("#" + userAns[i] + " .st").addClass("cr");
+                                    
+                                    $("#" + userAns[i]).css({
+                                      background: "#384dc5",
+                                      color: "var(--light)",
+                                      "font-weight": "bold",
+                                      "box-shadow" : "0px 2px 5px rgba(0,0,0,.2)"
+                                    });
+
                                     $(
                                       $(
                                         $($("#" + userAns[i])[0].parentNode)[0]
@@ -2204,6 +2241,14 @@ router.on({
                                 if (!found) {
                                   wrong++;
                                   $("#" + userAns[i] + " .st").addClass("wa");
+                                  
+                                  $("#" + userAns[i]).css({
+                                    background: "#384dc5",
+                                    color: "var(--light)",
+                                    "font-weight": "bold",
+                                    "box-shadow" : "0px 2px 5px rgba(0,0,0,.2)"
+                                  });
+
                                   $(
                                     $(
                                       $($("#" + userAns[i])[0].parentNode)[0].parentNode

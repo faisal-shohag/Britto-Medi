@@ -570,6 +570,48 @@
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   border-bottom-left-radius: 25px;
+  overflow: hidden;
+}
+
+.exam_submit::before{
+  content: '';
+  background: url(../images/cool-background1.png) 0 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  transform: rotate(180deg);
+  background-position: center;
+  background-size: cover;
+}
+
+.live_container .exam_submit{
+  /* border: 1px solid rgb(146, 138, 139); */
+  /* position: relative; */
+  overflow: hidden;
+}
+
+.live_container .exam_submit::before{
+  content: '';
+  background: url(../images/cool-background.png) 0 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  transform: rotate(180deg);
+  background-position: center;
+  background-size: cover;
+}
+
+.live_container .ans-count{
+  background: #eee;
+}
+
+.live_container .ex-timer{
+  color: #eee;
+  width: 150px;
 }
 
 .ex-timer{
@@ -578,8 +620,9 @@
   gap: 10px;
   width: 100px;
   font-family: 'Poppins', Kalpurush;
-  font-size: 17px;
-  /* font-weight: bold; */
+  font-size: 18px;
+  font-weight: bold;
+  color: #eee;
 }
 
 .ex-timer img{
@@ -601,7 +644,7 @@
 }
 
 .ans-count{
-  /* background: #4b6cb7; */
+  background: #eee;
   padding: 5px 5px;
   /* color: crimson; */
   border-top-left-radius: 15px;
