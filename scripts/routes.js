@@ -2086,6 +2086,7 @@ router.on({
             }
       }else{
         //PUBLISHED RESULT
+        $('.top').show();
         $('.top-title').html(`${snap.data().title}`);
         app.innerHTML = `
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -2241,7 +2242,7 @@ router.on({
                                 if (!found) {
                                   wrong++;
                                   $("#" + userAns[i] + " .st").addClass("wa");
-                                  
+
                                   $("#" + userAns[i]).css({
                                     background: "#384dc5",
                                     color: "var(--light)",
@@ -2288,6 +2289,7 @@ router.on({
                               $('#answeredP').html(`${(100-(((questions.length - (score + wrong))/(questions.length))*100)).toPrecision(3)}%
                               `)                                 
         }else{
+          $('.top').show();
           $('.answersheet').html(`
           <div class="body">
               <div class="exam-container">
