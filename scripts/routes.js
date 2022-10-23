@@ -1054,7 +1054,7 @@ router.on({
                       `)
                       $('#negativeP').html(`${(parseInt(((wrong*neg)/questions.length)*100))}%
                       `)
-                      $('#answeredP').html(`${(parseFloat(100-(((questions.length - (score + wrong))/(questions.length))*100)))}%
+                      $('#answeredP').html(`${(parseInt(100-(((questions.length - (score + wrong))/(questions.length))*100)))}%
                       `)                                 
                   // Swal.fire("সাবমিট হয়েছে!", "", "success");
 
@@ -1130,7 +1130,7 @@ router.on({
   
           authExecute();
     },
-    'profile/:uid': function(){
+    '/profile/:uid': function(){
       $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`Profile`);
