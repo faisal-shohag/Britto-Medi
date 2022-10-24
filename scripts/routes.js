@@ -2045,6 +2045,8 @@ router.on({
                           }
                         }else{
                           //Not available by time
+                          $('.top').show();
+                          $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
                           app.innerHTML=`
                           <div class="sad">
                           <div class="sad_img"><img src="../images/goal.png"></div>
@@ -2054,6 +2056,8 @@ router.on({
                           `    
                         }
                     } else {
+                      $('.top').show();
+                      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
                       app.innerHTML=`
                           <div class="sad">
                           <div class="sad_img"><img src="../images/queue.png"></div>
@@ -2066,6 +2070,8 @@ router.on({
 
                   }else{
                     //Attend before
+                    $('.top').show();
+                    $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
                     app.innerHTML = `
                       <div class="sad">
                       <div class="sad_img"><img src="../images/goal.png"></div>
@@ -2078,6 +2084,8 @@ router.on({
 
               }else{
                 //Not Registered
+                $('.top').show();
+                $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
                 app.innerHTML = `
                 <div class="sad">
                 <div class="sad_img"><img src="../images/oops.png"></div>
@@ -2089,6 +2097,8 @@ router.on({
 
             }else{
               //Not logged In
+              $('.top').show();
+              $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
               app.innerHTML=`
                   <div class="sad">
                   <div class="sad_img"><img src="../images/goal.png"></div>
@@ -2100,6 +2110,7 @@ router.on({
         //PUBLISHED RESULT
         $('.top').show();
         $('.top-title').html(`${snap.data().title}`);
+        $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
         app.innerHTML = `
         <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -2302,6 +2313,7 @@ router.on({
                               `)                                 
         }else{
           $('.top').show();
+          $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
           $('.answersheet').html(`
           <div class="body">
               <div class="exam-container">
