@@ -574,6 +574,7 @@ router.on({
       $('.footer').hide();
       $('.top-title').text(tag[params.id]);
       app.innerHTML = `
+      <div class="body">
       <div class="chapters">
       <ul class="o-vertical-spacing o-vertical-spacing--l">
         <li class="blog-post o-media">
@@ -641,6 +642,7 @@ router.on({
         </li>
       </ul>
       </div>
+      </div>
       `
       
       db.ref('app/practiceRef/'+params.id).once('value', snap=>{
@@ -677,9 +679,9 @@ router.on({
     "/practice/list/:subj/:chap/:chapName": function(params){
       $('.top').show();
       $('.footer').hide();
-      $('.app_loader').show();
       $('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeInRight top_dir"><i class="icofont-simple-left"></i></div> <div class="animate__animated animate__fadeIn top_text">${params.chapName}</div></div>`);
       app.innerHTML = `
+      <div class="body">
       <div class="chapters" id="chaps">
       <ul class="o-vertical-spacing o-vertical-spacing--l">
         <li class="blog-post o-media">
@@ -747,9 +749,9 @@ router.on({
         </li>
       </ul>
       </div>
+      </div>
       `
       store.collection('subjectExams').doc(params.subj).collection(params.chap).onSnapshot(snap=>{
-        $('.app_loader').hide();
         const ex = document.querySelector('#chaps');
         ex.innerHTML="";
         
