@@ -16,6 +16,8 @@ router.on({
       }
 
         $('.top-title').text('Britto Edu.');
+        $('.top .icon').html(`<img src="../images/puzzle.png">`);
+
         $('.countdown').hide();
 
         app.innerHTML = `
@@ -368,6 +370,7 @@ router.on({
     },
     '/students': function(){
       $('.top').show();
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       app.innerHTML = `
       <div classs="body">
       <div class="students"><div>
@@ -433,7 +436,8 @@ router.on({
     '/select_practice': function() {
       $('.top').show();
       $('.footer').hide();
-        $('.top-title').text('Practice Exams');
+      $('.top-title').text('Practice Exams');
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
         app.innerHTML = `
         <div class="body">
         <form id="select-exam">
@@ -571,6 +575,7 @@ router.on({
     },
     "/practice/subject/:id": function(params){
       $('.top').show();
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       $('.footer').hide();
       $('.top-title').text(tag[params.id]);
       app.innerHTML = `
@@ -678,6 +683,8 @@ router.on({
     },
     "/practice/list/:subj/:chap/:chapName": function(params){
       $('.top').show();
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
+      $('.top-title').html(`${params.chapName}`)
       $('.footer').hide();
       $('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeInRight top_dir"><i class="icofont-simple-left"></i></div> <div class="animate__animated animate__fadeIn top_text">${params.chapName}</div></div>`);
       app.innerHTML = `
@@ -1134,6 +1141,7 @@ router.on({
     },
     '/profile/:uid': function(){
       $('.top').show();
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       $('.footer').hide();
       $('.top-title').html(`Profile`);
       app.innerHTML = `
@@ -1205,6 +1213,7 @@ router.on({
       $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`Course`);
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       app.innerHTML =`
       <div class="course-wrap">
       <div class="center_loader"><div class="spinner-border text-success" role="status">
@@ -1405,7 +1414,7 @@ router.on({
       $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`Lives`);
-
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       app.innerHTML = `
       <div class="body">
       
@@ -1492,6 +1501,7 @@ router.on({
       $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`Live`);
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       app.innerHTML = `
       <div class="body">
       <div class="live-post">
@@ -2432,6 +2442,7 @@ router.on({
     },
     "/live/ans/:examId/:userId": function(params){
       $('.top').show();
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       app.innerHTML = `
       <div class="body">
       <center>Loading....</center>
@@ -2623,6 +2634,7 @@ router.on({
     "/resource":function(params){
       $('.top').show();
       $('.top-title').html(`Resources`);
+      $('.top .icon').html(`<img src="../images/pencil-case.png">`);
       $('.footer').show();
       $('.footertext').hide();
         $('.footerIcon').removeClass('footerIconActive');
@@ -2767,6 +2779,7 @@ router.on({
     "/news":function(params){
       $('.top').show();
       $('.top-title').html(`News`);
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       $('.footer').hide();
       // $('.footertext').hide();
       //   $('.footerIcon').removeClass('footerIconActive');
@@ -2886,6 +2899,7 @@ router.on({
       $('.top').show();
       $('.footer').hide();
       $('.top-title').html(`News`);
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       app.innerHTML = `
       <div class="body">
       
@@ -2922,6 +2936,7 @@ router.on({
     "/progress/:id": function(params){
       $('.top').show();
       $('.top-title').html(`Progress`);
+      $('.top .icon').html(`<img src="../images/progress.png">`);
       $('.footer').show();
       $('.footertext').hide();
         $('.footerIcon').removeClass('footerIconActive');
@@ -3156,6 +3171,7 @@ db.ref('app/Control').once('value', control=>{
      
     },
     "/rank" : function(){
+      $('.top .icon').html(`<img src="../images/rank.png">`);
       $('.top').show();
       $('.app_loader').show();
       $('.footer').show();
