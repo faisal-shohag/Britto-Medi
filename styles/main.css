@@ -1203,7 +1203,8 @@ padding-bottom: 5px;
   padding: 5px;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
   border-radius: 3px;
-  
+  position: relative;
+  overflow: hidden;
 }
 
 
@@ -1229,21 +1230,29 @@ padding-bottom: 5px;
 .chapterName{
   font-size: 16px;
   font-weight: bold;
-  background: -webkit-linear-gradient(
+  /* background: -webkit-linear-gradient(
 45deg, #7b22cf, #111fe7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0px 1px 5px rgb(0 0 0 / 10%);
+    text-shadow: 0px 1px 5px rgb(0 0 0 / 10%); */
     /* text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block; 
     overflow: hidden;
     width: 99%; */
+    width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chap_item .author{
   font-size: 10px;
   color: #4d4d4d;
+  width: 270px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #rtn-img{
@@ -1440,6 +1449,11 @@ align-items: center;
 .top-title{
   font-family: 'Poppins', Kalpurush;
   font-weight: bold;
+  width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
 }
 
 .ladder{
