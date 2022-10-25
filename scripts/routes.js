@@ -201,7 +201,7 @@ router.on({
         </div>
 
 
-        <div class="modal fade" id="routineModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal fade" id="routineModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -216,16 +216,13 @@ router.on({
             </div>
           </div>
         </div>
-
-
-       
       </div>
-      
+
       </div>
 
         `
            //Last Exam Result
-        store.collection('lives').doc('rwtTSuXimiPlbuOfQvkh').get().then(snap=>{
+        store.collection('lives').doc('4jvrt5VYbdy4UdPJMLxo').get().then(snap=>{
             let myexam = snap.data();
           let Objresults = Object.entries(myexam.reg_std);
           // console.log(Objresults);
@@ -254,7 +251,7 @@ router.on({
         <div class="top_std_name">${((results[2].name).split(' ')[0])}(${results[2].score})</div>
         </div>
 
-        <a class="res_links" href="#!/live/start/rwtTSuXimiPlbuOfQvkh"><div >See full result</div></a>
+        <a class="res_links" href="#!/live/start/4jvrt5VYbdy4UdPJMLxo"><div >See full result</div></a>
           `)
       
         })
