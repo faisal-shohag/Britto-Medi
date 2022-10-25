@@ -218,8 +218,9 @@ router.on({
         </div>
 
 
-        <a href="#!/upload">Upload Test</a>
+       
       </div>
+      <a href="#!/upload">Upload Test</a>
 
         `
            //Last Exam Result
