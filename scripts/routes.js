@@ -220,7 +220,8 @@ router.on({
 
        
       </div>
-      <a href="#!/upload">Upload Test</a>
+      
+      </div>
 
         `
            //Last Exam Result
@@ -3366,8 +3367,49 @@ db.ref('app/Control').once('value', control=>{
       <label for="formFile" class="form-label">Upload Notes</label>
       <input class="form-control" type="file" id="note_image">
       </div>
+
+      <center><button class="btn btn-primary" id="upload_note">Upload</button></center>
+
       </div>
       `
+
+      $('#upload_note').click(function(){
+        upload();
+      })
+
+      var imagekit = new ImageKit({
+        publicKey : "public_ywvfLYknKzYw5PdL+SfwhXvwd5w=",
+        urlEndpoint : "https://ik.imagekit.io/brittoedu",
+        authenticationEndpoint : "http://www.yourserver.com/auth",
+    });
+    
+    // URL generation
+    var imageURL = imagekit.url({
+        path : "/default-image.jpg",
+        transformation : [{
+            "height" : "500",
+            "width" : "400"
+        }]
+    
+    });
+    
+    // Upload function internally uses the ImageKit.io javascript SDK
+    function upload(data) {
+        var file = document.getElementById("note_image");
+        imagekit.upload({
+            file : file.files[0],
+            fileName : "abc1.jpg",
+            tags : ["tag1"]
+        }, function(err, result) {
+            console.log(arguments);
+            console.log(imagekit.url({
+                src: result.url,
+                transformation : [{ height: 500, width: 400}]
+            }));
+    
+        })
+    
+    }
     }
 
 
