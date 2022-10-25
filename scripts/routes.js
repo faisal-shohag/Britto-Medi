@@ -216,6 +216,9 @@ router.on({
             </div>
           </div>
         </div>
+
+
+        <a href="#!/upload">Upload Test</a>
       </div>
 
         `
@@ -3355,6 +3358,16 @@ db.ref('app/Control').once('value', control=>{
       });
 
     },
+    "/upload":function(){
+      app.innerHTML = `
+      <div class="body">
+      <div class="mb-3">
+      <label for="formFile" class="form-label">Upload Notes</label>
+      <input class="form-control" type="file" id="note_image">
+      </div>
+      </div>
+      `
+    }
 
 
 
