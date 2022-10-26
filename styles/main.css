@@ -1688,3 +1688,9 @@ white-space: nowrap;
   font-family: 'Poppins', Kalpurush !important;
 }
 
+.image_preview{
+display: flex;
+justify-content: center;
+margin: 20px 10px;
+
+}

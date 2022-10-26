@@ -218,6 +218,9 @@ router.on({
         </div>
       </div>
 
+
+      <a href="#!/upload">Up</a>
+
       </div>
 
         `
@@ -3360,53 +3363,125 @@ db.ref('app/Control').once('value', control=>{
     "/upload":function(){
       app.innerHTML = `
       <div class="body">
-      <div class="mb-3">
-      <label for="formFile" class="form-label">Upload Notes</label>
-      <input class="form-control" type="file" id="note_image">
+      <div class="image_preview">
+      <img  
+      id="uploadedimage" 
+      src="">
+    </img> 
       </div>
-
-      <center><button class="btn btn-primary" id="upload_note">Upload</button></center>
+<center><button class="btn btn-primary" id="upload_widget">Upload</button></center>
 
       </div>
       `
+   
 
-      $('#upload_note').click(function(){
-        upload();
-      })
+      const cloudName = "dj493l0jy"; // replace with your own cloud name
+     const uploadPreset = "notes_humanity"; // replace with your own upload preset
 
-      var imagekit = new ImageKit({
-        publicKey : "public_ywvfLYknKzYw5PdL+SfwhXvwd5w=",
-        urlEndpoint : "https://ik.imagekit.io/brittoedu",
-        authenticationEndpoint : "http://www.yourserver.com/auth",
-    });
+// Remove the comments from the code below to add
+// additional functionality.
+// Note that these are only a few examples, to see
+// the full list of possible parameters that you
+// can add see:
+//   https://cloudinary.com/documentation/upload_widget_reference
+
+const myWidget = cloudinary.createUploadWidget(
+  {
+    cloudName: cloudName,
+    uploadPreset: uploadPreset,
+    cropping: true, //add a cropping step
+    showAdvancedOptions: true,  //add advanced options (public_id and tag)
+    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+    // multiple: false,  //restrict upload to a single file
+    // folder: "user_images", //upload files to the specified folder
+    // tags: ["users", "profile"], //add the given tags to the uploaded files
+    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+    // clientAllowedFormats: ["images"], //restrict uploading to image files only
+    maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+    theme: "purple", //change to a purple theme
+  },
+  (error, result) => {
+    if (!error && result && result.event === "success") {
+      console.log("Done! Here is the image info: ", result.info);
+      document
+        .getElementById("uploadedimage")
+        .setAttribute("src", result.info.secure_url);
+    }
+  }
+);
+
+document.getElementById("upload_widget").addEventListener(
+  "click",
+  function () {
+    myWidget.open();
+  },
+  false
+);
+
+
+      // let image;
+      // $('#note_image').change(function(e){
+      //   let file = document.getElementById('note_image').files[0];
+      //   let reader = new FileReader();
+      //   reader.readAsDataURL(file);
+      //   reader.onload = function(){
+      //     $('.image_preview').html(`<img src="${reader.result}"/>`)
+      //     console.log(reader.result);
+      //     image = reader.result;
+      //   }
+      // })
+
+      // $('#upload_note').click(function(){
+        
+      //   fetch('https://api.imgbb.com/1/upload?key=40de54474ba7c5ca47389542e527e848', {
+      //     method: 'POST',
+      //     body: JSON.stringify(image)
+      //   })
+      //   .then(res=>res.json())
+      //   .then(data=>{
+      //     console.log('Success', data);
+      //   })
+      //   .catch(err=>{
+      //     console.log('Error: ', err);
+      //   })
+        
+
+      // })
+
+    //   var imagekit = new ImageKit({
+    //     publicKey : "public_ywvfLYknKzYw5PdL+SfwhXvwd5w=",
+    //     urlEndpoint : "https://ik.imagekit.io/brittoedu",
+    //     authenticationEndpoint : "http://www.yourserver.com/auth",
+    // });
     
     // URL generation
-    var imageURL = imagekit.url({
-        path : "/default-image.jpg",
-        transformation : [{
-            "height" : "500",
-            "width" : "400"
-        }]
+    // var imageURL = imagekit.url({
+    //     path : "/default-image.jpg",
+    //     transformation : [{
+    //         "height" : "500",
+    //         "width" : "400"
+    //     }]
     
-    });
+    // });
     
     // Upload function internally uses the ImageKit.io javascript SDK
-    function upload(data) {
-        var file = document.getElementById("note_image");
-        imagekit.upload({
-            file : file.files[0],
-            fileName : "abc1.jpg",
-            tags : ["tag1"]
-        }, function(err, result) {
-            console.log(arguments);
-            console.log(imagekit.url({
-                src: result.url,
-                transformation : [{ height: 500, width: 400}]
-            }));
+    // function upload(data) {
+    //     var file = document.getElementById("note_image");
+    //     imagekit.upload({
+    //         file : file.files[0],
+    //         fileName : "abc1.jpg",
+    //         tags : ["tag1"]
+    //     }, function(err, result) {
+    //         console.log(arguments);
+    //         console.log(imagekit.url({
+    //             src: result.url,
+    //             transformation : [{ height: 500, width: 400}]
+    //         }));
     
-        })
+    //     })
     
-    }
+    // }
     }
 
 
