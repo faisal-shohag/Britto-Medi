@@ -219,7 +219,7 @@ router.on({
       </div>
 
 
-      <a href="#!/upload">Up</a>
+
 
       </div>
 
