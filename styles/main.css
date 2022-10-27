@@ -540,10 +540,19 @@ form {
   overflow: hidden;
   border-radius: 50%;
   border: 2px solid #eee;
+ position: relative;
+}
+
+.add_my_photo{
+  position: absolute;
+  bottom: 0;
+  font-size: 21px;
+  color: rgb(117, 112, 112);
+  
 }
 
 .avatar-circle img{
-  height: 100px;
+  /* height: 100px; */
   width: 100px;
 }
 
@@ -1449,7 +1458,7 @@ align-items: center;
 .top-title{
   font-family: 'Poppins', Kalpurush;
   font-weight: bold;
-  width: 250px;
+  width: 240px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1144,17 +1144,25 @@ router.on({
   
           authExecute();
     },
-    '/profile/:uid': function(){
-      $('.top').show();
-      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
-      $('.footer').hide();
+    '/profile/:uid': function(params){
       $('.top-title').html(`Profile`);
+      $('.top .icon').html(`<img src="../images/doctor.png">`);
+      $('.top').show();
+      $('.app_loader').show();
+      $('.footer').show();
+      $('.footertext').hide();
+      $('.footerIcon').removeClass('footerIconActive');
+      if($('.prfl')[0].classList[3] === undefined){
+        $('.prfl').addClass('footerIconActive');
+        $($($('.prfl')[0].parentNode)[0].lastElementChild).show();
+      }
       app.innerHTML = `
       <div class="">
 
       <div class="profile-top">
       <center><div class="avatar-circle">
-      <img src="../images/doctor.png">
+      <span id="my_photo"><img src="../images/doctor.png"></span>
+      <div class="add_my_photo" id="upload_me"><i class="icofont-camera"></i></div>
       </div></center>
 
       <div class="profile-details">
@@ -1172,17 +1180,17 @@ router.on({
 
       <div class="stat-item">
       <div class="text">Rank</div>
-      <div class="count">0</div>
+      <div class="count" id="myRank">...</div>
       </div>
 
       <div class="stat-item">
       <div class="text">Exam</div>
-      <div class="count">0</div>
+      <div class="count" id="myExam">0</div>
       </div>
 
       <div class="stat-item">
       <div class="text">Score</div>
-      <div class="count">0</div>
+      <div class="count" id="myScore">...</div>
       </div>
 
 
@@ -1190,29 +1198,106 @@ router.on({
       </div>
       </div>
 
-      <div class="profile-bottom">
-      <div class="profile-head">
-      Exams
-      </div>
+     <br>
 
-      <div classs="exams">
-      <div class="sad">
-      <div class="sad_img"><img src="../images/exam.png"></div>
-      <div class="sad_text">No exam to show!</div>
-      <div class="sad_subtext">If you participated, will be updated soon!</div>
-    </div>
-      </div>
-      
-      </div>
+      <center><button class="btn btn-danger" onclick="signOut()"><i class="icofont-logout"></i> Logout</button></center>
 
     </div>
       `
 
-      authCheck(data=>{
-        $('.top-title').text(data.name);
-        $('.profile-name').text(data.name);
-        $('.profile-inst').text(data.inst);
+     
+        
+
+      store.collection("globalRank").doc('hum').get().then(snap=> {
+      let i=0;
+      let ladder = [];
+      let ss = Object.entries(snap.data());
+      // console.log(ss);
+      for(let i=0; i<ss.length; i++){
+        ladder.push({
+          name: ss[i][1].name,
+          score: ss[i][1].score,
+          inst: ss[i][1].inst,
+          uid: ss[i][0]
+        })
+      }
+      ladder.sort((a,b)=>{return b.score - a.score});
+
+            for(let k=0; k<ladder.length; k++){
+              if(ladder[k].uid == myuid){
+                $('#myRank').text(k+1);
+                $('#myScore').html(`${ladder[k].score}`)
+                break;
+              }
+            }
+
       });
+
+      store.collection('users').doc(params.uid).get().then(snap=>{
+        let live_exams = snap.data().live_exams;
+        live_exams = Object.entries(live_exams);
+        $('#myExam').text(live_exams.length)
+        if(snap.data().photoUrl){
+          $('#my_photo').html(`<img src="${snap.data().photoUrl}"/>`);
+        }
+
+        $('.top-title').text(snap.data().name);
+        $('.profile-name').text(snap.data().name);
+        $('.profile-inst').text(snap.data().inst);
+        
+      });
+
+      //upload profile photo
+      const cloudName = "dj493l0jy"; // replace with your own cloud name
+     const uploadPreset = "g4hfhkjb"; 
+
+     document.getElementById("upload_me").addEventListener("click", function () {
+      // $('.up_loading').show();
+      myWidget.open();
+     });
+
+     
+    //  cloudinary.uploader.destroy(params.uid, function(result) { console.log(result) });
+
+     const myWidget = cloudinary.createUploadWidget({
+        prepareUploadParams: function(cb, params){
+            cb({public_id: params.uid})
+        },
+        cloudName: cloudName,
+        uploadPreset: uploadPreset,
+        cropping: true, //add a cropping step
+        showAdvancedOptions: false,  //add advanced options (public_id and tag)
+        sources: [ "local"], // restrict the upload sources to URL and local files
+        multiple: false,  //restrict upload to a single file
+        // folder: "user_images", //upload files to the specified folder
+        // tags: ["users", "profile"], //add the given tags to the uploaded files
+        // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+        clientAllowedFormats: ["jpg", "png"], //restrict uploading to image files only
+        maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+        // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+        theme: "indigo", //change to a purple theme
+        croppingValidateDimensions: false,
+        secure: true,
+        // public_id: params.uid
+      },(error, result) => {
+        $('.up_loading').hide();
+        if (!error && result && result.event === "success") {
+          console.log("Done! Here is the image info: ", result.info);
+          store.collection('users').doc(params.uid).set({
+            photoUrl: result.info.secure_url
+          }, {merge: true})
+          .then(()=>{
+            Swal.fire({
+              icon: 'success',
+              text: 'Successfully changed!'
+            })
+          })
+        }
+       
+      });
+
+
+
     },
     '/course/:id':function(params){
       $('.top').show();
@@ -2996,7 +3081,7 @@ db.ref('app/Control').once('value', control=>{
         <div class="exams"></div>
         </div>
         `
-        let live_exams = snap.data().live_exams;
+      let live_exams = snap.data().live_exams;
       live_exams = Object.entries(live_exams);
       let lives = [];
       let data = [];
@@ -3227,7 +3312,7 @@ db.ref('app/Control').once('value', control=>{
       </div>
      `);
      $('#pos').html(`?`)
-    console.log(myuid)
+    // console.log(myuid)
       let i=0;
       let ladder = [];
       let ss = Object.entries(snap.data());

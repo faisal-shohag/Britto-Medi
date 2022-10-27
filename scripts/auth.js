@@ -133,7 +133,7 @@ function authExecute(){
 }
 
 
-function singOut(){
+function signOut(){
     firebase
           .auth()
           .signOut()
@@ -151,12 +151,15 @@ var std_name = false;
 var myuid = '';
 var mygroup = 'unRated';
 var myscore = 0;
+var myPhoto = '';
+var myInst = '';
+var myName = '';
 function authCheck(send){
 
 firebase.auth().onAuthStateChanged(user=> {
   $('.sp').hide();
     if(user) {
-      history.pushState({page: 1}, "home", "#!/")
+      // history.pushState({page: 1}, "home", "#!/")
       UID = user.uid;
       myuid = user.uid;
       
@@ -277,28 +280,23 @@ firebase.auth().onAuthStateChanged(user=> {
 
             }else{
               std_name = snap.data().name
+              myName = snap.data().name
               mygroup = snap.data().group
+              myPhoto = snap.data().photoUrl ? `<img src="${snap.data().photoUrl}"/>` : `<img src="../images/doctor.png">`;
+              myInst = snap.data().inst;
                 $('.user-panel').show();
                
-                $('.user-panel').html(`
-                <div class="user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img class="rounded-circle" src="./images/doctor.png"></div>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#!/profile/${user.uid}"><i class="icofont-user"></i> Profile</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="icofont-notebook"></i> My courses</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" onclick="singOut()" href="#"><i class="icofont-logout"></i> Logout</a></li>
-                  <li><a class="dropdown-item" onclick="window.location.reload()" href="#"><i class="icofont-refresh"></i> Reload</a></li>
-                </ul>
+                $('.prfl').html(`<a class="dropdown-item" href="#!/profile/${user.uid}"><img src="./images/doctor.png"></a>
                 `);
-                let data={
-                    name: snap.data().name,
-                    phone: snap.data().phone,
-                    inst: snap.data().inst
-                }
+                // let data={
+                //     name: snap.data().name,
+                //     phone: snap.data().phone,
+                //     inst: snap.data().inst
+                // }
 
-                if(send){
-                    send(data);
-                }
+                // if(send){
+                //     send(data);
+                // }
 
                 //counting scores
                 if(snap.data().live_exams){               
