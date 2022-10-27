@@ -1694,3 +1694,7 @@ justify-content: center;
 margin: 20px 10px;
 
 }
+
+.image_preview img{
+  width: 100%;
+}
