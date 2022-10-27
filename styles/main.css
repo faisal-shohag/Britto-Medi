@@ -1707,3 +1707,16 @@ margin: 20px 10px;
 .image_preview img{
   width: 100%;
 }
+
+.name_big{
+  font-size: 30px;
+  font-weight: bold;
+  background: -webkit-linear-gradient(rgb(190, 15, 59), rgb(127, 13, 161));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+.small_text{
+  font-size: 10px;
+}

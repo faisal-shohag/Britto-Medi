@@ -3062,6 +3062,8 @@ db.ref('app/Control').once('value', control=>{
       if(snap.data().live_exams){
         app.innerHTML = `
         <div class="body">
+        <div class="name_big animate__animated animate__backInLeft">${snap.data().name} </div>
+        <div class="small_text animate__animated animate__fadeInDown">${snap.data().inst}</div>
         <div class="pie">
         <div class="section_title"><img src="../images/pie.png"> এক্সাম পরিসংখ্যান</div>
         <div class="progress_pie">
