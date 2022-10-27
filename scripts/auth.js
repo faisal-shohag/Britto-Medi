@@ -139,7 +139,7 @@ function signOut(){
           .signOut()
           .then(() => {
             router.navigate('/auth')
-            window.location.reload();
+            window.location.replace('#!/auth')
           })
           .catch((e) => {
             console.log(e);
@@ -332,11 +332,14 @@ firebase.auth().onAuthStateChanged(user=> {
         <a href="/#!/auth"><div class="signInButton">Sign In</div></a>
         `);
         $('#app').html(`
-        <center>Please Sign In!</center>
+        <center>Please Sign In!<br>
+      <a href="#!/auth"> <button class="btn btn-primary">Sign In</button></a>
+        </center>
         `);
         $('.footer').hide();
+        // window.location.replace('/#!/auth')
 
-        router.navigate('/auth');
+        // router.navigate('/auth');
     }
 });
 
