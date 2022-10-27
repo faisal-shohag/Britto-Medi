@@ -139,7 +139,7 @@ function signOut(){
           .signOut()
           .then(() => {
             router.navigate('/auth')
-            window.location.replace('#!/auth')
+            // window.location.replace('#!/auth')
           })
           .catch((e) => {
             console.log(e);
@@ -158,8 +158,9 @@ function authCheck(send){
 
 firebase.auth().onAuthStateChanged(user=> {
   $('.sp').hide();
+  history.pushState({page: 1}, "home", "#!/")
     if(user) {
-      history.pushState({page: 1}, "home", "#!/")
+     
       UID = user.uid;
       myuid = user.uid;
       
@@ -339,7 +340,7 @@ firebase.auth().onAuthStateChanged(user=> {
         $('.footer').hide();
         // window.location.replace('/#!/auth')
 
-        // router.navigate('/auth');
+        router.navigate('/auth');
     }
 });
 
