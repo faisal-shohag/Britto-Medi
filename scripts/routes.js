@@ -82,7 +82,7 @@ router.on({
         </div>
 
         <center>
-        <button id="hum" class="btn btn-success rtn"> <i class="icofont-download"></i> Humanity(2nd Time)</button>
+        <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> Humanity(2nd Time)</button>
         </center>
         <br>
 
@@ -269,7 +269,7 @@ router.on({
             $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
             $('#routineModal').modal('show');
           }else{
-            $('#rtn-img').html(`<img src="https://i.postimg.cc/g2Jv04Jb/Study-Plan-for-Humanity.png"/>`)
+            $('#rtn-img').html(`<img src="https://i.postimg.cc/MK8zdb8y/Routine-2.png"/>`)
             $('#routineModal').modal('show');
           }
         });
