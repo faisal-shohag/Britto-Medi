@@ -225,7 +225,7 @@ router.on({
 
         `
            //Last Exam Result
-        store.collection('lives').doc('4jvrt5VYbdy4UdPJMLxo').get().then(snap=>{
+        store.collection('lives').doc('JfFub6F4aZL4eeia33k8').get().then(snap=>{
             let myexam = snap.data();
           let Objresults = Object.entries(myexam.reg_std);
           // console.log(Objresults);
@@ -254,7 +254,7 @@ router.on({
         <div class="top_std_name">${((results[2].name).split(' ')[0])}(${results[2].score})</div>
         </div>
 
-        <a class="res_links" href="#!/live/start/4jvrt5VYbdy4UdPJMLxo"><div >See full result</div></a>
+        <a class="res_links" href="#!/live/start/JfFub6F4aZL4eeia33k8"><div >See full result</div></a>
           `)
       
         })
