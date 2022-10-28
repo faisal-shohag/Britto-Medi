@@ -529,6 +529,7 @@
   font-family: "Poppins", Kalpurush;
   font-size: 14px;
   height: 30px;
+  position: relative;
 }
 
 .standings{
@@ -685,12 +686,14 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
-   width: 100px;
+   width: 150px;
 }
 
 .stand_time{
-  background: rgb(34, 33, 33);
-  padding: 3px;
-  width: 50px;
+  background: #949297;
+  /* padding: 3px; */
+  min-width: 50px;
   text-align: center;
+  height: 100%;
+  color: #3c3d3f;
 }

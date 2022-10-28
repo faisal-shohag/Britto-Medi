@@ -22,14 +22,14 @@ router.on({
 
         app.innerHTML = `
         <div class="body">
-
+        <!--
         <div class="section">
         <div class="section-heading">
         <div class="sec-sec1"><div class="icon"><img src="../images/top-rated.png"></div><div id="top_title" class="text">Top 3 </div></div>
         </div>
         </div>
 
-        <div id="last_exam" class="top-result">
+       <div id="last_exam" class="top-result"> 
         
 
         <div class="spinner-border" role="status">
@@ -37,7 +37,7 @@ router.on({
         </div>
 
         </div>
-
+        -->
       
         
         <div style="display:none"  class="section">
@@ -225,39 +225,39 @@ router.on({
 
         `
            //Last Exam Result
-        store.collection('lives').doc('4jvrt5VYbdy4UdPJMLxo').get().then(snap=>{
-            let myexam = snap.data();
-          let Objresults = Object.entries(myexam.reg_std);
-          // console.log(Objresults);
-          let results = [];
-          for(let i=0; i<Objresults.length; i++){
-            results.push({...Objresults[i][1], id:Objresults[i][0]});
-          }
-          results.sort((a, b)=>{
-            return b.score - a.score;
-          })
-          // console.log(results);
-          $('#top_title').text('Top 3 ('+myexam.title+')')
-          $('.top-result').html(`
-          <div class="top_std second">
-        <div class="top_std_img"><img src="../images/doctor.png"></div>
-        <div class="top_std_name">${(results[1].name).split(' ')[0]}(${results[1].score})</div>
-        </div>
+        // store.collection('lives').doc('4jvrt5VYbdy4UdPJMLxo').get().then(snap=>{
+        //     let myexam = snap.data();
+        //   let Objresults = Object.entries(myexam.reg_std);
+        //   // console.log(Objresults);
+        //   let results = [];
+        //   for(let i=0; i<Objresults.length; i++){
+        //     results.push({...Objresults[i][1], id:Objresults[i][0]});
+        //   }
+        //   results.sort((a, b)=>{
+        //     return b.score - a.score;
+        //   })
+        //   // console.log(results);
+        //   $('#top_title').text('Top 3 ('+myexam.title+')')
+        //   $('.top-result').html(`
+        //   <div class="top_std second">
+        // <div class="top_std_img"><img src="../images/doctor.png"></div>
+        // <div class="top_std_name">${(results[1].name).split(' ')[0]}(${results[1].score})</div>
+        // </div>
 
-        <div class="top_std first">
-        <div class="top_std_img"><img src="../images/doctor.png"></div>
-        <div class="top_std_name">${((results[0].name).split(' ')[0])}(${results[0].score})</div>
-        </div>
+        // <div class="top_std first">
+        // <div class="top_std_img"><img src="../images/doctor.png"></div>
+        // <div class="top_std_name">${((results[0].name).split(' ')[0])}(${results[0].score})</div>
+        // </div>
 
-        <div class="top_std third">
-        <div class="top_std_img"><img src="../images/doctor.png"></div>
-        <div class="top_std_name">${((results[2].name).split(' ')[0])}(${results[2].score})</div>
-        </div>
+        // <div class="top_std third">
+        // <div class="top_std_img"><img src="../images/doctor.png"></div>
+        // <div class="top_std_name">${((results[2].name).split(' ')[0])}(${results[2].score})</div>
+        // </div>
 
-        <a class="res_links" href="#!/live/start/4jvrt5VYbdy4UdPJMLxo"><div >See full result</div></a>
-          `)
+        // <a class="res_links" href="#!/live/start/4jvrt5VYbdy4UdPJMLxo"><div >See full result</div></a>
+        //   `)
       
-        })
+        // })
 
        
        
