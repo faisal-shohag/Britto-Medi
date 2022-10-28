@@ -680,3 +680,17 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.scoreandtime{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100px;
+}
+
+.stand_time{
+  background: rgb(34, 33, 33);
+  padding: 3px;
+  width: 50px;
+  text-align: center;
+}

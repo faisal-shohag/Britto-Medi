@@ -2271,7 +2271,7 @@ router.on({
                     na = 0,
                     neg = myexam.neg;
 
-                    console.log(userAns);
+                    // console.log(userAns);
                   questions = myexam.questions;
                   // shuffle(questions);
                    for (let q = 0; q <questions.length; q++) {
@@ -2510,14 +2510,21 @@ router.on({
                   standings.innerHTML += `
                   <div class="stand me">
                   <div class="std_name">${i+1}. ${results[i].name}</div>
-                  <div class="score">${results[i].score}</div>
+                  <div class="scoreandtime">
+                  <div class="score">${results[i].score}</div>                 
+                  <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                  </div>
+
                   </div>
                   `
                 }else{
                   standings.innerHTML += `
                   <div class="stand">
                   <div class="std_name">${i+1}. ${results[i].name}</div>
-                  <div class="score">${results[i].score}</div>
+                  <div class="scoreandtime">
+                  <div class="score">${results[i].score}</div>                 
+                  <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                  </div>
                   </div>
                   `
                 }
@@ -2525,7 +2532,10 @@ router.on({
                 standings.innerHTML += `
                 <div class="stand">
                   <div class="name">${i+1}. ${results[i].name}</div>
-                  <div class="score">${results[i].score}</div>
+                  <div class="scoreandtime">
+                  <div class="score">${results[i].score}</div>                 
+                  <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                  </div>
                   </div>
                   `
               }

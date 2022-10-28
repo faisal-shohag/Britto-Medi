@@ -462,3 +462,11 @@ function liveDetailsTimer(date, end, element, sdate, button){
       return bnNumbers[fnum]+""+bnNumbers[num%10];
     }
   }
+
+  function addZero(num){
+    // console.log(num);
+    num = parseInt(num);
+    // console.log(num);
+    if(num<10) return "0"+num;
+    else return num;
+  }
