@@ -1967,6 +1967,7 @@ font-size: 17px;
 .dir{
   font-size: 25px;
   /* padding-right: 10px; */
+  color: #555353;
 }
 
 .uni_top, .uni_middle, .uni_bottom{
@@ -2049,8 +2050,35 @@ color: #fff;
   padding: 10px;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-family: 'Lato', Kalpurush;
 }
+
 
 h3, h2{
   font-size: 17px !important;
+}
+
+.topMenu{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.topMenu img{
+  height: 40px;
+}
+
+.menu-item{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.menu_title{
+  font-family: 'Poppins', Hind Siliguri;
+  font-size: 14px;
+  font-weight: bold;
 }

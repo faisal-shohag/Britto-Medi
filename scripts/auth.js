@@ -163,10 +163,8 @@ firebase.auth().onAuthStateChanged(user=> {
      
       UID = user.uid;
       myuid = user.uid;
-      
 
         store.collection('users').doc(user.uid).get().then(snap=>{
-
             // console.log(snap.data());
             if(!snap.data().name) {
                 $('.get-info').html(`

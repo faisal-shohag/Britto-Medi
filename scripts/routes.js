@@ -22,6 +22,27 @@ router.on({
 
         app.innerHTML = `
         <div class="body">
+
+        <div class="topMenu">
+
+       <a href="#!/universities/self"> <div class="menu-item">
+        <div class="menu_icon"><img src="../images/uni.png"></div>
+        <div class="menu_title">বিশ্ববিদ্যালয়</div>
+        </div></a>
+
+        <a href="#!/news"><div class="menu-item">
+        <div class="menu_icon"><img src="../images/news.png"></div>
+        <div class="menu_title">অ্যাডমিশন নিউজ</div>
+        </div></a>
+
+        <a href="#!/resource"><div class="menu-item">
+        <div class="menu_icon"><img src="../images/rsc.png"></div>
+        <div class="menu_title">রিসোর্স</div>
+        </div></a>
+
+        </div>
+
+     
         <!--
         <div class="section">
         <div class="section-heading">
@@ -2752,18 +2773,19 @@ router.on({
     "/resource":function(params){
       $('.top').show();
       $('.top-title').html(`Resources`);
-      $('.top .icon').html(`<img src="../images/pencil-case.png">`);
-      $('.footer').show();
-      $('.footertext').hide();
-        $('.footerIcon').removeClass('footerIconActive');
-            if($('.rsc')[0].classList[3] === undefined){
-        $('.rsc').addClass('footerIconActive');
-        $($($('.rsc')[0].parentNode)[0].lastElementChild).show();
-        //$('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeIn top_dir"><img src="../images/pencil-case.png" height="30px"></div> <div class="animate__animated animate__fadeIn top_text">Resources</div></div>`);
-        }
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
+      // $('.top .icon').html(`<img src="../images/pencil-case.png">`);
+      $('.footer').hide();
+      // $('.footertext').hide();
+      //   $('.footerIcon').removeClass('footerIconActive');
+      //       if($('.rsc')[0].classList[3] === undefined){
+      //   $('.rsc').addClass('footerIconActive');
+      //   $($($('.rsc')[0].parentNode)[0].lastElementChild).show();
+      //   //$('.top_logo').html(`<div onclick="window.history.back()" class="top_app_title"><div class="animate__animated animate__fadeIn top_dir"><img src="../images/pencil-case.png" height="30px"></div> <div class="animate__animated animate__fadeIn top_text">Resources</div></div>`);
+      //   }
       app.innerHTML = `
       <div class="body">
-      <a href="#!/add_resources"><div class="floating-button"><img src="../images/plus.png"></div></a>
+      <a style="display:none;" href="#!/add_resources"><div class="floating-button"><img src="../images/plus.png"></div></a>
       <div class="search-bar">
       <div class="search-icon"><img src="../images/search.png"></div>
       <input autocomplete="off" id="search-book" placeholder="সার্চ করুন..." type="text" name="search">
@@ -2891,12 +2913,12 @@ router.on({
             }
           }
         });
-        if(UID === 'DDkJGuxqAlNCxJO1QjnJT4bAoyX2') $('.floating-button').hide();
+        // if(UID === 'DDkJGuxqAlNCxJO1QjnJT4bAoyX2') $('.floating-button').hide();
     
     }, 
     "/news":function(params){
       $('.top').show();
-      $('.top-title').html(`News`);
+      $('.top-title').html(`Admission News`);
       $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
       $('.footer').hide();
       // $('.footertext').hide();
