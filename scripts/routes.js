@@ -302,7 +302,10 @@ router.on({
             $('#live_banner').html(`
           <a href="#!/live/details/${snap.val().id}"><div class="live-bg"><img src="${l.img_link}"/></div>
             <div class="title">${l.title}</div>
-            <div id="s-time" class="time">${dateForm(l.start_time)} ${timeForm(l.start_time)}</div>
+            <div  class="time">${dateForm(l.start_time).split(' ')[0]} ${dateForm(l.start_time).split(' ')[1]} ${timeForm(l.start_time)} - ${timeForm(l.end_time)}</div>
+            <div id="s-time" class=""><div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div></div>
             <div class="badge"><img src="../images/${l.type}.png"/></div></a>
           `);
           $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
