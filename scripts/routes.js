@@ -3333,6 +3333,7 @@ db.ref('app/Control').once('value', control=>{
     // console.log(myuid)
       let i=0;
       let ladder = [];
+      let htmlArr = [];
       let ss = Object.entries(snap.data());
       // console.log(ss);
       for(let i=0; i<ss.length; i++){
@@ -3344,7 +3345,7 @@ db.ref('app/Control').once('value', control=>{
         })
       }
       ladder.sort((a,b)=>{return b.score - a.score});
-      // console.log(ladder)
+      console.log(ladder)
     
       $('.tp').text(ladder.length);
   
@@ -3356,97 +3357,97 @@ db.ref('app/Control').once('value', control=>{
       <div class="twrap"><div class="top3"><img src="https://robohash.org/${ladder[2].name}.png?set=set4"></div> <div class="topName">${getNickName(ladder[2].name)}</div></div>
       `)
 
+      let board_std = ``;
+      let k = 0;
+      ladder.forEach(item=>{
+        
+        k++;
+      if(k===1){
+        board_std += `
+        <a href="#!/progress/${item.uid}">
+        <div class="l">
+        <div style="display:flex; gap: 10px;">
+        <div class="pandn">
+        <div class="top-pos"><img src="../images/badge1.png" height="30px"></div>
+        </div>
+
+        <div class="s-info">
+        <div class="l-name">${item.name}</div>
+        <div class="instName">${item.inst}</div>
+        </div>
+        </div>
+
+
+        <div class="sandt">
+        <div class="l-score" >${item.score}</div>
+        </div>
+       
+       
+        </div>
+        
+        </a>
+        `
+      }
+      else if(item.uid === myuid){
+        
+          $('#pos').html(`${k}`)
+        
+          board_std  += `
+        <a href="#!/progress/${item.uid}">
+        <div class="l" style="background: crimson; color: #fff">
+        <div style="display:flex; gap: 10px;">
+        <div class="pandn">
+        <div class="u-pos">${k}</div>
+        </div>
+
+        <div class="s-info">
+        <div class="l-name">${item.name}</div>
+        <div class="instName">${item.inst}</div>
+        </div>
+        </div>
+
+
+        <div class="sandt">
+        <div class="l-score" style="color: #fff">${item.score}</div>
+        </div>
+       
+       
+        </div>
+        
+        </a>
+        `
+      }else{
+        board_std  += `
+        <a href="#!/progress/${item.uid}">
+        <div class="l">
+        <div style="display:flex; gap: 10px;">
+        <div class="pandn">
+        <div class="u-pos">${k}</div>
+        </div>
+
+        <div class="s-info">
+        <div class="l-name">${item.name}</div>
+        <div class="instName">${item.inst}</div>
+        </div>
+        </div>
+
+
+        <div class="sandt">
+        <div class="l-score" >${item.score}</div>
+        </div>
+       
+       
+        </div>
+        </a>
+        `
+      }
+      });
     
-      let board = document.getElementById('board');
       $('#page').pagination({
         dataSource: ladder,
         pageSize: 20,
         callback: function(data, pagination) {
-           board.innerHTML = ``;
-            let k = 0;
-            ladder.forEach(item=>{
-              
-              k++;
-            if(k===1){
-              board.innerHTML += `
-              <a href="#!/progress/${item.uid}">
-              <div class="l">
-              <div style="display:flex; gap: 10px;">
-              <div class="pandn">
-              <div class="top-pos"><img src="../images/badge1.png" height="30px"></div>
-              </div>
-    
-              <div class="s-info">
-              <div class="l-name">${item.name}</div>
-              <div class="instName">${item.inst}</div>
-              </div>
-              </div>
-    
-    
-              <div class="sandt">
-              <div class="l-score" >${item.score}</div>
-              </div>
-             
-             
-              </div>
-              
-              </a>
-              `
-            }
-            else if(item.uid === myuid){
-              
-                $('#pos').html(`${k}`)
-              
-              board.innerHTML += `
-              <a href="#!/progress/${item.uid}">
-              <div class="l" style="background: crimson; color: #fff">
-              <div style="display:flex; gap: 10px;">
-              <div class="pandn">
-              <div class="u-pos">${k}</div>
-              </div>
-    
-              <div class="s-info">
-              <div class="l-name">${item.name}</div>
-              <div class="instName">${item.inst}</div>
-              </div>
-              </div>
-    
-    
-              <div class="sandt">
-              <div class="l-score" style="color: #fff">${item.score}</div>
-              </div>
-             
-             
-              </div>
-              
-              </a>
-              `
-            }else{
-              board.innerHTML += `
-              <a href="#!/progress/${item.uid}">
-              <div class="l">
-              <div style="display:flex; gap: 10px;">
-              <div class="pandn">
-              <div class="u-pos">${k}</div>
-              </div>
-    
-              <div class="s-info">
-              <div class="l-name">${item.name}</div>
-              <div class="instName">${item.inst}</div>
-              </div>
-              </div>
-    
-    
-              <div class="sandt">
-              <div class="l-score" >${item.score}</div>
-              </div>
-             
-             
-              </div>
-              </a>
-              `
-            }
-            });
+            $('#board').html(board_std);
         }
       });
         });
