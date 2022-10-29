@@ -3598,6 +3598,179 @@ document.getElementById("upload_widget").addEventListener("click", function () {
     //     })
     
     // }
+    },
+    "/universities/:tag": function(params){
+      $('.top').show();
+      $('.top-title').html(`বিশ্ববিদ্যালয়`);
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
+      $('.footer').hide();
+
+      app.innerHTML = `
+      <div class="body">
+      <div id="uni_list">
+      <ul class="o-vertical-spacing o-vertical-spacing--l">
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="blog-post o-media">
+          <div class="o-media__figure">
+            <span class="skeleton-box" style="width:100px;height:80px;"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <h3 class="blog-post__headline">
+                <span class="skeleton-box" style="width:55%;"></span>
+              </h3>
+              <p>
+                <span class="skeleton-box" style="width:80%;"></span>
+                <span class="skeleton-box" style="width:90%;"></span>
+                <span class="skeleton-box" style="width:83%;"></span>
+                <span class="skeleton-box" style="width:80%;"></span>
+              </p>
+              <div class="blog-post__meta">
+                <span class="skeleton-box" style="width:70px;"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      </div>
+      
+      
+      </div>
+      `
+
+      db.ref('app/universities').once('value', snap=>{
+        let uni = [];
+        snap.forEach(item=>{
+          let u = item.val();
+          if(u.tag.includes(params.tag)){
+            uni.push({...u, key: item.key})
+          }
+        });
+        uni.sort((a, b)=>{
+          return a.i - b.i;
+        });
+        const uni_list = document.getElementById('uni_list');
+        uni_list.innerHTML = ``;
+        for(let u=0; u<uni.length; u++){
+          uni_list.innerHTML += `
+          <a href="#!/uni_details/${uni[u].key}"<div class="uni_item">
+          <div class="uni_lg">
+          <div class="uni_logo"><img src="${uni[u].logo}" /></div>
+          <div class="uni_name">${uni[u].title}</div>
+          </div>
+          <div class="dir"><i class="icofont-rounded-right"></i></div>
+          </div></a>
+          `
+        }
+
+      })
+
+    },
+    "/uni_details/:key": function(params){
+      $('.top').show();
+      $('.top-title').html(`বিশ্ববিদ্যালয়`);
+      $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);
+      $('.footer').hide();
+
+      app.innerHTML = `
+      <div class="">
+      
+      <div class="uni_top"></div>
+      <div class="uni_middle"></div>
+
+      <div class="uni_bottom"></div>
+      
+      
+      </div>
+      `
+
+      db.ref('app/universities/'+params.key).once('value', snap=>{
+       let u = snap.val();
+       $('.top-title').html(`${u.title}`);
+        $('.uni_top').html(`
+        <div class="uni_bg">
+      <div class="uni_image"><img src="${u.img_link}"></div>
+      <div class="uni_title">
+      <div class="animate__animated animate__fadeIn">${u.title}</div>
+      <div class="small animate__animated animate__fadeInLeft">স্থাপিত: ${u.est}</div>
+      </div>
+      <div class="uni_place"><i class="icofont-location-pin"></i> ${u.place}</div>
+      </div>
+        `);
+
+        $('.uni_middle').html(`
+        <div class="uni_count animate__animated animate__fadeIn">
+        <div class="uni_c">${u.seat}</div>
+        <div class="uni_t">আসন</div>
+        </div>
+
+        <div class="uni_count animate__animated animate__fadeIn">
+        <div class="uni_c">${u.faculty}</div>
+        <div class="uni_t">অনুষদ</div>
+        </div>
+
+        <div class="uni_count animate__animated animate__fadeIn">
+        <div class="uni_c">${u.dept}</div>
+        <div class="uni_t">বিভাগ</div>
+        </div>
+
+        <div class="uni_count animate__animated animate__fadeIn">
+        <div class="uni_c">${u.hall}</div>
+        <div class="uni_t">হল</div>
+        </div>
+
+        `);
+
+        $('.uni_bottom').html(`
+        <div class="animate__animated animate__fadeInUp">
+        <div class="uni_head"><i class="icofont-check-circled"></i> আবেদন যোগ্যতা</div>
+        ${u.eligible}
+        </div>
+        `)
+
+      })
+
     }
 
 

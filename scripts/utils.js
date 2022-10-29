@@ -47,6 +47,12 @@ firebase.auth().onAuthStateChanged(user=> {
                         <div class="title">Add Exam & Questions to Chapter</div>
                         </div>
                         </div></a>
+
+                        <a href="#!/addUni"><div class="course-card">
+                        <div class="details">
+                        <div class="title">Add University Details</div>
+                        </div>
+                        </div></a>
             
             
                     </div>
@@ -1921,6 +1927,121 @@ firebase.auth().onAuthStateChanged(user=> {
                             });
                         });
                      })
+                },
+                "/addUni": function(){
+                    app.innerHTML =  `
+               <div class="body">
+               <form id="uni">
+            
+               <div class="input-group mb-3">
+               <span class="input-group-text">Title</span>
+               <input type="text" class="form-control" name="title" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Image Link</span>
+               <input type="text" class="form-control" name="img_link" placeholder="image_link" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Logo</span>
+               <input type="text" class="form-control" name="logo" placeholder="Logo" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Tag</span>
+               <input type="text" class="form-control" name="uni_tag" placeholder="Tag" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Est</span>
+               <input type="text" class="form-control" name="est" placeholder="Established" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Place</span>
+               <input type="text" class="form-control" name="place" placeholder="Place" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Nick Name</span>
+               <input type="text" class="form-control" name="nick_name" placeholder="Nick Name" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+            
+              <div class="input-group mb-3">
+               <span class="input-group-text">Website</span>
+               <input type="text" class="form-control" name="website" placeholder="Website" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+            
+              <div class="input-group mb-3">
+               <span class="input-group-text">Seat</span>
+               <input type="text" class="form-control" name="seat" placeholder="seat" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Hall</span>
+               <input type="text" class="form-control" name="hall" placeholder="Hall" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Faculties</span>
+               <input type="text" class="form-control" name="faculty" placeholder="Faculties" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+              <div class="input-group mb-3">
+               <span class="input-group-text">Dept.</span>
+               <input type="text" class="form-control" name="dept" placeholder="Departments" aria-label="link" aria-describedby="basic-addon1" required>
+              </div>
+
+
+              <div class="input-group mb-3">
+               <textarea style="height: 250px" type="text" class="form-control" name="eligible" placeholder="Eligibility" aria-label="Title" aria-describedby="basic-addon1" required></textarea>
+              </div>
+            
+              
+            
+              <button type="submit" class="btn btn-success">Submit</button>
+               
+               </form>
+               
+               
+               </div>
+               `
+               const uni = document.getElementById('uni');
+            
+               uni.addEventListener('submit', e=> {
+                e.preventDefault();
+                let data = {
+                    title: uni.title.value,
+                    img_link: uni.img_link.value,
+                    tag: uni.uni_tag.value,
+                    est: uni.est.value,
+                    place: uni.place.value,
+                    nick_name: uni.nick_name.value,
+                    website: uni.website.value,
+                    seat: uni.seat.value,
+                    hall: uni.hall.value,
+                    faculty: uni.faculty.value,
+                    dept: uni.dept.value,
+                    eligible: (uni.eligible.value).replaceAll('\n', '<br/>'),
+                    logo: uni.logo.value
+                }
+            
+                console.log(data);
+
+                db.ref('app/universities').push(data);
+            
+                // store.collection('news').add({
+                //     ...data, created_at: (new Date()).toISOString()
+                // }).then(()=>{
+                //     Swal.fire({
+                //         icon: 'success',
+                //         text: 'Added Successfully!'
+                //     })
+                // })
+                
+            
+               })
                 }
 
             }).resolve();
