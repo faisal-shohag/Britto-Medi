@@ -1498,6 +1498,9 @@ align-items: center;
   border-radius: 5px;
   background: #fff;
   font-family: 'Poppins', Kalpurush;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
  
 }
 .paginationjs{
