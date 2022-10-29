@@ -158,7 +158,7 @@ function authCheck(send){
 
 firebase.auth().onAuthStateChanged(user=> {
   $('.sp').hide();
-  // history.pushState({page: 1}, "home", "#!/")
+  history.pushState({page: 1}, "home", "#!/")
     if(user) {
      
       UID = user.uid;
@@ -283,11 +283,11 @@ firebase.auth().onAuthStateChanged(user=> {
               std_name = snap.data().name
               myName = snap.data().name
               mygroup = snap.data().group
-              myPhoto = snap.data().photoUrl ? `<img src="${snap.data().photoUrl}"/>` : `<img src="../images/doctor.png">`;
+              myPhoto = snap.data().photoUrl ? `<img src="${snap.data().photoUrl}"/>` : `<img src="https://robohash.org/unknown.png?set=set4">`;
               myInst = snap.data().inst;
                 $('.user-panel').show();
                
-                $('.prfl').html(`<a class="dropdown-item" href="#!/profile/${user.uid}"><img src="./images/doctor.png"></a>
+                $('.prfl').html(`<a class="dropdown-item" href="#!/profile/${user.uid}"><img src="https://robohash.org/${snap.data().name}.png?set=set4"></a>
                 `);
                 // let data={
                 //     name: snap.data().name,

@@ -176,3 +176,9 @@
   gap: 10px;
 }
 
+
+#my_photo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

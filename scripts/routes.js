@@ -1164,8 +1164,10 @@ router.on({
 
       <div class="profile-top">
       <center><div class="avatar-circle">
-      <span id="my_photo"><img src="../images/doctor.png"></span>
-      <div class="add_my_photo" id="upload_me"><i class="icofont-camera"></i></div>
+      <span id="my_photo"><div class="spinner-border text-dark" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div></span>
+      <div class="add_my_photo" id="upload_me"></div>
       </div></center>
 
       <div class="profile-details">
@@ -1240,16 +1242,16 @@ router.on({
         let live_exams = snap.data().live_exams;
         live_exams = Object.entries(live_exams);
         $('#myExam').text(live_exams.length)
-        if(snap.data().photoUrl){
-          $('#my_photo').html(`<img src="${snap.data().photoUrl}"/>`);
-        }
+        // if(snap.data().photoUrl){
+          $('#my_photo').html(`<img src="https://robohash.org/${snap.data().name}.png?set=set4"/>`);
+        // }
 
         $('.top-title').text(snap.data().name);
         $('.profile-name').text(snap.data().name);
         $('.profile-inst').text(snap.data().inst);
         
       });
-
+/*
       //upload profile photo
       const cloudName = "dj493l0jy"; // replace with your own cloud name
      const uploadPreset = "g4hfhkjb"; 
@@ -1298,6 +1300,7 @@ router.on({
         }
        
       });
+      */
 
 
 
