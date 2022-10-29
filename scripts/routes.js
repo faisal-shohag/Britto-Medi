@@ -3346,9 +3346,11 @@ db.ref('app/Control').once('value', control=>{
       $('.tp').text(ladder.length);
   
       $('.top3content').html(`
-      <div class="twrap"><div class="top2"><img src="https://robohash.org/${ladder[1].name}.png?set=set1"></div> <div class="topName">${getNickName(ladder[1].name)}</div></div>
-      <div class="twrap"><div class="top1"><img src="https://robohash.org/${ladder[0].name}.png?set=set1"></div> <div class="topName">${getNickName(ladder[0].name)}</div> <div class="crown"><img src="../images/crown.png"></div></div>
-      <div class="twrap"><div class="top3"><img src="https://robohash.org/${ladder[2].name}.png?set=set1"></div> <div class="topName">${getNickName(ladder[2].name)}</div></div>
+      <div class="before"></div>
+      <div class="after"></div>
+      <div class="twrap"><div class="top2"><img src="https://robohash.org/${ladder[1].name}.png?set=set4"></div> <div class="topName">${getNickName(ladder[1].name)}</div></div>
+      <div class="twrap"><div class="top1"><img src="https://robohash.org/${ladder[0].name}.png?set=set4"></div> <div class="topName">${getNickName(ladder[0].name)}</div> <div class="crown"><img src="../images/crown.png"></div></div>
+      <div class="twrap"><div class="top3"><img src="https://robohash.org/${ladder[2].name}.png?set=set4"></div> <div class="topName">${getNickName(ladder[2].name)}</div></div>
       `)
 
     
