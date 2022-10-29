@@ -978,6 +978,7 @@ font-family: 'Poppins', Kalpurush;
   font-family: 'Poppins', Kalpurush;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 5px;
+  position: relative;
 }
 
 .news .title{
@@ -1016,6 +1017,9 @@ font-family: 'Poppins', Kalpurush;
 
 .news img{
   height: 80px;
+  width: 150px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 
@@ -1070,7 +1074,9 @@ padding-bottom: 5px;
   text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: Hind Siliguri;
+  /* font-family: Hind Siliguri; */
+  /* display: flex; */
+  padding-top: 10px;
 }
 
 .skeleton-box {
