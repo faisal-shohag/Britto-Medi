@@ -25,7 +25,7 @@ router.on({
 
         <div class="topMenu">
 
-       <a href="#!/universities/self"> <div class="menu-item">
+       <a href="#!/universities/public"> <div class="menu-item">
         <div class="menu_icon"><img src="../images/uni.png"></div>
         <div class="menu_title">বিশ্ববিদ্যালয়</div>
         </div></a>
