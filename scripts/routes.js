@@ -1834,7 +1834,7 @@ router.on({
               video.innerHTML += `
               <div class="video-item">
               <div class="video_title">${data.videos[i].title}</div>
-            <video width="100%" controls> 
+            <video width="100%" controls allowfullcreen="true"> 
              <source src="https://drive.google.com/uc?export=download&id=${data.videos[i].linkId}" type='video/mp4'>
              </video>
              </div>
