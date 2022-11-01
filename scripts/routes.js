@@ -1640,32 +1640,51 @@ router.on({
           
           </div>
 
-          <div class="title-with-count"></div>
+          
            
+          
+
+          
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="answer_tab" data-bs-toggle="tab" data-bs-target="#learn" type="button" role="tab" aria-controls="home" aria-selected="true">Learning</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link title-with-count" id="result_tab" data-bs-toggle="tab" data-bs-target="#particip" type="button" role="tab" aria-controls="profile" aria-selected="false">Participants</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="learn" role="tabpanel" aria-labelledby="home-tab">
           <div class="learnings">
 
-          <div class="video"></div>
-
+          <div class="video">
+          <center>
+          <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+        </div>
+          </center>
+          
           </div>
 
+          </div>
+          </div>
+          <div class="tab-pane fade" id="particip" role="tabpanel" aria-labelledby="profile-tab">
+          
           <div class="participants"></div>
+          </div>
+        </div>
 
       </div>
       `
-        $('.video').html(`
-        <video width="100%" height="400px" src="https://drive.google.com/uc?export=download&id=1dcaGgYGUDHaq4HuevHOH4P3Y_TUAJk8y" type='video/mp4' controls> </video>
-        <video width="100%" height="400px" src="https://drive.google.com/uc?export=download&id=1S31FOx48Zq2_Pd1svGOstd7hUiJ17Xv4" type='video/mp4' controls> </video>
-        `)
+       
 
       getLive();
       function getLive(){
      return store.collection('lives').doc(params.id).get().then(doc=>{
         // console.log(params.id);
-        
         let data = doc.data();
-
-        
-
         $('.top-title').html(`${data.title}`);
           $('.live-post').html(`
           <div class="post">
@@ -1806,24 +1825,65 @@ router.on({
             // <div class="reg_nb">You must sign in to comment!</div>
             // `)
           }
+         
+          //videos
+          const video = document.querySelector('.video');
+          video.innerHTML = '';
+          if(data.videos){
+            for(let i=0; i<data.videos.length; i++){
+              video.innerHTML += `
+              <div class="video-item">
+              <div class="video_title">${data.videos[i].title}</div>
+            <video width="100%" controls> 
+             <source src="https://drive.google.com/uc?export=download&id=${data.videos[i].linkId}" type='video/mp4'>
+             </video>
+             </div>
+              `
+            }
+          }else{
+            $('.video').html(`
+            <div class="sad">
+            <div class="sad_img"><img src="https://i.postimg.cc/g0HPm4BN/7653057.png"></div>
+            <div class="sad_text">No Videos Here</div>
+            <div class="sad_subtext">You will be able to see videos when uploaded!</div>
+            </div>
+            `)
+
+            
+          }
 
            //participants
-           let pt = Object.entries(data.reg_std);
-           //console.log(pt);
-          const pt_view = document.querySelector('.participants');
-          pt_view.innerHTML =``;
-          $('.title-with-count').html(`Participants(${pt.length})`);
-           for(let i=0; i<pt.length; i++){
-            // console.log(pt[i][1]);
-            let pt_status = `<i class="icofont-tick-mark"></i>`;
-            if(!pt[i][1].attend) pt_status = `<i class="icofont-ui-press"></i>`
-              pt_view.innerHTML += `
-              <div class="pt">
-              <div class="pt_name">${pt[i][1].name}</div>
-              <div class="pt_status">${pt_status}</div>
-              </div>
-              `
+           const pt_view = document.querySelector('.participants');
+           if(data.reg_std){
+            let pt = Object.entries(data.reg_std);
+            //console.log(pt);
+
+           pt_view.innerHTML =``;
+           $('.title-with-count').html(`Participants(${pt.length})`);
+            for(let i=0; i<pt.length; i++){
+             // console.log(pt[i][1]);
+             let pt_status = `<i class="icofont-tick-mark"></i>`;
+             if(!pt[i][1].attend) pt_status = `<i class="icofont-ui-press"></i>`
+               pt_view.innerHTML += `
+               <div class="pt">
+               <div class="pt_name">${pt[i][1].name}</div>
+               <div class="pt_status">${pt_status}</div>
+               </div>
+               `
+            }
+
+           }else{
+            pt_view.innerHTML = `
+            <div class="sad">
+            <div class="sad_img"><img src="https://i.postimg.cc/DzrbFkTH/5169273.png"></div>
+            <div class="sad_text">No one is here.</div>
+            <div class="sad_subtext">Registered users will be shown here.</div>
+            </div>
+            `
            }
+
+
+          
            
         
       });
