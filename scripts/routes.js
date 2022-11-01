@@ -290,7 +290,7 @@ router.on({
             $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
             $('#routineModal').modal('show');
           }else{
-            $('#rtn-img').html(`<img src="https://i.postimg.cc/MK8zdb8y/Routine-2.png"/>`)
+            $('#rtn-img').html(`<img src="https://i.postimg.cc/hGy67CQp/Routine-2.png"/>`)
             $('#routineModal').modal('show');
           }
         });
@@ -1653,7 +1653,8 @@ router.on({
       </div>
       `
         $('.video').html(`
-        <video  src="https://rr2---sn-npoeenll.googlevideo.com/videoplayback?expire=1667343861&ei=lVFhY7GAA7qQsfIPt62_kAk&ip=192.200.158.150&id=o-AO0h1_JILtvrg2qvKMZvy56PZlJO7aSbw7SiMPHzHe2s&itag=18&source=youtube&requiressl=yes&spc=yR2vp3mCruYpwyQ6CUgdjpveF4wU_U4&vprv=1&mime=video%2Fmp4&ns=m8ospdhjJeNtTvLU3OMH3bUI&cnr=14&ratebypass=yes&dur=899.030&lmt=1661198626261631&fexp=24001373,24007246&c=WEB&txp=5318224&n=it1SY9A2AhYAqw&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIhAJ4k8qqRUHZbYsMpshyRMuGAGs3JBqMAhz7MGPpPiYwZAiA01QcW5_ODP3E7aYpKMu1TE58OkdDHdPAbq3s8i2oS1Q%3D%3D&redirect_counter=1&cm2rm=sn-a5myk7s&req_id=69daf226ecfa3ee&cms_redirect=yes&cmsv=e&mh=L8&mip=118.179.74.17&mm=34&mn=sn-npoeenll&ms=ltu&mt=1667322053&mv=m&mvi=2&pl=24&lsparams=mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRQIhAKIdH4uT0Ey6ZRQNAGv7L8gUQnR7HGLsHx9811xrzfIFAiAaSB66BgMz4qEtSPPaBIvhyvtWspoJyZvF0TFfHI6-vA%3D%3D" height="400px" width="100%" controls> </video>
+        <video width="100%" height="400px" src="https://drive.google.com/uc?export=download&id=1dcaGgYGUDHaq4HuevHOH4P3Y_TUAJk8y" type='video/mp4' controls> </video>
+        <video width="100%" height="400px" src="https://drive.google.com/uc?export=download&id=1S31FOx48Zq2_Pd1svGOstd7hUiJ17Xv4" type='video/mp4' controls> </video>
         `)
 
       getLive();
