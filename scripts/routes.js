@@ -1647,12 +1647,15 @@ router.on({
           
 
           <ul class="nav nav-tabs" id="myTab" role="tablist">
+         
           <li class="nav-item" role="presentation">
-            <button class="nav-link title-with-count" id="result_tab" data-bs-toggle="tab" data-bs-target="#particip" type="button" role="tab" aria-controls="profile" aria-selected="false">Participants</button>
+            <button class="nav-link title-with-count" id="result_tab" data-bs-toggle="tab" data-bs-target="#particip" type="button" role="tab" aria-controls="profile" aria-selected="true">Participants</button>
           </li>
+
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="answer_tab" data-bs-toggle="tab" data-bs-target="#learn" type="button" role="tab" aria-controls="home" aria-selected="true">Learning</button>
+            <button class="nav-link active" id="answer_tab" data-bs-toggle="tab" data-bs-target="#learn" type="button" role="tab" aria-controls="home" aria-selected="false">Learning</button>
           </li>
+
         </ul>
 
         <div class="tab-content" id="myTabContent">
