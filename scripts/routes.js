@@ -1648,31 +1648,29 @@ router.on({
 
           <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="answer_tab" data-bs-toggle="tab" data-bs-target="#learn" type="button" role="tab" aria-controls="home" aria-selected="true">Learning</button>
+            <button class="nav-link title-with-count" id="result_tab" data-bs-toggle="tab" data-bs-target="#particip" type="button" role="tab" aria-controls="profile" aria-selected="false">Participants</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link title-with-count" id="result_tab" data-bs-toggle="tab" data-bs-target="#particip" type="button" role="tab" aria-controls="profile" aria-selected="false">Participants</button>
+            <button class="nav-link active" id="answer_tab" data-bs-toggle="tab" data-bs-target="#learn" type="button" role="tab" aria-controls="home" aria-selected="true">Learning</button>
           </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade" id="particip" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="participants"></div>
+        </div>
+
           <div class="tab-pane fade show active" id="learn" role="tabpanel" aria-labelledby="home-tab">
           <div class="learnings">
-
           <div class="video">
           <center>
           <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Loading...</span>
-        </div>
+          <span class="visually-hidden">Loading...</span>
+          </div>
           </center>
-          
-          </div>
-
           </div>
           </div>
-          <div class="tab-pane fade" id="particip" role="tabpanel" aria-labelledby="profile-tab">
-          
-          <div class="participants"></div>
           </div>
         </div>
 
