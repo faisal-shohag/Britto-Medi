@@ -1649,22 +1649,22 @@ router.on({
           <ul class="nav nav-tabs" id="myTab" role="tablist">
          
           <li class="nav-item" role="presentation">
-            <button class="nav-link title-with-count" id="result_tab" data-bs-toggle="tab" data-bs-target="#particip" type="button" role="tab" aria-controls="profile" aria-selected="true">Participants</button>
+            <button class="nav-link title-with-count active" id="result_tab" data-bs-toggle="tab" data-bs-target="#particip" type="button" role="tab" aria-controls="particip" aria-selected="true">Participants</button>
           </li>
 
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="answer_tab" data-bs-toggle="tab" data-bs-target="#learn" type="button" role="tab" aria-controls="home" aria-selected="false">Learning</button>
+            <button class="nav-link" id="answer_tab" data-bs-toggle="tab" data-bs-target="#learn" type="button" role="tab" aria-controls="answer" aria-selected="false">Learning</button>
           </li>
 
         </ul>
 
         <div class="tab-content" id="myTabContent">
 
-        <div class="tab-pane fade" id="particip" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="tab-pane fade show active" id="particip" role="tabpanel" aria-labelledby="particip-tab">
         <div class="participants"></div>
         </div>
 
-          <div class="tab-pane fade show active" id="learn" role="tabpanel" aria-labelledby="home-tab">
+          <div class="tab-pane fade" id="learn" role="tabpanel" aria-labelledby="answer-tab">
           <div class="learnings">
           <div class="video">
           <center>
