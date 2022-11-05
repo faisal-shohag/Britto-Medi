@@ -331,18 +331,49 @@ function liveTimer(date, end, element, sdate){
   
       if(end==-1){
         $(sdate).html(`<div class="running">Running</div>`);
-        $(element).html(`
+        if(hours == 0 && minutes !=0){
+          $(element).html(`
+        <div class="t-num">${minutes}M</div>
+        <div class="t-num">${seconds}S</div>
+        `)
+        }else if(hours == 0 && minutes == 0 && seconds != 0){
+          $(element).html(`
+          <div class="t-num">${seconds}S</div>
+          `)
+        }else{
+          $(element).html(`
         <div class="t-num">${hours}H</div>
         <div class="t-num">${minutes}M</div>
         <div class="t-num">${seconds}S</div>
         `)
+        }
+        
       }else{
-        $(element).html(`
-        <div class="t-num">${days}D</div>
+
+        if(days == 0 && hours!=0){
+          $(element).html(`
         <div class="t-num">${hours}H</div>
         <div class="t-num">${minutes}M</div>
         <div class="t-num">${seconds}S</div>
         `);
+        }else if(hours == 0 && days== 0 && minutes !=0) {
+          $(element).html(`
+        <div class="t-num">${minutes}M</div>
+        <div class="t-num">${seconds}S</div>
+        `);
+        }else if(hours == 0 && days== 0 && minutes ==0){
+          $(element).html(`
+        <div class="t-num">${seconds}S</div>
+        `);
+        } else{
+          $(element).html(`
+          <div class="t-num">${days}D</div>
+          <div class="t-num">${hours}H</div>
+          <div class="t-num">${minutes}M</div>
+          <div class="t-num">${seconds}S</div>
+          `);
+        }
+       
       }
       
     if (distance < 0) {
@@ -373,6 +404,8 @@ function liveDetailsTimer(date, end, element, sdate, button){
      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+     
    
        if(end==-1){
          $(sdate).html(`Running`);
