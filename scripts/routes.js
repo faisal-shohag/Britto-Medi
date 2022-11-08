@@ -290,7 +290,7 @@ router.on({
             $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
             $('#routineModal').modal('show');
           }else{
-            $('#rtn-img').html(`<img src="https://i.postimg.cc/hGy67CQp/Routine-2.png"/>`)
+            $('#rtn-img').html(`<img src="https://i.postimg.cc/rsPxyDTL/Routine-3.png"/>`)
             $('#routineModal').modal('show');
           }
         });
