@@ -32,6 +32,7 @@ function authExecute(){
           text: "সঠিক ফোন নম্বর প্রদান করুন!",
           footer: "ফোন নম্বরটি ১১ ডিজিটের হওয়া জরুরী!",
         });
+        $('.send_loading').hide();
         return;
       }
 
@@ -51,8 +52,27 @@ function authExecute(){
           $('.varify').show();
           const sentCodeId = confirmationResult.verificationId;
           $(".warn").html(`
-         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি যেতে ১ মিনিটের মত সময় লাগতে পারে।  যদি না গিয়ে থাকে তাহলে <a href="/#!/auth">আবার</a> চেষ্টা করুন। 
+         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি যেতে ১ মিনিটের মত সময় লাগতে পারে।
          `);
+         $('.send_loading').hide();
+
+         $('.resend').html(`
+         <button class="btn btn-secondary" id="resend-button" disabled>Resend<span class="resend_timer"></span></button>
+         `);
+          let r_time = 60;
+         let resendTimer = setInterval(()=>{
+            r_time--;
+            if(r_time<0){
+              clearInterval(resendTimer);
+              $('.resend').html(`
+              <button class="btn btn-success" onclick="window.location.reload()" id="resend-button">Resend</button>
+            `);
+            }
+
+            $('.resend_timer').html(`(${r_time})`);
+         }, 1000)
+
+
           // console.log(confirmationResult);
           $('#recaptcha-container').hide();
           $("#phoneNumber").hide();
@@ -63,7 +83,7 @@ function authExecute(){
              signInWithPhone(sentCodeId);
 
              $('.warn').html(`
-             <center><div class="spinner-border text-dark" role="status">
+             <center style="display: flex; gap: 10px; justify-content: center; align-items: center;"><div class="spinner-border text-dark" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
        Signing In Please wait! </center>
@@ -119,8 +139,6 @@ function authExecute(){
             { merge: true }
           )
           .then(() => {
-            // window.location.reload();
-            router.navigate('/');
             window.location.reload();
             console.log(user.uid)
           });
@@ -128,22 +146,29 @@ function authExecute(){
         console.log("USER NOT LOGGED IN");
       }
     });
-
-   
 }
 
 
 function signOut(){
-    firebase
+  Swal.fire({
+    icon: 'warning',
+    text: 'Do you want to logout?',
+    confirmButtonText: 'Yes',
+    showCancelButton: true,
+    cancelButtonText: 'No'
+   }).then(res=>{
+    if(res.isCofirmed){
+      firebase
           .auth()
           .signOut()
           .then(() => {
-            router.navigate('/auth')
-            // window.location.replace('#!/auth')
+            window.location.reload();
           })
           .catch((e) => {
-            console.log(e);
+          console.log(e);
           });
+    }
+  })
 }
 
 var UID = false;
@@ -155,7 +180,6 @@ var myPhoto = '';
 var myInst = '';
 var myName = '';
 function authCheck(send){
-
 firebase.auth().onAuthStateChanged(user=> {
   $('.sp').hide();
   history.pushState({page: 1}, "home", "#!/")
@@ -327,18 +351,7 @@ firebase.auth().onAuthStateChanged(user=> {
     }
     else{
         $('.user-panel').show();
-        $('.user-panel').html(`
-        <a href="/#!/auth"><div class="signInButton">Sign In</div></a>
-        `);
-        $('#app').html(`
-        <center>Please Sign In!<br>
-      <a href="#!/auth"> <button class="btn btn-primary">Sign In</button></a>
-        </center>
-        `);
         $('.footer').hide();
-        // window.location.replace('/#!/auth')
-
-        router.navigate('/auth');
     }
 });
 
