@@ -182,8 +182,9 @@ var myName = '';
 function authCheck(send){
 firebase.auth().onAuthStateChanged(user=> {
   $('.sp').hide();
-  history.pushState({page: 1}, "home", "#!/")
+
     if(user) {
+        // history.pushState({page: 1}, "home", "#!/")
      
       UID = user.uid;
       myuid = user.uid;
