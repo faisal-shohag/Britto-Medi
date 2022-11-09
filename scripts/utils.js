@@ -301,7 +301,7 @@ firebase.auth().onAuthStateChanged(user=> {
                             isPublished: false,
                             show_q: false,
                             duration: add_course.duration.value,
-                            neg: parseInt(add_course.neg.value),
+                            neg: parseFloat(add_course.neg.value),
                             isReg: true
             
                         }
