@@ -1579,6 +1579,11 @@ router.on({
         `;   
         }
 
+
+        ended.sort((a, b)=>{
+          return new Date(a.end_time) - new Date(b.end_time);
+        })
+
         
           const list_past = document.querySelector('.list_past');
           list_past.innerHTML = '';
