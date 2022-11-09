@@ -21,7 +21,7 @@ function authExecute(){
     });
 
     const sendVerificationCode = () => {
-        
+      $('.send_loading').show();
       phoneNumber = document.getElementById("phoneNumber").value;
       phoneNumber = "+88" + phoneNumber;
       console.log(phoneNumber.length);
@@ -162,7 +162,7 @@ function signOut(){
           .auth()
           .signOut()
           .then(() => {
-            window.location.reload();
+            // window.location.reload();
           })
           .catch((e) => {
           console.log(e);
