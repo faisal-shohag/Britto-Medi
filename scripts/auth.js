@@ -157,7 +157,7 @@ function signOut(){
     showCancelButton: true,
     cancelButtonText: 'No'
    }).then(res=>{
-    if(res.isCofirmed){
+    if(res.isConfirmed){
       firebase
           .auth()
           .signOut()
