@@ -3886,10 +3886,374 @@ const app = document.getElementById('app');
     
           })
     
+        },
+        "/dictionary": function(){
+          app.innerHTML= `
+          <div class="animate__animated animate__fadeIn body">
+          <div class="top_title"><div class="w">W</div>ord<div class="cursive">profound</div></div>
+          <center id="prg">
+          <div class="progress grey">
+          <div class="indeterminate red"></div>
+      </div>
+          </center>
+          <div class="input-field search">
+          <i class="icofont-search-1 prefix"></i>
+          <input id="search" name="search" type="text" placeholder="Search English or বাংলা" />
+      
+          <div class="dic_header">Recent Searches <a href="#!/history"><div style="display: none;"  class="dic_head_sub">See all</div></a></div>
+          <div class="history"></div>
+          <div class="histories"></div>
+          </div>
+      
+          <div class="menu_item">
+          <a href="#!/favorites"><div class="menu_logo"><i class="icofont-favourite"></i></div> <div class="menu_title">Favorite Words</div></a>
+          </div>
+          <div class="menu_item">
+          <a href="#!/newspaper"><div class="menu_logo" style="color: #316e0d;background: #41800757;"><i class="icofont-newspaper"></i></div> <div class="menu_title" style="color:#316e0d; display: flex; flex-direction: row; width: 100%; align-items: center; gap: 5px;"><span>News from</span> <img height="20px" src="https://img.thedailystar.net/sites/all/themes/sloth/logo.svg"/></div></a>
+          </div>
+         <div class="rem"></div>
+          `
+          // db.ref('app/dic/favs').once('value', f=>{
+          //   $('#prg').hide();
+          //   let data=[];
+          //   f.forEach(item=>{
+          //     data.push(item.val().word);
+          //   });
+          //   let randomWord = Math.floor(Math.random()*data.length);
+          //   let randomBackground = Math.floor(Math.random()*15);
+          //   let word = data[randomWord];
+          //   //console.log(data[randomWord]);
+          //   //console.log(gradientColorCode[randomBackground]);
+          //   $('.rem').html(`
+          //   <div style="background:${gradientColorCode[randomBackground]};" class="sug-card animate__animated animate__fadeIn">
+          //   <div class="title-1"><i class="icofont-brainstorming"></i> Remember</div>
+          //   <div class="title-word animate__animated animate__fadeIn">${word}<div style="font-size: 15px" id="bn">(...)</div></div>
+          //   <div class="title-meaning"><center> <div class="preloader-wrapper small active">
+          //   <div class="spinner-layer spinner-green-only">
+          //     <div class="circle-clipper left">
+          //       <div class="circle"></div>
+          //     </div><div class="gap-patch">
+          //       <div class="circle"></div>
+          //     </div><div class="circle-clipper right">
+          //       <div class="circle"></div>
+          //     </div>
+          //   </div>
+          // </div>
+          //       </center></div>
+          //       <center><a href="#!/search/${word}"><div style="color: #eee;" class="more">more...</div></a></center>
+          //   </div>
+       
+          //   </div>
+          //   `);
+          //   $(function(){
+          //     $.get('https://api.dictionaryapi.dev/api/v2/entries/en/'+word, function(){})
+          //     .done(function(res){
+          //      $('.title-meaning').html(`<div class="animate__animated animate__fadeInUp"><i>${res[0].meanings[0].partOfSpeech}</i> - <b>${res[0].meanings[0].definitions[0].definition}</b></div>`);
+          //     }).fail(e=>{
+          //       $('.title-meaning').html(`<div class="animate__animated animate__fadeInUp" style="color: red; text-shadow: 0px 2px 3px rgba(0,0,0,.4);">No defination found!</div>`);
+          //     });
+          //   });
+      
+          //   $(function(){
+          //     $.get('https://api.codetabs.com/v1/proxy?quest=https://www.english-bangla.com/dictionary/'+word, ()=>{})
+          //     .done(res=>{
+          //         let ht = res.split('\n');
+          //         let w ='';
+          //         for(let i=0;i<ht.length; i++){
+          //           if(ht[i].includes('description')){
+          //             w = ht[i];
+          //             break;
+          //           }
+          //         }
+          //         w = w.split('-');
+          //         w = w[1].split('|');
+          //        // console.log(w);
+          //         // if(w[0].includes(';')){
+          //         // w = w[0].split(';');
+          //         // }
+          //         // if(w[0].includes(',')){
+          //         //   w = w[0].split(',');
+          //         //   }
+          //        // console.log(w[0]);
+          //         $('#bn').text('['+w[0]+']');
+          //     })
+          //   });
+            
+          // });
+         
+          // var words;
+          // db.ref('app/dic/search_history/').on('value', s=>{
+          //     $('#prg').hide();
+          //     let history = document.querySelector('.history');
+          //     history.innerHTML="";
+          //     words = s.val().words;
+          //     for(let i=0; i<words.length; i++){
+          //       let res = /^[a-zA-Z]+$/.test(words[i]);
+          //         if(res)
+          //         history.innerHTML += `
+          //             <div class="word_list">
+          //             <a href="#!/search/${words[i]}"><div class="word">${words[i]}</div></a>
+          //             </div>
+          //         `
+          //         else 
+          //         history.innerHTML += `
+          //         <div class="word_list">
+          //         <a href="#!/search_bangla/${words[i]}"><div class="word">${words[i]}</div></a>
+          //         </div>
+          //     `
+          //     }
+          //     document.getElementById('search').addEventListener('keyup', function(event){
+          //         if(event.key === 'Enter') {
+          //             event.preventDefault();
+          //             let s_word = (this.value).toLowerCase();
+          //             let allw = words.join(', ');
+          //             if(!allw.includes(s_word)){
+          //             if(words.length===10){
+          //                 words.pop();
+          //                 words.unshift(s_word);
+          //             }else{
+          //                 words.push(s_word);
+          //             }
+          //             db.ref('app/dic/search_history/').update({words: words});
+          //         }
+          //         let res = /^[a-zA-Z]+$/.test(s_word);
+          //         if(res) router.navigate('/search/'+s_word);
+          //         else router.navigate('/search_bangla/'+s_word);
+          //      }
+          //   });
+          // });
+        },
+        "search/:id": function(params){  
+          $('.selected_modal').removeClass('animate__bounceOutUp');
+      $('.selected_modal').addClass('animate__bounceOutDown');
+          if (document.contains(document.getElementById("share-snippet"))) {
+            document.getElementById("share-snippet").remove();
         }
+            app.innerHTML= `
+            <div class="animate__animated animate__fadeInUp body">
+        <div class="top_title_screen" onclick="window.history.back()"><i class="icofont-simple-left"></i> <span id="tt">Searching...</span></div>
+        <div class="dic_body">
+        <center id="prg">
+        <div class="progress grey">
+        <div class="indeterminate red"></div>
+    </div>
+        </center>
+        </div>
+        <div class="bn_img"></div>
+        </div>`;
+        const dic_body = document.querySelector('.dic_body');
+            let s_word = params.id;
+    
+            $(function(){
+              $.get('https://api.dictionaryapi.dev/api/v2/entries/en/'+s_word, function(){})
+              .done(function(res){
+             // console.log(res);
+             $('#tt').text('Search');
+                  dic_body.innerHTML = `
+                  <div class="word_head"> <span id="not_found"><div id="word_speak"  class="speaker"><i class="icofont-audio"></i> </div></span> ${s_word} <div class="add_fav"><i class="icofont-favourite"></i></div></div></div>
+                  <div class="word_prnc">/${res[0].phonetic}/</div>
+                  <div class="word_def"></div>
+                  <div class="origin"></div>
+                  `
+                  
+                  $('.add_fav').hide();
+                  let audio;
+                  if(res[0].phonetic !== undefined){
+                   audio = new Audio(res[0].phonetics[0].audio);
+    
+                   $('#word_speak').click(function(e){
+                    e.preventDefault();
+                    audio.play();
+                })
+                   
+                  }else {
+                    $('#word_speak').hide();
+                    $('.word_prnc').hide();
+                    $('#not_found').html(`<div id="word_speak" onclick="responsiveVoice.speak('${s_word}')"  class="speaker"><i class="icofont-audio"></i> </div>`)
+                  }
+                  
+                  let word_def = document.querySelector('.word_def');
+                  let meanings = res[0].meanings;
+                  for(let i=0; i<meanings.length; i++){
+                          let syn = (res[0].meanings[i].definitions[0].synonyms).map(e=> "<a href='#!/search/"+ e + "'>"+e).join("</a>, ");
+                          syn += "</a>"
+                          let ant = (res[0].meanings[i].definitions[0].antonyms).map(e=> "<a href='#!/search/"+ e + "'>"+e).join("</a>, ");
+                          ant += "</a>"
+                          
+                          let pos = res[0].meanings[i].partOfSpeech;
+                          let p = pos.substring(1, pos.length);
+                          pos = pos[0].toUpperCase() + p;
+    
+                          if(res[0].meanings[i].definitions[0].synonyms.length === 0 && res[0].meanings[i].definitions[0].antonyms.length !== 0){
+                            word_def.innerHTML += `
+                            <div class="def_body">
+                            <div class="pos">${pos}</div>
+                            <div class="def">${res[0].meanings[i].definitions[0].definition} <div onclick="responsiveVoice.speak('${res[0].meanings[i].definitions[0].definition}')" class="speaker"><i class="icofont-audio"></i></div></div>
+                            <div class="ex">"${res[0].meanings[i].definitions[0].example}"</div>
+                            <div class="syn" id="ant"><span class="dic_text">Antonyms: </span>${ant}</div>
+                            </div>
+                            `
+    
+                          }else if(res[0].meanings[i].definitions[0].antonyms.length === 0 && res[0].meanings[i].definitions[0].synonyms.length !== 0){
+                            word_def.innerHTML += `
+                        <div class="def_body">
+                        <div class="pos">${pos}</div>
+                        <div class="def">${res[0].meanings[i].definitions[0].definition} <div onclick="responsiveVoice.speak('${res[0].meanings[i].definitions[0].definition}')" class="speaker"><i class="icofont-audio"></i></div></div>
+                        <div class="ex">"${res[0].meanings[i].definitions[0].example}"</div>
+                        <div class="syn" id="syn"><span class="dic_text">Synonyms: </span>${syn}</div>
+                        </div>
+                        `
+                        }else if(res[0].meanings[i].definitions[0].antonyms.length === 0 && res[0].meanings[i].definitions[0].synonyms.length === 0){
+                            word_def.innerHTML += `
+                        <div class="def_body">
+                        <div class="pos">${pos}</div>
+                        <div class="def">${res[0].meanings[i].definitions[0].definition} <div onclick="responsiveVoice.speak('${res[0].meanings[i].definitions[0].definition}')" class="speaker"><i class="icofont-audio"></i></div></div>
+                        <div class="ex">"${res[0].meanings[i].definitions[0].example}"</div>
+                        </div>
+                        `
+                        }
+                        else{
+                        word_def.innerHTML += `
+                        <div class="def_body">
+                        <div class="pos">${res[0].meanings[i].partOfSpeech}</div>
+                        <div class="def">${res[0].meanings[i].definitions[0].definition} <div onclick="responsiveVoice.speak('${res[0].meanings[i].definitions[0].definition}')" class="speaker"><i class="icofont-audio"></i></div></div>
+                        <div class="ex">"${res[0].meanings[i].definitions[0].example}"</div>
+                        <div class="syn" id="syn"><span class="dic_text">Synonyms: </span>${syn}</div>
+                        <div class="syn" id="ant"><span class="dic_text">Antonyms: </span>${ant}</div>
+                        </div>
+                        `}
+                        if(res[0].meanings[i].definitions[0].example == undefined) $('.ex').html("");
+                        
+                  }
+                 if(res[0].origin !== undefined){ 
+                     let v = (res[0].origin). replace(/'/g,'');
+                     console.log(v);
+                  $('.origin').html(`
+                  <div class="def_body">
+                  <div class="org"><b>ORIGIN:</b> ${res[0].origin} <div onclick="responsiveVoice.speak('${v}')" class="speaker"><i class="icofont-audio"></i></div>
+                  </div>
+                  `)}
+                  $('.bn_img').html(`
+                  <div class="dic_header">Bangla Academy Dictionary</div>
+                  <div class="img"><img onError="this.onerror=null;this.src='https://cdn.dribbble.com/users/88213/screenshots/8560585/media/7263b7aaa8077a322b0f12a7cd7c7404.png?compress=1&resize=200x200';" src="https://www.english-bangla.com/public/images/words/D${s_word[0]}/${s_word}"/></div>`);
+                // AddFav(s_word);
+                }).fail(e=>{
+                  $('.bn_img').html(``);
+                  bnAc(s_word);
+                });
+            });
     
     
+        },
+        "newspaper": function(){
+          app.innerHTML = `
+          <div class="animate__animated animate__fadeIn body">
+          <div class="top_title_screen" onclick="window.history.back()"><i class="icofont-simple-left"></i> <span id="tt">News...</span></div>
+          <center id="prg">
+            <div class="progress grey">
+            <div class="indeterminate red"></div>
+        </div>
+            </center>
+          <div class="news_list"></div>
+          </div>
+          `
+            $(function(){
+                $.get('https://api.allorigins.win/get?url=https://www.thedailystar.net/top-news', ()=>{})
+                .done(res=>{
+                  $('#tt').text('News');
+                  $('#prg').hide();
+                  const nw = document.querySelector('.news_list');
+                  nw.innerHTML='';
+                let news = res.contents.split('\n');
+                let line = 0;
+                //console.log(news);
+                for(let i=0; i<news.length; i++){
+                  if(news[i].includes('top-news-ticker-runner')){
+                    line = i;
+                    break;
+                  }
+                }
+                let headlines = news[line+1].split('</a>');
+                for(let i=0; i<headlines.length-1; i++){
+                  let a = headlines[i].split('>');
+                  let b = a[0].split('"');
+                  //console.log(b[1]);
+                  b = b[1].split('/');
+                  b = b.join('~');
+                  if(a[1].includes('Pori Moni')) continue;
+                  if(a[1].length>0){
+                   let c = a[1].replace('%', '~');
+                  nw.innerHTML +=`
+                  <div class="menu_item nw">
+                  <a href="#!/newsparse/${b}/${c}"><div class="menu_logo" style="color: #316e0d;background: #fff; padding: 5px; height: 25px width: 25px; border-radius: 50%; border: 1px solid #eee;"><img height="25px" src="https://img.thedailystar.net/sites/default/files/styles/small_201/public/default_fallback.jpg"/></div> <div class="menu_title" style="color:#316e0d; font-size: 14px; font-family: 'Copyright Klim Type Foundry';">${a[1]}</div></a>
+                  </div>`;
+                }
+                }
+                }).fail(e=>{
+                  
+                });
     
+             });
+                
+        },
+        "/newsparse/:id/:title":function(params){
+          console.log(params.id);
+          let id = (params.id).split('~');
+          id = id.join('/');
+          let title = params.title;
+          title = title.replace('~', '%');
+          app.innerHTML = `
+          <div class="animate__animated animate__fadeIn body">
+          <div class="top_title_screen" onclick="window.history.back()"><i class="icofont-simple-left"></i> <span id="tt">News...</span></div>
+          <center id="prg">
+            <div class="progress grey">
+            <div class="indeterminate red"></div>
+        </div>
+            </center>
+            <div class="newsbody">
+           <center>
+           <div class="preloader-wrapper active">
+           <div class="spinner-layer spinner-green-only">
+             <div class="circle-clipper left">
+               <div class="circle"></div>
+             </div><div class="gap-patch">
+               <div class="circle"></div>
+             </div><div class="circle-clipper right">
+               <div class="circle"></div>
+             </div>
+           </div>
+         </div>
+           </center> 
+            </div>
+          </div>
+          `
+          const newsbody = document.querySelector('.newsbody');
+          $(function(){
+            $.get('https://api.allorigins.win/get?url=https://www.thedailystar.net'+id, ()=>{})
+            .done(res=>{
+              $('#tt').text('News');
+              $('#prg').hide();
+              let news = res.contents.split('\n');
+              let s=0;
+              let e=0;
+              let img='';
+              for(let i=0; i<news.length; i++){
+                if(news[i].includes('data-exthumbimage')) img = news[i];
+                if(news[i].includes('section-content margin-lr pt-20 pb-20 clearfix')){
+                  s=i;
+                }
+                if(news[i].includes('mb-20 mr-20 hide-for-print dfp-tag-wrapper text-center')) e=i;
+              }
+              img = img.split('"');
+              newsbody.innerHTML=`<div class="news_title"><i class="icofont-news"></i> ${title}</div><div class="news_image"><img src="${img[5]}"/></div>`;
+              for(let i=s; i<e; i++){
+                newsbody.innerHTML += `
+                ${news[i]}
+                `
+              }
+            })
+          });
+        }
     
     
     

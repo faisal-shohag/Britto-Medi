@@ -1,0 +1,408 @@
+@font-face {font-family: "Copyright Klim Type Foundry";
+    src: url("https://db.onlinewebfonts.com/t/2bd08e50de2f6bf200a884f65030af75.eot"); /* IE9*/
+    src: url("https://db.onlinewebfonts.com/t/2bd08e50de2f6bf200a884f65030af75.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("https://db.onlinewebfonts.com/t/2bd08e50de2f6bf200a884f65030af75.woff2") format("woff2"), /* chrome firefox */
+    url("https://db.onlinewebfonts.com/t/2bd08e50de2f6bf200a884f65030af75.woff") format("woff"), /* chrome firefox */
+    url("https://db.onlinewebfonts.com/t/2bd08e50de2f6bf200a884f65030af75.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+    url("https://db.onlinewebfonts.com/t/2bd08e50de2f6bf200a884f65030af75.svg#Copyright Klim Type Foundry") format("svg"); /* iOS 4.1- */
+}
+
+
+.w{
+    font-family: 'Lato', serif;
+    background: crimson;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 5px;
+    padding-left: 5px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    color: #fff;
+    border-radius: 3px;
+    
+
+}
+
+.cursive{
+    font-family: 'Tangerine', cursive;
+}
+
+.search input{
+    color: #222;
+    font-family: 'Lato', kalpurush;
+    padding-left: 5px !important;
+    margin: 0;
+    border: 0;
+    background-color: #eeee !important;
+    border-bottom: 0 !important;
+    border-radius: 5px !important;
+}
+
+.search{
+  position: relative;
+}
+
+.histories{
+    background: #fff;
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    z-index: 99;
+    top: 60%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-radius: 5px;
+ overflow-y: scroll;
+ overflow-x: hidden;
+    display: none;
+}
+
+.input-field>label{
+    left: 2% !important;
+    pointer-events: none;
+  }
+  
+  .word_head{
+      font-size: 40px;
+      font-family: 'Abril Fatface', cursive, kalpurush;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      position: relative;
+  }
+
+  .add_fav{
+    position: absolute;
+    right: 3%;
+    color: #8d8b8b;
+    cursor: pointer;
+    bottom: -35%;
+    font-size: 30px;
+    }
+    
+    .word_prnc{
+        font-family: 'IM Fell DW Pica', serif;
+        font-size: 16px;
+        padding-left: 10px;
+        
+    }
+    
+     .speaker{
+        font-size: 20px;
+        color: blue;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        box-shadow: 0 1px 5px rgba(0,0,0,.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgb(216, 213, 213);
+    }
+    
+    .def_body{
+      margin-top: 10px;
+      padding: 10px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      border-radius: 5px;
+      background: #ffff;
+      font-family: Lato, kalpurush;
+    }
+    
+    .org{
+        font-family: 'IM Fell DW Pica', serif;
+    }
+    
+    .pos{
+        font-family: Lato;
+        font-weight: bold;
+        font-size: 18px;
+        color: blueviolet;
+    }
+    
+    .def{
+        font-size: 17px;
+        font-weight: bold;
+    }
+    
+    .def div{
+        /* position: absolute; */
+        right: 0;
+    }
+
+    .syn{
+        font-size: 16px;
+    }
+    
+    .dic_text{
+        font-size: 16px;
+        color: darkcyan;
+        font-weight: bold;
+    }
+    
+    .bn_img{
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+    
+    .dic_header{
+        font-size: 20px;
+        /* font-family: 'Abril Fatface', cursive; */
+        font-family: Lato;
+        margin-bottom: 10px;
+        font-weight: 900;
+        color: rgb(121, 117, 117);
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .dic_head_sub{
+        font-family: Lato;
+        font-size: 17px;
+        color: blue;
+        text-decoration: underline;
+    }
+
+    .syn a{
+        color: blue;
+        text-decoration: underline;
+        
+    }
+    
+    .word{
+     font-size: 17px;
+     /* font-family: 'Abril Fatface', cursive; */
+     font-family: 'Lato', kalpurush;
+     font-weight: bold;
+     color: rgb(7, 5, 5);
+     padding-top: 0;
+     padding-bottom: 0;
+     padding-left: 5px;
+     padding-right: 5px;
+     background: #fff;
+     border-radius: 5px;
+     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+     min-width: 80px;
+     text-align: center;
+    }
+    
+    .img{
+        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+        padding: 0;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+    }
+
+     /* label focus color */
+ .input-field input[type=text]:focus + label {
+    color: #000;
+}
+/* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+
+  .input-field input:focus + label {
+    color: red !important;
+  }
+  /* label underline focus color */
+.input-field input:focus {
+    border: 0px solid grey !important;
+    box-shadow: 0 0px 0 0 red !important
+  }
+
+  .input-field i{
+      color: rgb(165, 161, 161);
+  }
+  .active{
+      color: #000 !important;
+  }
+
+  .top_title_screen{
+    font-family: 'Lato', kalpurush;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.option_menu{
+    display: flex;
+    gap: 15px;
+    font-family: Lato;
+    margin-top: 5px;
+}
+
+.option_item{
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    cursor: pointer;
+}
+
+
+.speech-bubble {
+    position: relative;
+    background: #310e91;
+    border-radius: .4em;
+    color: white;
+  }
+  
+  .speech-bubble:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-bottom-color: #2f179c;
+    border-top: 0;
+    margin-left: -12px;
+    margin-top: -12px;
+  }
+  
+  .share-inside {
+    background: url('./images/search.png');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px 20px;
+    
+  }
+  
+  .share-inside a {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px;
+    padding-left: 40px;
+  }
+
+  .selected_modal{
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      font-family: Lato;
+      width: 100%;
+      padding: 10px;
+      color: #fff;
+      background: #242525;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      min-height: 100px;
+      z-index: 99;
+      border-top-left-radius: 17px;
+      border-top-right-radius: 17px;
+  }
+
+  .sug_hr{
+    position: absolute;
+    height: 3px;
+    width: 100px;
+    background: rgb(53, 51, 51);
+    border-radius: 50px;
+    left: 40%;
+  }
+
+  .modal_sl_title{
+    font-family: 'Abril Fatface', cursive;
+    font-size: 17px;
+  }
+
+  .meaning{
+      font-size: 14px;
+  }
+
+  .close{
+      /* float: right; */
+      position: absolute;
+      right: 2%;
+      font-size: 16px;
+      padding: 5px;
+      border: 1px solid rgba(73, 64, 64, 0.933);
+      border-radius: 50%;
+      cursor: pointer;
+      /* z-index: 99; */
+      height: 20px;
+      width: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgb(110, 106, 106);
+  }
+
+  .more{
+      font-weight: bold;
+      color: rgb(228, 227, 233);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 5px;
+      padding: 2px 2px;
+      /* border: 1px solid #eeee; */
+      /* width: 60px; */
+  }
+
+  
+  .newsbody{
+    font-family: "Copyright Klim Type Foundry";
+      font-size: 16px;
+      background: #fff;
+      padding: 10px;
+  }
+
+.news_title{
+ font-size: 20px;
+ margin-bottom: 10px;
+ font-weight: 900;
+}
+
+  .newsbody strong, .article-section b {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.news_image{
+    display: flex;
+    justify-content: center;
+}
+.news_image img{
+    width: 80%;
+}
+
+.hide-for-print{
+    display: none;
+}
+
+.sug-card{
+    padding: 10px;
+    margin: 15px 5px;
+    background: linear-gradient(45deg, #310e91, #8869dd);
+    color: #faf0f0;
+    text-align: center;
+    font-family: 'Lato', kalpurush;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.sug-card .title-1{
+    /* float: left; */
+    position: absolute;
+    left: 2%;
+    font-size: 14px;
+    font-weight: bold;
+    top: 2%;
+}
+
+.title-word{
+    margin-top: 5px;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+

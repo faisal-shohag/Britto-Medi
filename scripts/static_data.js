@@ -503,3 +503,74 @@ function liveDetailsTimer(date, end, element, sdate, button){
     if(num<10) return "0"+num;
     else return num;
   }
+
+
+
+
+  //DICTIONARY FUNCTIONS
+  function getSelectionText() {
+    var text = "";
+    if (window.getSelection) {
+        text = window.getSelection().toString();
+    } else if (document.selection && document.selection.type != "Control") { // for Internet Explorer 8 and below
+        text = document.selection.createRange().text;
+    }
+    return text;
+  }
+  
+  
+  $('#app').on('change mouseup mousedown keydown',function(){
+  let sl = getSelectionText();
+  console.log(sl);
+  
+  if(sl.length>1 && sl.length<18){
+    $('.selected_modal').show();
+    $('.selected_modal').removeClass('animate__bounceOutDown');
+    $('.selected_modal').addClass('animate__animated animate__bounceInUp animate__faster');
+    $('.selected_modal').html(`
+    <div>
+    <div class="sug_hr"></div>
+    <div class="close cl"><i class="icofont-close"></i></div>
+    <div class="modal_sl_title animate__animated animate__fadeIn">${sl}</div>
+    <div class="meaning"></div>
+    <center><a href="#!/search/${sl}"><div class="more">more..</div></a></center>
+    </div>
+    `);
+  
+   
+  
+    $(function(){
+      $.get('https://api.dictionaryapi.dev/api/v2/entries/en/'+sl, function(){})
+      .done(function(res){
+       $('.meaning').html(`<div class="animate__animated animate__fadeInUp"><i>${res[0].meanings[0].partOfSpeech}</i> - <b>${res[0].meanings[0].definitions[0].definition}</b></div>`);
+      });
+    });
+   
+  }
+  $('.cl').click(function(){
+    console.log('CLOSE');
+    $('.selected_modal').removeClass('animate__bounceOutUp');
+    $('.selected_modal').addClass('animate__bounceOutDown');
+    
+  });
+  
+  });
+  
+  
+  var gradientColorCode={
+    0:"linear-gradient(to right, #2c3e50, #fd746c);",
+    1:"linear-gradient(45deg, #310e91, #8869dd);",
+    2:"linear-gradient(to right, #2c3e50, #4ca1af);", 
+    3:"linear-gradient(to top, #e96443, #904e95);",
+    4:"linear-gradient(to left, #3a7bd5, #3a6073);",
+    5:"linear-gradient(to left, #00d2ff, #928dab);",
+    6:"linear-gradient(to bottom, #2196f3, #f44336);",
+    7:"linear-gradient(to bottom, #ff5f6d, #ffc371);",
+    8:"linear-gradient(to top, #16bffd, #cb3066);",
+    9:"linear-gradient(to top, #eecda3, #ef629f);",
+    10:"linear-gradient(to top, #000000, #434343);",
+    11:"linear-gradient(to top, #4b79a1, #283e51);",
+    12:"linear-gradient(to top, #1e3c72, #2a5298);",
+    13:"linear-gradient(to bottom, #6a3093, #a044ff); ",
+    14:"linear-gradient(to bottom, #7b4397, #dc2430);"
+  }
