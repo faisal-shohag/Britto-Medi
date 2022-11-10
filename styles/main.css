@@ -2094,6 +2094,7 @@ h3, h2{
 }
 
 .ntc_warn{
+  display: none;
   text-align: center;
   padding: 5px;
   margin-bottom: 5px;
