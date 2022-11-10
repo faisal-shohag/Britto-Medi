@@ -164,6 +164,11 @@ const app = document.getElementById('app');
             <div class="sec-sec1"><div class="icon"><img src="../images/bell.png"></div><div class="text">Live Exams</div></div>
             <a href="#!/live/list"><div class="more">See All</div></a>
             </div>
+
+            <div class="ntc_warn">
+            
+            আজকের এক্সাম শুরু হবে 7:30PM এ। 
+            </div>
               
             <div class="live-card siliguri">
                <div id="live_banner">

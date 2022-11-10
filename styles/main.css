@@ -2092,3 +2092,13 @@ h3, h2{
   font-size: 14px;
   font-weight: bold;
 }
+
+.ntc_warn{
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background: orange;
+  font-weight: bold;
+  font-family: 'Lato', Kalpurush;
+  border-radius: 3px;
+}
