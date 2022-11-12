@@ -178,6 +178,16 @@ firebase.initializeApp(firebaseConfig);
 <script src="./scripts/routes.js"></script>
 <script src="./scripts/script.js"></script>
 
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "f0aa3b4c-af15-443c-b19a-cd86a7fc89e0",
+      allowLocalhostAsSecureOrigin: true,
+    });
+  });
+</script>
 
     
 </body>
