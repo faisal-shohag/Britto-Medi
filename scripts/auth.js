@@ -93,7 +93,7 @@ function authExecute(){
         }).then((r)=>{
           
           console.log(r)
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((e)=>{
           console.log(e);
@@ -140,7 +140,8 @@ function authExecute(){
             { merge: true }
           )
           .then(() => {
-            window.location.reload();
+            // window.location.reload();
+            router.navigate('/');
             console.log(user.uid)
           });
       } else {
@@ -164,7 +165,7 @@ function signOut(){
           .signOut()
           .then(() => {
             router.navigate('/');
-            window.location.reload();
+            // window.location.reload();
           })
           .catch((e) => {
           console.log(e);
