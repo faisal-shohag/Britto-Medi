@@ -432,7 +432,7 @@ function liveDetailsTimer(date, end, element, sdate, button){
          $(sdate).html(``);
          $(button).html(`<button id="btn-result" class="btn btn-primary">See Result</div>`);
          $('#btn-result').click(function(){
-          router.navigate('#!/live/start/'+button.split('-')[1]);
+          router.navigate('#!/live/result/'+button.split('-')[1]);
         })
        }else{
         $(button).html(`<button id="btn-running" class="btn btn-primary">Start</div>`);
