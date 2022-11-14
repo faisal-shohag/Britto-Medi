@@ -519,7 +519,7 @@ function liveDetailsTimer(date, end, element, sdate, button){
   }
   
   
-  $('#app').on('change mouseup mousedown keydown',function(){
+  $('.news_area').on('change mouseup mousedown keydown',function(){
   let sl = getSelectionText();
   console.log(sl);
   
