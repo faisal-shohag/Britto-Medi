@@ -97,6 +97,11 @@ function authExecute(){
         })
         .catch((e)=>{
           console.log(e);
+          Swal.fire({
+            icon: 'warning!',
+            title: 'ERROR',
+            text: e.toString()
+          })
         })
     };
 
@@ -164,8 +169,8 @@ function signOut(){
           .auth()
           .signOut()
           .then(() => {
-            router.navigate('/');
-            // window.location.reload();
+            // router.navigate('/');
+            window.location.reload();
           })
           .catch((e) => {
           console.log(e);
