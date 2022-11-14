@@ -93,6 +93,7 @@ function authExecute(){
         }).then((r)=>{
           
           console.log(r)
+          window.location.reload();
         })
         .catch((e)=>{
           console.log(e);
@@ -162,7 +163,8 @@ function signOut(){
           .auth()
           .signOut()
           .then(() => {
-            // window.location.reload();
+            router.navigate('/');
+            window.location.reload();
           })
           .catch((e) => {
           console.log(e);
