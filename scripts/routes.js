@@ -30,7 +30,7 @@ const app = document.getElementById('app');
                           
                               <div class="input-group"> 
                               <input class="form-control" id="phoneNumber" name="phone" type="text" placeholder="তোমার ১১ ডিজিটের ফোন নম্বরটি এখানে দাও..."> </div>
-                              <div class="form-tips kalpurush">Phone number without "+88" ex: 0131xxxxx</div>
+                             
                           </div>
                       </div>
                   </div>

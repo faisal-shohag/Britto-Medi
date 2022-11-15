@@ -28,9 +28,8 @@ function authExecute(){
       if (phoneNumber === "" || phoneNumber.length != 14) {
         Swal.fire({
           icon: "error",
-          title: "ফোন নম্বর ইস্যু...",
-          text: "সঠিক ফোন নম্বর প্রদান করুন!",
-          footer: "ফোন নম্বরটি ১১ ডিজিটের হওয়া জরুরী!",
+          text: "সঠিক ফোন নম্বর প্রদান করো! ফোন নম্বরটি ১১ ডিজিটের হতে হবে এবং সামনে +88 থাকা যাবে না।",
+          footer: "Britto Edu.",
         });
         $('.send_loading').hide();
         return;
@@ -52,7 +51,7 @@ function authExecute(){
           $('.varify').show();
           const sentCodeId = confirmationResult.verificationId;
           $(".warn").html(`
-         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি যেতে ১ মিনিটের মত সময় লাগতে পারে।
+         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি SMS কিংবা ফোন কলের মাধ্যমে যাবে। কোডটি যেতে ১ মিনিটের মত সময় লাগতে পারে।
          `);
          $('.send_loading').hide();
 
@@ -92,7 +91,7 @@ function authExecute(){
           );
         }).then((r)=>{
           console.log(r)
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((e)=>{
           console.log(e);
@@ -120,7 +119,7 @@ function authExecute(){
           Swal.fire({
             icon: "error",
             title: "Code Error",
-            text: "Code you provided was wrong! Please resend code and enter correctly!",
+            text: "তোমার দেয়া কোডটি ভুল ছিলো সম্ভবত!",
             footer: 'Any Issue? Contact: 01318067123',
           });
         });
@@ -145,8 +144,7 @@ function authExecute(){
           )
           .then(() => {
             router.navigate('/');
-            window.location.reload();
-            
+            window.location.reload();           
             console.log(user.uid)
           });
       } else {
@@ -169,7 +167,7 @@ function signOut(){
           .auth()
           .signOut()
           .then(() => {
-            // router.navigate('/');
+            router.navigate('/');
             window.location.reload();
           })
           .catch((e) => {
