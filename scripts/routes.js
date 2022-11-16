@@ -87,6 +87,8 @@ const app = document.getElementById('app');
     }else{
       router.on({
         '/': function() {
+         
+
           $('.top').show();
           $('.footer').show();
           $('.footertext').hide();
@@ -329,8 +331,12 @@ const app = document.getElementById('app');
     
     
           </div>
+
+          
     
             `
+
+           
                //Last Exam Result
             // store.collection('lives').doc('4jvrt5VYbdy4UdPJMLxo').get().then(snap=>{
             //     let myexam = snap.data();
@@ -4182,6 +4188,8 @@ const app = document.getElementById('app');
           let board_std = ``;
           let k = 0;
           ladder.forEach(item=>{
+
+            
             
             k++;
           if(k===1){

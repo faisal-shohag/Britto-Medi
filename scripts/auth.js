@@ -147,6 +147,14 @@ function authExecute(){
             window.location.reload();           
             console.log(user.uid)
           });
+
+          db.ref('allUsers').update({
+            [usr.uid] : {
+              name: usr.name,
+              phone: usr.phone
+            }
+          });
+          
       } else {
         console.log("USER NOT LOGGED IN");
       }

@@ -182,3 +182,50 @@
   justify-content: center;
   align-items: center;
 }
+
+
+.update_card{
+  position: fixed;
+  z-index: 999;
+  bottom: 60px;
+  width: 100%;
+  left: 0;
+  font-family:  Hind Siliguri;
+  background: #fff;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+}
+
+.up_top{
+  display: flex;
+  gap: 20px;
+  line-height: 13px;
+}
+
+.down_up{
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 3px;
+}
+
+.up_ver{
+  font-size: 10px;
+}
+
+.down{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: 100px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.down_later{
+  background: #e0dfe6;
+}
+
+.down_now{
+  background: rgb(43, 145, 85);
+  color: #eee;
+}
