@@ -195,6 +195,7 @@
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 10px;
+  display: none;
 }
 
 .up_top{
@@ -216,9 +217,11 @@
 
 .down{
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  width: 100px;
+  min-width: 100px;
   text-align: center;
   border-radius: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .down_later{
@@ -228,4 +231,14 @@
 .down_now{
   background: rgb(43, 145, 85);
   color: #eee;
+}
+
+.up_banner{
+  float: right;
+  font-size: 13px;
+  background: rgb(233, 155, 10);
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #eee;
+  border-radius: 3px;
 }
