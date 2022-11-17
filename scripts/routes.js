@@ -85,6 +85,9 @@ const app = document.getElementById('app');
         },
       }).resolve();
     }else{
+      if(window.navigator.userAgent.includes('Admission')){
+        $('.update_card').show();
+      }
       router.on({
         '/': function() {
          

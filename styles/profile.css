@@ -242,3 +242,29 @@
   color: #eee;
   border-radius: 3px;
 }
+
+.up_desc{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.up_desc h3{
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  font-weight: bold;
+
+}
+
+.up_desc h6{
+  margin-top: 20px;
+}
+
+
+
+.up_desc img{
+  max-width: 250px;
+ 
+}
