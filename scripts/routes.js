@@ -85,7 +85,7 @@ const app = document.getElementById('app');
         },
       }).resolve();
     }else{
-      if(window.navigator.userAgent.includes('Admission')){
+      if(window.navigator.userAgent.includes(' ')){
         $('.update_card').show();
       }
       router.on({
@@ -4995,9 +4995,9 @@ const app = document.getElementById('app');
 // }
 // }, 5000)
 
-router.notFound(function(){
-  app.innerHTML=`404`;
-});
+// router.notFound(function(){
+//   app.innerHTML=`404`;
+// });
 
 
 
