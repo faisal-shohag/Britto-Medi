@@ -1,130 +1,267 @@
 firebase.auth().useDeviceLanguage();
-firebase.auth().settings.appVerificationDisabledForTesting = true;
+//firebase.auth().settings.appVerificationDisabledForTesting = true;
 
-function authExecute(){
-  $('.form-tips').show();
-  $('.varify').hide();
+// function authExecute(){
+//   // $('.form-tips').show();
+//   // $('.varify').hide();
 
-    let phoneNumber;
-    let code;
-    const getCodeButton = document.getElementById("confirm-code");
-    const signInWithPhoneButton = document.getElementById("sign-in-button");
-    const auth = firebase.auth();
+//   //   let phoneNumber;
+//   //   let code;
+//   //   const getCodeButton = document.getElementById("confirm-code");
+//   //   const signInWithPhoneButton = document.getElementById("sign-in-button");
+//   //   const auth = firebase.auth();
 
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      "recaptcha-container"
-    );
-    recaptchaVerifier.render().then((widgetId) => {
-      window.recaptchaWidgetId = widgetId;
-    });
+//   //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+//   //     "recaptcha-container", {"size":"invisible"}
+//   //   );
+//   //   recaptchaVerifier.render().then((widgetId) => {
+//   //     window.recaptchaWidgetId = widgetId;
+//   //   });
 
-    const sendVerificationCode = () => {
-      $('.send_loading').show();
-      phoneNumber = document.getElementById("phoneNumber").value;
-      phoneNumber = "+88" + phoneNumber;
-      console.log(phoneNumber.length);
-      if (phoneNumber === "" || phoneNumber.length != 14) {
-        Swal.fire({
-          icon: "error",
-          text: "সঠিক ফোন নম্বর প্রদান করো! ফোন নম্বরটি ১১ ডিজিটের হতে হবে এবং সামনে +88 থাকা যাবে না।",
-          footer: "Britto Edu.",
-        });
-        $('.send_loading').hide();
-        return;
+//     // const sendVerificationCode = () => {
+//     //   $('.send_loading').show();
+//     //   phoneNumber = document.getElementById("phoneNumber").value;
+//     //   phoneNumber = "+88" + phoneNumber;
+//     //   console.log(phoneNumber.length);
+//     //   if (phoneNumber === "" || phoneNumber.length != 14) {
+//     //     Swal.fire({
+//     //       icon: "error",
+//     //       text: "সঠিক ফোন নম্বর প্রদান করো! ফোন নম্বরটি ১১ ডিজিটের হতে হবে এবং সামনে +88 থাকা যাবে না।",
+//     //       footer: "Britto Edu.",
+//     //     });
+//     //     $('.send_loading').hide();
+//     //     return;
+//     //   }
+
+
+//     //   const appVerifier = window.recaptchaVerifier;
+      
+//     //   // $('.send_code').html(`
+//     //   //   Code Sent. Please check your phone. If any issue, please refresh page and send again!
+//     //   //   `)
+
+      
+
+//     //   auth
+//     //     .signInWithPhoneNumber(phoneNumber, appVerifier)
+//     //     .then((confirmationResult) => {
+//     //       $('.form-tips').hide();
+//     //       $('.varify').show();
+//     //       const sentCodeId = confirmationResult.verificationId;
+//     //       $(".warn").html(`
+//     //      আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি SMS কিংবা ফোন কলের মাধ্যমে যাবে। কোডটি যেতে ১ মিনিটের মত সময় লাগতে পারে।
+//     //      `);
+//     //      $('.send_loading').hide();
+
+//     //      $('.resend').html(`
+//     //      <button class="btn btn-secondary" id="resend-button" disabled>Resend<span class="resend_timer"></span></button>
+//     //      `);
+//     //       let r_time = 60;
+//     //      let resendTimer = setInterval(()=>{
+//     //         r_time--;
+//     //         if(r_time<0){
+//     //           clearInterval(resendTimer);
+//     //           $('.resend').html(`
+//     //           <button class="btn btn-success" onclick="window.location.reload()" id="resend-button">Resend</button>
+//     //         `);
+//     //         }
+
+//     //         $('.resend_timer').html(`(${r_time})`);
+//     //      }, 1000)
+
+
+//     //       // console.log(confirmationResult);
+//     //       $('#recaptcha-container').hide();
+//     //       $("#phoneNumber").hide();
+//     //       // $(".varify").show();
+
+//     //       signInWithPhoneButton.addEventListener("click", () =>
+//     //        { 
+//     //          signInWithPhone(sentCodeId);
+
+//     //          $('.warn').html(`
+//     //          <center style="display: flex; gap: 10px; justify-content: center; align-items: center;"><div class="spinner-border text-dark" role="status">
+//     //     <span class="visually-hidden">Loading...</span>
+//     //   </div>
+//     //    Signing In Please wait! </center>
+//     //     `)
+//     //         }
+//     //       );
+//     //     }).then((r)=>{
+//     //       console.log(r)
+//     //       // window.location.reload();
+//     //     })
+//     //     .catch((e)=>{
+//     //       console.log(e);
+//     //       Swal.fire({
+//     //         icon: 'warning!',
+//     //         title: 'ERROR',
+//     //         text: e.toString()
+//     //       })
+//     //     })
+//     // };
+
+//     // const signInWithPhone = (sentCodeId) => {
+//     //   code = document.getElementById("code").value;
+//     //   const credential = firebase.auth.PhoneAuthProvider.credential(
+//     //     sentCodeId,
+//     //     code
+//     //   ); //This function runs everytime the auth state changes. Use to verify if the user isAuthProvider.credential(sentCodeId, code);
+//     //   auth
+//     //     .signInWithCredential(credential)
+//     //     .then(() => {
+//     //       console.log(credential);
+//     //     })
+//     //     .catch((error) => {
+//     //       console.error(error);
+//     //       Swal.fire({
+//     //         icon: "error",
+//     //         title: "Code Error",
+//     //         text: "তোমার দেয়া কোডটি ভুল ছিলো সম্ভবত!",
+//     //         footer: 'Any Issue? Contact: 01318067123',
+//     //       });
+//     //     });
+//     // };
+//     // getCodeButton.addEventListener("click", sendVerificationCode);
+//     // firebase.auth().onAuthStateChanged(function (user) {
+//     //   if (user) {
+//     //     // console.log(user);
+//     //     store
+//     //       .collection("users")
+//     //       .doc(user.uid)
+//     //       .set(
+//     //         {
+//     //           phone: user.phoneNumber,
+//     //           uid: user.uid,
+//     //           creationTime: (firebase.firestore.Timestamp.fromDate(
+//     //               new Date(user.metadata.creationTime)
+//     //             )),
+              
+//     //         },
+//     //         { merge: true }
+//     //       )
+//     //       .then(() => {
+//     //         router.navigate('/');
+//     //         window.location.reload();           
+//     //         console.log(user.uid)
+//     //       });
+
+//     //       db.ref('allUsers').update({
+//     //         [usr.uid] : {
+//     //           name: usr.name,
+//     //           phone: usr.phone
+//     //         }
+//     //       });
+          
+//     //   } else {
+//     //     console.log("USER NOT LOGGED IN");
+//     //   }
+//     // });
+// }
+
+
+
+function FireAuthUI(){
+  /*
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * FirebaseUI initialization to be used in a Single Page application context.
+ */
+
+/**
+ * @return {!Object} The FirebaseUI config.
+ */
+
+
+function getUiConfig() {
+  return {
+    'callbacks': {
+      // Called when the user has been successfully signed in.
+      'signInSuccessWithAuthResult': function(authResult, redirectUrl) {
+        if (authResult.user) {
+          handleSignedInUser(authResult.user);
+        }
+        if (authResult.additionalUserInfo) {
+              authResult.additionalUserInfo.isNewUser ?
+              console.log('New User') : console.log('Existing User');
+        }
+        return false;
       }
+    },
+    'signInFlow': 'popup',
+    'signInOptions': [    
+      {
+        provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        recaptchaParameters: {
+          size: getRecaptchaMode()
+        },
+        defaultCountry: 'BD'
+      },
+    ],
+    // Terms of service url.
+    'tosUrl': 'https://www.google.com',
+    // Privacy policy url.
+    'privacyPolicyUrl': 'https://www.google.com',
+    // 'credentialHelper': CLIENT_ID && CLIENT_ID != 'YOUR_OAUTH_CLIENT_ID' ?
+    //     firebaseui.auth.CredentialHelper.GOOGLE_YOLO :
+    //     firebaseui.auth.CredentialHelper.NONE,
+    'adminRestrictedOperation': {
+      status: getAdminRestrictedOperationStatus()
+    }
+  };
+}
+
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+// Disable auto-sign in.
+ui.disableAutoSignIn();
 
 
-      const appVerifier = window.recaptchaVerifier;
-      
-      // $('.send_code').html(`
-      //   Code Sent. Please check your phone. If any issue, please refresh page and send again!
-      //   `)
-
-      
-
-      auth
-        .signInWithPhoneNumber(phoneNumber, appVerifier)
-        .then((confirmationResult) => {
-          $('.form-tips').hide();
-          $('.varify').show();
-          const sentCodeId = confirmationResult.verificationId;
-          $(".warn").html(`
-         আপনার নাম্বারে ভেরিফিকেশন কোডটি পাঠানো হয়েছে। কোডটি SMS কিংবা ফোন কলের মাধ্যমে যাবে। কোডটি যেতে ১ মিনিটের মত সময় লাগতে পারে।
-         `);
-         $('.send_loading').hide();
-
-         $('.resend').html(`
-         <button class="btn btn-secondary" id="resend-button" disabled>Resend<span class="resend_timer"></span></button>
-         `);
-          let r_time = 60;
-         let resendTimer = setInterval(()=>{
-            r_time--;
-            if(r_time<0){
-              clearInterval(resendTimer);
-              $('.resend').html(`
-              <button class="btn btn-success" onclick="window.location.reload()" id="resend-button">Resend</button>
-            `);
-            }
-
-            $('.resend_timer').html(`(${r_time})`);
-         }, 1000)
+/**
+ * @return {string} The URL of the FirebaseUI standalone widget.
+ */
+function getWidgetUrl() {
+  return '/widget#recaptcha=' + getRecaptchaMode() + '&emailSignInMethod=' +
+      getEmailSignInMethod() + '&disableEmailSignUpStatus=' +
+      getDisableSignUpStatus() + '&adminRestrictedOperationStatus=' +
+      getAdminRestrictedOperationStatus();
+}
 
 
-          // console.log(confirmationResult);
-          $('#recaptcha-container').hide();
-          $("#phoneNumber").hide();
-          // $(".varify").show();
+/**
+ * Redirects to the FirebaseUI widget.
+ */
+var signInWithRedirect = function() {
+  window.location.assign(getWidgetUrl());
+};
 
-          signInWithPhoneButton.addEventListener("click", () =>
-           { 
-             signInWithPhone(sentCodeId);
 
-             $('.warn').html(`
-             <center style="display: flex; gap: 10px; justify-content: center; align-items: center;"><div class="spinner-border text-dark" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-       Signing In Please wait! </center>
-        `)
-            }
-          );
-        }).then((r)=>{
-          console.log(r)
-          // window.location.reload();
-        })
-        .catch((e)=>{
-          console.log(e);
-          Swal.fire({
-            icon: 'warning!',
-            title: 'ERROR',
-            text: e.toString()
-          })
-        })
-    };
+/**
+ * Open a popup with the FirebaseUI widget.
+ */
+var signInWithPopup = function() {
+  window.open(getWidgetUrl(), 'Sign In', 'width=985,height=735');
+};
 
-    const signInWithPhone = (sentCodeId) => {
-      code = document.getElementById("code").value;
-      const credential = firebase.auth.PhoneAuthProvider.credential(
-        sentCodeId,
-        code
-      ); //This function runs everytime the auth state changes. Use to verify if the user isAuthProvider.credential(sentCodeId, code);
-      auth
-        .signInWithCredential(credential)
-        .then(() => {
-          console.log(credential);
-        })
-        .catch((error) => {
-          console.error(error);
-          Swal.fire({
-            icon: "error",
-            title: "Code Error",
-            text: "তোমার দেয়া কোডটি ভুল ছিলো সম্ভবত!",
-            footer: 'Any Issue? Contact: 01318067123',
-          });
-        });
-    };
-    getCodeButton.addEventListener("click", sendVerificationCode);
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
+
+/**
+ * Displays the UI for a signed in user.
+ * @param {!firebase.User} user
+ */
+var handleSignedInUser = function(user) {
+        if (user) {
         // console.log(user);
         store
           .collection("users")
@@ -156,7 +293,115 @@ function authExecute(){
       } else {
         console.log("USER NOT LOGGED IN");
       }
-    });
+};
+
+
+/**
+ * Displays the UI for a signed out user.
+ */
+var handleSignedOutUser = function() {
+  // document.getElementById('user-signed-in').style.display = 'none';
+  document.getElementById('user-signed-out').style.display = 'block';
+  ui.start('#firebaseui-container', getUiConfig());
+};
+
+// Listen to change in auth state so it displays the correct UI for when
+// the user is signed in or not.
+firebase.auth().onAuthStateChanged(function(user) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('loaded').style.display = 'block';
+  user ? handleSignedInUser(user) : handleSignedOutUser();
+});
+
+/**
+ * Deletes the user's account.
+ */
+var deleteAccount = function() {
+  firebase.auth().currentUser.delete().catch(function(error) {
+    if (error.code == 'auth/requires-recent-login') {
+      // The user's credential is too old. She needs to sign in again.
+      firebase.auth().signOut().then(function() {
+        // The timeout allows the message to be displayed after the UI has
+        // changed to the signed out state.
+        setTimeout(function() {
+          alert('Please sign in again to delete your account.');
+        }, 1);
+      });
+    }
+  });
+};
+
+
+/**
+ * Handles when the user changes the reCAPTCHA, email signInMethod or email
+ * disableSignUp config.
+ */
+// function handleConfigChange() {
+//   var newRecaptchaValue = document.querySelector(
+//       'input[name="recaptcha"]:checked').value;
+//   var newEmailSignInMethodValue = document.querySelector(
+//       'input[name="emailSignInMethod"]:checked').value;
+//   var currentDisableSignUpStatus =
+//       document.getElementById("email-disableSignUp-status").checked;
+//   var currentAdminRestrictedOperationStatus =
+//       document.getElementById("admin-restricted-operation-status").checked;
+//   location.replace(
+//       location.pathname + '#recaptcha=' + newRecaptchaValue +
+//       '&emailSignInMethod=' + newEmailSignInMethodValue +
+//       '&disableEmailSignUpStatus=' + currentDisableSignUpStatus +
+//       '&adminRestrictedOperationStatus=' +
+//       currentAdminRestrictedOperationStatus);
+//   // Reset the inline widget so the config changes are reflected.
+//   ui.reset();
+//   ui.start('#firebaseui-container', getUiConfig());
+// }
+
+
+/**
+ * Initializes the app.
+ */
+var initApp = function() {
+  document.getElementById('sign-in-with-redirect').addEventListener(
+      'click', signInWithRedirect);
+  document.getElementById('sign-in-with-popup').addEventListener(
+      'click', signInWithPopup);
+  document.getElementById('sign-out').addEventListener('click', function() {
+    firebase.auth().signOut();
+  });
+  document.getElementById('delete-account').addEventListener(
+      'click', function() {
+        deleteAccount();
+      });
+
+  document.getElementById('recaptcha-normal').addEventListener(
+      'change', handleConfigChange);
+  document.getElementById('recaptcha-invisible').addEventListener(
+      'change', handleConfigChange);
+  // Check the selected reCAPTCHA mode.
+  document.querySelector(
+      'input[name="recaptcha"][value="' + getRecaptchaMode() + '"]')
+      .checked = true;
+
+  document.getElementById('email-signInMethod-password').addEventListener(
+      'change', handleConfigChange);
+  document.getElementById('email-signInMethod-emailLink').addEventListener(
+      'change', handleConfigChange);
+  // Check the selected email signInMethod mode.
+  document.querySelector(
+      'input[name="emailSignInMethod"][value="' + getEmailSignInMethod() + '"]')
+      .checked = true;
+  document.getElementById('email-disableSignUp-status').addEventListener(
+      'change', handleConfigChange);
+  document.getElementById("email-disableSignUp-status").checked =
+      getDisableSignUpStatus();  
+  document.getElementById('admin-restricted-operation-status').addEventListener(
+      'change', handleConfigChange);
+  document.getElementById("admin-restricted-operation-status").checked =
+      getAdminRestrictedOperationStatus();  
+};
+
+window.addEventListener('load', initApp);
+
 }
 
 
@@ -385,3 +630,7 @@ function isAuth(call){
         }
     });
 }
+
+
+
+

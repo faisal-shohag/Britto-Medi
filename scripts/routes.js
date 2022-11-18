@@ -7,7 +7,7 @@ const app = document.getElementById('app');
   firebase.auth().onAuthStateChanged(user=> {
     if(!user){
       router.on({
-        '/': function(){
+        '/auth': function(){
           console.log('Logged Out')
           $('.top').show();
           // $('.footer').hide();
@@ -83,6 +83,32 @@ const app = document.getElementById('app');
       
               authExecute();
         },
+        '/': function(){
+          $('.top').show();
+          // $('.footer').hide();
+          $('.top-title').text('Sign In');
+          app.innerHTML = `
+          <div id="container">
+          <div id="loading">
+          <center><div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div></center>
+          </div>
+          <div id="loaded" class="hidden">
+            <div id="main">
+              <div id="user-signed-in" class="hidden">
+              </div>
+              <div id="user-signed-out" class="hidden">               
+                <div id="firebaseui-spa">
+                  <div id="firebaseui-container"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          `
+          FireAuthUI();
+        }
       }).resolve();
     }else{
       if(window.navigator.userAgent.includes('Admission')){
