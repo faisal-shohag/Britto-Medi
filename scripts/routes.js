@@ -411,7 +411,7 @@ const app = document.getElementById('app');
                 $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
                 $('#routineModal').modal('show');
               }else{
-                $('#rtn-img').html(`<img src="https://i.postimg.cc/rsPxyDTL/Routine-3.png"/>`)
+                $('#rtn-img').html(`<img src="https://i.postimg.cc/W4kyH74B/Routine-4.png"/>`)
                 $('#routineModal').modal('show');
               }
             });
