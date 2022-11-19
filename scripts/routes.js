@@ -112,7 +112,12 @@ const app = document.getElementById('app');
       }).resolve();
 
       router.notFound(function (query) {
-         router.navigate('/');
+         app.innerHTML= `
+         <center class="body">
+         Please Sign In First
+         <a href="/#!" class="btn btn-danger">Sign IN</a>
+         </center>
+         `
       });
     }else{
       if(window.navigator.userAgent.includes('Admission')){
