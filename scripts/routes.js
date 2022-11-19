@@ -114,11 +114,11 @@ const app = document.getElementById('app');
       router.notFound(function (query) {
          app.innerHTML= `
          <center class="body">
-         Please Sign In First
-         <a href="/#!" class="btn btn-danger">Sign IN</a>
+         Please Sign In First <br>
+         <a href="/#!" class="btn btn-danger">Sign In</a>
          </center>
          `
-      });
+      }).resolve();
     }else{
       if(window.navigator.userAgent.includes('Admission')){
         $('.update_card').show();
