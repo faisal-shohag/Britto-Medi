@@ -110,6 +110,10 @@ const app = document.getElementById('app');
           FireAuthUI();
         }
       }).resolve();
+
+      router.notFound(function (query) {
+         router.navigate('/');
+      });
     }else{
       if(window.navigator.userAgent.includes('Admission')){
         $('.update_card').show();
