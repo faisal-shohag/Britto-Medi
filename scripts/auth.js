@@ -212,15 +212,15 @@ function FireAuthUI(){
         // Required to enable ID token credentials for this provider.
         clientId: CLIENT_ID
       },
-      {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        // Whether the display name should be displayed in Sign Up page.
-        requireDisplayName: true,
-        signInMethod: getEmailSignInMethod(),
-        disableSignUp: {
-          status: getDisableSignUpStatus()
-        }
-      }
+      // {
+      //   provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      //   // Whether the display name should be displayed in Sign Up page.
+      //   requireDisplayName: true,
+      //   signInMethod: getEmailSignInMethod(),
+      //   disableSignUp: {
+      //     status: getDisableSignUpStatus()
+      //   }
+      // }
     ],
     // Terms of service url.
     'tosUrl': 'https://www.google.com',
