@@ -188,6 +188,7 @@ function FireAuthUI(){
     'callbacks': {
       // Called when the user has been successfully signed in.
       'signInSuccessWithAuthResult': function(authResult, redirectUrl) {
+        window.location.reload();
         if (authResult.user) {
           handleSignedInUser(authResult.user);
         }
@@ -257,7 +258,7 @@ function getWidgetUrl() {
  * Redirects to the FirebaseUI widget.
  */
 var signInWithRedirect = function() {
-  window.location.assign(getWidgetUrl());
+  window.location.assign('https://britto.nellify.app');
 };
 
 
