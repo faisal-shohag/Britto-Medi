@@ -392,7 +392,7 @@ function liveTimer(date, end, element, sdate){
 
   var y;
 //live det timer
-function liveDetailsTimer(date, end, element, sdate, button){
+function liveDetailsTimer(date, end, element, sdate, button, title, key){
   $(element).html(``);
   $(sdate).html(``);
    var countDownDate = new Date(date).getTime();
@@ -430,7 +430,11 @@ function liveDetailsTimer(date, end, element, sdate, button){
        if(end==-1){
          $(element).html('<div class="finished">Finished</div>');
          $(sdate).html(``);
-         $(button).html(`<button id="btn-result" class="btn btn-primary">See Result</div>`);
+         $(button).html(`
+         <button id="btn-result" class="btn btn-primary">See Result</button>
+         
+         <a style=" color: #eee;" href="#!/start_practice_live/${key}/${title}"><button class="btn btn-danger">Practice</button></a>
+         `);
          $('#btn-result').click(function(){
           router.navigate('#!/live/result/'+button.split('-')[1]);
         })
@@ -463,7 +467,7 @@ function liveDetailsTimer(date, end, element, sdate, button){
         }
         
         
-        liveDetailsTimer(end, -1, element, sdate, button);
+        liveDetailsTimer(end, -1, element, sdate, button, title, key);
        }
        
      }

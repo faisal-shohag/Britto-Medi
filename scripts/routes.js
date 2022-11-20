@@ -939,7 +939,7 @@ const app = document.getElementById('app');
                 // $('.app_loader').hide();
                       $('.countdown').show();
                       let myexam = snap.data();
-                      $('.exam-doc').html(`
+                    $('.exam-doc').html(`
                       <div class="body">
                           <div class="exam-container">
                          <div class="exam_top">
@@ -1211,6 +1211,313 @@ const app = document.getElementById('app');
                             `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
                               bnNumber(initialMin - 1 - minute)
                             }:${bnNumber(59 - sec)}</span>`
+                          );
+                          
+                          
+                          $('#correctP').html(`${(parseInt((score/questions.length)*100))}%
+                          `)
+                          $('#wrongP').html(`${(parseInt((wrong/questions.length)*100))}%
+                          `)
+                          $('#negativeP').html(`${(parseInt(((wrong*neg)/questions.length)*100))}%
+                          `)
+                          $('#answeredP').html(`${(parseInt(100-(((questions.length - (score + wrong))/(questions.length))*100)))}%
+                          `)                                 
+                      // Swal.fire("সাবমিট হয়েছে!", "", "success");
+    
+                          }
+                        })
+                    })
+              })
+       
+       
+       
+        },
+        '/start_practice_live/:key/:name': function(params){
+          $('.top').hide();
+          $('.footer').hide();
+          $('.top-title').text('');
+            app.innerHTML=`<div class="exam-doc" id="practice-exam">
+            <center><div class="spinner-grow text-success" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                           </div></center>
+            </div>`;
+            store.collection('lives').doc(params.key).get().then(snap=> {
+                // $('.app_loader').hide();
+                      $('.countdown').show();
+                      let myexam = snap.data();
+                      
+                    $('.exam-doc').html(`
+                      <div class="body">
+                          <div class="exam-container">
+                         <div class="exam_top">
+                          <div class="exam-title kalpurush">
+                          <div class="exam_name">${params.name}</div><small>সময়: ${myexam.duration} মিনিট | নেগেটিভ: ${myexam.neg} </small>
+                          </div>
+                          <div style="display: none;" class="score">
+                          <div class="mark"></div>
+                          <div class="score-wa"></div>
+                          <div class="score-na"></div>
+                          <div class="score-time"></div>
+                          </div>
+                          <div class="exam-nb kalpurush"></div>
+                         </div>
+                         <div class="parc">
+                         <div>
+                         Obtained
+                         <div class="parcentage" id="correctP"></div>
+                         </div>
+                         <div>
+                         Wrong
+                         <div class="parcentage" id="wrongP"></div>
+                         </div>
+                         <div>
+                         Negative
+                         <div class="parcentage" id="negativeP"></div>
+                         </div>
+                         <div>
+                         Answered
+                         <div class="parcentage" id="answeredP"></div>
+                         </div>
+                         </div>
+                      
+                          <div class="questions">
+                          
+                          </div>
+                         
+                         <center> <div class="exam_submit animate__animated animate__flipInX" id="submit">
+                         <div class="ex-timer"></div>
+                         <div class="ans-count animate__animated animate__bounceIn"><span id="u_ans"></span>/<span id="t_q"></span></div>
+                         <div class="ex-submit">Submit</div>
+                         </div></center>
+                         
+                          </div>
+                          </div>
+                      `);
+                      $('.parc').hide();
+                      var ans = [],
+                        exp = [],
+                        userAns = [],
+                        score = 0,
+                        wrong = 0,
+                        na = 0,
+                        neg = parseFloat(myexam.neg);
+                      questions = myexam.questions;
+                      $('#t_q').text(questions.length);
+                      shuffle(questions);
+                      // console.log(questions);
+                      $(".exam-nb").html(`.::::.`);
+            
+                       for (let q = 0; q <questions.length; q++) {
+                        $(".score").hide();
+                        ans.push(parseInt(questions[q].ans)+q*4);
+                        exp.push(questions[q].ex);
+                        var elem = document.querySelector(".exam-container .questions");
+                        document.querySelector(".exam-container .questions").innerHTML += `
+                           <div class="q-wrap">
+                                  <div class="q-logo"></div>
+                              <div class="question">
+                                 ${q + 1}. ${questions[q].q}
+                              </div>
+                              <div class="option">
+                                  <div class="opt" id="${
+                                    q + 1 + q * 3
+                                  }"><div class="st"></div><div>${questions[q].opt[0]}</div></div>
+                                  <div class="opt" id="${
+                                    q + 2 + q * 3
+                                  }"><div class="st"></div><div>${questions[q].opt[1]}</div></div>
+                                  <div class="opt" id="${
+                                    q + 3 + q * 3
+                                  }"><div class="st"></div><div>${questions[q].opt[2]}</div></div>
+                                  <div class="opt" id="${
+                                    q + 4 + q * 3
+                                  }"><div class="st"></div><div>${questions[q].opt[3]}</div></div>
+                              </div>
+                              <div class="explanation" id="exp-${q}"></div>
+                          </div>
+                           `;
+                      }
+                      
+                      let click = 0;
+                      $(".opt").on("click", function () {
+                        $('.ans-count').show();
+                        click++;
+                        $('#u_ans').text(click);
+                        userAns.push(parseInt($(this)[0].id));
+                        $($(this)[0].parentNode.children[0]).off("click");
+                        $($(this)[0].parentNode.children[1]).off("click");
+                        $($(this)[0].parentNode.children[2]).off("click");
+                        $($(this)[0].parentNode.children[3]).off("click");
+                        $($(this)[0]).css({
+                          background: "#384dc5",
+                          color: "var(--light)",
+                          "font-weight": "bold",
+                          "box-shadow" : "0px 2px 5px rgba(0,0,0,.2)"
+                        });
+                      });
+                      MathJax.typeset();
+            
+                      //timer
+                      var sec = 0;
+                      var minute = parseInt(myexam.duration);
+                      var initialMin = parseInt(myexam.duration);
+                     // console.log("exam: "+minute);
+                      // if(localStorage.getItem('sec') != null) sec = parseInt(localStorage.getItem('sec'));
+                      // if(localStorage.getItem('min') != null) minute = parseInt(localStorage.getItem('min'));
+                     // console.log("local: "+minute);
+                    //  var timerAud = new Audio('./sounds/Sound-effect-Clock-Ticking-1.mp3');
+                      var timer = setInterval(function () {
+                        if (sec === 0) {
+                          minute--;
+                          sec = 60;
+                        }
+                        sec--;
+                        let min=minute, secs=sec;
+                        if(minute<10) min = "0"+min;
+                        if(sec<10) secs = "0"+secs;
+            
+                        // if(minute === 0 && sec===30){
+                        //   timerAud.play();
+                        // }
+            
+                        if (minute <= 0 && sec <= 0) {
+                          $("#submit").click();
+                          
+                          // localStorage.removeItem('sec');
+                          // localStorage.removeItem('min');
+                          // $('.questions').hide();
+                          clearInterval(timer);
+                          
+                        } else {
+                          // localStorage.setItem('sec', sec);
+                          // localStorage.setItem('min', min);
+                          // console.log(localStorage.getItem('sec'))
+                          $(".ex-timer").html(
+                            `<img src="../images/clock.png" height="30px"> <div> ${min} : ${secs}</div>`
+                          );
+                        }
+                      }, 1000);
+            
+                      jQuery(document).ready(function ($) {
+                        if (window.history && window.history.pushState) {
+                          $(window).on("popstate", function () {
+                            clearInterval(timer);
+                                //   Swal.fire({
+                                //           icon: 'question',
+                                //           text: 'তুমি কি সত্যিই এক্সাম থেকে বের হতে চাও?',
+                                //           showCancelButton: true,
+                                //           confirmButtonText: 'হ্যাঁ',
+                                //           cancelButtonText: 'না'
+                                //         }).then(res=>{
+                                //           if(res.isConfirmed){
+                                            
+                                            
+                                //             this.history.back();
+                                //             this.close();
+                                //           }else{
+                                //             history.pushState(null, document.title, location.href);
+                                //           }
+    
+                                // })             
+                          });
+                        }
+                      });
+    
+                  
+    
+                  
+                     
+            
+                      $("#submit")
+                        .off()
+                        .click(function () {
+                          Swal.fire({
+                            icon: 'question',
+                            text: 'তুমি কি সাবমিট করতে চাও?',
+                            showConfirmButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: 'হ্যাঁ',
+                            cancelButtonText: 'না'
+    
+                        }).then(res=>{
+                          if(res.isConfirmed) {
+    
+                          $('.parc').show();
+                          clearInterval(timer);
+                          $("html, body").animate({ scrollTop: 0 }, "slow");
+                          $("#submit").unbind('click');
+                          $("#submit .ex-submit").html(`
+                          <i class="icofont-check-circled"></i>
+                          `);
+                          let e;
+                          $(".explanation").show();
+                       
+                          let found;
+                          for (let k = 0; k < ans.length; ++k) {
+                            e = k;
+                            e = "#exp-" + e;
+                            $(e).html(
+                              `<b style="color: green;">Solution:</b><br>${exp[k]}`
+                            );
+    
+                            $("#" + ans[k] + " .st").addClass("cr");
+    
+                            $(
+                              $($($("#" + ans[k])[0].parentNode)[0].parentNode)[0]
+                                .children[0]
+                            ).html(
+                              '<div class="not-ans"> <i class="icofont-warning-alt"></i></div>'
+                            );
+                          }
+    
+                          for (let i = 0; i < userAns.length; ++i) {
+                            found = true;
+                            for (let j = 0; j < ans.length; ++j) {
+                              if (parseInt(userAns[i]) === ans[j]) { 
+                                score++;
+                                $("#" + userAns[i] + " .st").addClass("cr");
+                                $(
+                                  $(
+                                    $($("#" + userAns[i])[0].parentNode)[0]
+                                      .parentNode
+                                  )[0].children[0]
+                                ).html(
+                                  '<div class="correct"> <i class="icofont-check-circled"></i> </div>'
+                                );
+                                found = true;
+                                break;
+                              } else found = false;
+                            }
+    
+                            if (!found) {
+                              wrong++;
+                              $("#" + userAns[i] + " .st").addClass("wa");
+                              $(
+                                $(
+                                  $($("#" + userAns[i])[0].parentNode)[0].parentNode
+                                )[0].children[0]
+                              ).html(
+                                '<div class="wrong"> <i class="icofont-close-circled"></i>  </div>'
+                              );
+                            }
+                          }
+                          MathJax.typeset();
+    
+                          $(".score").show();
+                          $(".mark").html(
+                            `<i class="icofont-check-circled"></i><br>স্কোর</br> <small>সঠিক: ${score} </small> <br/> <span class="score-num">${score-(wrong*neg)}/${questions.length}</span>`
+                          );
+                          $(".score-wa").html(
+                            `<i class="icofont-close-circled"></i><br/>ভুল </br><small>নেগেটিভ: ${wrong*neg}</small><br/> <span class="score-num">${wrong}</span>`
+                          );
+                          $(".score-na").html(
+                            `<i class="icofont-warning-alt"></i><br />ফাঁকা </br> <span class="score-num">${
+                              questions.length - (score + wrong)
+                            }</span>`
+                          );
+                          $(".score-time").html(
+                            `<i class="icofont-ui-clock"></i><br />সময় <br> <span class="score-num">${
+                              initialMin - 1 - minute
+                            }:${59 - sec}</span>`
                           );
                           
                           
@@ -1806,7 +2113,8 @@ const app = document.getElementById('app');
     
               
               clearInterval(y);
-              liveDetailsTimer(data.start_time, data.end_time, '#live_det #timer', '#live_det #status', `.st-${params.id}`)
+              
+              liveDetailsTimer(data.start_time, data.end_time, '#live_det #timer', '#live_det #status', `.st-${params.id}`, data.title, params.id)
               if(UID){
                
                
