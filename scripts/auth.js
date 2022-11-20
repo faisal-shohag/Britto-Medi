@@ -206,6 +206,7 @@ function FireAuthUI(){
         recaptchaParameters: {
           size: getRecaptchaMode()
         },
+        defaultCountry: 'BD'
       },
       {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
