@@ -74,3 +74,5 @@ function parseQueryString(queryString) {
   }
   return config;
 }
+
+var CLIENT_ID = '612135243639-14ma717s4im15i0ks2psjpam93k0nk48.apps.googleusercontent.com';

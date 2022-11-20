@@ -1324,9 +1324,12 @@ const app = document.getElementById('app');
           });
     
           store.collection('users').doc(params.uid).get().then(snap=>{
-            let live_exams = snap.data().live_exams;
+            if(snap.data().live_exams){
+              let live_exams = snap.data().live_exams;
             live_exams = Object.entries(live_exams);
             $('#myExam').text(live_exams.length)
+            }
+            
             // if(snap.data().photoUrl){
               $('#my_photo').html(`<img src="https://robohash.org/${snap.data().name}.png?set=set4"/>`);
             // }

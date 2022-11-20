@@ -162,7 +162,7 @@ firebase.auth().useDeviceLanguage();
 
 
 function FireAuthUI(){
-  /*
+/*
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -183,9 +183,7 @@ function FireAuthUI(){
 /**
  * @return {!Object} The FirebaseUI config.
  */
-
-
-function getUiConfig() {
+ function getUiConfig() {
   return {
     'callbacks': {
       // Called when the user has been successfully signed in.
@@ -194,29 +192,43 @@ function getUiConfig() {
           handleSignedInUser(authResult.user);
         }
         if (authResult.additionalUserInfo) {
-              authResult.additionalUserInfo.isNewUser ?
-              console.log('New User') : console.log('Existing User');
+          
         }
+        // Do not redirect.
         return false;
       }
     },
-    'signInFlow': 'popup',
-    'signInOptions': [    
+    // Opens IDP Providers sign-in flow in a popup.
+    
+    'signInOptions': [
       {
         provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
         recaptchaParameters: {
           size: getRecaptchaMode()
         },
-        defaultCountry: 'BD'
       },
+      {
+        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        // Required to enable ID token credentials for this provider.
+        clientId: CLIENT_ID
+      },
+      {
+        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        // Whether the display name should be displayed in Sign Up page.
+        requireDisplayName: true,
+        signInMethod: getEmailSignInMethod(),
+        disableSignUp: {
+          status: getDisableSignUpStatus()
+        }
+      }
     ],
     // Terms of service url.
     'tosUrl': 'https://www.google.com',
     // Privacy policy url.
     'privacyPolicyUrl': 'https://www.google.com',
-    // 'credentialHelper': CLIENT_ID && CLIENT_ID != 'YOUR_OAUTH_CLIENT_ID' ?
-    //     firebaseui.auth.CredentialHelper.GOOGLE_YOLO :
-    //     firebaseui.auth.CredentialHelper.NONE,
+    'credentialHelper': CLIENT_ID && CLIENT_ID != 'YOUR_OAUTH_CLIENT_ID' ?
+        firebaseui.auth.CredentialHelper.GOOGLE_YOLO :
+        firebaseui.auth.CredentialHelper.NONE,
     'adminRestrictedOperation': {
       status: getAdminRestrictedOperationStatus()
     }
@@ -261,38 +273,26 @@ var signInWithPopup = function() {
  * @param {!firebase.User} user
  */
 var handleSignedInUser = function(user) {
-        if (user) {
-        // console.log(user);
-        store
-          .collection("users")
-          .doc(user.uid)
-          .set(
-            {
-              phone: user.phoneNumber,
-              uid: user.uid,
-              creationTime: (firebase.firestore.Timestamp.fromDate(
-                  new Date(user.metadata.creationTime)
-                )),
-              
-            },
-            { merge: true }
-          )
-          .then(() => {
-            router.navigate('/');
-            window.location.reload();           
-            console.log(user.uid)
-          });
-
-          db.ref('allUsers').update({
-            [usr.uid] : {
-              name: usr.name,
-              phone: usr.phone
-            }
-          });
-          
-      } else {
-        console.log("USER NOT LOGGED IN");
-      }
+  // document.getElementById('user-signed-in').style.display = 'block';
+  // document.getElementById('user-signed-out').style.display = 'none';
+  // document.getElementById('name').textContent = user.displayName;
+  // document.getElementById('email').textContent = user.email;
+  // document.getElementById('phone').textContent = user.phoneNumber;
+  // if (user.photoURL) {
+  //   var photoURL = user.photoURL;
+  //   // Append size to the photo URL for Google hosted images to avoid requesting
+  //   // the image with its original resolution (using more bandwidth than needed)
+  //   // when it is going to be presented in smaller size.
+  //   if ((photoURL.indexOf('googleusercontent.com') != -1) ||
+  //       (photoURL.indexOf('ggpht.com') != -1)) {
+  //     photoURL = photoURL + '?sz=' +
+  //         document.getElementById('photo').clientHeight;
+  //   }
+  //   document.getElementById('photo').src = photoURL;
+  //   document.getElementById('photo').style.display = 'block';
+  // } else {
+  //   document.getElementById('photo').style.display = 'none';
+  // }
 };
 
 
@@ -300,16 +300,16 @@ var handleSignedInUser = function(user) {
  * Displays the UI for a signed out user.
  */
 var handleSignedOutUser = function() {
-  // document.getElementById('user-signed-in').style.display = 'none';
-  document.getElementById('user-signed-out').style.display = 'block';
+  $('#user-signed-in').hide();
+  $('#user-signed-out').show()
   ui.start('#firebaseui-container', getUiConfig());
 };
 
 // Listen to change in auth state so it displays the correct UI for when
 // the user is signed in or not.
 firebase.auth().onAuthStateChanged(function(user) {
-  document.getElementById('loading').style.display = 'none';
-  document.getElementById('loaded').style.display = 'block';
+ $('#loading').hide()
+  $('#loaded').show()
   user ? handleSignedInUser(user) : handleSignedOutUser();
 });
 
@@ -336,68 +336,50 @@ var deleteAccount = function() {
  * Handles when the user changes the reCAPTCHA, email signInMethod or email
  * disableSignUp config.
  */
-// function handleConfigChange() {
-//   var newRecaptchaValue = document.querySelector(
-//       'input[name="recaptcha"]:checked').value;
-//   var newEmailSignInMethodValue = document.querySelector(
-//       'input[name="emailSignInMethod"]:checked').value;
-//   var currentDisableSignUpStatus =
-//       document.getElementById("email-disableSignUp-status").checked;
-//   var currentAdminRestrictedOperationStatus =
-//       document.getElementById("admin-restricted-operation-status").checked;
-//   location.replace(
-//       location.pathname + '#recaptcha=' + newRecaptchaValue +
-//       '&emailSignInMethod=' + newEmailSignInMethodValue +
-//       '&disableEmailSignUpStatus=' + currentDisableSignUpStatus +
-//       '&adminRestrictedOperationStatus=' +
-//       currentAdminRestrictedOperationStatus);
-//   // Reset the inline widget so the config changes are reflected.
-//   ui.reset();
-//   ui.start('#firebaseui-container', getUiConfig());
-// }
+function handleConfigChange() {
+  var newRecaptchaValue = document.querySelector(
+      'input[name="recaptcha"]:checked').value;
+  var newEmailSignInMethodValue = document.querySelector(
+      'input[name="emailSignInMethod"]:checked').value;
+  var currentDisableSignUpStatus =
+      document.getElementById("email-disableSignUp-status").checked;
+  var currentAdminRestrictedOperationStatus =
+      document.getElementById("admin-restricted-operation-status").checked;
+  location.replace(
+      location.pathname + '#recaptcha=' + newRecaptchaValue +
+      '&emailSignInMethod=' + newEmailSignInMethodValue +
+      '&disableEmailSignUpStatus=' + currentDisableSignUpStatus +
+      '&adminRestrictedOperationStatus=' +
+      currentAdminRestrictedOperationStatus);
+  // Reset the inline widget so the config changes are reflected.
+  ui.reset();
+  ui.start('#firebaseui-container', getUiConfig());
+}
 
 
 /**
  * Initializes the app.
  */
 var initApp = function() {
-  document.getElementById('sign-in-with-redirect').addEventListener(
-      'click', signInWithRedirect);
-  document.getElementById('sign-in-with-popup').addEventListener(
-      'click', signInWithPopup);
-  document.getElementById('sign-out').addEventListener('click', function() {
-    firebase.auth().signOut();
-  });
-  document.getElementById('delete-account').addEventListener(
-      'click', function() {
-        deleteAccount();
-      });
+  
 
-  document.getElementById('recaptcha-normal').addEventListener(
-      'change', handleConfigChange);
-  document.getElementById('recaptcha-invisible').addEventListener(
-      'change', handleConfigChange);
-  // Check the selected reCAPTCHA mode.
-  document.querySelector(
-      'input[name="recaptcha"][value="' + getRecaptchaMode() + '"]')
-      .checked = true;
 
-  document.getElementById('email-signInMethod-password').addEventListener(
-      'change', handleConfigChange);
-  document.getElementById('email-signInMethod-emailLink').addEventListener(
-      'change', handleConfigChange);
-  // Check the selected email signInMethod mode.
-  document.querySelector(
-      'input[name="emailSignInMethod"][value="' + getEmailSignInMethod() + '"]')
-      .checked = true;
-  document.getElementById('email-disableSignUp-status').addEventListener(
-      'change', handleConfigChange);
-  document.getElementById("email-disableSignUp-status").checked =
-      getDisableSignUpStatus();  
-  document.getElementById('admin-restricted-operation-status').addEventListener(
-      'change', handleConfigChange);
-  document.getElementById("admin-restricted-operation-status").checked =
-      getAdminRestrictedOperationStatus();  
+  // document.getElementById('email-signInMethod-password').addEventListener(
+  //     'change', handleConfigChange);
+  // document.getElementById('email-signInMethod-emailLink').addEventListener(
+  //     'change', handleConfigChange);
+  // // Check the selected email signInMethod mode.
+  // document.querySelector(
+  //     'input[name="emailSignInMethod"][value="' + getEmailSignInMethod() + '"]')
+  //     .checked = true;
+  // document.getElementById('email-disableSignUp-status').addEventListener(
+  //     'change', handleConfigChange);
+  // document.getElementById("email-disableSignUp-status").checked =
+  //     getDisableSignUpStatus();  
+  // document.getElementById('admin-restricted-operation-status').addEventListener(
+  //     'change', handleConfigChange);
+  // document.getElementById("admin-restricted-operation-status").checked =
+  //     getAdminRestrictedOperationStatus();  
 };
 
 window.addEventListener('load', initApp);
@@ -442,13 +424,16 @@ firebase.auth().onAuthStateChanged(user=> {
 
     if(user) {
         history.pushState({page: 1}, "home", "#!/")
-     
+     console.log(user.uid);
       UID = user.uid;
       myuid = user.uid;
 
+      
+
         store.collection('users').doc(user.uid).get().then(snap=>{
-            // console.log(snap.data());
-            if(!snap.data().name) {
+            console.log(snap.data());
+          
+            if(snap.data() === undefined || !snap.data().name) {
                 $('.get-info').html(`
                 <div class="modal fade" id="info_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog  modal-dialog-centered">
@@ -523,7 +508,8 @@ firebase.auth().onAuthStateChanged(user=> {
                         store.collection('users').doc(user.uid).set({
                             name: name,
                             inst: inst,
-                            group: group
+                            group: group,
+                            
                         }, {merge: true}).then(()=>{
                           $('.cyp').html(`
                           <center><div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
@@ -546,6 +532,26 @@ firebase.auth().onAuthStateChanged(user=> {
                           Your profile is created successfully.<br>Reloading in 1.5 second!
                       </center>
                       `);
+
+                      store.collection("users")
+                .doc(user.uid)
+                .set(
+                  {
+                    phone: user.phoneNumber,
+                    uid: user.uid,
+                    creationTime: (firebase.firestore.Timestamp.fromDate(
+                        new Date(user.metadata.creationTime)
+                      )),
+                    
+                  },
+                  { merge: true }
+                )
+                .then(() => {
+                  router.navigate('/');
+                  window.location.reload();           
+                  console.log(user.uid)
+                });
+
 
                           
                           setTimeout(()=>{
