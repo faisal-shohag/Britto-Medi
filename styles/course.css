@@ -399,3 +399,18 @@ button{
     text-decoration: underline;
     cursor: pointer;
   }
+
+  
+  .std_name{
+    font-size: 25px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(rgb(74, 24, 167), rgb(207, 36, 179));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .std_welcome{
+    font-family: Hind Siliguri;
+    font-size: 18px;
+    font-weight: bold;
+  }

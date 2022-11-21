@@ -1882,13 +1882,6 @@ white-space: nowrap;
   margin: 0;
 }
 
-.top2{
-  /* border: 2px solid #d4cece; */
-}
-
-.top3{
-  /* border: 2px solid #fafafa; */
-}
 .top2, .top3{
   height: 65px;
   width: 65px;
@@ -2102,4 +2095,27 @@ h3, h2{
   font-weight: bold;
   font-family: 'Lato', Kalpurush;
   border-radius: 3px;
+}
+
+
+.btn{
+  font-family: 'Poppins', Kalpurush !important;
+}
+
+.login_card{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  padding: 20px;
+  border-radius: 7px;
+}
+
+.loading_id{
+  padding: 10px;
+  display: none;
+}
+
+.form_warn{
+  padding: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  color: crimson;
 }

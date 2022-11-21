@@ -307,16 +307,19 @@ firebase.auth().onAuthStateChanged(user=> {
                         }
             
                         console.log(data);
-                        store.collection('lives').add(data)
-                        .then(()=>{
-                           Swal.fire({
-                            icon: 'success',
-                            text: 'Exam Added!'
-                           })
+                        // store.collection('lives').add(data)
+                        // .then(()=>{
+                        //    Swal.fire({
+                        //     icon: 'success',
+                        //     text: 'Exam Added!'
+                        //    })
             
-                        }).catch(error=> {
-                            console.log(error);
-                        })
+                        // }).catch(error=> {
+                        //     console.log(error);
+                        // })
+
+                        db.ref('exams/humanity').push(data);
+
                     });
             
                     store.collection('lives').get().then(snap=>{
@@ -2042,6 +2045,72 @@ firebase.auth().onAuthStateChanged(user=> {
                 
             
                })
+                },
+                "/addStudent": function(){
+                    app.innerHTML = `
+                    <div class="body">
+                    <form id="addstd">
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">Name</span>
+                    <input type="text" class="form-control" name="name" placeholder="Name" aria-label="Title" aria-describedby="basic-addon1" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">Id</span>
+                    <input type="number" class="form-control" name="id" placeholder="ID" aria-label="Title" aria-describedby="basic-addon1" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">inst</span>
+                    <input type="text" class="form-control" name="inst" placeholder="Inst" aria-label="Title" aria-describedby="basic-addon1" required>
+                    </div>                   
+                    
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                    </div>
+
+                    <div class="students" id="std_list">
+                    
+                    </div>
+                    `
+
+                    const addstd = document.getElementById('addstd');
+                    addstd.addEventListener('submit', e=>{
+                        e.preventDefault();
+                        let data = {
+                            name: addstd.name.value,
+                            id: addstd.id.value,
+                            inst: addstd.inst.value
+                        }
+                        db.ref('users').child(data.id).update({
+                            name: addstd.name.value,
+                            id: addstd.id.value,
+                            inst: addstd.inst.value
+                        })
+                    });
+
+                    const std_list = document.getElementById('std_list');
+
+
+                    db.ref('users').on('value', snap=>{
+                        std_list.innerHTML = ``;
+
+                        snap.forEach(item=>{
+                            std_list.innerHTML += `
+                            <div class="std">
+                            <div class="std_p">
+                            <div class="std_rank">.</div>
+                            <div>
+                            <div class="std_name">${item.val().name}</div>
+                            <div class="std_inst">${item.val().id}</div>
+                            <div class="std_inst">${item.val().inst}</div>
+                            </div>
+                            </div>
+                            <div class="std_score">...</div>
+                            </div>
+                            `
+                        })
+                    })
                 }
 
             }).resolve();
