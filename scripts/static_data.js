@@ -440,7 +440,7 @@ function liveDetailsTimer(date, end, element, sdate, button, title, key){
         })
        }else{
         $(button).html(`<button id="btn-running" class="btn btn-primary">Start</div>`);
-        if(UID){
+        // if(UID){
           $( document ).ready(function() {
             $('#btn-running').click(function(){
               Swal.fire({
@@ -459,12 +459,12 @@ function liveDetailsTimer(date, end, element, sdate, button, title, key){
               
             })
         }); 
-        }else{
-          Swal.fire({
-            icon: 'warning',
-            text: 'Please login first!'
-          })
-        }
+        // }else{
+        //   Swal.fire({
+        //     icon: 'warning',
+        //     text: 'Please login first!'
+        //   })
+        // }
         
         
         liveDetailsTimer(end, -1, element, sdate, button, title, key);

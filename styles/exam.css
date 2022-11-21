@@ -690,12 +690,13 @@
 }
 
 .stand_time{
-  background: #949297;
+  background: #5918b9;
   /* padding: 3px; */
   min-width: 50px;
   text-align: center;
   height: 100%;
-  color: #3c3d3f;
+  color: #f3f4f7;
+  border-radius: 3px;
 }
 
 .video{
