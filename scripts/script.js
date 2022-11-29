@@ -115,6 +115,27 @@ checkId.addEventListener('submit', e=>{
           <div class="std_name_top">${user.name}</div>
           </div>
 
+<div id="extra_info" class="login_card">
+<center style="color: green; font-family: 'Kalpurush'">তোমার আরও কিছু তথ্য প্রয়োজন! সঠিকভাবে ফোন নম্বর দিয়ে সাবমিট করো।</center>
+<form id="getInfo">
+<div class="input-group mb-3">
+<span class="input-group-text">ফোন নম্বর</span>
+<input type="tel" class="form-control" name="phone" placeholder="ফোন নম্বর" aria-label="Title" aria-describedby="basic-addon1" required>
+</div>
+
+<div class="input-group mb-3">
+<span class="input-group-text">অভিভাবকের ফোন নম্বর</span>
+<input type="tel" class="form-control" name="guardian" placeholder="অভিভাবকের ফোন নম্বর" aria-label="Title" aria-describedby="basic-addon1" required>
+</div>
+
+
+
+
+<center><button class="btn btn-success" type="submit">সাবমিট</button></center>
+</form>
+</div>
+<br>
+
           <div class="section">
           <div class="section-heading">
           <div class="sec-sec1"><div class="icon"><img src="../images/bell.png"></div><div class="text">Live Exams</div></div>
@@ -194,6 +215,57 @@ checkId.addEventListener('submit', e=>{
 </div>
 </div>
           `
+
+          $('#extra_info').hide();
+
+
+          db.ref('users/'+UID).on('value', snap=>{
+            console.log(snap.val());
+            if(!snap.val().phone){
+          $('#extra_info').show();
+
+          
+
+            }else{
+          $('#extra_info').hide();
+            }
+
+          });
+
+      const getInfo = document.getElementById('getInfo')
+      getInfo.addEventListener('submit', e=>{
+    e.preventDefault();
+
+    Swal.fire({
+      text: 'সবকিছু ঠিক আছে?',
+      icon: 'question',
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'হ্যাঁ',
+      cancelButtonText: 'না!'
+    }).then(res=>{
+      if(res.isConfirmed){
+        $('.loading_id').show();
+        let data = {
+          phone: getInfo.phone.value,
+          guardian: getInfo.guardian.value
+        }
+        console.log(data);
+       try {
+        db.ref('users/'+UID).update(data);
+        console.log('success');
+        $('.loading_id').hide();
+        $('#card_area').hide();
+
+        Swal.fire('ধন্যবাদ!', 'success')
+       } catch (error) {
+        console.log(error)
+       }
+      }
+  })
+   
+  
+});
         
 
         //live exam
