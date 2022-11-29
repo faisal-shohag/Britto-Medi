@@ -239,6 +239,7 @@ const app = document.getElementById('app');
             <div class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">Practice</div></div>
             <div class="more">3100+ Questions</div>
             </div>
+            
             <div class="sl">
       <div class="sl_menu">
       <a href="#!/practice/subject/b1"> 
