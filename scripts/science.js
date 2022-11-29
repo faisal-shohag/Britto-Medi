@@ -2,7 +2,7 @@ const router = new Navigo(null, true, '#!');
 const app = document.getElementById('app');
 
 // paid exam without login
-
+history.pushState({page: 1}, "home", "#!/")
 if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
     $('.footer').hide();
     app.innerHTML = `
