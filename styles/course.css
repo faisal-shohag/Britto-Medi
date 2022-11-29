@@ -414,3 +414,22 @@ button{
     font-size: 18px;
     font-weight: bold;
   }
+
+
+
+  .myId{
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #c40f5a;
+    line-height: 30px;
+    font-family: 'Lato', Kalpurush;
+
+    font-weight: bold;
+  }
+
+  .myId small{
+    font-size: 16px;
+  }

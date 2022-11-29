@@ -2,7 +2,7 @@ const router = new Navigo(null, true, '#!');
 const app = document.getElementById('app');
 
 // paid exam without login
-history.pushState({page: 1}, "home", "#!/")
+// history.pushState({page: 1}, "home", "#!/")
 if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
     $('.footer').hide();
     app.innerHTML = `
@@ -3437,4 +3437,98 @@ router.on({
  
  
   },
+  '/info': function(){
+    $('.top-title').text('তোমার তথ্য');
+    app.innerHTML = `
+    <div class="body">
+<div class="login_card">
+
+<div class="britto">
+<img src="../images/puzzle.png">
+<div class="britto-text">Britto Edu.</div>
+</div>
+
+<span id="card_area">
+<center id="warn"><div class="loading_id">
+<div class="spinner-border" style="width: 2rem; height: 2rem;" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+</div></center>
+<center style="color: green; font-family: 'Kalpurush'">নিচের সবগুলো তথ্য সঠিকভাবে দিয়ে সাবমিট করো। সাবমিট করার পর তোমার আইডিটি দেখতে পারবে।</center>
+<form id="getInfo">
+
+<div class="input-group mb-3">
+<span class="input-group-text">নাম</span>
+<input type="text" class="form-control" name="name" placeholder="নাম..." aria-label="Title" aria-describedby="basic-addon1" required>
+</div>
+
+<div class="input-group mb-3">
+<span class="input-group-text">কলেজের নাম</span>
+<input type="text" class="form-control" name="college" placeholder="কলেজের নাম" aria-label="Title" aria-describedby="basic-addon1" required>
+</div>
+
+<div class="input-group mb-3">
+<span class="input-group-text">ফোন নম্বর</span>
+<input type="tel" class="form-control" name="phone" placeholder="ফোন নম্বর" aria-label="Title" aria-describedby="basic-addon1" required>
+</div>
+
+<div class="input-group mb-3">
+<span class="input-group-text">অভিভাবকের ফোন নম্বর</span>
+<input type="tel" class="form-control" name="guardian" placeholder="অভিভাবকের ফোন নম্বর" aria-label="Title" aria-describedby="basic-addon1" required>
+</div>
+
+
+<center><button class="btn btn-success" type="submit">সাবমিট</button></center>
+</form>
+</span>
+
+<div class="myId"></div>
+
+</div>
+
+</div>
+
+    `
+
+const getInfo = document.getElementById('getInfo')
+getInfo.addEventListener('submit', e=>{
+    e.preventDefault();
+
+    Swal.fire({
+      text: 'সবকিছু ঠিক আছে?',
+      icon: 'question',
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'হ্যাঁ',
+      cancelButtonText: 'না!'
+    }).then(res=>{
+      if(res.isConfirmed){
+        $('.loading_id').show();
+        let data = {
+          name: getInfo.name.value,
+          college: getInfo.college.value,
+          phone: getInfo.phone.value,
+          guardian: getInfo.guardian.value
+        }
+        console.log(data);
+        let phone = data.phone;
+        let id = phone[6]+phone[7]+phone[8]+phone[9]+phone[10];
+    
+       try {
+        db.ref('users_sci/'+id).update(data);
+        console.log('success');
+        $('.myId').html(`<div><small>তোমার আইডি</small></div>${id}<div><small>আইডিটি সংরক্ষণ করে রাখো।</small></div>`);
+        $('.loading_id').hide();
+        $('#card_area').hide();
+       } catch (error) {
+        console.log(error)
+       }
+      }
+  })
+   
+  
+});
+
+
+  }
 }).resolve();
