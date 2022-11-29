@@ -20,7 +20,7 @@ if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined
   <span class="visually-hidden">Loading...</span>
 </div>
 </div></center>
-<center style="color: crimson;">#তোমাদের আইডি গুলো খুব শিগ্রি দেয়া হবে যার মাধ্যমে এক্সাম গুলো দিতে পারবে! আপাতত প্রাকটিস এক্সাম গুলো দাও!</center>
+<center style="color: crimson;">#তোমাদের আইডি গুলো খুব শিগ্রি দেয়া হবে যার মাধ্যমে LIVE এক্সাম গুলো দিতে পারবে! আপাতত প্রাকটিস এক্সাম গুলো দাও!</center>
 <form id="checkId">
 <div class="input-group mb-3">
 <span class="input-group-text">আইডি</span>
