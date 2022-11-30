@@ -29,6 +29,8 @@ if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined
 
 <center><button class="btn btn-success" type="submit">লগইন</button></center>
 </form>
+<center><a href="#!/info"><button class="btn btn-danger">আইডি পাইনি!</button></a></center>
+
 
 </div>
 
@@ -149,7 +151,9 @@ checkId.addEventListener('submit', e=>{
           <div class="std_welcome">স্বাগতম,</div>
           <div class="std_name_top">${user.name}</div>
           </div>
+      
 
+          <span style="display:none;">
           <div class="section">
           <div class="section-heading">
           <div class="sec-sec1"><div class="icon"><img src="../images/bell.png"></div><div class="text">Live Exams</div></div>
@@ -166,6 +170,7 @@ checkId.addEventListener('submit', e=>{
             </div>
         
             </div>
+          </span>
 
             <div class="section">
             <div class="section-heading">
@@ -174,7 +179,7 @@ checkId.addEventListener('submit', e=>{
             </div>
     
             <center>
-            <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> Humanity(2nd Time)</button>
+            <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> Science</button>
             </center>
             <br>
 
@@ -280,22 +285,22 @@ checkId.addEventListener('submit', e=>{
         
 
         //live exam
-        db.ref('app/live').on('value', snap=>{
-            // snap.val().id = 'irOqw2bOF0OLCavF1EKV';
-            store.collection('lives').doc(snap.val().id).onSnapshot(live=>{
-              let l = live.data();
-              $('#live_banner').html(`
-            <a href="#!/live/details/${snap.val().id}"><div class="live-bg"><img src="${l.img_link}"/></div>
-              <div class="title">${l.title}</div>
-              <div  class="time">${dateForm(l.start_time).split(' ')[0]} ${dateForm(l.start_time).split(' ')[1]} ${timeForm(l.start_time)} - ${timeForm(l.end_time)}</div>
-              <div id="s-time" class=""></div>
-              <div class="badge"><img src="../images/${l.type}.png"/></div></a>
-            `);
-            $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
-              clearInterval(z);
-            liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
-            })
-          })
+        // db.ref('app/live').on('value', snap=>{
+        //     // snap.val().id = 'irOqw2bOF0OLCavF1EKV';
+        //     store.collection('lives').doc(snap.val().id).onSnapshot(live=>{
+        //       let l = live.data();
+        //       $('#live_banner').html(`
+        //     <a href="#!/live/details/${snap.val().id}"><div class="live-bg"><img src="${l.img_link}"/></div>
+        //       <div class="title">${l.title}</div>
+        //       <div  class="time">${dateForm(l.start_time).split(' ')[0]} ${dateForm(l.start_time).split(' ')[1]} ${timeForm(l.start_time)} - ${timeForm(l.end_time)}</div>
+        //       <div id="s-time" class=""></div>
+        //       <div class="badge"><img src="../images/${l.type}.png"/></div></a>
+        //     `);
+        //     $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
+        //       clearInterval(z);
+        //     liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
+        //     })
+        //   })
           
           //Routine
            //routine
@@ -305,7 +310,7 @@ checkId.addEventListener('submit', e=>{
               $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
               $('#routineModal').modal('show');
             }else{
-              $('#rtn-img').html(`<img src="https://i.postimg.cc/W4kyH74B/Routine-4.png"/>`)
+              $('#rtn-img').html(`<img src="https://i.postimg.cc/2jgH2xqx/Science.png"/>`)
               $('#routineModal').modal('show');
             }
           });
@@ -3439,6 +3444,7 @@ router.on({
   },
   '/info': function(){
     $('.top-title').text('তোমার তথ্য');
+    $('.footer').hide();
     app.innerHTML = `
     <div class="body">
 <div class="login_card">

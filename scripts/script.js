@@ -257,7 +257,7 @@ checkId.addEventListener('submit', e=>{
         $('.loading_id').hide();
         $('#card_area').hide();
 
-        Swal.fire('ধন্যবাদ!', 'success')
+        Swal.fire({text: 'ধন্যবাদ!', icon: 'success'})
        } catch (error) {
         console.log(error)
        }
