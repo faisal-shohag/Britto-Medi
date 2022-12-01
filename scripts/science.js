@@ -3550,10 +3550,9 @@ getInfo.addEventListener('submit', e=>{
 } else {
   $('.sp').hide();
   Swal.fire({
-    icon: 'error',
-    text: 'Something went wrong!'
+    icon: 'waring',
+    text: 'যেকোনো ব্রাউজারে(যেমন ক্রম!) ঢুকে britto.netlify.app/science.html ভিজিট করো! Messenger Browser সেইফ নয়!'
   });
-  console.log("Error");
 }
 });
 
