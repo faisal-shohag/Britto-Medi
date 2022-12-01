@@ -256,6 +256,41 @@ function getLives(callback){
 
 }
 
+function getLives_sc(callback){
+  store.collection('lives_sc').get().then(docs=>{
+
+    let lives = [];
+    let ended = [];
+    docs.forEach(item=>{
+      let start = new Date(item.data().start_time);
+      let end = new Date(item.data().end_time);
+      let d = new Date();
+
+    
+      if(start.getTime() >= d){
+        // console.log(item.data())
+        lives.push({...item.data(), id: item.id});
+      }else if(end.getTime() < d){
+        ended.push({...item.data(), id: item.id});
+      }else{
+        
+      }
+      
+    });
+
+    lives.sort((a, b) => {
+      return new Date(a.start_time) - new Date(b.start_time);
+    })
+    if(callback){
+      callback(lives, ended);
+    }
+
+
+  });
+
+
+}
+
 function getPast(callback){
   store.collection('lives').get().then(docs=>{
 

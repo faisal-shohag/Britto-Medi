@@ -10,7 +10,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
 // paid exam without login
 history.pushState({page: 1}, "home", "#!/")
-if(localStorage.getItem("id_sc") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id_sc") == ""){
+if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == undefined || localStorage.getItem("id_sc") == ""){
     $('.footer').hide();
     app.innerHTML = `
 <div class="body">
@@ -160,11 +160,11 @@ checkId.addEventListener('submit', e=>{
           </div>
       
 
-          <span style="display:none;">
+          <span>
           <div class="section">
           <div class="section-heading">
           <div class="sec-sec1"><div class="icon"><img src="../images/bell.png"></div><div class="text">Live Exams</div></div>
-          <a href="#!/live/list"><div class="more">সবগুলো দেখো</div></a>
+          <a href="#!/live_sc/list"><div class="more">সবগুলো দেখো</div></a>
           </div>
           <div class="live-card siliguri">
                <div id="live_banner">
@@ -186,7 +186,7 @@ checkId.addEventListener('submit', e=>{
             </div>
     
             <center>
-            <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> Science</button>
+            <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> যাচাই এক্সাম </button>
             </center>
             <br>
 
@@ -292,22 +292,22 @@ checkId.addEventListener('submit', e=>{
         
 
         //live exam
-        // db.ref('app/live').on('value', snap=>{
-        //     // snap.val().id = 'irOqw2bOF0OLCavF1EKV';
-        //     store.collection('lives').doc(snap.val().id).onSnapshot(live=>{
-        //       let l = live.data();
-        //       $('#live_banner').html(`
-        //     <a href="#!/live/details/${snap.val().id}"><div class="live-bg"><img src="${l.img_link}"/></div>
-        //       <div class="title">${l.title}</div>
-        //       <div  class="time">${dateForm(l.start_time).split(' ')[0]} ${dateForm(l.start_time).split(' ')[1]} ${timeForm(l.start_time)} - ${timeForm(l.end_time)}</div>
-        //       <div id="s-time" class=""></div>
-        //       <div class="badge"><img src="../images/${l.type}.png"/></div></a>
-        //     `);
-        //     $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
-        //       clearInterval(z);
-        //     liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
-        //     })
-        //   })
+        db.ref('app/live_sc').on('value', snap=>{
+            // snap.val().id = 'irOqw2bOF0OLCavF1EKV';
+            store.collection('lives_sc').doc(snap.val().id).onSnapshot(live=>{
+              let l = live.data();
+              $('#live_banner').html(`
+            <a href="#!/live/details/${snap.val().id}"><div class="live-bg"><img src="${l.img_link}"/></div>
+              <div class="title">${l.title}</div>
+              <div  class="time">${dateForm(l.start_time).split(' ')[0]} ${dateForm(l.start_time).split(' ')[1]} ${timeForm(l.start_time)} - ${timeForm(l.end_time)}</div>
+              <div id="s-time" class=""></div>
+              <div class="badge"><img src="../images/${l.type}.png"/></div></a>
+            `);
+            $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
+              clearInterval(z);
+            liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
+            })
+          })
           
           //Routine
            //routine
@@ -322,7 +322,7 @@ checkId.addEventListener('submit', e=>{
             }
           });
         },
-        '/live/list': function(){
+        '/live_sc/list': function(){
             console.log('live/list')           
             $('.top').show();
             $('.footer').hide();
@@ -355,7 +355,7 @@ checkId.addEventListener('submit', e=>{
             </body>
             `
       
-            getLives((live, ended)=>{
+            getLives_sc((live, ended)=>{
               const list_upcoming = document.querySelector('.list_upcoming');
              list_upcoming.innerHTML = '';
         
@@ -408,7 +408,7 @@ checkId.addEventListener('submit', e=>{
             })
       
         },
-          '/live/details/:id': function(params){
+        '/live/details/:id': function(params){
             $('.top').show();
             $('.footer').hide();
             $('.top-title').html(`Live`);
@@ -473,7 +473,7 @@ checkId.addEventListener('submit', e=>{
       
             getLive();
             function getLive(){
-           return store.collection('lives').doc(params.id).get().then(doc=>{
+           return store.collection('lives_sc').doc(params.id).get().then(doc=>{
               // console.log(params.id);
               let data = doc.data();
               $('.top-title').html(`${data.title}`);
@@ -548,7 +548,7 @@ checkId.addEventListener('submit', e=>{
                           cancelButtonText: 'No'
                         }).then(res=>{
                           if(res.isConfirmed){
-                              store.collection('lives').doc(params.id).set({
+                              store.collection('lives_sc').doc(params.id).set({
                                 reg_std:{
                                   [UID]: {
                                     name: user.name,
@@ -587,7 +587,7 @@ checkId.addEventListener('submit', e=>{
             //       //     e.preventDefault();
             //       //     let cmnt =  $('#comment_value').val();
             //       //     if(cmnt.trim() != ''){
-            //       //       store.collection('lives').doc(params.id).collection('comments').add({     
+            //       //       store.collection('lives_sc').doc(params.id).collection('comments').add({     
             //       //             comment: cmnt,
             //       //             name: std_name,
             //       //             UID: UID,
@@ -684,7 +684,7 @@ checkId.addEventListener('submit', e=>{
           //comments
           /*
           let all_comments = document.getElementById('all_comments');
-          store.collection('lives').doc(params.id).collection('comments').onSnapshot(snap=>{
+          store.collection('lives_sc').doc(params.id).collection('comments').onSnapshot(snap=>{
             let comments = []; 
             comments.sort((a, b) => new Date(b.at) - new Date(a.at));
             
@@ -717,7 +717,7 @@ checkId.addEventListener('submit', e=>{
       
             $('.comment-delete').click(function(){
               let id = $(this)[0].id;
-              store.collection('lives').doc(params.id).collection('comments').doc(id).delete().then(()=> {
+              store.collection('lives_sc').doc(params.id).collection('comments').doc(id).delete().then(()=> {
                 Toast.fire({
                   icon: 'success',
                   title: 'Deleted!'
@@ -747,7 +747,7 @@ checkId.addEventListener('submit', e=>{
             </div></center>
             `
       
-          store.collection('lives').doc(params.id).get().then(snap=>{
+          store.collection('lives_sc').doc(params.id).get().then(snap=>{
               if(!snap.data().isPublished){
               //Not Published Result  
                   if(UID){
@@ -757,7 +757,7 @@ checkId.addEventListener('submit', e=>{
                         if(!snap.data().reg_std[UID].attend){
                           if(snap.data().show_q){
                           //Not Attend Before 
-                              store.collection('lives').doc(params.id).set({
+                              store.collection('lives_sc').doc(params.id).set({
                                 reg_std: {
                                   [UID]:{
                                     attend: true,
@@ -944,7 +944,7 @@ checkId.addEventListener('submit', e=>{
       
                                               console.log(score);
                                               let myAns = userAns.join('|');
-                                              store.collection('lives').doc(params.id).set({
+                                              store.collection('lives_sc').doc(params.id).set({
                                                 reg_std: {
                                                   [UID]: {
                                                     score: score-(wrong*neg),
@@ -1447,7 +1447,7 @@ checkId.addEventListener('submit', e=>{
             </div></center>
             `
       
-          store.collection('lives').doc(params.id).get().then(snap=>{
+          store.collection('lives_sc').doc(params.id).get().then(snap=>{
               if(!snap.data().isPublished){
               //Not Published Result  
                   if(UID){
@@ -1457,7 +1457,7 @@ checkId.addEventListener('submit', e=>{
                         if(!snap.data().reg_std[UID].attend){
                           if(snap.data().show_q){
                           //Not Attend Before 
-                              store.collection('lives').doc(params.id).set({
+                              store.collection('lives_sc').doc(params.id).set({
                                 reg_std: {
                                   [UID]:{
                                     attend: true,
@@ -1644,7 +1644,7 @@ checkId.addEventListener('submit', e=>{
       
                                               console.log(score);
                                               let myAns = userAns.join('|');
-                                              store.collection('lives').doc(params.id).set({
+                                              store.collection('lives_sc').doc(params.id).set({
                                                 reg_std: {
                                                   [UID]: {
                                                     score: score-(wrong*neg),
@@ -2146,7 +2146,7 @@ checkId.addEventListener('submit', e=>{
             <center>Loading....</center>
             </div>
             `
-            store.collection('lives').doc(params.examId).get().then(snap=>{
+            store.collection('lives_sc').doc(params.examId).get().then(snap=>{
               $('.top-title').html(`${snap.data().title}`);
               app.innerHTML = `
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -2338,7 +2338,7 @@ checkId.addEventListener('submit', e=>{
                             <span class="visually-hidden">Loading...</span>
                              </div></center>
               </div>`;
-              store.collection('lives').doc(params.key).get().then(snap=> {
+              store.collection('lives_sc').doc(params.key).get().then(snap=> {
                   // $('.app_loader').hide();
                         $('.countdown').show();
                         let myexam = snap.data();
@@ -3151,7 +3151,7 @@ router.on({
                     <span class="visually-hidden">Loading...</span>
                      </div></center>
       </div>`;
-      store.collection('lives').doc(params.key).get().then(snap=> {
+      store.collection('lives_sc').doc(params.key).get().then(snap=> {
           // $('.app_loader').hide();
                 $('.countdown').show();
                 let myexam = snap.data();

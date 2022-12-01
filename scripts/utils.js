@@ -25,7 +25,13 @@ firebase.auth().onAuthStateChanged(user=> {
             
                         <a href="#!/live"><div class="course-card">
                         <div class="details">
-                        <div class="title">Live Exam</div>
+                        <div class="title">Live Exam(Humanity)</div>
+                        </div>
+                        </div></a>
+
+                        <a href="#!/live_sc"><div class="course-card">
+                        <div class="details">
+                        <div class="title">Live Exam(Science)</div>
                         </div>
                         </div></a>
             
@@ -44,7 +50,13 @@ firebase.auth().onAuthStateChanged(user=> {
 
                         <a href="#!/addtochapter"><div class="course-card">
                         <div class="details">
-                        <div class="title">Add Exam & Questions to Chapter</div>
+                        <div class="title">(Humanity)Add Exam & Questions to Chapter</div>
+                        </div>
+                        </div></a>
+
+                        <a href="#!/addtochapter_sc"><div class="course-card">
+                        <div class="details">
+                        <div class="title">(Science)Add Exam & Questions to Chapter</div>
                         </div>
                         </div></a>
 
@@ -307,18 +319,18 @@ firebase.auth().onAuthStateChanged(user=> {
                         }
             
                         console.log(data);
-                        // store.collection('lives').add(data)
-                        // .then(()=>{
-                        //    Swal.fire({
-                        //     icon: 'success',
-                        //     text: 'Exam Added!'
-                        //    })
+                        store.collection('lives').add(data)
+                        .then(()=>{
+                           Swal.fire({
+                            icon: 'success',
+                            text: 'Exam Added!'
+                           })
             
-                        // }).catch(error=> {
-                        //     console.log(error);
-                        // })
+                        }).catch(error=> {
+                            console.log(error);
+                        })
 
-                        db.ref('exams/humanity').push(data);
+                        // db.ref('exams/humanity').push(data);
 
                     });
             
@@ -339,6 +351,130 @@ firebase.auth().onAuthStateChanged(user=> {
                                 <div class="badge"><img src="../images/${live.type}.png"/></div>
                                 <div class="live_countdown-${i} lc"></div>
                                 <a href="#!/live/details/${item.id}">Details</a>
+                                </div>
+                                `;
+                        
+                                liveTimer(live.start_time, live.end_time, '.live_countdown-'+i, '#s-time-'+i);
+                                
+                            })
+                    })
+                },
+                '/live_sc': function() {
+                    app.innerHTML = `
+                    <div class="body">
+                    <form id="add_course">
+                    <div class="mb-3">
+                    <input type="text" class="form-control" name="title" placeholder="title"/>
+                    </div>
+            
+                    <div class="mb-3">
+                    <input type="text" name="sub_title" class="form-control" placeholder="sub_title"/>
+                    </div>
+            
+                    <div class="mb-3">
+                    Start time
+                    <input type="datetime-local" class="form-control" name="start_time" placeholder="time"/>
+                    </div>
+            
+                    <div class="mb-3">
+                    End time
+                    <input type="datetime-local" class="form-control" name="end_time" placeholder="time"/>
+                    </div>
+            
+                    <div class="mb-3">
+                    <textarea type="text" class="form-control" name="details" placeholder="details"></textarea>
+                    </div>
+            
+                    <div class="mb-3">
+                    <input type="number" class="form-control" name="duration" placeholder="Duration">
+                    </div>
+            
+                    <div class="mb-3">
+                    <input type="text" class="form-control" name="neg" placeholder="Negative">
+                    </div>
+            
+            
+                    <div class="mb-3">
+                    <select name="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>type</option>
+                    <option value="Free">Free</option>
+                    <option value="Pro">Premium</option>
+                    </select>
+                    </div>
+            
+                    <div class="mb-3">
+                    <input type="text" class="form-control" name="img_link" placeholder="img_link"/>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+            
+                    <br>
+                    <div class="list-wrap">
+                    <div class="list-title">Exams</div>
+                    <div class="list_upcoming" id="live_list">
+                   <center> <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                     </div></center>
+                    </div>
+                    </div>
+            
+            
+                    </div>
+                    `
+                    const add_course = document.getElementById('add_course');
+            
+                    add_course.addEventListener('submit', e=> {
+                        e.preventDefault();
+                        let data = {
+                            title: add_course.title.value,
+                            sub_title: add_course.sub_title.value,
+                            start_time: (new Date(add_course.start_time.value)).toString(),
+                            end_time: (new Date(add_course.end_time.value)).toString(),
+                            details: add_course.details.value,
+                            type: add_course.type.value,
+                            img_link: add_course.img_link.value,
+                            isPublished: false,
+                            show_q: false,
+                            duration: add_course.duration.value,
+                            neg: parseFloat(add_course.neg.value),
+                            isReg: true
+            
+                        }
+            
+                        console.log(data);
+                        store.collection('lives_sc').add(data)
+                        .then(()=>{
+                           Swal.fire({
+                            icon: 'success',
+                            text: 'Exam Added!'
+                           })
+            
+                        }).catch(error=> {
+                            console.log(error);
+                        })
+
+                        db.ref('exams/humanity').push(data);
+
+                    });
+            
+                    store.collection('lives_sc').get().then(snap=>{
+                        live_list.innerHTML = '';   
+                        let i=-1; 
+                        snap.forEach(item=>{
+                            i++;
+                                let live = item.data();
+                                // console.log(live);
+                            const list_upcoming = document.querySelector('.list_upcoming');
+                            clearInterval(x);
+                                list_upcoming.innerHTML +=`
+                                <div class="live-card kalpurush">
+                                <div class="live-bg"><img src="${live.img_link}"/></div>
+                                <div class="title">${live.title}</div>
+                                <div id="s-time-${i}" class="time">${dateForm(live.start_time)} ${timeForm(live.start_time)}</div>
+                                <div class="badge"><img src="../images/${live.type}.png"/></div>
+                                <div class="live_countdown-${i} lc"></div>
+                                <a href="#!/live_sc/details/${item.id}">Details</a>
                                 </div>
                                 `;
                         
@@ -1101,6 +1237,267 @@ firebase.auth().onAuthStateChanged(user=> {
                         }).then((res)=>{
                             if(res.isConfirmed){
                                 db.ref('app/live').update({
+                                    id: params.id
+                                });
+                                Swal.fire({icon:'success', text:'Changed!'})
+                            }
+                        });
+                      })
+            
+                      $('.top-title').html(`${data.title}`);
+                        $('.live-post').html(`
+                        <div class="post">
+                        <div class="post-top">
+                        <div class="avatar">
+                        <div class="img"><img src="${data.img_link}"/></div>
+                        <div>
+                        <div class="title">${data.title}</div>
+                        <div class="sub-title">${data.sub_title}</div>
+                        </div>
+                        </div>
+                        <div>
+                        <div class="date">${dateForm(data.start_time)}</div>
+                        <div class="time">${timeForm(data.start_time)}</div>
+                        </div>
+                        </div>
+                        <div class="post-body">${data.details}
+                        <div class="live-nb">#পরীক্ষায় অংশগ্রহণ করতে অবশ্যই Registration করতে হবে। নিচে Register বাটনে ক্লিক করে Registration করে রাখো।</div>
+                        </div>
+                        <center id="opt-loader"><div class="spinner-border text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                    </div></center>
+                        <div class="live_option">
+                        <div id="live_det">
+                          <div id="status"></div>
+                          <div id="timer"></div>
+                        </div>
+                        <div class="st-${params.id} start-button"></div>
+                        </div>
+                        </div>
+                        </div>
+                        `);
+                        $('.live_option').hide();
+                        setTimeout(function(){
+                          $('.live_option').show();
+                          $('#opt-loader').hide();
+                        },2000)
+              
+                        
+                        clearInterval(y);
+                        liveDetailsTimer(data.start_time, data.end_time, '#live_det #timer', '#live_det #status', `.st-${params.id}`)
+                       
+                      
+                    });
+                  }
+              
+                  //comments
+                //   let all_comments = document.getElementById('all_comments');
+                //   store.collection('lives').doc(params.id).collection('comments').onSnapshot(snap=>{
+                //     let comments = []; 
+                //     comments.sort((a, b) => new Date(b.at) - new Date(a.at));
+                    
+                //     all_comments.innerHTML = ``;
+                //     snap.forEach(item=>{
+                //       comments.push({...item.data(), id: item.id});
+                //      });
+                //      $('#cmnt_count').html(`(${comments.length})`);
+                //      if(comments.length === 0) all_comments.innerHTML = `<div class="no-cmnt">No comments. Be the first to comment.</div>`
+                      
+                //      comments.forEach(cmnt=>{
+                //       let edit = `<div id="${cmnt.id}" class="comment-delete">Delete</div>`
+                //       if(cmnt.UID != UID){
+                //         edit = '';
+                //       }
+                //       all_comments.innerHTML += `
+                //       <div class="comment-wrap">
+                //       <div class="comment-avatar">
+                //       ${edit}
+                //       <img height="30px" src="../images/doctor.png">
+                //       <div class="comment-det">
+                //       <div class="name">${cmnt.name}</div>
+                //       <div class="time">${moment(cmnt.at).fromNow(true)} ago</div>
+                //       </div>
+                //       </div>
+                //       <div class="comment-body">${cmnt.comment}</div>
+                //       </div>
+                //       `
+                //     });
+              
+                //     $('.comment-delete').click(function(){
+                //       let id = $(this)[0].id;
+                //       store.collection('lives').doc(params.id).collection('comments').doc(id).delete().then(()=> {
+                //         Toast.fire({
+                //           icon: 'success',
+                //           title: 'Deleted!'
+                //         })
+                //       }).catch(err=>{
+                //         console.log(err);
+                //       });
+                //     });
+              
+                     
+                //   })
+              
+              
+              
+              
+                  
+                },
+                '/live_sc/details/:id': function(params){
+                    $('.top-title').html(`Live`);
+                    app.innerHTML = `
+                    <div class="body">
+                    <div class="live-post">
+              
+                    <center><div class="spinner-border text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                    </div></center>
+                    </div>
+            
+                    <div class="e-status"></div>
+                    <button id="publish_q" class="btn btn-primary">Toggle Publish Q</button>
+                    <button id="publish_res" class="btn btn-primary">Toggle Publish Result</button>
+                    <button id="publish_reg" class="btn btn-primary">Toggle Register</button>
+                    <button id="publish_front" class="btn btn-primary">Post On Front Page</button>
+                    <center><a href="#!/live/edit/${params.id}">Edit</a></center>
+                    
+                    <div class="results"></div>
+                    </div>
+                    `
+                    getLive();
+                    function getLive(){
+                   return store.collection('lives_sc').doc(params.id).get().then(doc=>{
+                      // console.log(params.id);
+                      let data = doc.data();
+                    //   console.log(data);
+                     let res;
+                        if(data.reg_std){
+                            res = Object.entries(data.reg_std);
+                        
+                        
+                    //   console.log(res);
+                        const results = document.querySelector('.results');
+                        results.innerHTML = '';
+
+                        let r = [];
+
+                        for(let i=0; i<res.length; i++){
+                            r.push({
+                                name: res[i][1].name,
+                                uid: res[i][0],
+                                score: res[i][1].score,                    
+                            });
+                        }
+
+                        r.sort(function(a, b){
+                            return b.score - a.score; 
+                        });
+                        // console.log(r);
+                      for(let i=0; i<res.length; i++){
+                        results.innerHTML += `
+                        <div id="${r[i].uid}|${r[i].score}|${r[i].name}" class="res add_prfl">
+                        ${i+1}. ${r[i].name} - ${r[i].score}
+                        
+                        </div>
+
+                        `
+                      }
+                      }
+
+                    //   let ss = {
+                    //     "Jarin ahona":27,
+                    //     "Maria":29,
+                    //     "Israt Jahan Urmi": 32,
+                    //     "Meherunnahar": 24,
+                    //     "Imran Khan": 21,
+                    //     "Tinni Das Gupta": 0,
+
+                    // }
+                    
+
+                    //       $('.add_rank').click(function(){
+                    //     let myid = ($(this)[0].id).split('|');
+                        
+                    //     store.collection('globalRank').doc('hum').set({
+                    //         [myid[0]]: {
+                    //                 score: parseInt(myid[1])+ss[myid[2]],                              
+                    //             }
+                            
+                    //     }, {merge: true}).then(()=>{
+                    //         console.log(`${myid[2]} - Sent!`);
+                    //     })
+                    //   });
+
+                      $('.add_prfl').click(function(){
+                        let myid = ($(this)[0].id).split('|');
+                        
+                        store.collection('users').doc(myid[0]).set({
+                            live_exams: {
+                                [params.id]:{
+                                    name: data.title,
+                                    score: parseInt(myid[1]),
+                                    date: data.start_time
+                                }
+                            }
+                        }, {merge: true}).then(()=>{
+                            console.log('Sent!');
+                        })
+                      });
+
+                    
+                        $('.e-status').html(`
+                        <div class="stat">Question Show: ${data.show_q}</div>
+                        <div class="stat">isPublished: ${data.isPublished}</div>
+                        <div class="stat">isReg: ${data.isReg}</div>
+                        `)
+                      
+            
+                      $('#publish_q').click(function(){
+                        Swal.fire({
+                            icon:'question',
+                            text: 'Are you sure?'
+                        }).then((res)=>{
+                            if(res.isConfirmed){
+                                store.collection('lives_sc').doc(params.id).update({
+                                    show_q: !data.show_q
+                                }).then(()=>{Swal.fire({icon:'success', text:'Changed!'})})
+                            }
+                        });
+                      });
+            
+                      $('#publish_res').click(function(){
+                        Swal.fire({
+                            icon:'question',
+                            text: 'Are you sure?'
+                        }).then((res)=>{
+                            if(res.isConfirmed){
+                                store.collection('lives_sc').doc(params.id).update({
+                                    isPublished: !data.isPublished
+                                }).then(()=>{Swal.fire({icon:'success', text:'Changed!'})})
+                            }
+                        });
+                      })
+            
+                      $('#publish_reg').click(function(){
+                        Swal.fire({
+                            icon:'question',
+                            text: 'Are you sure?'
+                        }).then((res)=>{
+                            if(res.isConfirmed){
+                                store.collection('lives_sc').doc(params.id).update({
+                                    isReg: !data.isReg
+                                }).then(()=>{Swal.fire({icon:'success', text:'Changed!'})})
+                            }
+                        });
+                      })
+            
+                      $('#publish_front').click(function(){
+                        Swal.fire({
+                            icon:'question',
+                            text: 'Are you sure?'
+                        }).then((res)=>{
+                            if(res.isConfirmed){
+                                db.ref('app/live_sc').update({
                                     id: params.id
                                 });
                                 Swal.fire({icon:'success', text:'Changed!'})
