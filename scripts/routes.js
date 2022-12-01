@@ -217,16 +217,6 @@ const app = document.getElementById('app');
 
             </div>
     
-            <div class="section">
-            <div class="section-heading">
-            <div class="sec-sec1"><div class="icon"><img src="../images/routine.png"></div><div class="text">Live Exam Routine</div></div>
-            <div class="more">...</div>
-            </div>
-    
-            <center>
-            <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> Humanity(2nd Time)</button>
-            </center>
-            <br>
     
     
             <div class="section">
