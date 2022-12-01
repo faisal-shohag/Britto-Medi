@@ -1,8 +1,13 @@
 const router = new Navigo(null, true, '#!');
 const app = document.getElementById('app');
 
-// paid exam without login
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    var uid = user.uid;
+    console.log(user.uid);
+    $('.sp').hide();
 
+// paid exam without login
 if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
     $('.footer').hide();
     app.innerHTML = `
@@ -68,7 +73,6 @@ if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined
 
 
 `
-$('.sp').hide();
 
 const checkId = document.getElementById('checkId')
 checkId.addEventListener('submit', e=>{
@@ -3427,3 +3431,12 @@ router.on({
  
   },
 }).resolve();
+
+} else{
+  Swal.fire({
+    icon: 'error',
+    text: 'Something went wrong!'
+  });
+}
+
+});

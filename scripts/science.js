@@ -1,6 +1,13 @@
 const router = new Navigo(null, true, '#!');
 const app = document.getElementById('app');
 
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    var uid = user.uid;
+    console.log(user.uid);
+    $('.sp').hide();
+
+
 // paid exam without login
 // history.pushState({page: 1}, "home", "#!/")
 if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
@@ -20,7 +27,7 @@ if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined
   <span class="visually-hidden">Loading...</span>
 </div>
 </div></center>
-<center style="color: crimson;">#তোমাদের আইডি গুলো খুব শিগ্রি দেয়া হবে যার মাধ্যমে LIVE এক্সাম গুলো দিতে পারবে! আপাতত প্রাকটিস এক্সাম গুলো দাও!</center>
+<center style="color: crimson; display:none;">#তোমাদের আইডি গুলো খুব শিগ্রি দেয়া হবে যার মাধ্যমে LIVE এক্সাম গুলো দিতে পারবে! আপাতত প্রাকটিস এক্সাম গুলো দাও!</center>
 <form id="checkId">
 <div class="input-group mb-3">
 <span class="input-group-text">আইডি</span>
@@ -105,7 +112,7 @@ if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined
 
 
 `
-$('.sp').hide();
+
 
 const checkId = document.getElementById('checkId')
 checkId.addEventListener('submit', e=>{
@@ -3538,3 +3545,13 @@ getInfo.addEventListener('submit', e=>{
 
   }
 }).resolve();
+
+
+} else {
+  $('.sp').hide();
+  Swal.fire({
+    icon: 'error',
+    text: 'Something went wrong!'
+  });
+}
+});
