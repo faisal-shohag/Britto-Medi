@@ -3497,7 +3497,7 @@ router.on({
 
 <div class="myId"></div>
 <br>
-<a href="#!">হোম পেইজ</a>
+<center><a href="/science.html">হোম পেইজ</a></center>
 </div>
 
 </div>
