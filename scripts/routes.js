@@ -1,4 +1,4 @@
-const router = new Navigo(null, true, '#!');
+ const router = new Navigo(null, true, '#!');
 const app = document.getElementById('app');
 
 // setTimeout(function(){
@@ -125,8 +125,6 @@ const app = document.getElementById('app');
       }
       router.on({
         '/': function() {
-         
-
           $('.top').show();
           $('.footer').show();
           $('.footertext').hide();
@@ -202,24 +200,21 @@ const app = document.getElementById('app');
             <div class="section">
             <div class="section-heading">
             <div class="sec-sec1"><div class="icon"><img src="../images/bell.png"></div><div class="text">Live Exams</div></div>
-            <a href="#!/live/list"><div class="more">See All</div></a>
             </div>
 
-            <div class="ntc_warn">
-            
-            আজকের এক্সাম শুরু হবে 7:30PM এ। 
-            </div>
               
-            <div class="live-card siliguri">
-               <div id="live_banner">
-               <center><div class="spinner-border text-light" role="status">
-               <span class="visually-hidden">Loading...</span>
-             </div></center>
-               </div>
-                <div id="live_countdown" class=""></div>
-                <div class="details"></div>
-            </div>
-        
+            <div class="op_cards">
+
+            <a href="/humanity.html"> <div class="op_card">
+              <div class="op_card_img"><img src="../images/humanity.png"></div>
+              <div class="op_card_title">Humanity</div>
+             </div></a>
+
+            <a href="/science.html"> <div class="op_card">
+              <div class="op_card_img"><img src="../images/science.png"></div>
+              <div class="op_card_title">Science</div>
+             </div></a>
+
             </div>
     
             <div class="section">
@@ -372,9 +367,11 @@ const app = document.getElementById('app');
           </div>
 
           
-    
-            `
 
+            `
+              
+          
+          
            
                //Last Exam Result
             // store.collection('lives').doc('4jvrt5VYbdy4UdPJMLxo').get().then(snap=>{
@@ -425,7 +422,8 @@ const app = document.getElementById('app');
                 $('#routineModal').modal('show');
               }
             });
-            https://i.postimg.cc/gc3BRJ2g/Study-Plan-for-Humanity.png
+            
+            //https://i.postimg.cc/gc3BRJ2g/Study-Plan-for-Humanity.png
            // daily quiz
             // db.ref('app/dailyQuize').on("value", snap=> {
             //   $('#dq').text(snap.val().data.q);
@@ -448,21 +446,21 @@ const app = document.getElementById('app');
             // });
     
             //Running Exam 
-            db.ref('app/live').on('value', snap=>{
-              store.collection('lives').doc(snap.val().id).onSnapshot(live=>{
-                let l = live.data();
-                $('#live_banner').html(`
-              <a href="#!/live/details/${snap.val().id}"><div class="live-bg"><img src="${l.img_link}"/></div>
-                <div class="title">${l.title}</div>
-                <div  class="time">${dateForm(l.start_time).split(' ')[0]} ${dateForm(l.start_time).split(' ')[1]} ${timeForm(l.start_time)} - ${timeForm(l.end_time)}</div>
-                <div id="s-time" class=""></div>
-                <div class="badge"><img src="../images/${l.type}.png"/></div></a>
-              `);
-              $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
-                clearInterval(z);
-              liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
-              })
-            })
+            // db.ref('app/live').on('value', snap=>{
+            //   store.collection('lives').doc(snap.val().id).onSnapshot(live=>{
+            //     let l = live.data();
+            //     $('#live_banner').html(`
+            //   <a href="#!/live/details/${snap.val().id}"><div class="live-bg"><img src="${l.img_link}"/></div>
+            //     <div class="title">${l.title}</div>
+            //     <div  class="time">${dateForm(l.start_time).split(' ')[0]} ${dateForm(l.start_time).split(' ')[1]} ${timeForm(l.start_time)} - ${timeForm(l.end_time)}</div>
+            //     <div id="s-time" class=""></div>
+            //     <div class="badge"><img src="../images/${l.type}.png"/></div></a>
+            //   `);
+            //   $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
+            //     clearInterval(z);
+            //   liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
+            //   })
+            // })
     
     
             // live
@@ -525,7 +523,9 @@ const app = document.getElementById('app');
               // });
     
             // })
-        },
+            
+          },
+
         '/students': function(){
           $('.top').show();
           $('.top .icon').html(`<div class="top_arrow animate__animated animate__fadeInRight" onclick="window.history.back()"><i class="icofont-rounded-left"></i></div>`);

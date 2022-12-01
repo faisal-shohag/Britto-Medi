@@ -433,3 +433,36 @@ button{
   .myId small{
     font-size: 16px;
   }
+
+  .op_cards{
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .op_cards img{
+    height: 70px;
+  }
+
+  .op_card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    border-radius: 5px;
+    min-width: 100px;
+  }
+
+  .brand{
+    padding-left: 5px;
+    padding-right: 5px;
+    background: #c40f5b80;
+    font-family: Poppins;
+    color: rgb(172, 11, 11);
+    border-radius: 5px;
+    margin-top: 20px;
+  }

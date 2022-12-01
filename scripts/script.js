@@ -98,7 +98,7 @@ checkId.addEventListener('submit', e=>{
 
 });
 }else{
-    $('.sp').hide();
+    // $('.sp').hide();
     let user = {
         name: localStorage.getItem('name'),
         id: localStorage.getItem('id'),
