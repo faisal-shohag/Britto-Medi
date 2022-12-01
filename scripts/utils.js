@@ -2328,6 +2328,495 @@ firebase.auth().onAuthStateChanged(user=> {
                         });
                      })
                 },
+                "/addtochapter_sc": function(){
+
+                    app.innerHTML = `
+                    <div class="body">
+                    <center>
+                    <button id="show_set" class="btn btn-success">Show Details Section</button>
+                    <button id="hide_set" class="btn btn-danger">Hide Details Section</button>
+                    </center>
+
+                    <div class="set_section">
+                    
+                    <div class="ad_head">----Exam Details Section----</div>
+
+                    <form id="exam_details">
+
+                    <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="exam_name" placeholder="Exam/Topic/Chapter Name" aria-label="Username" aria-describedby="basic-addon1" required>
+                   </div>
+
+                   <div class="input-group mb-3">
+                   <select class="form-select form-select-sm" name="sub" aria-label=".form-select-sm example" required>
+                    <option selected>Select a Subject</option>
+                    <option value="b1">Bangla 1</option>
+                    <option value="b2">Bangla 2</option>
+                    <option value="bio1">Bio 1</option>
+                    <option value="bio2">Bio 2</option>
+                    <option value="chem1">Chem 1</option>
+                    <option value="chem2">Chem 2</option>
+                    <option value="phy1">phy1</option>
+                    <option value="phy2">phy2</option>
+                    <option value="math1">Math 1</option>
+                    <option value="math2">Math 2</option>
+                    <option value="e">English Grammer</option>
+                    <option value="ict">ICT</option>
+                    </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+
+                   <select class="form-select form-select-sm" name="chap" aria-label=".form-select-sm example" required>
+                    <option selected>Select a Chapter</option>
+                    <option value="chap-1">Chapter 1</option>
+                    <option value="chap-2">Chapter 2</option>
+                    <option value="chap-3">Chapter 3</option>
+                    <option value="chap-4">Chapter 4</option>
+                    <option value="chap-5">Chapter 5</option>
+                    <option value="chap-6">Chapter 6</option>
+                    <option value="chap-7">Chapter 7</option>
+                    <option value="chap-8">Chapter 8</option>
+                    <option value="chap-9">Chapter 9</option>
+                    <option value="chap-10">Chapter 10</option>
+                    <option value="chap-11">Chapter 11</option>
+                    <option value="chap-12">Chapter 12</option>
+                    <option value="chap-13">Chapter 13</option>
+                    <option value="chap-14">Chapter 14</option>
+                    <option value="chap-15">Chapter 15</option>
+                    <option value="chap-16">Chapter 16</option>
+                    </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                    <textarea type="text" class="form-control" name="notice" placeholder="Notice/Proverbs/Quotes" aria-label="Username" aria-describedby="basic-addon1" required></textarea>
+                   </div>
+
+                   <center><button type="submit" class="btn btn-primary">Set Exam</button></center>
+
+                   </form>
+                   </div>
+
+                    <div class="ad_head">----Question Adding Section----</div>
+                    <div style="display:;" class="input-group mb-3">
+                    <span  class="input-group-text">Auto Q</span>
+                    <textarea type="text" class="form-control" id="paste" placeholder="Paste here..." aria-label="Username" aria-describedby="basic-addon1" ></textarea>
+                   </div>
+                    <form id="lq">
+                   
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">q</span>
+                    <textarea type="text" class="form-control" name="q" placeholder="question" aria-label="Username" aria-describedby="basic-addon1" required></textarea>
+                   </div>
+            
+                   <div class="input-group mb-3">
+                    <span class="input-group-text">A</span>
+                    <input type="text" class="form-control" name="opt1" placeholder="Option 1" aria-label="Username" aria-describedby="basic-addon1" required>
+                   </div>
+            
+                   <div class="input-group mb-3">
+                    <span class="input-group-text">B</span>
+                    <input type="text" class="form-control" name="opt2" placeholder="Option 2" aria-label="Username" aria-describedby="basic-addon1" required>
+                   </div>
+            
+                   <div class="input-group mb-3">
+                    <span class="input-group-text">C</span>
+                    <input type="text" class="form-control" name="opt3" placeholder="Option 3" aria-label="Username" aria-describedby="basic-addon1" required>
+                   </div>
+            
+                   <div class="input-group mb-3">
+                    <span class="input-group-text">D</span>
+                    <input type="text" class="form-control" name="opt4" placeholder="Option 4" aria-label="Username" aria-describedby="basic-addon1" required>
+                   </div>
+            
+                   <select class="form-select form-select-sm" name="ans" aria-label=".form-select-sm example" required>
+                    <option selected>Select Ans</option>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                    </select>
+            
+                 <div class="mb-3">
+                    <label for="exampleFormControlTextarea1"  class="form-label">Explanation</label>
+                    <textarea class="form-control" name="ex" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  </div>
+            
+            
+                  
+            
+                        <center><button type="submit" class="btn btn-primary">Add Temporary Question</button></center>
+                        </form>
+                        <br>
+                    
+                        <center><div class="q-count"></div></center>
+                        <div class="ad_head">----Exam----</div>
+                        <center>
+                    <button id="publish" class="btn btn-success">Publish as Practice</button>
+                    <button id="delete" class="btn btn-danger">Delete</button>
+                    <button id="add_q_l_modal"  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#add_q_to_exam">Add Questions to Live Exam
+                 </button>
+                    </center>
+
+                        <div class="exam_top">
+                      <div class="exam-title kalpurush">
+                      <div class="exam_name"></div>
+                      </div>
+                      <div class="exam-nb kalpurush"></div>
+                     </div>
+
+                        <div class="questions_temp">
+                                <center><div class="spinner-grow" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div></center>
+                        </div>
+        
+                    
+                    </div>
+
+  
+
+<!-- Modal -->
+<div class="modal fade" id="edit_q" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Question</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form id="eq">
+      <div class="input-group mb-3">
+      <span class="input-group-text">q</span>
+      <textarea type="text" class="form-control" id="q" name="q" placeholder="question" aria-label="Username" aria-describedby="basic-addon1" required></textarea>
+     </div>
+
+     <div class="input-group mb-3">
+      <span class="input-group-text">A</span>
+      <input type="text" class="form-control" name="opt1" placeholder="Option 1" aria-label="Username" aria-describedby="basic-addon1" required>
+     </div>
+
+     <div class="input-group mb-3">
+      <span class="input-group-text">B</span>
+      <input type="text" class="form-control" name="opt2" placeholder="Option 2" aria-label="Username" aria-describedby="basic-addon1" required>
+     </div>
+
+     <div class="input-group mb-3">
+      <span class="input-group-text">C</span>
+      <input type="text" class="form-control" name="opt3" placeholder="Option 3" aria-label="Username" aria-describedby="basic-addon1" required>
+     </div>
+
+     <div class="input-group mb-3">
+      <span class="input-group-text">D</span>
+      <input type="text" class="form-control" name="opt4" placeholder="Option 4" aria-label="Username" aria-describedby="basic-addon1" required>
+     </div>
+
+     <select class="form-select form-select-sm" name="ans" aria-label=".form-select-sm example" required>
+      <option selected>Select Ans</option>
+      <option value="1">A</option>
+      <option value="2">B</option>
+      <option value="3">C</option>
+      <option value="4">D</option>
+      </select>
+
+   <div class="mb-3">
+      <label for="exampleFormControlTextarea1"  class="form-label">Explanation</label>
+      <textarea class="form-control" name="ex" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" i class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="edit_trigger" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="add_q_to_exam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Questions to live exam</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+    <form id="exam_id">
+      <div id="input_exam">
+      <center>Loading....</center>
+      </div>
+    </form>
+
+    
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" i class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="add_q_live" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+     `
+
+   
+     
+
+                   
+
+                    $('#show_set').hide();
+
+                    $('#hide_set').click(function(){
+                        $('#hide_set').hide();
+                        $('#show_set').show();
+                        $('.set_section').hide();
+                    })
+
+                    $('#show_set').click(function(){
+                        $('#hide_set').show();
+                        $('#show_set').hide();
+                        $('.set_section').show();
+                    })
+
+                    let questions = [];
+                    let det;
+
+                    $('#publish').hide();
+                    $('#delete').hide();
+                    $('#add_q_l_modal').hide();
+                    db.ref(`add_to_chap_sc/${user.uid}`).on('value', snap=>{
+                        
+                       if(snap.val()){
+                        det = snap.val().details;
+                        $('.exam_name').text(det.exam_name)
+                        $('.exam-nb').text(det.notice)
+                       }
+                        
+                       
+                       
+
+                       const questions_view = document.querySelector('.questions_temp'); 
+                       if(snap.val() && snap.val().questions){
+                        questions = snap.val().questions;
+                        $('.q-count').html(`(${questions.length})`);
+                           $('#publish').show();
+                           $('#delete').show();
+                           $('#add_q_l_modal').show();
+                           questions_view.innerHTML = '';
+                           var ans = [];
+                       for(let i=0; i<questions.length; i++){
+                       ans.push(parseInt(questions[i].ans)+i*4);
+                       questions_view.innerHTML += `
+                       <div class="q-wrap">
+                       <div class="question">
+                       ${i+1}. ${questions[i].q}
+                       </div>
+                       <div class="option">
+                       <div class="opt" id="${i+1+i*3}"><div class="st"></div>${questions[i].opt[0]}</div>
+                       <div class="opt" id="${i+2+i*3}"><div class="st"></div>${questions[i].opt[1]}</div>
+                       <div class="opt" id="${i+3+i*3}"><div class="st"></div>${questions[i].opt[2]}</div>
+                       <div class="opt" id="${i+4+i*3}"><div class="st"></div>${questions[i].opt[3]}</div>
+                   </div>
+                   <div class="solution"><b>Solution:</b></br> ${questions[i].ex}</div>
+                   <center><button  id="edit-${i}" type="button" class="q_edit btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit_q">Edit
+                 </button></center>
+                   </div>
+                   
+                   `
+                   }
+                   for(let a=0; a<ans.length; a++){
+                       $("#" + ans[a] + " .st").addClass("cr");
+                   }
+               
+                    MathJax.typeset();
+
+                    let eq = document.getElementById('eq');
+                    let index;
+                    $('.q_edit').click(function(){
+                         index = parseInt(($(this)[0].id).split('-')[1]);
+                        eq.q.value = (questions[index].q).replaceAll('<br>', '\n');
+                        eq.ex.value = (questions[index].ex).replaceAll('<br>', '\n');
+                        eq.opt1.value = (questions[index].opt[0])
+                        eq.opt2.value = (questions[index].opt[1])
+                        eq.opt3.value = (questions[index].opt[2])
+                        eq.opt4.value = (questions[index].opt[3])
+                        eq.ans.value = (questions[index].ans)
+
+                        $('#edit_trigger').click(function(){
+                            $('#edit_q').modal('hide');
+                            let options= [eq.opt1.value, eq.opt2.value, eq.opt3.value, eq.opt4.value]
+                            let data = {
+                                q: (eq.q.value).replaceAll('\n', '<br>'),
+                                opt: options,
+                                ans: parseInt(eq.ans.value),
+                                ex: (eq.ex.value).replaceAll('\n', '<br/>')
+                            }
+                            console.log(index);
+                            if(index!=undefined)
+                            db.ref(`add_to_chap_sc/${user.uid}/questions/${index}`).update(
+                                data
+                            )
+                        })
+                    });
+
+                    
+
+
+                 }else {
+                    $('#publish').hide();
+                    $('#delete').hide();
+                    $('#add_q_l_modal').hide();
+                    //$('.exam_top').hide();
+                    questions_view.innerHTML = '<center>Empty</center>';
+                }
+
+
+
+                    });
+
+
+                    //delete
+                    $('#delete').click(function(){
+                        Swal.fire({
+                            icon: 'warning',
+                            text: 'Do you want to delete?',
+                            footer: 'Data cannot be restore',
+                            confirmButtonText: 'Yes',
+                            showCancelButton: true
+                        }).then(res=>{
+                            if(res.isConfirmed){
+                                db.ref(`add_to_chap_sc/${user.uid}/questions`).remove();
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Deleted successfully!'
+                                })
+                            }
+                        })
+                    });
+
+                    //publish
+                    $('#publish').click(function(){
+                        Swal.fire({
+                            icon: 'question',
+                            text: 'Do you want to publish?',
+                            footer: 'Will be published to particular chapter.',
+                            confirmButtonText: 'Yes',
+                            showCancelButton: true
+                        }).then(res=>{
+                            if(res.isConfirmed){
+                                store.collection('subjectExams').doc(det.sub).collection(det.chap).add({
+                                    questions,
+                                    details: {
+                                        ...det,
+                                        publish_date: (new Date()).toString()
+                                    }
+                                })
+                            }
+                        })
+                    })
+
+                    
+                    //Exam Set
+                    let ed = document.getElementById('exam_details');
+
+                    ed.addEventListener('submit', e=>{
+                        e.preventDefault();
+                        let data = {
+                            exam_name: ed.exam_name.value,
+                            chap: ed.chap.value,
+                            notice: ed.notice.value,
+                            sub: ed.sub.value
+                        }
+
+                        console.log(data);
+                        db.ref(`add_to_chap_sc/${user.uid}/details`).set(data);
+
+
+
+                    })
+
+                    //Question adding
+                    let lq = document.getElementById('lq');
+
+                     //auto fill paste text
+                     $("#paste").bind("paste", function(e){
+                        let pasteData = (e.originalEvent.clipboardData.getData('text')).trim();
+                        let data = pasteData.split('\n');
+                        let sym;
+                        
+                        if(pasteData.includes(')')) sym = ')'
+                        else if(pasteData.includes('.')) sym = '.'
+                        lq.q.value = data[0];
+                        lq.opt1.value = (data[1].split(sym)[1]).trim();
+                        lq.opt2.value = (data[2].split(sym)[1]).trim();
+                        lq.opt3.value = (data[3].split(sym)[1]).trim();
+                        lq.opt4.value = (data[4].split(sym)[1]).trim();
+
+                    })
+                   
+                      
+                      lq.addEventListener('submit', e=>{
+                        e.preventDefault();
+                        let exp = (lq.ex.value).trim() == '' ? '' : `<br> ${(lq.ex.value).replaceAll('\n', '<br/>')}`;
+                        let options= [lq.opt1.value, lq.opt2.value, lq.opt3.value, lq.opt4.value]
+                        let data = {
+                            q: (lq.q.value).replaceAll('\n', '<br>'),
+                            opt: options,
+                            ans: parseInt(lq.ans.value),
+                            ex: `${optChar[lq.ans.value]}.${options[parseInt(lq.ans.value)-1]}${exp}`
+                        }
+
+
+
+                        db.ref(`add_to_chap_sc/${user.uid}/questions`).update({
+                            [questions.length]: data
+                        })
+    
+                        
+                    });
+
+                    //publish
+                    $('#add_q_l_modal').click(function(){
+                        getLives_sc((live, ended)=>{
+                            const input_exam = document.getElementById('input_exam');
+                            input_exam.innerHTML = '';
+                            for(let i=0; i<live.length; i++){
+                                input_exam.innerHTML +=`
+                                <div class="input-group">
+                                <div class="input-group-text">
+                                  <input class="form-check-input mt-0" name="e_id" type="radio" value="${live[i].id}" aria-label="Radio button for following text input">
+                                </div>
+                                ${live[i].title}
+                              </div>
+                                `;   
+                            }
+                        });
+                
+                        
+                        
+                
+                     });
+                
+                    
+                     $('#add_q_live').click(function(){
+                        const exam_id = document.getElementById('exam_id');
+                        let id = exam_id.e_id.value;
+                        console.log(questions)
+                        store.collection('lives_sc').doc(id).update({
+                            questions: questions
+                        })
+                        .then(()=>{
+                            $('#add_q_to_exam').modal('hide');
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'Successfully Published to the live exam!'
+                            });
+                        });
+                     })
+                },
                 "/addUni": function(){
                     app.innerHTML =  `
                <div class="body">
