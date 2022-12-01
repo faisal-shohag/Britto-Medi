@@ -10,7 +10,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
 // paid exam without login
 history.pushState({page: 1}, "home", "#!/")
-if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
+if(localStorage.getItem("id_sc") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id_sc") == ""){
     $('.footer').hide();
     app.innerHTML = `
 <div class="body">
@@ -123,7 +123,7 @@ checkId.addEventListener('submit', e=>{
         $('.loading_id').hide();
         if(snap.val()){
             console.log(snap.val());
-            localStorage.setItem('id', checkId.id.value);
+            localStorage.setItem('id_sc', checkId.id.value);
             localStorage.setItem('name', snap.val().name);
             localStorage.setItem('inst', snap.val().inst);
             window.location.reload();
@@ -141,7 +141,7 @@ checkId.addEventListener('submit', e=>{
     $('.sp').hide();
     let user = {
         name: localStorage.getItem('name'),
-        id: localStorage.getItem('id'),
+        id: localStorage.getItem('id_sc'),
         inst: localStorage.getItem('inst')
     }
     let UID = user.id;
