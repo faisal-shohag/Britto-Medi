@@ -3553,5 +3553,8 @@ getInfo.addEventListener('submit', e=>{
     icon: 'error',
     text: 'Something went wrong!'
   });
+  console.log("Error");
 }
 });
+
+$('.footer').hide();
