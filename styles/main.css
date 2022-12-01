@@ -2120,3 +2120,8 @@ h3, h2{
   font-weight: bold;
   color: crimson;
 }
+
+.bn_warning .sad_subtext{
+  font-family: 'Lato', Kalpurush;
+  font-style: normal;
+}
