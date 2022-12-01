@@ -3436,7 +3436,7 @@ router.on({
   $('.sp').hide();
   Swal.fire({
     icon: 'error',
-    text: 'Something went wrong!'
+    text: 'যেকোনো ব্রাউজারে ঢুকে britto.netlify.app/science.html ভিজিট করো! Messenger Browser সেইফ নয়!'
   });
 }
 
