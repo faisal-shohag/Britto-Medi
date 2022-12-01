@@ -3444,15 +3444,33 @@ router.on({
   app.innerHTML = `
   <div class="body bn_warning">
   <div class="sad">
-  <div class="sad_img"><img src="../images/oops.png"></div>
-  <div class="sad_text">Messenger থেকে যেকোনো Website visit করা নিরাপদ নয়!</div>
+  <div class="sad_img"><img src="../images/puzzle.png"></div>
+  <div class="sad_text">বৃত্তে তোমাকে স্বাগতম!</div>
   <div class="sad_subtext">
-  Messenger থেকে যেকোনো website visit করা নিরাপদ নয় এবং Messenger এর সাথে যে web browser টি দেয়া সেটিও উন্নত নয়। ফলে তোমার এক্সাম এর ডেটা গুলো সঠিক ভাবে সংরক্ষিত হয় না। এ জন্য তুমি Chrome Browser/Firefox Browser ব্যবহার করতে পারো। 
-  Chrome Browser/Firefox Browser এ প্রবেশ করে britto.netlify.app/humanity.html ভিজিট করো।
+   Stay in circle, but think out of circle! <br><br>
+   <button class="btn btn-primary" id="login">প্রবেশ করো!</button>
   </div>
   </div>
   </div>
   `
+
+  $('#login').click(function(){
+  firebase.auth().signInAnonymously()
+  .then(() => {
+      window.location.reload();
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(error);
+    Swal.fire({
+      icon: 'error',
+      text: 'কিছু সমস্যা হয়েছে!'
+    });
+    // ...
+  });
+
+  });
 }
 
 });
