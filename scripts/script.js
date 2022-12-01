@@ -3447,7 +3447,7 @@ router.on({
   <div class="sad_img"><img src="../images/oops.png"></div>
   <div class="sad_text">Messenger থেকে যেকোনো Website visit করা নিরাপদ নয়!</div>
   <div class="sad_subtext">
-  Messenger থেকে যেকোনো website visit করা নিরাপদ নয় এবং Messenger এর সাথে যে web browser টি দেয়া সেটিও উন্নত নয়। ফলে তোমার এক্সাম এর ডেটা গুলো সঠিক ভাবে সংরক্ষিত হয় না। এ জন্য তুমি Chrome Browser/Firfox Browser ব্যবহার করতে পারো। 
+  Messenger থেকে যেকোনো website visit করা নিরাপদ নয় এবং Messenger এর সাথে যে web browser টি দেয়া সেটিও উন্নত নয়। ফলে তোমার এক্সাম এর ডেটা গুলো সঠিক ভাবে সংরক্ষিত হয় না। এ জন্য তুমি Chrome Browser/Firefox Browser ব্যবহার করতে পারো। 
   Chrome Browser/Firefox Browser এ প্রবেশ করে britto.netlify.app/humanity.html ভিজিট করো।
   </div>
   </div>
