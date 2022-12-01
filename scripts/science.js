@@ -3566,16 +3566,26 @@ getInfo.addEventListener('submit', e=>{
   <div class="sad_img"><img src="../images/puzzle.png"></div>
   <div class="sad_text">বৃত্তে তোমাকে স্বাগতম!</div>
   <div class="sad_subtext">
-   Stay in circle, but think out of circle! <br><br>
+   Stay in circle, but think out of circle! <br>
+
+   <div class="spinner-border" id="log_load" style="width: 3rem; height: 3rem;" role="status">
+   <span class="visually-hidden">Loading...</span>
+ </div>
+ 
+   <br>
+
    <button class="btn btn-primary" id="login">প্রবেশ করো!</button>
   </div>
   </div>
   </div>
   `
+  $('#log_load').hide();
 
   $('#login').click(function(){
+    $('#log_load').show();
   firebase.auth().signInAnonymously()
   .then(() => {
+    // $('#log_load').show();
       window.location.reload();
   })
   .catch((error) => {
