@@ -6,7 +6,7 @@ firebase.auth().onAuthStateChanged((user) => {
     var uid = user.uid;
     console.log(user.uid);
     $('.sp').hide();
-
+    history.pushState({page: 1}, "home", "#!/")
 // paid exam without login
 if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
     $('.footer').hide();

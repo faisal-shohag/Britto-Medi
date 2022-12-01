@@ -9,7 +9,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
 
 // paid exam without login
-// history.pushState({page: 1}, "home", "#!/")
+history.pushState({page: 1}, "home", "#!/")
 if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
     $('.footer').hide();
     app.innerHTML = `
