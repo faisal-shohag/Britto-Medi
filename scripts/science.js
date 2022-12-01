@@ -3530,7 +3530,10 @@ getInfo.addEventListener('submit', e=>{
        try {
         db.ref('users_sci/'+id).update(data);
         console.log('success');
-        $('.myId').html(`<div><small>তোমার আইডি</small></div>${id}<div><small>আইডিটি সংরক্ষণ করে রাখো।</small></div>`);
+        $('.myId').html(`<div><small>তোমার আইডি</small></div>${id}<div><small>আইডিটি সংরক্ষণ করে রাখো।</small></div>
+        <br>
+        <a href="/#!">হোম পেইজ</a>
+        `);
         $('.loading_id').hide();
         $('#card_area').hide();
        } catch (error) {
