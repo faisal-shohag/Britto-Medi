@@ -3433,6 +3433,7 @@ router.on({
 }).resolve();
 
 } else{
+  $('.sp').hide();
   Swal.fire({
     icon: 'error',
     text: 'Something went wrong!'
