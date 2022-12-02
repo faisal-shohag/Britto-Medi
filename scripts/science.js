@@ -368,15 +368,28 @@ checkId.addEventListener('submit', e=>{
                 </div>`;
               }
               for(let i=0; i<live.length; i++){
-                list_upcoming.innerHTML +=`
-                <div class="live-card kalpurush">
-                <div class="live-bg"><img src="${live[i].img_link}"/></div>
-                <div class="title">${live[i].title}</div>
-                <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
-                <div class="badge"><img src="../images/${live[i].type}.png"/></div>
-                <a href="#!/live/details/${live[i].id}">Register</a>
-                </div>
-              `;   
+                if(live[i].reg_std[UID]){
+                  list_upcoming.innerHTML +=`
+                  <div class="live-card kalpurush">
+                  <div class="live-bg"><img src="${live[i].img_link}"/></div>
+                  <div class="title">${live[i].title}</div>
+                  <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
+                  <div class="badge"><img src="../images/${live[i].type}.png"/></div>
+                  <a href="#!/live/details/${live[i].id}"><span style="color: #55d955; text-decoration: none !important;">Registered</span></a>
+                  </div>
+                `; 
+                }else{
+                  list_upcoming.innerHTML +=`
+                  <div class="live-card kalpurush">
+                  <div class="live-bg"><img src="${live[i].img_link}"/></div>
+                  <div class="title">${live[i].title}</div>
+                  <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
+                  <div class="badge"><img src="../images/${live[i].type}.png"/></div>
+                  <a href="#!/live/details/${live[i].id}">Register</a>
+                  </div>
+                `; 
+                }
+                 
               }
       
       
