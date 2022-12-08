@@ -54,7 +54,7 @@ if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == und
 <br>
             <div class="section">
             <div class="section-heading">
-            <div style="font-size: 17px; font-weight: bold" class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">দ্রুত প্রাকটিস</div></div>
+            <div style="font-size: 17px; font-weight: bold" class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">ফ্রি অধ্যায় ভিত্তিক এক্সাম</div></div>
             <div class="more">...</div>
             </div>
 
