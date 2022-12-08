@@ -18,6 +18,19 @@ if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == und
 
 <div class="login_card">
 
+<ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+  </ul>
+  
 <div class="britto">
 <img src="../images/puzzle.png">
 <div class="britto-text">Britto Edu.</div>
@@ -49,20 +62,10 @@ if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == und
  <a href="https://drive.google.com/file/d/1rkODWs-l7z523xGm3pG12pPjSyqGrxYq/view?usp=share_link"><div class="btn btn-danger"><i class="icofont-download"></i> স্টাডি প্ল্যান</div></a>
 </div>
 
-<ul class="circles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-  </ul>
+
 
 </div>
+
 
 <br>
             <div class="section">
