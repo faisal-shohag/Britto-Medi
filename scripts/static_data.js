@@ -81,7 +81,7 @@ var tag = {
     "model": "মডেল টেস্ট"
   };
 
-  let bgColors = ["#c84e73", "#b44ec8", "#c84e4e", "#c8974e", "#564ec8"];
+  let bgColors = ["#c84e73", "#b44ec8", "#bb7070", "#c8974e", "#564ec8"];
 
 
 

@@ -17,6 +17,7 @@ if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == und
 <div class="body">
 
 <div class="login_card">
+
 <div class="britto">
 <img src="../images/puzzle.png">
 <div class="britto-text">Britto Edu.</div>
@@ -37,17 +38,29 @@ if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == und
 
 <center><button class="btn btn-success" type="submit">লগইন</button></center>
 </form>
-<center style="display: none;"><a href="#!/info"><button class="btn btn-danger">আইডি পাইনি!</button></a></center>
+<center><a href="#!/info"><button class="btn btn-danger">আইডি পাইনি!</button></a></center>
 
 <div class="britto_text_ad">
  <div class="title">
  শুরু হচ্ছে স্পেশাল ক্লাস ও লাইভ এক্সাম ব্যাচ সবচেয়ে কম মূল্যে!
- ৮০+ অধ্যায় ভিত্তিক এক্সাম, মডেল টেস্ট, ফ্রি গাইডলাইন, স্পেশাল গ্রুপ! আর কি চাই? <span style="font-weight: bold; color: red">আইডি পেতে এখুনি জয়েন করো মেসেঞ্জার গ্রুপ এ!</span>
+ ৮০+ অধ্যায় ভিত্তিক এক্সাম, মডেল টেস্ট, ফ্রি গাইডলাইন, স্পেশাল গ্রুপ! আর কি চাই?
  স্টাডি প্ল্যান দেয়া হয়েছে!
  </div>
  <a href="https://drive.google.com/file/d/1rkODWs-l7z523xGm3pG12pPjSyqGrxYq/view?usp=share_link"><div class="btn btn-danger"><i class="icofont-download"></i> স্টাডি প্ল্যান</div></a>
- <a href="https://m.me/j/AbYYA46VcgLSK-Ir/"><div class="btn btn-primary"> <i class="icofont-facebook-messenger"></i> মেসেঞ্জার গ্রুপ</div></a>
 </div>
+
+<ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+  </ul>
 
 </div>
 
@@ -122,6 +135,8 @@ if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == und
 
 
 `
+
+$('.login_card').css("background", bgColors[Math.floor(Math.random() * 6)]);
 
 
 const checkId = document.getElementById('checkId')
@@ -3520,7 +3535,7 @@ router.on({
 
 <div class="myId"></div>
 <br>
-<center><a href="/science.html">হোম পেইজ</a></center>
+<center><a href="/science.html" class="btn btn-danger">লগইন</a></center>
 </div>
 
 </div>
