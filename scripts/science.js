@@ -45,7 +45,7 @@ if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == und
  ৮০+ অধ্যায় ভিত্তিক এক্সাম, মডেল টেস্ট, ফ্রি গাইডলাইন, স্পেশাল গ্রুপ! আর কি চাই? <span style="font-weight: bold; color: red">আইডি পেতে এখুনি জয়েন করো মেসেঞ্জার গ্রুপ এ!</span>
  স্টাডি প্ল্যান দেয়া হয়েছে!
  </div>
- <a href="https://drive.google.com/file/d/1GV7Y_CY91K1aQCpSCrLMqt2dYVo822aB/view?usp=share_link"><div class="btn btn-danger"><i class="icofont-download"></i> স্টাডি প্ল্যান</div></a>
+ <a href="https://drive.google.com/file/d/1rkODWs-l7z523xGm3pG12pPjSyqGrxYq/view?usp=share_link"><div class="btn btn-danger"><i class="icofont-download"></i> স্টাডি প্ল্যান</div></a>
  <a href="https://m.me/j/AbYYA46VcgLSK-Ir/"><div class="btn btn-primary"> <i class="icofont-facebook-messenger"></i> মেসেঞ্জার গ্রুপ</div></a>
 </div>
 
