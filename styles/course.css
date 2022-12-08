@@ -466,3 +466,11 @@ button{
     border-radius: 5px;
     margin-top: 20px;
   }
+
+  .britto_text_ad{
+    padding: 10px;
+  }
+
+  .britto_text_ad .title{
+    margin-bottom: 10px;
+  }
