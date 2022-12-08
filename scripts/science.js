@@ -5,11 +5,11 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     var uid = user.uid;
     console.log(user.uid);
-    $('.sp').hide();
+    // $('.sp').hide();
 
 
 // paid exam without login
-history.pushState({page: 1}, "home", "#!/");
+history.pushState({page: 1}, "h", "#!/");
 
 if(localStorage.getItem("id_sc") == null || localStorage.getItem("id_sc") == undefined || localStorage.getItem("id_sc") == ""){
     $('.footer').hide();
@@ -139,7 +139,6 @@ checkId.addEventListener('submit', e=>{
 
 });
 }else{
-    $('.sp').hide();
     let user = {
         name: localStorage.getItem('name'),
         id: localStorage.getItem('id_sc'),
@@ -375,7 +374,8 @@ checkId.addEventListener('submit', e=>{
                   <div class="title">${live[i].title}</div>
                   <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
                   <div class="badge"><img src="../images/${live[i].type}.png"/></div>
-                  <a href="#!/live/details/${live[i].id}"><span style="color: #55d955; text-decoration: none !important;">Registered</span></a>
+                  <a href="#!/live/details/${live[i].id}"><span style="color: #55d955/
+                  ; text-decoration: none !important;">Registered</span></a>
                   </div>
                 `; 
                 }else{
@@ -3618,3 +3618,6 @@ getInfo.addEventListener('submit', e=>{
 });
 
 $('.footer').hide();
+
+
+

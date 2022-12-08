@@ -81,10 +81,11 @@ var tag = {
     "model": "মডেল টেস্ট"
   };
 
+  let bgColors = ["#c84e73", "#b44ec8", "#c84e4e", "#c8974e", "#564ec8"];
 
 
 
-
+$('.splash').css("background", bgColors[Math.floor(Math.random() * 6)]);
 
 
 //get practice exams by subject and chapter
