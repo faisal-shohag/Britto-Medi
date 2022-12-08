@@ -2747,14 +2747,23 @@ firebase.auth().onAuthStateChanged(user=> {
                         let data = pasteData.split('\n');
                         let sym;
                         
-                        if(pasteData.includes(')')) sym = ')'
+                        if(pasteData.includes(')')  ) sym = ')'
                         else if(pasteData.includes('.')) sym = '.'
                         lq.q.value = data[0];
-                        lq.opt1.value = (data[1].split(sym)[1]).trim();
-                        lq.opt2.value = (data[2].split(sym)[1]).trim();
-                        lq.opt3.value = (data[3].split(sym)[1]).trim();
-                        lq.opt4.value = (data[4].split(sym)[1]).trim();
-
+                        if(sym){
+                            lq.opt1.value = (data[1].split(sym)[1]).trim();
+                            lq.opt2.value = (data[2].split(sym)[1]).trim();
+                            lq.opt3.value = (data[3].split(sym)[1]).trim();
+                            lq.opt4.value = (data[4].split(sym)[1]).trim();
+    
+                        }else{
+                            lq.opt1.value = (data[1]).trim();
+                            lq.opt2.value = (data[2]).trim();
+                            lq.opt3.value = (data[3]).trim();
+                            lq.opt4.value = (data[4]).trim();
+    
+                        }
+                       
                     })
                    
                       

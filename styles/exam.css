@@ -230,6 +230,7 @@
     display: flex;
     font-family: Lato, Kalpurush; 
     /* transition: 0.1s; */
+    overflow-x: scroll;
 
 }
 
