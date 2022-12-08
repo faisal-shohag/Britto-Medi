@@ -212,7 +212,8 @@
     background: #5ad4429f;
     /* font-family: 'SolaimanLipi'; */
     overflow-x: scroll;
-    font-family: 'poppins', Kalpurush;
+    font-family: 'Lato', Kalpurush;
+    border-radius: 5px;
 }
 
 .opt{
