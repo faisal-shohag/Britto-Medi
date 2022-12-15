@@ -203,6 +203,7 @@
     overflow-x: scroll;
     word-wrap: break-word;
     font-family: 'Lato', Kalpurush;
+    border-radius: 5px;
 }
 
 .solution{
