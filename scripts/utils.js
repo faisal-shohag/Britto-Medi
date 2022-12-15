@@ -275,6 +275,7 @@ firebase.auth().onAuthStateChanged(user=> {
                     <option selected>type</option>
                     <option value="Free">Free</option>
                     <option value="Pro">Premium</option>
+                    <option value="Paid">Paid</option>
                     </select>
                     </div>
             
