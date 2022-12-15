@@ -361,7 +361,7 @@ checkId.addEventListener('submit', e=>{
       
       
               ended.sort((a, b)=>{
-                return new Date(a.end_time) - new Date(b.end_time);
+                return new Date(b.end_time) - new Date(a.end_time);
               })
       
               
