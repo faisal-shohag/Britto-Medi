@@ -298,7 +298,7 @@ checkId.addEventListener('submit', e=>{
               $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
               $('#routineModal').modal('show');
             }else{
-              $('#rtn-img').html(`<img src="https://i.postimg.cc/W4kyH74B/Routine-4.png"/>`)
+              $('#rtn-img').html(`<img src="https://i.postimg.cc/jC0B5hRY/Routine-15dec-To15jan.png"/>`)
               $('#routineModal').modal('show');
             }
           });
