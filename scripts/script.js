@@ -164,7 +164,7 @@ checkId.addEventListener('submit', e=>{
             </div>
     
             <center>
-            <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> Humanity(2nd Time)</button>
+            <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> 15 Dec - 15 Jan</button>
             </center>
             <br>
 
