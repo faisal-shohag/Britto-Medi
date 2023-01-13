@@ -311,13 +311,13 @@ checkId.addEventListener('submit', e=>{
             for(let i=0; i<all_std.length; i++) {
               if(UID ==  all_std[i].id){
                 let myname = (all_std[i].name).split(' ');
-                myname = myname[myname.length-1];
+                // myname = myname[myname.length-1];
                 $('.top_user_details').html(`
             <div class="user_photo">
-            <img src="https://robohash.org/${myname.toLowerCase()}?set=set4">
+            <img src="https://robohash.org/${myname[1].toLowerCase()}?set=set4">
             </div>
             <div class="user_details">
-              <div class="top_username">${myname}</div>
+              <div class="top_username">${myname[0]} ${myname[1]}</div>
             <div class="user_score"><i class="icofont-badge"></i> ${all_std[i].score} | <i class="icofont-cop-badge"></i> ${i+1}</div>
             </div>
             `);
