@@ -540,6 +540,7 @@ button{
     /* padding: 5px; */
     display: flex;
     justify-content: space-between;
+    align-items: center;
     position: relative;
     font-family: 'Lato', Kalpurush;
     align-items: center;
@@ -564,9 +565,11 @@ button{
 
   .r_sc{
     padding-right: 10px;
+    line-height: 20px;
   }
   .rank_small{
    font-size: 10px;
+   font-weight: bold;
   }
 
   .rank_score{

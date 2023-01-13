@@ -325,8 +325,7 @@ checkId.addEventListener('submit', e=>{
             <div class="user_score"><i class="icofont-badge"></i> ${all_std[i].score} | <i class="icofont-cop-badge"></i> ${i+1}</div>
             </div>
             `);
-              }
-              rank_table.innerHTML += `
+            rank_table.innerHTML += `
               <div class="rank_card">
               <div class="r_det">
               <div class="rank_name">${all_std[i].name}</div>
@@ -334,11 +333,27 @@ checkId.addEventListener('submit', e=>{
               </div>
               <div class="r_sc">
               <div class="rank_score">${all_std[i].score}</div>
-              <div class="rank_small">score</div>
+              
+              </div>
+              <div class="rank_pos" style="background: crimson;">${i+1}</div>
+              </div>
+              `
+              }else {
+                rank_table.innerHTML += `
+              <div class="rank_card">
+              <div class="r_det">
+              <div class="rank_name">${all_std[i].name}</div>
+              <div class="rank_college">${all_std[i].inst}</div>
+              </div>
+              <div class="r_sc">
+              <div class="rank_score">${all_std[i].score}</div>
+              
               </div>
               <div class="rank_pos">${i+1}</div>
               </div>
               `
+              }
+              
           }
             
             
@@ -1892,7 +1907,9 @@ checkId.addEventListener('submit', e=>{
               <div class="answersheet"></div>
               </div>
               <div class="tab-pane fade" id="standing" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="live_rank">
               <div class="standings"></div>
+              </div>
               </div>
             </div>
       
@@ -2189,34 +2206,48 @@ checkId.addEventListener('submit', e=>{
                     if(UID){                    
                       if(UID === results[i].id){
                         standings.innerHTML += `
-                        <div class="stand me">
-                        <div class="std_name">${i+1}. ${results[i].name}</div>
-                        <div class="scoreandtime">
-                        <div class="stand_score">${results[i].score}</div>                 
-                        <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                        <div class="rank_card">
+                        <div class="r_det">
+                        <div class="rank_name">${results[i].name}</div>
+                        <div class="rank_college"></div>
                         </div>
-      
+                        <div class="r_sc">
+                        <div class="rank_score">${results[i].score}</div>
+                        <div class="rank_small">Time: ${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                        
+                        </div>
+                        <div class="rank_pos" style="background: crimson;">${i+1}</div>
                         </div>
                         `
                       }else{
                         standings.innerHTML += `
-                        <div id="${results[i].id}_${results[i].score}" class="stand send_score">
-                        <div class="std_name">${i+1}. ${results[i].name}</div>
-                        <div class="scoreandtime">
-                        <div class="stand_score">${results[i].score}</div>                 
-                        <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                        <div class="rank_card">
+                        <div class="r_det">
+                        <div class="rank_name">${results[i].name}</div>
+                        <div class="rank_college"></div>
                         </div>
+                        <div class="r_sc">
+                        <div class="rank_score">${results[i].score}</div>
+                        <div class="rank_small">Time: ${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                        
+                        </div>
+                        <div class="rank_pos">${i+1}</div>
                         </div>
                         `
                       }
                     }else{
                       standings.innerHTML += `
-                      <div id="${results[i].id}_${results[i].score}" class="stand send_score">
-                        <div class="name">${i+1}. ${results[i].name}</div>
-                        <div class="scoreandtime">
-                        <div class="stand_score">${results[i].score}</div>                 
-                        <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                      <div class="rank_card">
+                        <div class="r_det">
+                        <div class="rank_name">${results[i].name}</div>
+                        <div class="rank_college"></div>
                         </div>
+                        <div class="r_sc">
+                        <div class="rank_score">${results[i].score}</div>
+                        <div class="rank_small">Time: ${results[i].time.min}:${addZero(results[i].time.sec)}</div>
+                        
+                        </div>
+                        <div class="rank_pos">${i+1}</div>
                         </div>
                         `
                     }
