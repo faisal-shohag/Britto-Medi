@@ -248,7 +248,7 @@ checkId.addEventListener('submit', e=>{
             </div>
             <div class="user_details">
               <div class="top_username">${myname}</div>
-            <div class="user_score"><i class="icofont-badge"></i> ${my_score} | <i class="icofont-cop-badge"></i> ${myexams.length}</div>
+            <div class="user_score"><i class="icofont-badge"></i> ${my_score} | <i class="icofont-cop-badge"></i> 0</div>
             </div>
             `);
             } else{
@@ -293,6 +293,7 @@ checkId.addEventListener('submit', e=>{
                 my_score += parseFloat(e.score);
               }
               all_std.push({
+                id: data[i][0],
                 name: mydata.name,
                 inst: mydata.inst,
                 score: my_score,
@@ -303,11 +304,24 @@ checkId.addEventListener('submit', e=>{
             all_std.sort((a,b) => {
               return b.score - a.score;
             });
+
             
             rank_table.innerHTML = '';
 
             for(let i=0; i<all_std.length; i++) {
-              
+              if(UID ==  all_std[i].id){
+                let myname = (all_std[i].name).split(' ');
+                myname = myname[myname.length-1];
+                $('.top_user_details').html(`
+            <div class="user_photo">
+            <img src="https://robohash.org/${myname.toLowerCase()}?set=set4">
+            </div>
+            <div class="user_details">
+              <div class="top_username">${myname}</div>
+            <div class="user_score"><i class="icofont-badge"></i> ${all_std[i].score} | <i class="icofont-cop-badge"></i> ${i+1}</div>
+            </div>
+            `);
+              }
               rank_table.innerHTML += `
               <div class="rank_card">
               <div class="r_det">
