@@ -505,3 +505,94 @@ button{
     font-size: 11px;
     color: #c40f5a;
   }
+
+  .live_rank{
+    padding: 10px;
+    margin: 10px 10px;
+    /* background: linear-gradient(90deg, rgb(105, 22, 165), rgb(69, 24, 105));
+     */
+     background: linear-gradient(135deg, #6d50a2 0%, #ed2b88 100%);
+    border-radius: 10px;
+    
+  }
+
+  .rank_table{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .rank_title{
+    /* background: rgba(76, 0, 130, 0.589); */
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px;
+    color: #eee;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    text-shadow: 0px 0px 4px rgb(0 0 0 / 70%);
+    margin-bottom: 10px;
+    
+  }
+
+  .rank_card{
+    background: rgba(255, 255, 255, 0.329);
+    border-radius: 5px;
+    /* padding: 5px; */
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    font-family: 'Lato', Kalpurush;
+    align-items: center;
+    color: #fff;
+
+  }
+
+  .rank_name{
+    font-weight: bold;
+    text-shadow: 0px 0px 4px rgb(0 0 0 / 70%);
+    font-size: 14px;
+  }
+  
+  .rank_college{
+    font-size: 10px;
+    text-shadow: 0px 0px 4px rgb(0 0 0 / 70%);
+  }
+
+  .r_det{
+    padding-left: 35px;
+  }
+
+  .r_sc{
+    padding-right: 10px;
+  }
+  .rank_small{
+   font-size: 10px;
+  }
+
+  .rank_score{
+    font-size: 20px;
+    font-family: 'Poppins';
+    font-weight: bold;
+    text-shadow: 0px 0px 4px rgb(0 0 0 / 70%);
+    color: #fff;
+    text-shadow: 0px 0px 4px rgb(0 0 0 / 70%);
+  }
+
+  .rank_pos{
+    background: rgb(29, 28, 28);
+    color: #fff;
+    width: 40px;
+    height: 30px;
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    padding-left: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 7px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    clip-path: polygon(0 0, 100% 0%, 69% 100%, 0% 100%);
+  }

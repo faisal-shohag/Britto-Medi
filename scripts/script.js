@@ -163,6 +163,12 @@ checkId.addEventListener('submit', e=>{
             </center>
             <br>
 
+            <div class="live_rank">
+            <div class="rank_title">Live Exam Rank</div>
+            <div class="rank_table">
+            </div>
+            </div>
+
             <div class="section">
             <div class="section-heading">
             <div style="font-size: 17px; font-weight: bold" class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">দ্রুত প্রাকটিস</div></div>
@@ -226,7 +232,6 @@ checkId.addEventListener('submit', e=>{
 
           db.ref('users/'+UID).on('value', snap=>{
             let myname = (snap.val().name).split(' ');
-            console.log(myname);
             myname = myname[myname.length-1];
             if(snap.val().live_exams){
               let myexams = snap.val().live_exams;
@@ -266,6 +271,61 @@ checkId.addEventListener('submit', e=>{
             }
 
           });
+          const rank_table = document.querySelector('.rank_table');
+          rank_table.innerHTML = `
+          <center><div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+          </div><center>
+          `
+
+          db.ref('users').on('value', snap=> {
+            let data = snap.val();
+            let all_std = [];
+            data = Object.entries(data);
+            for(let i=0; i<data.length; i++) {
+              let mydata = data[i][1];
+              if(mydata.live_exams){
+              let myexams = mydata.live_exams;
+              myexams = Object.entries(myexams)
+              let my_score = 0;
+              for(let i=0; i<myexams.length; i++) {
+                let e = myexams[i][1];
+                my_score += parseFloat(e.score);
+              }
+              all_std.push({
+                name: mydata.name,
+                inst: mydata.inst,
+                score: my_score,
+                totalExam: myexams.length
+              });
+             }
+           }
+            all_std.sort((a,b) => {
+              return b.score - a.score;
+            });
+            
+            rank_table.innerHTML = '';
+
+            for(let i=0; i<all_std.length; i++) {
+              
+              rank_table.innerHTML += `
+              <div class="rank_card">
+              <div class="r_det">
+              <div class="rank_name">${all_std[i].name}</div>
+              <div class="rank_college">${all_std[i].inst}</div>
+              </div>
+              <div class="r_sc">
+              <div class="rank_score">${all_std[i].score}</div>
+              <div class="rank_small">score</div>
+              </div>
+              <div class="rank_pos">${i+1}</div>
+              </div>
+              `
+          }
+            
+            
+           
+          })
 
       const getInfo = document.getElementById('getInfo')
       getInfo.addEventListener('submit', e=>{
