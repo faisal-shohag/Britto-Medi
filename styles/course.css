@@ -474,3 +474,34 @@ button{
   .britto_text_ad .title{
     margin-bottom: 10px;
   }
+
+  .top_user_details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .top_user_details img{
+    height: 30px;
+  }
+
+  .user_details{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 17px;
+    align-items: flex-start;
+    justify-content: center;
+    font-family: Lato;
+  }
+
+  .top_username{
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .user_score{
+    font-size: 11px;
+    color: #c40f5a;
+  }

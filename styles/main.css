@@ -1586,7 +1586,7 @@ align-items: center;
 .top-title{
   font-family: 'Poppins', Kalpurush;
   font-weight: bold;
-  width: 240px;
+  width: 150px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

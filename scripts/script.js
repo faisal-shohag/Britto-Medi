@@ -6,7 +6,7 @@ firebase.auth().onAuthStateChanged((user) => {
     var uid = user.uid;
     console.log(user.uid);
     $('.sp').hide();
-    history.pushState({page: 1}, "home", "#!/")
+    // history.pushState({page: 1}, "home", "#!/")
 // paid exam without login
 if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
     $('.footer').hide();
@@ -108,37 +108,32 @@ checkId.addEventListener('submit', e=>{
     router.on({
         '/': function(){
           $('.footer').hide();
-          $('.top-title').text('Britto Edu.');
+          $('.top-title').text('');
           $('.top .icon').html(`<img src="../images/puzzle.png">`);
   
           app.innerHTML =`
           <div class="body">
           <div class="user">
-
-          <div class="std_welcome">স্বাগতম,</div>
-          <div class="std_name_top">${user.name}</div>
+          <div id="extra_info" class="login_card">
+          <center style="color: green; font-family: 'Kalpurush'">তোমার আরও কিছু তথ্য প্রয়োজন! সঠিকভাবে ফোন নম্বর দিয়ে সাবমিট করো।</center>
+          <form id="getInfo">
+          <div class="input-group mb-3">
+          <span class="input-group-text">ফোন নম্বর</span>
+          <input type="tel" class="form-control" name="phone" placeholder="ফোন নম্বর" aria-label="Title" aria-describedby="basic-addon1" required>
           </div>
 
-<div id="extra_info" class="login_card">
-<center style="color: green; font-family: 'Kalpurush'">তোমার আরও কিছু তথ্য প্রয়োজন! সঠিকভাবে ফোন নম্বর দিয়ে সাবমিট করো।</center>
-<form id="getInfo">
-<div class="input-group mb-3">
-<span class="input-group-text">ফোন নম্বর</span>
-<input type="tel" class="form-control" name="phone" placeholder="ফোন নম্বর" aria-label="Title" aria-describedby="basic-addon1" required>
-</div>
-
-<div class="input-group mb-3">
-<span class="input-group-text">অভিভাবকের ফোন নম্বর</span>
-<input type="tel" class="form-control" name="guardian" placeholder="অভিভাবকের ফোন নম্বর" aria-label="Title" aria-describedby="basic-addon1" required>
-</div>
+          <div class="input-group mb-3">
+          <span class="input-group-text">অভিভাবকের ফোন নম্বর</span>
+          <input type="tel" class="form-control" name="guardian" placeholder="অভিভাবকের ফোন নম্বর" aria-label="Title" aria-describedby="basic-addon1" required>
+          </div>
 
 
 
 
-<center><button class="btn btn-success" type="submit">সাবমিট</button></center>
-</form>
-</div>
-<br>
+          <center><button class="btn btn-success" type="submit">সাবমিট</button></center>
+          </form>
+          </div>
+          <br>
 
           <div class="section">
           <div class="section-heading">
@@ -203,33 +198,69 @@ checkId.addEventListener('submit', e=>{
 
 
           <div class="modal fade" id="routineModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h1 class="modal-title fs-5" id="staticBackdropLabel">Routine</h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      <div id="rtn-img"></div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    </div>
-  </div>
-</div>
-</div>
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Routine</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div id="rtn-img"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+          </div>
           `
+          $('#logout').click(function(){
+            localStorage.removeItem('id');
+            localStorage.removeItem('name');
+            localStorage.removeItem('inst');
+            window.location.reload();
+        })
 
           $('#extra_info').hide();
 
 
           db.ref('users/'+UID).on('value', snap=>{
-            console.log(snap.val());
+            let myname = (snap.val().name).split(' ');
+            console.log(myname);
+            myname = myname[myname.length-1];
+            if(snap.val().live_exams){
+              let myexams = snap.val().live_exams;
+            myexams = Object.entries(myexams)
+            let my_score = 0;
+            for(let i=0; i<myexams.length; i++) {
+              let e = myexams[i][1];
+              my_score += parseFloat(e.score);
+            }
+            
+            $('.top_user_details').html(`
+            <div class="user_photo">
+            <img src="https://robohash.org/${myname.toLowerCase()}?set=set4">
+            </div>
+            <div class="user_details">
+              <div class="top_username">${myname}</div>
+            <div class="user_score"><i class="icofont-badge"></i> ${my_score} | <i class="icofont-cop-badge"></i> ${myexams.length}</div>
+            </div>
+            `);
+            } else{
+              $('.top_user_details').html(`
+            <div class="user_photo">
+            <img src="https://robohash.org/${myname.toLowerCase()}?set=set4">
+            </div>
+            <div class="user_details">
+              <div class="top_username">${myname}</div>
+            <div class="user_score"><i class="icofont-badge"></i> 0 | <i class="icofont-cop-badge"></i> 0</div>
+            </div>
+            `);
+            }
+            
+
             if(!snap.val().phone){
           $('#extra_info').show();
-
-          
-
             }else{
           $('#extra_info').hide();
             }
@@ -1376,7 +1407,7 @@ checkId.addEventListener('submit', e=>{
                         <div class="stand me">
                         <div class="std_name">${i+1}. ${results[i].name}</div>
                         <div class="scoreandtime">
-                        <div class="score">${results[i].score}</div>                 
+                        <div class="stand_score">${results[i].score}</div>                 
                         <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
                         </div>
       
@@ -1387,7 +1418,7 @@ checkId.addEventListener('submit', e=>{
                         <div class="stand">
                         <div class="std_name">${i+1}. ${results[i].name}</div>
                         <div class="scoreandtime">
-                        <div class="score">${results[i].score}</div>                 
+                        <div class="stand_score">${results[i].score}</div>                 
                         <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
                         </div>
                         </div>
@@ -1398,7 +1429,7 @@ checkId.addEventListener('submit', e=>{
                       <div class="stand">
                         <div class="name">${i+1}. ${results[i].name}</div>
                         <div class="scoreandtime">
-                        <div class="score">${results[i].score}</div>                 
+                        <div class="stand_score">${results[i].score}</div>                 
                         <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
                         </div>
                         </div>
@@ -1429,6 +1460,7 @@ checkId.addEventListener('submit', e=>{
             `
       
           store.collection('lives').doc(params.id).get().then(snap=>{
+            // console.log(snap.data());
               if(!snap.data().isPublished){
               //Not Published Result  
                   if(UID){
@@ -2072,13 +2104,17 @@ checkId.addEventListener('submit', e=>{
                   })
                   // console.log(results);
                   for(let i=0; i<results.length; i++){
-                    if(UID){
+                    // console.log(results[i].id);
+                    if(results[i].score != 0){
+
+                    
+                    if(UID){                    
                       if(UID === results[i].id){
                         standings.innerHTML += `
                         <div class="stand me">
                         <div class="std_name">${i+1}. ${results[i].name}</div>
                         <div class="scoreandtime">
-                        <div class="score">${results[i].score}</div>                 
+                        <div class="stand_score">${results[i].score}</div>                 
                         <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
                         </div>
       
@@ -2086,10 +2122,10 @@ checkId.addEventListener('submit', e=>{
                         `
                       }else{
                         standings.innerHTML += `
-                        <div class="stand">
+                        <div id="${results[i].id}_${results[i].score}" class="stand send_score">
                         <div class="std_name">${i+1}. ${results[i].name}</div>
                         <div class="scoreandtime">
-                        <div class="score">${results[i].score}</div>                 
+                        <div class="stand_score">${results[i].score}</div>                 
                         <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
                         </div>
                         </div>
@@ -2097,17 +2133,35 @@ checkId.addEventListener('submit', e=>{
                       }
                     }else{
                       standings.innerHTML += `
-                      <div class="stand">
+                      <div id="${results[i].id}_${results[i].score}" class="stand send_score">
                         <div class="name">${i+1}. ${results[i].name}</div>
                         <div class="scoreandtime">
-                        <div class="score">${results[i].score}</div>                 
+                        <div class="stand_score">${results[i].score}</div>                 
                         <div class="stand_time">${results[i].time.min}:${addZero(results[i].time.sec)}</div>
                         </div>
                         </div>
                         `
                     }
+                  }
                     
                   }
+
+                  // $('.send_score').click(function(){
+                  //   let key = ($(this)[0].id).split('_');
+                  //   let id = key[0];
+                  //   let score = key[1];
+                  //   console.log(id);
+                  //   console.log(score);
+                  //   console.log(params.id);
+                  //   db.ref('users/'+id+'/live_exams').update({
+                  //     [params.id] : {
+                  //       exam_name: snap.data().title,
+                  //       img_link: snap.data().img_link,
+                  //       start_time: snap.data().start_time,
+                  //       score: score
+                  //     }
+                  //   })
+                  // });
                  
                 })
       

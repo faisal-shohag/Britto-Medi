@@ -22,7 +22,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/firebaseui.css"/>
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=hRZd4XSz"></script>
    <script>
         MathJax = {
             tex: {
@@ -50,13 +49,15 @@
 </head>
 <body>
 <div class="fixed-top w-100 text-dark top">
-  <div class="logo"> <div class="icon"><img src="./images/puzzle.png"></div> <div class="top-title">Britto Edu.</div></div>
+  <div class="logo"> <div class="icon"><img src="./images/puzzle.png"></div> <div class="top-title"></div></div>
   <div class="countdown"></div>
-  <i class="icofont-info-circle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" onclick="window.location.reload()" href="#">Reload</a></li>
-    <li><a class="dropdown-item" id="logout" href="#!">Logout</a></li>
-  </ul>
+   <div class="top_user_details dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    
+   </div>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" onclick="window.location.reload()" href="#">Reload</a></li>
+            <li><a class="dropdown-item" id="logout" href="#!">Logout</a></li>
+          </ul>
 </div>
 </div>
 
@@ -304,12 +305,7 @@ firebase.initializeApp(firebaseConfig);
   // }); 
 
 
-$('#logout').click(function(){
-    localStorage.removeItem('id');
-    localStorage.removeItem('name');
-    localStorage.removeItem('inst');
-    window.location.reload();
-})
+
 
 
 
