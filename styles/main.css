@@ -43,13 +43,19 @@ mjx-math {
   /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
   padding: 10px;
   font-family: poppins;
-  background: #fff;
+  /* background: #fff; */
   font-weight: bold;
   text-align: center;
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-height: 45px;
+  background: rgba(255, 255, 255, 0.24);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.4px);
+    -webkit-backdrop-filter: blur(6.4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .top_arrow{
@@ -89,6 +95,8 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(5px);
 -webkit-backdrop-filter: blur(5px);
 border: 1px solid rgba(255, 255, 255, 0.3); */
+background: url(https://resources.beecrowd.com.br/academic/img/geometry.png) top left #fff;
+
 }
 
 #app {
