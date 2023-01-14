@@ -465,9 +465,11 @@
 }
 
 .t-num{
-  background: orangered;
+  /* background: orangered; */
   padding: 3px;
   width: 40px;
+  border-radius: 13px;
+  border: 1px solid rgb(180, 176, 176);
 }
 
 #live_det #timer{

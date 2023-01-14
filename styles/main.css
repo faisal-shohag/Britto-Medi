@@ -176,25 +176,26 @@ border: 1px solid rgba(255, 255, 255, 0.3); */
   position: relative;
   overflow: hidden;
   z-index: 1;
-  /* background: #222; */
+  background: rgba(97, 8, 8, 0.164);
   color: rgb(22, 21, 21);
-  /* From https://css.glass */
-background: rgba(255, 255, 255, 0.24);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(6.4px);
--webkit-backdrop-filter: blur(6.4px);
-border: 1px solid rgba(255, 255, 255, 0.3);
+  /* background: rgba(255, 255, 255, 0.24); */
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.4px);
+  -webkit-backdrop-filter: blur(6.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .live-card .title {
   font-weight: bold;
   font-size: 17px;
-  color: #039be5;
+  color: #e5039a;
+  font-family: 'Lato', Kalpurush;
 }
 
 .live-card .time{
   font-size: 13px;
+  font-family: 'Lato', Kalpurush;
 }
 
 .live-card .details {
