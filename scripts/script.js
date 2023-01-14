@@ -154,14 +154,22 @@ checkId.addEventListener('submit', e=>{
 
             <div class="section">
             <div class="section-heading">
-            <div class="sec-sec1"><div class="icon"><img src="../images/routine.png"></div><div class="text">Live Exam Routine</div></div>
+            <div class="sec-sec1"><div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/2382/2382521.png"></div><div class="text">Live Exam Routine</div></div>
             <div class="more">...</div>
             </div>
     
-            <center>
-            <button id="hum" class="btn btn-success rtn"><img height="30px" src="https://i.postimg.cc/jj66mYgs/3634451.png"/> 15 Dec - 15 Jan</button>
-            </center>
-            <br>
+            <div class="routine">
+
+            <div class="routine_card">
+            <div class="date">
+            <div class="day">17 Jan</div>
+            <div class="time">5:00PM</div>
+            </div>
+            <div class="topic">আঠারো বছর বয়স, সমার্থক শব্দ</div>
+            <div class="exam">B15</div>
+            </div>
+
+            </div>
 
             <div class="live_rank">
             <div class="rank_title">Live Exam Rank</div>
@@ -416,16 +424,16 @@ checkId.addEventListener('submit', e=>{
           
           //Routine
            //routine
-           $('.rtn').click(function(){
-            let g = $(this)[0].id;
-            if(g=='sci'){
-              $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
-              $('#routineModal').modal('show');
-            }else{
-              $('#rtn-img').html(`<img src="https://i.postimg.cc/jC0B5hRY/Routine-15dec-To15jan.png"/>`)
-              $('#routineModal').modal('show');
-            }
-          });
+          //  $('.rtn').click(function(){
+          //   let g = $(this)[0].id;
+          //   if(g=='sci'){
+          //     $('#rtn-img').html(`<img src="../images/Ads/hsc_science.png"/>`)
+          //     $('#routineModal').modal('show');
+          //   }else{
+          //     $('#rtn-img').html(`<img src="https://i.postimg.cc/jC0B5hRY/Routine-15dec-To15jan.png"/>`)
+          //     $('#routineModal').modal('show');
+          //   }
+          // });
         },
         '/live/list': function(){
             console.log('live/list')           

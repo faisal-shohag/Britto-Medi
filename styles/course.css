@@ -610,3 +610,45 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     left: -3px;
     clip-path: polygon(0 0, 100% 0%, 69% 100%, 0% 100%);
   }
+
+  .routine_card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 10px; */
+    margin: 5px 5px;
+    text-shadow: 0px 0px 4px rgb(0 0 0 / 70%);
+    background: #6336ac44;
+    border-radius: 5px;
+  }
+
+  .routine_card .date{
+    background: #3a179b;
+    color: #eee;
+    padding: 5px;
+    
+  }
+
+  .routine_card .date .day{
+      font-weight: bold;
+  }
+
+  .routine_card .date .time{
+    font-size: 10px;
+  }
+
+  .routine_card .topic{
+    font-size: 16px;
+    color: #282729;
+    font-weight: bold;
+  }
+
+  .routine_card .exam{
+    font-family: 'Lato', Kalpurush;
+    font-weight: bold;
+    background: #d40f72;
+    color: rgb(255, 251, 251);
+    padding: 5px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
