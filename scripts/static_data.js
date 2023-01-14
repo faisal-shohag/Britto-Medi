@@ -451,7 +451,7 @@ function liveDetailsTimer(date, end, element, sdate, button, title, key){
          <div class="t-num">${seconds}S</div>
          `);
        }else{
-        $(sdate).html(`Beginning`);
+        $(sdate).html(`Starting In`);
         $(element).html(`
          
          <div class="t-num">${days}D</div>

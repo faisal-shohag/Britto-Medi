@@ -481,18 +481,21 @@
 }
 #timer .t-num{
   text-align: center;
-  color: #eee;
+  color: rgb(17, 17, 17);
   font-size: 10px;
-  background: #4b6cb7;
+  background: #fdfdfd;
+  font-weight: bold;
+  font-family: Lato;
 }
 
 #live_det #status, #status .running{
   text-align: center;
-  font-size: 12px;
-  background: #4b6cb7;
-  color: #eee;
+  font-size: 10px;
+  /* background: #4b6cb7; */
+  color: rgb(170, 30, 116);
   border-top-left-radius: 5px;
   border-top-right-radius: 10px;
+  font-family: 'Lato', Kalpurush;
 }
 
 .sad{

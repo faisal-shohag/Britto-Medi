@@ -199,15 +199,22 @@ border: 1px solid rgba(255, 255, 255, 0.3); */
 }
 
 .live-card .details {
-  font-size: 12px;
-  text-decoration: underline;
+  font-size: 10px;
+  /* text-decoration: underline; */
+  margin-top: 5px;
+ 
 
 }
 
-.live-card  a{
+.live-card .details  a{
   color: rgb(61, 61, 61) !important;
-  text-decoration: underline !important;
-  font-size: 13px;
+  /* text-decoration: underline !important; */
+  /* font-size: 13px; */
+  width: 120px;
+  border-radius: 10px;
+  border: 1px solid rgba(238, 233, 233, 0.945);
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 

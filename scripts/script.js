@@ -408,7 +408,7 @@ checkId.addEventListener('submit', e=>{
               <div id="s-time" class=""></div>
               <div class="badge"><img src="../images/${l.type}.png"/></div></a>
             `);
-            $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Details</a>`)
+            $('.live-card .details').html(`<a href="#!/live/details/${snap.val().id}">Enter Exam <i class="icofont-rounded-double-right"></i></a>`)
               clearInterval(z);
             liveTimer(l.start_time, l.end_time, '#live_countdown', '#s-time');
             })
@@ -478,7 +478,7 @@ checkId.addEventListener('submit', e=>{
                 <div class="title">${live[i].title}</div>
                 <div id="s-time-${i}" class="time">${dateForm(live[i].start_time)} ${timeForm(live[i].start_time)}</div>
                 <div class="badge"><img src="../images/${live[i].type}.png"/></div>
-                <a href="#!/live/details/${live[i].id}">Register</a>
+                <div class="details"><a href="#!/live/details/${live[i].id}">Register <i class="icofont-rounded-double-right"></i></a></div>
                 </div>
               `;   
               }
@@ -505,7 +505,7 @@ checkId.addEventListener('submit', e=>{
                   <div class="title">${ended[i].title}</div>
                   <div id="s-time-${i}" class="time">${dateForm(ended[i].start_time)} ${timeForm(ended[i].start_time)}</div>
                   <div class="badge"><img src="../images/${ended[i].type}.png"/></div>
-                  <a href="#!/live/details/${ended[i].id}">Details</a>
+                  <div class="details"><a href="#!/live/details/${ended[i].id}">Enter Exam <i class="icofont-rounded-double-right"></i></a></div>
                   </div>
                 `;
                 }
