@@ -511,7 +511,7 @@ button{
     margin: 10px 10px;
     /* background: linear-gradient(90deg, rgb(105, 22, 165), rgb(69, 24, 105));
      */
-     background: linear-gradient(135deg, #6d50a2 0%, #ed2b88 100%);
+    background: linear-gradient(135deg, #6d50a2 0%, #ed2b88 100%);
     border-radius: 10px;
     
   }
@@ -546,11 +546,11 @@ button{
     align-items: center;
     color: #fff;
     background: rgba(255, 255, 255, 0.24);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(6.4px);
--webkit-backdrop-filter: blur(6.4px);
-border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.4px);
+    -webkit-backdrop-filter: blur(6.4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 
   }
 
@@ -620,13 +620,25 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     text-shadow: 0px 0px 4px rgb(0 0 0 / 70%);
     background: #6336ac44;
     border-radius: 5px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background: linear-gradient(135deg, #38009e 0%, #745fe7 100%);
+    
   }
 
   .routine_card .date{
-    background: #3a179b;
+    /* background: #b91b6a; */
     color: #eee;
     padding: 5px;
-    
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+    background: rgba(255, 255, 255, 0.24);
+    /* border-radius: 16px; */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.4px);
+    -webkit-backdrop-filter: blur(6.4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .routine_card .date .day{
@@ -639,7 +651,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 
   .routine_card .topic{
     font-size: 16px;
-    color: #282729;
+    color: #e4d7ee;
     font-weight: bold;
   }
 
@@ -651,4 +663,11 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 5px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+    background: rgba(255, 255, 255, 0.24);
+    /* border-radius: 16px; */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.4px);
+    -webkit-backdrop-filter: blur(6.4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
