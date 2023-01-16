@@ -6,7 +6,7 @@ firebase.auth().onAuthStateChanged((user) => {
     var uid = user.uid;
     console.log(user.uid);
     $('.sp').hide();
-    // history.pushState({page: 1}, "home", "#!/")
+    history.pushState({page: 1}, "home", "#!/");
 // paid exam without login
 if(localStorage.getItem("id") == null || localStorage.getItem("id") == undefined || localStorage.getItem("id") == ""){
     $('.footer').hide();
@@ -249,6 +249,8 @@ checkId.addEventListener('submit', e=>{
               let e = myexams[i][1];
               my_score += parseFloat(e.score);
             }
+
+            $('.myIdtop').text(`#ID: ${UID}`);
             
             $('.top_user_details').html(`
             <div class="user_photo">
@@ -2214,7 +2216,7 @@ checkId.addEventListener('submit', e=>{
                     if(UID){                    
                       if(UID === results[i].id){
                         standings.innerHTML += `
-                        <div class="rank_card">
+                        <div class="rank_card send_score" id="${results[i].id}_${results[i].score}">
                         <div class="r_det">
                         <div class="rank_name">${results[i].name}</div>
                         <div class="rank_college"></div>
@@ -2226,10 +2228,11 @@ checkId.addEventListener('submit', e=>{
                         </div>
                         <div class="rank_pos" style="background: crimson;">${i+1}</div>
                         </div>
+        
                         `
                       }else{
                         standings.innerHTML += `
-                        <div class="rank_card">
+                        <div class="rank_card send_score" id="${results[i].id}_${results[i].score}">
                         <div class="r_det">
                         <div class="rank_name">${results[i].name}</div>
                         <div class="rank_college"></div>
@@ -2245,7 +2248,7 @@ checkId.addEventListener('submit', e=>{
                       }
                     }else{
                       standings.innerHTML += `
-                      <div class="rank_card">
+                      <div class="rank_card send_score" >
                         <div class="r_det">
                         <div class="rank_name">${results[i].name}</div>
                         <div class="rank_college"></div>
