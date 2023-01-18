@@ -623,7 +623,7 @@ button{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     background: linear-gradient(135deg, #38009e 0%, #745fe7 100%);
-    
+    position: relative;
   }
 
   .routine_card .date{
@@ -639,6 +639,8 @@ button{
     backdrop-filter: blur(6.4px);
     -webkit-backdrop-filter: blur(6.4px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    min-width: 70px;
+    
   }
 
   .routine_card .date .day{
@@ -650,9 +652,11 @@ button{
   }
 
   .routine_card .topic{
-    font-size: 16px;
+    font-size: 12px;
     color: #e4d7ee;
     font-weight: bold;
+    padding-left: 5px;
+    padding-right: 3px;
   }
 
   .routine_card .exam{

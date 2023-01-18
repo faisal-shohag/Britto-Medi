@@ -162,11 +162,20 @@ checkId.addEventListener('submit', e=>{
 
             <div class="routine_card">
             <div class="date">
-            <div class="day">17 Jan</div>
+            <div class="day">20 Jan</div>
             <div class="time">5:00PM</div>
             </div>
-            <div class="topic">আঠারো বছর বয়স, সমার্থক শব্দ</div>
-            <div class="exam">B15</div>
+            <div class="topic">সাহিত্য(কবি- সাহিত্যিকদের বিখ্যাত রচনা, ছদ্মনামও উপাধি), বাংলাদেশের জাতীয় বিষয়াবলী , দিবস, সংবিধান</div>
+            <div class="exam">G13</div>
+            </div>
+
+            <div class="routine_card">
+            <div class="date">
+            <div class="day">25 Jan</div>
+            <div class="time">5:00PM</div>
+            </div>
+            <div class="topic">GK সাম্প্রতিক জানুয়ারি-মে ২০২২ (PDF থেকে)</div>
+            <div class="exam">G13</div>
             </div>
 
             </div>
@@ -274,7 +283,7 @@ checkId.addEventListener('submit', e=>{
             }
             
 
-            if(!snap.val().phone){
+          if(!snap.val().phone){
           $('#extra_info').show();
             }else{
           $('#extra_info').hide();
