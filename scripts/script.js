@@ -175,7 +175,7 @@ checkId.addEventListener('submit', e=>{
             <div class="time">5:00PM</div>
             </div>
             <div class="topic">GK সাম্প্রতিক জানুয়ারি-মে ২০২২ (PDF থেকে)</div>
-            <div class="exam">G13</div>
+            <div class="exam">RE1</div>
             </div>
 
             </div>
