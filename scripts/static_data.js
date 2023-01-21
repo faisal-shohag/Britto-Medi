@@ -160,7 +160,7 @@ function dateForm(date){
 function timeForm(date) {
   let d = date.split(' ')[4];
    d = d.split(':');
-  let time = parseInt(d[0]) > 12 ? (parseInt(d[0])-12)+':'+d[1]+'PM' : parseInt(d[0])+':'+d[1]+'AM';
+  let time = parseInt(d[0]) >= 12 ? (parseInt(d[0])-12)+':'+d[1]+'PM' : parseInt(d[0])+':'+d[1]+'AM';
    return time;
 }
 

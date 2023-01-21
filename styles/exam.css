@@ -470,6 +470,8 @@
   width: 40px;
   border-radius: 13px;
   border: 1px solid rgb(180, 176, 176);
+  font-family: Lato;
+  font-weight: 900;
 }
 
 #live_det #timer{

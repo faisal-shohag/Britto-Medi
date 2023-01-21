@@ -162,8 +162,8 @@ checkId.addEventListener('submit', e=>{
 
             <div class="routine_card">
             <div class="date">
-            <div class="day">20 Jan</div>
-            <div class="time">5:00PM</div>
+            <div class="day">21 Jan</div>
+            <div class="time">12:00PM</div>
             </div>
             <div class="topic">সাহিত্য(কবি- সাহিত্যিকদের বিখ্যাত রচনা, ছদ্মনামও উপাধি), বাংলাদেশের জাতীয় বিষয়াবলী , দিবস, সংবিধান</div>
             <div class="exam">G13</div>
@@ -2275,22 +2275,22 @@ checkId.addEventListener('submit', e=>{
                     
                   }
 
-                  // $('.send_score').click(function(){
-                  //   let key = ($(this)[0].id).split('_');
-                  //   let id = key[0];
-                  //   let score = key[1];
-                  //   console.log(id);
-                  //   console.log(score);
-                  //   console.log(params.id);
-                  //   db.ref('users/'+id+'/live_exams').update({
-                  //     [params.id] : {
-                  //       exam_name: snap.data().title,
-                  //       img_link: snap.data().img_link,
-                  //       start_time: snap.data().start_time,
-                  //       score: score
-                  //     }
-                  //   })
-                  // });
+                  $('.send_score').click(function(){
+                    let key = ($(this)[0].id).split('_');
+                    let id = key[0];
+                    let score = key[1];
+                    console.log(id);
+                    console.log(score);
+                    console.log(params.id);
+                    db.ref('users/'+id+'/live_exams').update({
+                      [params.id] : {
+                        exam_name: snap.data().title,
+                        img_link: snap.data().img_link,
+                        start_time: snap.data().start_time,
+                        score: score
+                      }
+                    })
+                  });
                  
                 })
       
