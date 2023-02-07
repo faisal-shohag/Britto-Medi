@@ -136,57 +136,6 @@ checkId.addEventListener('submit', e=>{
           <br>
 
           <div class="section">
-          <div class="section-heading">
-          <div class="sec-sec1"><div class="icon"><img src="../images/bell.png"></div><div class="text">Live Exams</div></div>
-          <a href="#!/live/list"><div class="more">সবগুলো দেখো</div></a>
-          </div>
-          <div class="live-card siliguri">
-               <div id="live_banner">
-               <center><div class="spinner-border text-light" role="status">
-               <span class="visually-hidden">Loading...</span>
-             </div></center>
-               </div>
-                <div id="live_countdown" class=""></div>
-                <div class="details"></div>
-            </div>
-        
-            </div>
-
-            <div class="section">
-            <div class="section-heading">
-            <div class="sec-sec1"><div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/2382/2382521.png"></div><div class="text">Live Exam Routine</div></div>
-            <div class="more">...</div>
-            </div>
-    
-            <div class="routine">
-
-            <div class="routine_card">
-            <div class="date">
-            <div class="day">21 Jan</div>
-            <div class="time">12:00PM</div>
-            </div>
-            <div class="topic">সাহিত্য(কবি- সাহিত্যিকদের বিখ্যাত রচনা, ছদ্মনামও উপাধি), বাংলাদেশের জাতীয় বিষয়াবলী , দিবস, সংবিধান</div>
-            <div class="exam">G13</div>
-            </div>
-
-            <div class="routine_card">
-            <div class="date">
-            <div class="day">25 Jan</div>
-            <div class="time">5:00PM</div>
-            </div>
-            <div class="topic">GK সাম্প্রতিক জানুয়ারি-মে ২০২২ (PDF থেকে)</div>
-            <div class="exam">RE1</div>
-            </div>
-
-            </div>
-
-            <div class="live_rank">
-            <div class="rank_title">Live Exam Rank</div>
-            <div class="rank_table">
-            </div>
-            </div>
-
-            <div class="section">
             <div class="section-heading">
             <div style="font-size: 17px; font-weight: bold" class="sec-sec1"><div class="icon"><img src="../images/choose.png"></div><div class="text">দ্রুত প্রাকটিস</div></div>
             <div class="more">...</div>
@@ -213,7 +162,61 @@ checkId.addEventListener('submit', e=>{
             </div>
             </a>
             </div>
+            </div><br>
+
+          <div class="section">
+          <div class="section-heading">
+          <div class="sec-sec1"><div class="icon"><img src="../images/bell.png"></div><div class="text">Live Exams</div></div>
+          <a href="#!/live/list"><div class="more">সবগুলো দেখো</div></a>
+          </div>
+          <div class="live-card siliguri">
+               <div id="live_banner">
+               <center><div class="spinner-border text-light" role="status">
+               <span class="visually-hidden">Loading...</span>
+             </div></center>
+               </div>
+                <div id="live_countdown" class=""></div>
+                <div class="details"></div>
             </div>
+        
+            </div>
+
+            <div style="display:none;" class="section">
+            <div class="section-heading">
+            <div class="sec-sec1"><div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/2382/2382521.png"></div><div class="text">Live Exam Routine</div></div>
+            <div class="more">...</div>
+            </div>
+    
+            <div style="display:none;" class="routine">
+
+            <div class="routine_card">
+            <div class="date">
+            <div class="day">21 Jan</div>
+            <div class="time">12:00PM</div>
+            </div>
+            <div class="topic">সাহিত্য(কবি- সাহিত্যিকদের বিখ্যাত রচনা, ছদ্মনামও উপাধি), বাংলাদেশের জাতীয় বিষয়াবলী , দিবস, সংবিধান</div>
+            <div class="exam">G13</div>
+            </div>
+
+            <div class="routine_card">
+            <div class="date">
+            <div class="day">25 Jan</div>
+            <div class="time">5:00PM</div>
+            </div>
+            <div class="topic">GK সাম্প্রতিক জানুয়ারি-মে ২০২২ (PDF থেকে)</div>
+            <div class="exam">RE1</div>
+            </div>
+
+            </div>
+            </div>
+
+            <div class="live_rank">
+            <div class="rank_title">Live Exam Rank</div>
+            <div class="rank_table">
+            </div>
+            </div>
+
+            
     
 
           </div>
@@ -2275,22 +2278,22 @@ checkId.addEventListener('submit', e=>{
                     
                   }
 
-                  $('.send_score').click(function(){
-                    let key = ($(this)[0].id).split('_');
-                    let id = key[0];
-                    let score = key[1];
-                    console.log(id);
-                    console.log(score);
-                    console.log(params.id);
-                    db.ref('users/'+id+'/live_exams').update({
-                      [params.id] : {
-                        exam_name: snap.data().title,
-                        img_link: snap.data().img_link,
-                        start_time: snap.data().start_time,
-                        score: score
-                      }
-                    })
-                  });
+                  // $('.send_score').click(function(){
+                  //   let key = ($(this)[0].id).split('_');
+                  //   let id = key[0];
+                  //   let score = key[1];
+                  //   console.log(id);
+                  //   console.log(score);
+                  //   console.log(params.id);
+                  //   db.ref('users/'+id+'/live_exams').update({
+                  //     [params.id] : {
+                  //       exam_name: snap.data().title,
+                  //       img_link: snap.data().img_link,
+                  //       start_time: snap.data().start_time,
+                  //       score: score
+                  //     }
+                  //   })
+                  // });
                  
                 })
       
