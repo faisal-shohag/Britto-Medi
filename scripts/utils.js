@@ -3,7 +3,7 @@ const app = document.getElementById('app');
 
 firebase.auth().onAuthStateChanged(user=> {
     if(user) {
-        if(user.uid === 'DDkJGuxqAlNCxJO1QjnJT4bAoyX2' || user.uid ==='QZ2qJHQCULbgVdyxibW9X1PhYQc2' || user.uid === 'qMzC9uUs7MUeryJlWUfz0SkSr7Y2' || user.uid === 'x9bZ0eoKuCRnVuCHVTraIVbKR9b2') {
+        if(user.uid === 'DDkJGuxqAlNCxJO1QjnJT4bAoyX2' || user.uid ==='QZ2qJHQCULbgVdyxibW9X1PhYQc2' || user.uid === 'qMzC9uUs7MUeryJlWUfz0SkSr7Y2' || user.uid === 'x9bZ0eoKuCRnVuCHVTraIVbKR9b2' || user.uid === 'WAH3vpS0L1ZU2uHxJZqDBA0joBR2') {
             router.on({
                 '/': function() {
                   app.innerHTML = `
